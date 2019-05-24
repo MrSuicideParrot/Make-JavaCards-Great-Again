@@ -1,0 +1,535 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<HTML LANG="en">
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 7.0/HTML Export Filter">
+
+<LINK REL="STYLESHEET" HREF="unx_unstr_styles.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<META name="DC.TITLE" content="Application Programming Notes, Java Card Platform, Version 2.2.2">
+<TITLE>C H A P T E R    5 - Using Extended APDU 
+</TITLE>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV>
+<div class="navbar" align="center">
+<table dir="LTR" summary="Navigation bar, includes the book title and navigation buttons" width=100% cellpadding="0" cellspacing="0" border="0"><colgroup span="2" width="100%"><col id="1" span="1" width="50%"><col id="2" span="1" width="50%">
+<tr bgcolor="#cccccc">
+<td class="navbartitle" align=left rowspan="1" colspan="1" abbr="ChapTitle">&nbsp;&nbsp;Application Programming Notes, Java Card Platform, Version 2.2.2
+</td>
+<td valign="top" align="right" rowspan="1" colspan="1" abbr="NavButtons"><a href="index.html"><img src="shared/toc01.gif" title="Table Of Contents" alt="Table Of Contents" width="30" height="26" border="0"></a><a href="rmiapp.html"><img src="shared/prev01.gif" title="Previous Chapter" alt="Previous Chapter" width="30" height="26" border="0"></a><A HREF="ix.html"><img src="shared/next01.gif" title="Next Chapter" alt="Next Chapter" width="30" height="26" border="0"></a><a href="ix.html"><img src="shared/index01.gif" title="Book Index" alt="Book Index" width="30" height="26" border="0"></a></td>
+</tr>
+</table>
+<br>
+<br>
+</div>
+</DIV>
+<TABLE DIR="LTR" SUMMARY="Chapter Number" ABBR="ChapNum" WIDTH="100%" BORDER="0">
+<COLGROUP SPAN="1" WIDTH="100%"><COL ID="1" SPAN="1">
+<TR>
+<TD ALIGN="right" CLASS="ChapNumber"><SPAN CLASS="ChapNumPrefix"><A NAME="pgfId-9095"></A>C H A P T E R    </SPAN>&nbsp;<SPAN CLASS="ChapNumNum">5</SPAN><A NAME="42333"></A>
+</TD>
+</TR>
+</TABLE>
+<TABLE DIR="LTR" SUMMARY="Chapter Title" ABBR="ChapTitle" WIDTH="100%" BORDER="0">
+<COLGROUP SPAN="1" WIDTH="100%"><COL ID="1" SPAN="1" WIDTH="100%">
+<TR>
+<TD ALIGN="right" CLASS="ChapTitle">
+<HR SIZE=7 NOSHADE><A NAME="pgfId-9178"></A><A NAME="98476"></A>Using Exten<A NAME="marker-1006335"></A>ded APDU
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Paragraph"><A NAME="pgfId-1006367"></A>The extended APDU feature in the Java Card Platform, v2.2.2, allows applet developers to take advantage of extended APDU functionality, as defined in the ISO 7816 specification. Extended APDU allows large amounts of data to be sent to the card, processed appropriately, and sent back to the terminal, in a more efficient way. Instead of having to re-issue multiple APDU messages to complete an operation requiring large volumes of data, and requiring the developer to code the application to keep a state across such multiple APDU commands, extended APDU allows applets to perform this function more efficiently with one large APDU exchange.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-1006368"></A>Extended APDU can be beneficial when dealing with large amounts of information. For example, applications such as signature verification, biometrics verification and image storage and retrieval could greatly benefit from this feature. Extended APDU implementations can easily be implemented if the underlying transport protocol is T=1, while applets developed for T=0 cards would need special logic and care to work correctly.
+</P><H2 CLASS="Head1"><A NAME="pgfId-1005049"></A>
+<DIV>
+<HR ALIGN=left SIZE=6 WIDTH=15% noshade>
+</DIV>Extended APDU Nominal Cases</H2>
+<P CLASS="Paragraph"><A NAME="pgfId-1005051"></A>The ISO 7816-4:2005 specification defines an extended APDU as any APDU whose payload data, response data or expected data length exceeds the 256 byte limit. Therefore, the four traditional cases are redefined as follows:
+</P>
+<UL>
+<LI CLASS="Bullet1"><A NAME="pgfId-1005053"></A>Case 1. As in short length, this case is not affected.
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-1005054"></A>Case 2S. The legacy case 2 from previous Java Card technology releases. LE has a value of 1 to 255.
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-1005055"></A>Case 2E. The extended version of case 2S, where LE is greater than 255.
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-1005056"></A>Case 3S. The legacy case 3 case. LC is less than 256 bytes of data, and LE is zero.
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-1005057"></A>Case 3E. The extended version of Case 3, where LC is greater than 255, and LE is zero.
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-1005058"></A>Case 4S. The legacy case 4. LC and LE are less than 256 bytes of data.
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-1005059"></A>Case 4E. The extended version of Case 4. LC or LE are greater than 256 bytes of data.
+</LI>
+<P CLASS="Linebreak">
+</P>
+</UL><H2 CLASS="Head1"><A NAME="pgfId-1005063"></A>
+<DIV>
+<HR ALIGN=left SIZE=6 WIDTH=15% noshade>
+</DIV>Extended APDU Format</H2>
+<P CLASS="Paragraph"><A NAME="pgfId-1005511"></A>To express extended length, the APDU format has changed. The table below summarizes the format defined by ISO 7816-4:2005 for extended length APDU. Any APDU classified as extended must follow this format.
+</P>
+<BR>
+<TABLE CLASS="Titled" BORDER=1 BORDERCOLORLIGHT="#FFFFFF" BORDERCOLORDARK="#000000" CELLPADDING=5 CELLSPACING=0 DIR="LTR"><CAPTION CLASS="TableCaption"><A NAME="pgfId-1005686"> </A> TABLE 5-1 	Extended APDU Format </CAPTION>
+<THEAD>
+<TR>
+<TH SCOPE="COL" ROWSPAN="1" COLSPAN="1" BGCOLOR="#CCCCCC">
+<P CLASS="TableHead"><A NAME="pgfId-1005692"></A>Field
+</P>
+</TH>
+<TH SCOPE="COL" ROWSPAN="1" COLSPAN="1" BGCOLOR="#CCCCCC">
+<P CLASS="TableHead"><A NAME="pgfId-1005694"></A>Description
+</P>
+</TH>
+<TH SCOPE="COL" ROWSPAN="1" COLSPAN="1" BGCOLOR="#CCCCCC">
+<P CLASS="TableHead"><A NAME="pgfId-1005696"></A>Number of Bytes
+</P>
+</TH>
+</TR>
+</THEAD>
+<TBODY>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-1005698"></A>Command Header
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-1005700"></A>Class byte CLA
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-1005702"></A>1
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-1005704"></A>Command Header
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-1005706"></A>Instruction byte INS
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-1005708"></A>1
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-1005710"></A>Command Header
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-1005712"></A>Parameter bytes P1- P2
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-1005714"></A>2
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-1005716"></A>LC Field
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-1005718"></A>Absent for Nc = 0. Present for Nc &gt; 0
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-1005720"></A>0, 1, or 3
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-1005722"></A>Data Field
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-1005724"></A>Absent if Nc = 0, present if Nc &gt;0
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-1005726"></A>Nc
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-1005728"></A>LE Field
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-1005730"></A>Absent for Ne = 0, present for Ne &gt; 0
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-1005732"></A>0, 1, 2 or 3
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-1005734"></A>Response Data
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-1005736"></A>Absent if Nr = 0, present if Nr &gt;0
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-1005738"></A>Nr (max. Ne)
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-1005740"></A>Response Status
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-1005742"></A>Status bytes SW1 SW2
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-1005744"></A>2
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-1005879"></A>&nbsp;
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-1005881"></A>NOTATION
+</P>
+<P CLASS="TableText"><A NAME="pgfId-1005884"></A>Nc = command data length
+</P>
+<P CLASS="TableText"><A NAME="pgfId-1005885"></A>Ne = expected response data length
+</P>
+<P CLASS="TableText"><A NAME="pgfId-1005886"></A>Nr = actual response data length
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-1005883"></A>&nbsp;
+</P>
+</TD>
+</TR>
+</TBODY>
+</TABLE>
+<BR>
+<P CLASS="Paragraph"><A NAME="pgfId-1005869"></A>The encoding rules are defined as:
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-1005124"></A>For LC:
+</P>
+<UL>
+<LI CLASS="Bullet1"><A NAME="pgfId-1005125"></A>If LC field is absent, Nc = 0.
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-1005126"></A>If LC is present as one byte with values between <KBD CLASS="Filename-Command">01</KBD> and <KBD CLASS="Filename-Command">FF</KBD>, then Nc = 1..255 accordingly, and it will be a short field.
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-1005127"></A>If LC is present as an extended field, then it will be three bytes in length: byte one will be <KBD CLASS="Filename-Command">00</KBD>, bytes two and three will contain a 16-bit value representing the length of the data Nc with values between 1 and 65535.
+</LI>
+<P CLASS="Linebreak">
+</P>
+</UL>
+<P CLASS="Paragraph"><A NAME="pgfId-1005129"></A>For LE:
+</P>
+<UL>
+<LI CLASS="Bullet1"><A NAME="pgfId-1005130"></A>If LE is absent, Ne = 0.
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-1005131"></A>If LE is one byte:
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-1005132"></A>A value between <KBD CLASS="Filename-Command">01</KBD> and <KBD CLASS="Filename-Command">FF</KBD> will indicate Ne = 1..255.
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-1005133"></A>A value of <KBD CLASS="Filename-Command">00</KBD> will indicate Ne = 256.
+</LI>
+<P CLASS="Linebreak">
+</P>
+</UL>
+<P CLASS="Paragraph"><A NAME="pgfId-1005134"></A>If LE is an extended field:
+</P>
+<UL>
+<LI CLASS="Bullet1"><A NAME="pgfId-1005135"></A>LC and LE must be in the same format.
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-1005137"></A>An LE field value between <KBD CLASS="Filename-Command">000</KBD>1 and <KBD CLASS="Filename-Command">FFFF</KBD> will indicate Ne = 1..65535.
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-1005138"></A>An LE field value of <KBD CLASS="Filename-Command">0000</KBD> will indicate Ne= 65536. 
+</LI>
+<P CLASS="Linebreak">
+</P>
+</UL><H2 CLASS="Head1"><A NAME="pgfId-1005142"></A>
+<DIV>
+<HR ALIGN=left SIZE=6 WIDTH=15% noshade>
+</DIV>Extended APDU Limits</H2>
+<P CLASS="Paragraph"><A NAME="pgfId-1005144"></A>The Java Card platform supports extended APDUs with some limitations. Because the platform defines all of its mandatory API in terms of short data length, the values of LC and LE are limited to short positive values. That is, LC and LE have a range of 0..32,767. Lengths of 32,768 and beyond are not supported by the Java Card platform at this time.
+</P><H3 CLASS="Head2"><A NAME="pgfId-1005146"></A><KBD CLASS="Filename-Command">javacardx.framework.ExtendedLength</KBD> Interface</H3>
+<P CLASS="Paragraph"><A NAME="pgfId-1005148"></A>Not all Java Card applets can handle extended APDUs. Legacy applets should never encounter an extended APDU in the APDU buffer. Because of this, the Java Card API has added a tagging interface, <KBD CLASS="Filename-Command">javacardx.apdu.ExtendedLength</KBD>, to signal that the applet implementing this interface is capable of processing, receiving and replying to extended APDU commands. The Java Card RE will not deliver extended APDU commands to applets not implementing this interface (it would throw an <KBD CLASS="Filename-Command">ISOException</KBD> with reason code <KBD CLASS="Filename-Command">ISO7816.SW_WRONG_LENGTH</KBD> in that case), nor would it allow applets to send reply data lengths greater than 256, if such an interface is not implemented by the applet.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-1005150"></A>The APDU buffer in Java Card technology applications will reflect the structure of the extended APDU as defined in ISO. In T=1, this representation is straightforward and precise; whereas in T=0, there need to be some adaptations for some cases.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-1005152"></A>Specifically, a case 2E APDU sent over T=0 transport will not show its extended LE value in the APDU buffer. Instead, a P3 value of '00' will always be transmitted, and interpreted as 32,767, if the applet implements <KBD CLASS="Filename-Command">ExtendedLength</KBD>, or 256 if it does not. The Java Card RE analyzes the APDU type coming into the card and determines its type based on the rules defined in the ISO 7816-3 specification. Because case 2E commands look like case 2S commands in T=0, the Java Card RE is not able to distinguish this particular case.
+</P><H3 CLASS="Head2"><A NAME="pgfId-1005154"></A>Extensions To <KBD CLASS="Filename-Command">javacard.framework.APDU</KBD> Class</H3>
+<P CLASS="Paragraph"><A NAME="pgfId-1005156"></A>Because LC in cases 3E and 4E can take a large value, the parameter is sent to the card as a three-byte quantity, in the format of <KBD CLASS="Filename-Command">00 LCh LCl</KBD> starting at <KBD CLASS="Filename-Command">ISO7816.OFFSET_LC</KBD>. Two new API calls have been added to <KBD CLASS="Filename-Command">javacard.framework.APDU</KBD> so that the applet developer will not be required to parse the APDU. The API calls allow the applet developer to get the value of LC and the data offset inside the APDU buffer without having to get them directly from that buffer, as was necessary before. 
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-1005954"></A>These two APIs allow applet developers to write applets without having to worry about parsing extended length in T=0 and T=1 implementations.
+</P>
+<UL>
+<LI CLASS="Bullet1"><A NAME="pgfId-1005158"></A><KBD CLASS="Filename-Command">public short getIncomingLength()</KBD>
+</LI>
+<P CLASS="Linebreak">
+</P>
+</UL>
+<P CLASS="Paragraph"><A NAME="pgfId-1005159"></A>This API call returns the value of LC as expressed in the APDU, whether it is extended or not.
+</P>
+<UL>
+<LI CLASS="Bullet1"><A NAME="pgfId-1005161"></A><KBD CLASS="Filename-Command">public short getOffsetCdata()</KBD>
+</LI>
+<P CLASS="Linebreak">
+</P>
+</UL>
+<P CLASS="Paragraph"><A NAME="pgfId-1005162"></A>This API call returns the offset where the first byte of the APDU data segment is found.
+</P><H2 CLASS="Head1"><A NAME="pgfId-1005166"></A>
+<DIV>
+<HR ALIGN=left SIZE=6 WIDTH=15% noshade>
+</DIV>Sending and Receiving Extended APDU Commands</H2>
+<P CLASS="Paragraph"><A NAME="pgfId-1005168"></A>To write an applet that takes advantage of extended length, follow these steps:
+</P>
+<P CLASS="Step1"><A NAME="pgfId-1005170"></A>	1.	Implement the <KBD CLASS="Filename-Command">javacardx.apdu.ExtendedLength</KBD> interface in your applet:
+</P>
+<DIV CLASS="Code">
+<BR>
+<TABLE CLASS="Code" BORDER=1 BORDERCOLORLIGHT="#FFFFFF" BORDERCOLORDARK="#000000" CELLPADDING=5 CELLSPACING=0 DIR="LTR">
+<TBODY>
+<TR>
+<TD SCOPE="ROW">
+<P CLASS="TableTextCode"><A NAME="pgfId-1006580"></A>...
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1006581"></A>import javacard.framework.*;
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1006582"></A>import javacardx.apdu.ExtendedLength;
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1006583"></A>...
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1006584"></A>public MyApplet extends Applet implements 
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1006585"></A>ExtendedLength {
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1006586"></A>...
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1006587"></A>}
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1006576"></A>&nbsp;
+</P>
+</TD>
+</TR>
+</TBODY>
+</TABLE>
+<BR>
+</DIV>
+<P CLASS="Step1-"><A NAME="pgfId-1005179"></A>	2.	Write your applet and <KBD CLASS="Filename-Command">Applet.process(..)</KBD> method as you would with any other applets. For consistency, it is advisable that your <KBD CLASS="Filename-Command">process(..)</KBD> code begin like the one below:
+</P>
+<DIV CLASS="Code">
+<BR>
+<TABLE CLASS="Code" BORDER=1 BORDERCOLORLIGHT="#FFFFFF" BORDERCOLORDARK="#000000" CELLPADDING=5 CELLSPACING=0 DIR="LTR">
+<TBODY>
+<TR>
+<TD SCOPE="ROW">
+<P CLASS="TableTextCode"><A NAME="pgfId-1006544"></A>public void process(APDU apdu) {
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1006545"></A>        byte[] buffer = apdu.getBuffer();
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1006546"></A>        
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1006547"></A>        if (apdu.isISOInterindustryCLA()) {
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1006548"></A>            if (this.selectingApplet()) {
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1006549"></A>                return;
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1006550"></A>            } else {
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1006551"></A>                ISOException.throwIt (ISO7816.SW_CLA_NOT_SUPPORTED);
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1006552"></A>            }
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1006553"></A>        }
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1006554"></A>        
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1006555"></A>        switch (buffer[ISO7816.OFFSET_INS]) {
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1006556"></A>         case CHOICE_1:   
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1006557"></A>            ...
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1006558"></A>            return;
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1006559"></A>         case CHOICE_2:        
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1006560"></A>            ...
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1006561"></A>            ...
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1006562"></A>         default:       
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1006563"></A>            ISOException.throwIt (ISO7816.SW_INS_NOT_SUPPORTED);
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1006564"></A>        }
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1006565"></A>    }
+</P>
+</TD>
+</TR>
+</TBODY>
+</TABLE>
+<BR>
+</DIV>
+<P CLASS="Step1-"><A NAME="pgfId-1005205"></A>	3.	For cases 3S, 4S, 3E and 4E, write the method to handle incoming data. Do it relying on API extensions so that your applet properly handles extended, as well as non-extended, cases.
+</P>
+<DIV CLASS="Code">
+<BR>
+<TABLE CLASS="Code" BORDER=1 BORDERCOLORLIGHT="#FFFFFF" BORDERCOLORDARK="#000000" CELLPADDING=5 CELLSPACING=0 DIR="LTR">
+<TBODY>
+<TR>
+<TD SCOPE="ROW">
+<P CLASS="TableTextCode"><A NAME="pgfId-1006501"></A>void receiveData(APDU apdu) {
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1006502"></A>        byte[] buffer = apdu.getBuffer();
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1006503"></A>        short LC = apdu.getIncomingLength();
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1006504"></A>        
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1006505"></A>        short recvLen = apdu.setIncomingAndreceive();
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1006506"></A>        short dataOffset = apdu.getOffsetCdata();
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1006507"></A>        
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1006508"></A>        while (recvLen &gt; 0) {
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1006509"></A>            ...
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1006510"></A>            [process data in buffer[dataOffset]...]
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1006511"></A>            ...
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1006512"></A>            recvLen = apdu.receiveBytes(dataOffset);
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1006513"></A>        }
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1006514"></A>        // Done   
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1006515"></A>    }
+</P>
+</TD>
+</TR>
+</TBODY>
+</TABLE>
+<BR>
+</DIV>
+<P CLASS="Step1-"><A NAME="pgfId-1005224"></A>	4.	For case 2S, 2E, write the method handling data output. A method could look something like this:
+</P>
+<DIV CLASS="Code">
+<BR>
+<TABLE CLASS="Code" BORDER=1 BORDERCOLORLIGHT="#FFFFFF" BORDERCOLORDARK="#000000" CELLPADDING=5 CELLSPACING=0 DIR="LTR">
+<TBODY>
+<TR>
+<TD SCOPE="ROW">
+<P CLASS="TableTextCode"><A NAME="pgfId-1006460"></A>void sendData(APDU apdu) {
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1006461"></A>        byte[] buffer = apdu.getBuffer();
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1006462"></A>        
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1006463"></A>        short LE = apdu.setOutgoing();
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1006464"></A>        short toSend = ...
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1006465"></A>        
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1006466"></A>        if (LE != toSend) {
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1006467"></A>            apdu.setOutgoingLength(toSend);
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1006468"></A>        }
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1006469"></A>        
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1006470"></A>        while (toSend &gt; 0) {
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1006471"></A>            ...
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1006472"></A>            [prepare data to send in APDU buffer]
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1006473"></A>            ...
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1006474"></A>            apdu.sendBytes(dataOffset, sentLen);
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1006475"></A>            toSend -= sentLen;
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1006476"></A>        }
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1006477"></A>        // Done
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1006478"></A>    }
+</P>
+</TD>
+</TR>
+</TBODY>
+</TABLE>
+<BR>
+</DIV>
+<P CLASS="Paragraph"><A NAME="pgfId-1005032"></A>&nbsp;
+</P>
+<div class="navbar" align="center">
+<br>
+<br>
+<table dir="LTR" summary="Navigation bar, includes the book title and navigation buttons" width=100% cellpadding="0" cellspacing="0" border="0"><colgroup span="3" width="100%"><col id="1" span="1" width="45%"><col id="2" span="1" width="25%"><col id="3" span="1" width="30%">
+<tr bgcolor="#cccccc">
+<td class="navbartitle" align=left rowspan="1" colspan="1" abbr="ChapTitle">&nbsp;&nbsp;Application Programming Notes, Java Card Platform, Version 2.2.2
+</td>
+<td class="navbartitle" align=right rowspan="1" colspan="1" abbr="PartNum">3-11-06
+</td>
+<td valign="top" align="right" rowspan="1" colspan="1" abbr="NavButtons"><a href="index.html"><img src="shared/toc01.gif" title="Table Of Contents" alt="Table Of Contents" width="30" height="26" border="0"></a><a href="rmiapp.html"><img src="shared/prev01.gif" title="Previous Chapter" alt="Previous Chapter" width="30" height="26" border="0"></a><A HREF="ix.html"><img src="shared/next01.gif" title="Next Chapter" alt="Next Chapter" width="30" height="26" border="0"></a><a href="ix.html"><img src="shared/index01.gif" title="Book Index" alt="Book Index" width="30" height="26" border="0"></a></td>
+</tr>
+</table>
+<br>
+<br>
+</div>
+<P CLASS="copyrightlink"><A HREF="copyright.html">Copyright</a> &#169; 2005, Sun Microsystems, Inc.   All Rights Reserved.</P>
+</BODY>
+</HTML>

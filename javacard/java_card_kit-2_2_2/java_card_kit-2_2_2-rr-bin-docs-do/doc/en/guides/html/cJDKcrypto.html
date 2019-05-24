@@ -1,0 +1,398 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<HTML LANG="en">
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 7.0/HTML Export Filter">
+
+<LINK REL="STYLESHEET" HREF="unx_unstr_styles.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<META name="DC.TITLE" content="Development Kit User's Guide, Java Card Platform, Version 2.2.2">
+<TITLE>C H A P T E R    13 - Using Cryptography Extensions 
+</TITLE>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV>
+<div class="navbar" align="center">
+<table dir="LTR" summary="Navigation bar, includes the book title and navigation buttons" width=100% cellpadding="0" cellspacing="0" border="0"><colgroup span="2" width="100%"><col id="1" span="1" width="50%"><col id="2" span="1" width="50%">
+<tr bgcolor="#cccccc">
+<td class="navbartitle" align=left rowspan="1" colspan="1" abbr="ChapTitle">&nbsp;&nbsp;Development Kit User's Guide, Java Card Platform, Version 2.2.2
+</td>
+<td valign="top" align="right" rowspan="1" colspan="1" abbr="NavButtons"><a href="index.html"><img src="shared/toc01.gif" title="Table Of Contents" alt="Table Of Contents" width="30" height="26" border="0"></a><a href="cJDKapdu.html"><img src="shared/prev01.gif" title="Previous Chapter" alt="Previous Chapter" width="30" height="26" border="0"></a><a href="cJDKrmiclientAPI.html"><img src="shared/next01.gif" title="Next Chapter" alt="Next Chapter" width="30" height="26" border="0"></a><a href="ix.html"><img src="shared/index01.gif" title="Book Index" alt="Book Index" width="30" height="26" border="0"></a>
+</td>
+</tr>
+</table>
+<br>
+<br>
+</div>
+</DIV>
+<TABLE DIR="LTR" SUMMARY="Chapter Number" ABBR="ChapNum" WIDTH="100%" BORDER="0">
+<COLGROUP SPAN="1" WIDTH="100%"><COL ID="1" SPAN="1">
+<TR>
+<TD ALIGN="right" CLASS="ChapNumber"><SPAN CLASS="ChapNumPrefix"><A NAME="pgfId-1000353"></A>C H A P T E R    </SPAN>&nbsp;<SPAN CLASS="ChapNumNum">13</SPAN><A NAME="12574"></A>
+</TD>
+</TR>
+</TABLE>
+<TABLE DIR="LTR" SUMMARY="Chapter Title" ABBR="ChapTitle" WIDTH="100%" BORDER="0">
+<COLGROUP SPAN="1" WIDTH="100%"><COL ID="1" SPAN="1" WIDTH="100%">
+<TR>
+<TD ALIGN="right" CLASS="ChapTitle">
+<HR SIZE=7 NOSHADE><A NAME="pgfId-1000355"></A><A NAME="98476"></A>Using Cryptography Extensions
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Paragraph"><A NAME="pgfId-1000357"></A><A NAME="marker-1000356"></A>This release provides an implementation of basic security and cryptography classes. These implementations are supported by:
+</P>
+<UL>
+<LI CLASS="Bullet1"><A NAME="pgfId-1000358"></A>C-language Java Card RE (<KBD CLASS="Filename-Command">cref</KBD>)
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-1000359"></A>the Java Card platform Workstation Development Environment tool (Java Card WDE)
+</LI>
+<P CLASS="Linebreak">
+</P>
+</UL>
+<P CLASS="Paragraph"><A NAME="pgfId-1000360"></A>The support for security and cryptography allows you to:
+</P>
+<UL>
+<LI CLASS="Bullet1"><A NAME="pgfId-1000361"></A>generate message digests using the <KBD CLASS="Filename-Command">SHA1</KBD> algorithm
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-1000363"></A><A NAME="marker-1000362"></A>generate cryptographic keys on Java Card technology-compliant smart cards for use in the <KBD CLASS="Filename-Command">ECC</KBD> and <KBD CLASS="Filename-Command">RSA</KBD> algorithms
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-1000364"></A>set cryptographic keys on Java Card technology-compliant smart cards for use in the <KBD CLASS="Filename-Command">AES</KBD>, <KBD CLASS="Filename-Command">DES</KBD>, <KBD CLASS="Filename-Command">3DES</KBD>, <KBD CLASS="Filename-Command">ECC</KBD>, and <KBD CLASS="Filename-Command">RSA</KBD> algorithms
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-1000365"></A>encrypt and decrypt data with the keys using the <KBD CLASS="Filename-Command">AES</KBD>, <KBD CLASS="Filename-Command">DES</KBD>, <KBD CLASS="Filename-Command">3DES</KBD>, and <KBD CLASS="Filename-Command">RSA</KBD> algorithms
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-1000366"></A>generate signatures using the <KBD CLASS="Filename-Command">AES</KBD>, <KBD CLASS="Filename-Command">DES</KBD>, <KBD CLASS="Filename-Command">3DES</KBD>, <KBD CLASS="Filename-Command">ECC</KBD>, or <KBD CLASS="Filename-Command">SHA</KBD> and <KBD CLASS="Filename-Command">RSA</KBD> algorithms
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-1000367"></A>generate sequences of random bytes
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-1000368"></A>generate checksums
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-1001384"></A>use part of a message as padding in a signature block
+</LI>
+<P CLASS="Linebreak">
+</P>
+</UL>
+<BR>
+<HR NOSHADE SIZE=1>
+<TABLE CLASS="TipNote" DIR="LTR" WIDTH="100%" SUMMARY="TipNote">
+<COLGROUP SPAN="1" WIDTH="100%">
+<TR ALIGN="left" VALIGN="top">
+<TD ROWSPAN="1" COLSPAN="1" ABBR="TipNoteText">
+<P CLASS="TipNote"><B CLASS="TipNote">Note - </B><A NAME="pgfId-1000369"></A><KBD CLASS="Filename-Command">DES</KBD> is also known as single-key <KBD CLASS="Filename-Command">DES</KBD>. <KBD CLASS="Filename-Command">3DES</KBD> is also known as triple-<KBD CLASS="Filename-Command">DES</KBD>.
+</P>
+</TD>
+</TR>
+</TABLE>
+<HR NOSHADE SIZE=1>
+<BR>
+<P CLASS="Paragraph"><A NAME="pgfId-1000370"></A>For more information on the <KBD CLASS="Filename-Command">SHA1</KBD>, <KBD CLASS="Filename-Command">DES</KBD>, <KBD CLASS="Filename-Command">3DES</KBD>, and <KBD CLASS="Filename-Command">RSA</KBD> encryption schemes, see:
+</P>
+<UL>
+<LI CLASS="Bullet1"><A NAME="pgfId-1000371"></A>for <KBD CLASS="Filename-Command">SHA1</KBD>--&quot;<EM CLASS="Emphasis">Secure Hash Standard</EM>&quot;, FIPS Publication 180-1: 
+<BR><KBD CLASS="URL"><A HREF="http://www.itl.nist.gov/" CLASS="URL"><A HREF="http://www.itl.nist.gov/" CLASS="URL">http://www.itl.nist.gov/</A></A></KBD>
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-1000373"></A>for <KBD CLASS="Filename-Command">DES</KBD>--&quot;<EM CLASS="Emphasis">Data Encryption Standard (DES)</EM>&quot;, FIPS Publication 46-2 and &quot;<EM CLASS="Emphasis">DES Modes of Operation</EM>&quot;, FIPS Publication 81: 
+<BR><KBD CLASS="URL"><A HREF="http://www.itl.nist.gov/" CLASS="URL"><A HREF="http://www.itl.nist.gov/" CLASS="URL">http://www.itl.nist.gov/</A></A></KBD>
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-1000375"></A>for <KBD CLASS="Filename-Command">RSA</KBD>--&quot;<EM CLASS="Emphasis">RSAES-OAEP (Optional Asymmetric Encryption Padding) Encryption Scheme</EM>&quot;: 
+<BR><KBD CLASS="URL"><A HREF="http://www.rsasecurity.com/" CLASS="URL"><A HREF="http://www.rsasecurity.com/" CLASS="URL">http://www.rsasecurity.com/</A></A></KBD>
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-1000377"></A>for <KBD CLASS="Filename-Command">AES</KBD>--&quot;<EM CLASS="Emphasis">Advanced Encryption Standard (AES)</EM>&quot; FIPs Publication 197:
+<BR><KBD CLASS="URL"><A HREF="http://www.itl.nist.gov/" CLASS="URL"><A HREF="http://www.itl.nist.gov/" CLASS="URL">http://www.itl.nist.gov/</A></A></KBD>
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-1000379"></A>for <KBD CLASS="Filename-Command">ECC</KBD>--<EM CLASS="Emphasis">&quot;Public Key Cryptography for the Financial Industry: The Elliptic Curve Digital Signature Algorithm</EM>&quot; (ECDSA): X9.62-1998 
+<BR><KBD CLASS="URL"><A HREF="http://www.x9.org/" CLASS="URL"><A HREF="http://www.x9.org/" CLASS="URL">http://www.x9.org/</A></A></KBD>
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-1000381"></A>for Checksum--<EM CLASS="Emphasis">&quot;Information technology--Telecommunications and information exchange between systems--High-level data link control (HDLC) procedures&quot;</EM> 
+<BR>ISO/IEC-13239:2002 (replaces ISO-3309): 
+<BR><KBD CLASS="URL"><A HREF="http://www.iso.org/" CLASS="URL"><A HREF="http://www.iso.org" CLASS="URL">http://www.iso.org/</A></A></KBD>
+</LI>
+<P CLASS="Linebreak">
+</P>
+</UL><H2 CLASS="Head1"><A NAME="pgfId-1000383"></A>
+<DIV>
+<HR ALIGN=left SIZE=6 WIDTH=15% noshade>
+</DIV>Supported Cryptography Classes </H2>
+<P CLASS="Paragraph"><A NAME="pgfId-1000388"></A><A NAME="marker-1000384"></A>The implementation of security and cryptography in version 2.2.2 of the Java Card platform reference implementation supports the use of the following classes:
+</P>
+<UL>
+<LI CLASS="Bullet1"><A NAME="pgfId-1000389"></A><KBD CLASS="Filename-Command">javacardx.crypto.Cipher</KBD>
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-1000390"></A><KBD CLASS="Filename-Command">javacard.security.Checksum</KBD>
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-1001709"></A>javacard.security.InitializedMessageDigest
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-1000391"></A><KBD CLASS="Filename-Command">javacard.security.KeyAgreement</KBD>
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-1000392"></A><KBD CLASS="Filename-Command">javacard.security.KeyPair</KBD>
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-1000393"></A><KBD CLASS="Filename-Command">javacard.security.KeyBuilder</KBD>
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-1000394"></A><KBD CLASS="Filename-Command">javacard.security.MessageDigest</KBD> 
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-1000395"></A><KBD CLASS="Filename-Command">javacard.security.RandomData</KBD> 
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-1000396"></A><KBD CLASS="Filename-Command">javacard.security.Signature</KBD> 
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-1001392"></A><KBD CLASS="Filename-Command">javacard.security.SignatureMessageRecovery</KBD>
+</LI>
+<P CLASS="Linebreak">
+</P>
+</UL>
+<P CLASS="Paragraph"><A NAME="pgfId-1000404"></A><EM CLASS="Z-Xref"><A HREF="cJDKcrypto.html#69770" CLASS="XRef">TABLE 13-1</A></EM> lists the cryptography algorithms that are implemented for the C-language RE and Java Card WDE. <A NAME="marker-1000462"></A>
+</P>
+<BR>
+<TABLE CLASS="Titled" BORDER=1 BORDERCOLORLIGHT="#FFFFFF" BORDERCOLORDARK="#000000" CELLPADDING=5 CELLSPACING=0 DIR="LTR"><CAPTION CLASS="TableCaption"><A NAME="pgfId-1000409"> </A> TABLE 13-1 	 <A NAME="69770"> </A> Algorithms Implemented by the Cryptography Classes  </CAPTION>
+<THEAD>
+<TR>
+<TH SCOPE="COL" ROWSPAN="1" COLSPAN="1" BGCOLOR="#CCCCCC">
+<P CLASS="TableHead"><A NAME="pgfId-1000413"></A>Class
+</P>
+</TH>
+<TH SCOPE="COL" ROWSPAN="1" COLSPAN="1" BGCOLOR="#CCCCCC">
+<P CLASS="TableHead"><A NAME="pgfId-1000415"></A>Algorithm
+</P>
+</TH>
+</TR>
+</THEAD>
+<TBODY>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-1000417"></A><KBD CLASS="Filename-Command">Checksum</KBD>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<UL>
+<LI CLASS="TableBullet"><A NAME="pgfId-1000419"></A><KBD CLASS="Filename-Command">ALG_ISO3309_CRC16</KBD>--ISO/IEC 3309-compliant 16-bit CRC algorithm. This algorithm uses the generator polynomial: <KBD CLASS="Filename-Command">x^16+x^12+x^5+1</KBD>. The default initial checksum value used by this algorithm is 0. This algorithm is also compliant with the frame-checking sequence as specified in section 4.2.5.2 of the ISO/IEC 13239 specification.
+</LI>
+<LI CLASS="TableBullet"><A NAME="pgfId-1000420"></A><KBD CLASS="Filename-Command">ALG_ISO3309_CRC32</KBD>--ISO/IEC 3309-compliant 32-bit CRC algorithm. This algorithm uses the generator polynomial: <KBD CLASS="Filename-Command">X^32+X^26+X^23+X^22+X^16+X^12+X^11+X^10+X^8 +X^7+X^5+X^4+X^2+X+1</KBD>. The default initial checksum value used by this algorithm is 0. This algorithm is also compliant with the frame-checking sequence as specified in section 4.2.5.3 of the ISO/IEC 13239 specification. 
+</LI>
+</UL>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-1000422"></A><KBD CLASS="Filename-Command">Cipher</KBD>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<UL>
+<LI CLASS="TableBullet"><A NAME="pgfId-1000424"></A><KBD CLASS="Filename-Command">ALG_DES_CBC_ISO9797_M2</KBD>--provides a cipher using <KBD CLASS="Filename-Command">DES</KBD> in <KBD CLASS="Filename-Command">CBC</KBD> mode. This algorithm uses <KBD CLASS="Filename-Command">CBC</KBD> for <KBD CLASS="Filename-Command">DES</KBD> and <KBD CLASS="Filename-Command">3DES</KBD>.  Input data is padded according to the ISO 9797 method 2 (ISO 7816-4, EMV'96) scheme.
+</LI>
+<LI CLASS="TableBullet"><A NAME="pgfId-1000425"></A><KBD CLASS="Filename-Command">ALG_RSA_PKCS1</KBD>--provides a cipher using <KBD CLASS="Filename-Command">RSA</KBD>.  Input data is padded according to the <KBD CLASS="Filename-Command">PKCS#1</KBD> (v1.5) scheme.
+</LI>
+<LI CLASS="TableBullet"><A NAME="pgfId-1000426"></A><KBD CLASS="Filename-Command">ALG_AES_BLOCK_128_CBC_NOPAD</KBD>--provides a cipher using <KBD CLASS="Filename-Command">AES</KBD> with block size 128 in CBC mode and does not pad input data.
+</LI>
+</UL>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-1001599"></A>InitializedMessageDigest
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-1001603"></A>Provides the functionality of MessageDigest, with the additional abilty to allow for initialization with a starting hash value corresponding to a previously hashed part of the message. Provide for SHA1 and SHA256. 
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-1000428"></A><KBD CLASS="Filename-Command">KeyAgreement</KBD>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<UL>
+<LI CLASS="TableBullet"><A NAME="pgfId-1000430"></A><KBD CLASS="Filename-Command">ALG_EC_SVDP_DH</KBD>--elliptic curve secret value derivation primitive, Diffie-Hellman version, as per [IEEE P1363].
+</LI>
+<LI CLASS="TableBullet"><A NAME="pgfId-1000431"></A><KBD CLASS="Filename-Command">ALG_EC_SVDP_DHC</KBD>--elliptic curve secret value derivation primitive, Diffie-Hellman version, with cofactor multiplication, as per [IEEE P1363].
+</LI>
+</UL>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-1000433"></A><KBD CLASS="Filename-Command">KeyBuilder</KBD>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-1000435"></A>the algorithms define the key lengths for: 
+</P>
+<UL>
+<LI CLASS="TableBullet"><A NAME="pgfId-1000436"></A>128-bit <KBD CLASS="Filename-Command">AES</KBD>
+</LI>
+<LI CLASS="TableBullet"><A NAME="pgfId-1000437"></A>64-bit <KBD CLASS="Filename-Command">DES</KBD>
+</LI>
+<LI CLASS="TableBullet"><A NAME="pgfId-1000438"></A>112-, 128-, 160-, 192-bit <KBD CLASS="Filename-Command">ECC</KBD>
+</LI>
+<LI CLASS="TableBullet"><A NAME="pgfId-1000439"></A>128-bit <KBD CLASS="Filename-Command">DES3</KBD>
+</LI>
+<LI CLASS="TableBullet"><A NAME="pgfId-1000440"></A>512-bit <KBD CLASS="Filename-Command">RSA</KBD>
+</LI>
+</UL>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-1000442"></A><KBD CLASS="Filename-Command">KeyPair</KBD>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-1000444"></A>the algorithms define the key lengths for: 
+</P>
+<UL>
+<LI CLASS="TableBullet"><A NAME="pgfId-1000445"></A>112-, 128-, 160-, 192-bit <KBD CLASS="Filename-Command">ECC</KBD>
+</LI>
+<LI CLASS="TableBullet"><A NAME="pgfId-1000446"></A>512-bit <KBD CLASS="Filename-Command">RSA</KBD>
+</LI>
+</UL>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-1000448"></A><KBD CLASS="Filename-Command">MessageDigest</KBD>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-1000450"></A>message digest algorithm <KBD CLASS="Filename-Command">SHA1</KBD> and <KBD CLASS="Filename-Command">SHA256</KBD>
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-1000452"></A><KBD CLASS="Filename-Command">RandomData</KBD>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-1000454"></A>pseudo-random number generator with a 48-bit seed, which is modified using a linear congruential formula. 
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-1000456"></A><KBD CLASS="Filename-Command">Signature</KBD>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<UL>
+<LI CLASS="TableBullet"><A NAME="pgfId-1000458"></A><KBD CLASS="Filename-Command">ALG_DES_MAC8_ISO9797_M2</KBD>--generates an 8-byte <KBD CLASS="Filename-Command">MAC</KBD> (most significant 8 bytes of encrypted block) using <KBD CLASS="Filename-Command">DES</KBD> or <KBD CLASS="Filename-Command">3DES</KBD> in <KBD CLASS="Filename-Command">CBC</KBD> mode.  This algorithm uses <KBD CLASS="Filename-Command">CBC</KBD> for <KBD CLASS="Filename-Command">DES</KBD> and <KBD CLASS="Filename-Command">3DES</KBD>.  Input data is padded according to the ISO 9797 method 2 (ISO 7816-4, EMV'96) scheme. 
+</LI>
+<LI CLASS="TableBullet"><A NAME="pgfId-1000459"></A><KBD CLASS="Filename-Command">ALG_RSA_SHA_PKCS1</KBD>--encrypts the 20 byte <KBD CLASS="Filename-Command">SHA1</KBD> digest using <KBD CLASS="Filename-Command">RSA</KBD>.  The digest is padded according to the <KBD CLASS="Filename-Command">PKCS#1</KBD> (v1.5) scheme.
+</LI>
+<LI CLASS="TableBullet"><A NAME="pgfId-1000460"></A><KBD CLASS="Filename-Command">ALG_AES_MAC_128_NOPAD</KBD>--generates a 16-byte MAC using <KBD CLASS="Filename-Command">AES</KBD> with blocksize 128 in CBC mode and does not pad input data.
+</LI>
+<LI CLASS="TableBullet"><A NAME="pgfId-1000461"></A><KBD CLASS="Filename-Command">ALG_ECDSA_SHA</KBD>--signs/verifies the 20-byte SHA digest using ECDSA. 
+</LI>
+</UL>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-1001394"></A>SignatureMessageRecovery
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<UL>
+<LI CLASS="TableBullet"><A NAME="pgfId-1001396"></A><KBD CLASS="Filename-Command">ALG_RSA_SHA_ISO9796_MR</KBD>--This algorithm uses the first part of the input message as padding bytes during signing. During verification, these message bytes (recoverable message) can be recovered to reconstruct the message.<KBD CLASS="Filename-Command"></KBD>
+</LI>
+</UL>
+</TD>
+</TR>
+</TBODY>
+</TABLE>
+<BR><H3 CLASS="Head2"><A NAME="pgfId-1000463"></A>Instantiating the Classes</H3>
+<P CLASS="Paragraph"><A NAME="pgfId-1000465"></A><A NAME="marker-1000464"></A>Implementations of the cryptography classes extend the corresponding base class with implementations of their abstract methods. All data allocation associated with the implementation instance is performed when the instance is constructed. This is done to ensure that any lack of required resources can be flagged when the applet is installed.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-1000466"></A>Each cryptography class, except <KBD CLASS="Filename-Command">KeyPair</KBD>, has a <KBD CLASS="Filename-Command">getInstance</KBD> method which takes the desired algorithm as one of its parameters. The method returns an instance of the class in the context of the calling applet. Instead of using a <KBD CLASS="Filename-Command">getInstance</KBD> method, <KBD CLASS="Filename-Command">KeyPair</KBD> takes the desired algorithm as a parameter in its constructor.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-1000470"></A>If you request an algorithm that is not listed in <EM CLASS="Z-Xref"><A HREF="cJDKcrypto.html#69770" CLASS="XRef">TABLE 13-1</A></EM> or that is not implemented in this release, <KBD CLASS="Filename-Command">getInstance</KBD> will throw a <KBD CLASS="Filename-Command">CryptoException</KBD> with reason code <KBD CLASS="Filename-Command">NO_SUCH_ALGORITHM</KBD>. 
+</P><H2 CLASS="Head1"><A NAME="pgfId-1001474"></A>
+<DIV>
+<HR ALIGN=left SIZE=6 WIDTH=15% noshade>
+</DIV>DES Encryption and Signature Performance Enhancements</H2>
+<P CLASS="Paragraph"><A NAME="pgfId-1000472"></A>For the Java Card platform, version 2.2.2, the DES encryption and signature APIs have been enhanced so that when transient keys are used, the API avoids persistent memory writes. The reduction in persistent memory writes was achieved by eliminating use of instance variables in persistent memory when transient keys are used. 
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-1001506"></A>This enhancement will significantly improve the performance of the DES API, since persistent memory updates are relatively slow, when compared to RAM memory updates. As an example, the <KBD CLASS="Filename-Command">demo2crypto</KBD> demo was updated to utilize transient DES keys. The number of persistent memory updates performed when running this demo is significantly reduced.
+</P><H2 CLASS="Head1"><A NAME="pgfId-1001508"></A>
+<DIV>
+<HR ALIGN=left SIZE=6 WIDTH=15% noshade>
+</DIV><A NAME="65705"></A>Temporary RAM Usage by Cryptography Algorithms</H2>
+<P CLASS="Paragraph"><A NAME="pgfId-1000473"></A>The implementation of the RSA and EC cryptography algorithms in cref optimizes RAM usage. To do this, cref dynamically allocates temporary memory areas in RAM. These temporary RAM areas are allocated for the duration of a native method call.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-1000474"></A>These memory areas are used as temporary RAM in the following order:
+</P>
+<P CLASS="List1"><A NAME="pgfId-1000475"></A>1.	Inside of the Java platform stack.
+</P>
+<P CLASS="List1-"><A NAME="pgfId-1000476"></A>2. 	The available DTR (clear-on-deselect) space of the current logical channel.
+</P>
+<P CLASS="List1-"><A NAME="pgfId-1000477"></A>3. 	The available RTR (clear-on-reset) space.
+</P>
+<P CLASS="List1-"><A NAME="pgfId-1000478"></A>4. 	The available DTR space of other logical channels.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-1000479"></A>Note that the amount of RAM available in the RTR and non-current DTR can be influenced by applets other than the one currently selected. This means that the current applet which uses the RTR and non-current DTR might fail if more applets are installed on the card.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-1000480"></A>When execution completes, cref prints maximum memory usage in each of these areas to help you track the memory requirements of the cryptography algorithms in your own Java Card VM implementations.
+</P>
+<div class="navbar" align="center">
+<br>
+<br>
+<table dir="LTR" summary="Navigation bar, includes the book title and navigation buttons" width=100% cellpadding="0" cellspacing="0" border="0"><colgroup span="3" width="100%"><col id="1" span="1" width="45%"><col id="2" span="1" width="25%"><col id="3" span="1" width="30%">
+<tr bgcolor="#cccccc">
+<td class="navbartitle" align=left rowspan="1" colspan="1" abbr="ChapTitle">&nbsp;&nbsp;Development Kit User's Guide, Java Card Platform, Version 2.2.2
+</td>
+<td class="navbartitle" align=right rowspan="1" colspan="1" abbr="PartNum">3-14-06
+</td>
+<td valign="top" align="right" rowspan="1" colspan="1" abbr="NavButtons"><a href="index.html"><img src="shared/toc01.gif" title="Table Of Contents" alt="Table Of Contents" width="30" height="26" border="0"></a><a href="cJDKapdu.html"><img src="shared/prev01.gif" title="Previous Chapter" alt="Previous Chapter" width="30" height="26" border="0"></a><a href="cJDKrmiclientAPI.html"><img src="shared/next01.gif" title="Next Chapter" alt="Next Chapter" width="30" height="26" border="0"></a><a href="ix.html"><img src="shared/index01.gif" title="Book Index" alt="Book Index" width="30" height="26" border="0"></a>
+</td>
+</tr>
+</table>
+<br>
+<br>
+</div>
+<P CLASS="copyrightlink"><A HREF="copyright.html">Copyright</a> &#169; 2005, Sun Microsystems, Inc.   All Rights Reserved.</P>
+</BODY>
+</HTML>

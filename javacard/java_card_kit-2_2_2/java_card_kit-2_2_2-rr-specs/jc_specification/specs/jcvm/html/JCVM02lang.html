@@ -1,0 +1,2111 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<HTML LANG="en">
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 7.0/HTML Export Filter">
+
+<LINK REL="STYLESHEET" HREF="unx_unstr_styles.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<META name="DC.TITLE" content="Virtual Machine Specification, Java Card Platform, v2.2.2">
+<TITLE>C H A P T E R    2 - A Subset of the Java Virtual Machine 
+</TITLE>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV>
+<div class="navbar" align="center">
+<table dir="LTR" summary="Navigation bar, includes the book title and navigation buttons" width=100% cellpadding="0" cellspacing="0" border="0"><colgroup span="2" width="100%"><col id="1" span="1" width="50%"><col id="2" span="1" width="50%">
+<tr bgcolor="#cccccc">
+<td class="navbartitle" align=left rowspan="1" colspan="1" abbr="ChapTitle">&nbsp;&nbsp;Virtual Machine Specification, Java Card Platform, v2.2.2
+</td>
+<td valign="top" align="right" rowspan="1" colspan="1" abbr="NavButtons"><a href="index.html"><img src="shared/toc01.gif" title="Table Of Contents" alt="Table Of Contents" width="30" height="26" border="0"></a><a href="JCVM01intro.html"><img src="shared/prev01.gif" title="Previous Chapter" alt="Previous Chapter" width="30" height="26" border="0"></a><a href="JCVM03structVM.html"><img src="shared/next01.gif" title="Next Chapter" alt="Next Chapter" width="30" height="26" border="0"></a><a href="ix.html"><img src="shared/index01.gif" title="Book Index" alt="Book Index" width="30" height="26" border="0"></a>
+</td>
+</tr>
+</table>
+<br>
+<br>
+</div>
+</DIV>
+<TABLE DIR="LTR" SUMMARY="Chapter Number" ABBR="ChapNum" WIDTH="100%" BORDER="0">
+<COLGROUP SPAN="1" WIDTH="100%"><COL ID="1" SPAN="1">
+<TR>
+<TD ALIGN="right" CLASS="ChapNumber"><SPAN CLASS="ChapNumPrefix"><A NAME="pgfId-35832"></A>C H A P T E R    </SPAN>&nbsp;<SPAN CLASS="ChapNumNum">2</SPAN><A NAME="45905"></A>
+</TD>
+</TR>
+</TABLE>
+<TABLE DIR="LTR" SUMMARY="Chapter Title" ABBR="ChapTitle" WIDTH="100%" BORDER="0">
+<COLGROUP SPAN="1" WIDTH="100%"><COL ID="1" SPAN="1" WIDTH="100%">
+<TR>
+<TD ALIGN="right" CLASS="ChapTitle">
+<HR SIZE=7 NOSHADE><A NAME="pgfId-35833"></A><A NAME="25177"></A>A Subset of the Java Virtual Machine
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Paragraph"><A NAME="pgfId-35834"></A>This chapter describes the subset of the <A NAME="marker-47333"></A>Java virtual machine and language that is supported in the Java Card platform, Version 2.2.2. 
+</P><H2 CLASS="Head1"><A NAME="pgfId-35835"></A>
+<DIV>
+<HR ALIGN=left SIZE=6 WIDTH=15% noshade>
+</DIV>2.1	Why a Subset is Needed</H2>
+<P CLASS="Paragraph"><A NAME="pgfId-35836"></A>It would be ideal if programs for smart cards could be written using all of the <A NAME="marker-47334"></A>Java programming language, but a full implementation of the Java virtual machine is far too large to fit on even the most advanced resource-constrained devices available today.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-35837"></A>A typical resource-constrained device has on the order of 1.2K of RAM, 16K of non-volatile memory (EEPROM or flash) and 32K-48K of ROM. The code for implementing string manipulation, single and double-precision floating point arithmetic, and thread management would be larger than the ROM space on such a device. Even if it could be made to fit, there would be no space left over for class libraries or application code. RAM resources are also very limited. The only workable option is to implement Java Card technology as a subset of the Java platform. 
+</P><H2 CLASS="Head1"><A NAME="pgfId-35838"></A>
+<DIV>
+<HR ALIGN=left SIZE=6 WIDTH=15% noshade>
+</DIV>2.2	Java Card Platform Language Subset</H2>
+<P CLASS="Paragraph"><A NAME="pgfId-35839"></A>Applets written for the Java Card platform are written in the Java programming language. They are compiled using Java compilers. Java Card technology uses a subset of the Java language, and familiarity with the Java platform is required to understand the Java Card platform. 
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-35840"></A>The items discussed in this section are not described to the level of a language specification. For complete documentation on the Java programming language, see <I CLASS="Title">The Java Language Specification</I>. 
+</P><H3 CLASS="Head2"><A NAME="pgfId-35841"></A>2.2.1	Unsupported Items</H3>
+<P CLASS="Paragraph"><A NAME="pgfId-35842"></A>The items listed in this section are elements of the Java programming language and platform that are not supported by the Java Card platform.
+</P><H4 CLASS="Head3"><A NAME="pgfId-35843"></A>2.2.1.1	<A NAME="23587"></A>Unsupported <A NAME="marker-47343"></A>Features</H4><H5 CLASS="Head4"><A NAME="pgfId-35844"></A><A NAME="marker-47344"></A>Dynamic Class Loading</H5>
+<P CLASS="Paragraph"><A NAME="pgfId-35845"></A>Dynamic class loading is not supported in the Java Card platform. An implementation of the Java Card platform is not able to load classes dynamically. Classes are either masked into the card during manufacturing or downloaded through an installation process after the card has been issued. Programs executing on the card may only refer to classes that already exist on the card, since there is no way to download classes during the normal execution of application code.
+</P><H5 CLASS="Head4"><A NAME="pgfId-35846"></A><A NAME="marker-47345"></A>Security Manager</H5>
+<P CLASS="Paragraph"><A NAME="pgfId-35847"></A>Security management in the Java Card platform differs significantly from that of the Java platform. In the Java platform, there is a Security Manager class (<KBD CLASS="Filename-Command">java.lang.SecurityManager</KBD>) responsible for implementing security features. In the Java Card platform, language security policies are implemented by the virtual machine. There is no Security Manager class that makes policy decisions on whether to allow operations.
+</P><H5 CLASS="Head4"><A NAME="pgfId-46595"></A><A NAME="Garbage Collection &amp; Finalization"></A>Finalization<A NAME="marker-47346"></A></H5>
+<P CLASS="Paragraph"><A NAME="pgfId-35850"></A>Finalization is also not supported. <KBD CLASS="Filename-Command">finalize()</KBD> will not be called automatically by the Java Card virtual machine.
+</P><H5 CLASS="Head4"><A NAME="pgfId-38875"></A><A NAME="marker-47347"></A>Threads</H5>
+<P CLASS="Paragraph"><A NAME="pgfId-38876"></A>The Java Card virtual machine does not support multiple threads of control. Programs for the Java Card platform (&quot;Java Card programs&quot;) cannot use class <KBD CLASS="Filename-Command">Thread</KBD> or any of the thread-related keywords in the Java programming language.
+</P><H5 CLASS="Head4"><A NAME="pgfId-35853"></A><A NAME="marker-47348"></A>Cloning</H5>
+<P CLASS="Paragraph"><A NAME="pgfId-35854"></A>The Java Card platform does not support cloning of objects. Java Card API class <KBD CLASS="Filename-Command">Object</KBD> does not implement a <KBD CLASS="Filename-Command">clone</KBD> method, and there is no <KBD CLASS="Filename-Command">Cloneable</KBD> interface provided.
+</P><H5 CLASS="Head4"><A NAME="pgfId-35855"></A><A NAME="Access Control in Java Packages"></A>Access <A NAME="marker-47349"></A>Control in Java Packages</H5>
+<P CLASS="Paragraph"><A NAME="pgfId-35856"></A>The Java Card platform language subset supports the package access control defined in the Java language. However, the cases that are not supported are as follows.
+</P>
+<UL>
+<LI CLASS="Bullet1"><A NAME="pgfId-35857"></A>If a class implements a method with package access visibility, a subclass cannot override the method and change the access visibility of the method to protected or public.
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-46661"></A>A public class cannot contain a public or protected field of type reference to a package-visible class. 
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-46735"></A>A public class cannot contain a public or protected method with a return type of type reference to a package-visible class.
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-43986"></A>A public or protected method in a public class cannot contain a formal parameter of type reference to a package-visible class.
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-43994"></A>A package-visible class that is extended by a public class cannot define any public or protected methods or fields.
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-46447"></A>A package-visible interface that is implemented by a public class cannot define any fields.
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-46640"></A>A package-visible interface cannot be extended by an interface with public access visibility.
+</LI>
+<P CLASS="Linebreak">
+</P>
+</UL><H5 CLASS="Head4"><A NAME="pgfId-51811"></A>Typesafe Enums</H5>
+<P CLASS="Paragraph"><A NAME="pgfId-51727"></A>The Java Card platform language subset does not support the enumerated type facility and the keyword enum. 
+</P><H5 CLASS="Head4"><A NAME="pgfId-52130"></A>Enhanced for Loop</H5>
+<P CLASS="Paragraph"><A NAME="pgfId-52128"></A>The Java Card platform language subset does not support the enhanced for loop language construct. Support for the enhanced for loop construct requires support for array indexing using the integer data type. The Java Card platform only supports array indexing using the short data type.
+</P><H5 CLASS="Head4"><A NAME="pgfId-51728"></A>Varargs</H5>
+<P CLASS="Paragraph"><A NAME="pgfId-51863"></A>The Java Card platform language subset does not support variable-length argument lists. The variable-length argument construct requires the compiler to generate code that creates a new array object each time a variable-length argument array method is invoked, thereby causing implicit memory allocations in Java Card runtime memory heap.
+</P><H5 CLASS="Head4"><A NAME="pgfId-51779"></A>Runtime Visible Metadata (Annotations)</H5>
+<P CLASS="Paragraph"><A NAME="pgfId-51775"></A>The Java Card platform does not support this language feature which lets you introduce meta-data information into the runtime environment to be accessed reflectively. The Java Card platform does not support reflection.
+</P><H5 CLASS="Head4"><A NAME="pgfId-51923"></A>Assertions</H5>
+<P CLASS="Paragraph"><A NAME="pgfId-51924"></A>The Java Card runtime does not provide runtime support for statements in the Java programming language called assertions that are used to test assumptions about program functionality. 
+</P><H4 CLASS="Head3"><A NAME="pgfId-35859"></A>2.2.1.2	<A NAME="marker-47350"></A>Keywords</H4>
+<P CLASS="Paragraph"><A NAME="pgfId-35860"></A>The following keywords indicate unsupported options related to native methods, threads, floating point, memory management, and debugging.
+</P>
+<BR>
+<TABLE CLASS="Titled" BORDER=1 BORDERCOLORLIGHT="#FFFFFF" BORDERCOLORDARK="#000000" CELLPADDING=5 CELLSPACING=0 DIR="LTR"><CAPTION CLASS="TableCaption"><A NAME="pgfId-49057"> </A> TABLE 2-1 	Unsupported Keywords </CAPTION>
+<TBODY>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-39401"></A><KBD CLASS="Filename-Command">native</KBD><A NAME="marker-47357"></A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-39403"></A><KBD CLASS="Filename-Command">synchronized</KBD><A NAME="marker-47358"></A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-39405"></A><KBD CLASS="Filename-Command">transient</KBD><A NAME="marker-47360"></A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-39407"></A><KBD CLASS="Filename-Command">volatile</KBD><A NAME="marker-47361"></A>
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-46471"></A><KBD CLASS="Filename-Command">strictfp</KBD><A NAME="marker-47359"></A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-46473"></A><KBD CLASS="Filename-Command">enum</KBD>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-46475"></A><KBD CLASS="Filename-Command">assert</KBD>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-46477"></A>&nbsp;
+</P>
+</TD>
+</TR>
+</TBODY>
+</TABLE>
+<BR><H4 CLASS="Head3"><A NAME="pgfId-35868"></A>2.2.1.3	Unsupported <A NAME="marker-47351"></A>Types</H4>
+<P CLASS="Paragraph"><A NAME="pgfId-35869"></A>The Java Card platform does not support types <KBD CLASS="Filename-Command">char</KBD><A NAME="marker-47353"></A>, <KBD CLASS="Filename-Command">double</KBD><A NAME="marker-47354"></A>, <KBD CLASS="Filename-Command">float</KBD><A NAME="marker-47355"></A> and <KBD CLASS="Filename-Command">long</KBD><A NAME="marker-47356"></A>. It also does not support arrays of more than one dimension.
+</P><H4 CLASS="Head3"><A NAME="pgfId-35870"></A>2.2.1.4	<A NAME="marker-47352"></A>Classes</H4>
+<P CLASS="Paragraph"><A NAME="pgfId-35871"></A>In general, none of the Java programming language core API classes are supported in the Java Card platform. Some classes from the <KBD CLASS="Filename-Command">java.lang</KBD> package are supported (see <A HREF="JCVM02lang.html#Classes" CLASS="XRef">Section 2.2.2.4, Classes</A>), but none of the rest are. For example, classes that are not supported are <KBD CLASS="Filename-Command">String</KBD>, <KBD CLASS="Filename-Command">Thread</KBD> (and all thread-related classes), wrapper classes such as <KBD CLASS="Filename-Command">Boolean</KBD> and <KBD CLASS="Filename-Command">Integer</KBD>, and class <KBD CLASS="Filename-Command">Class</KBD>.
+</P><H5 CLASS="Head4"><A NAME="pgfId-35875"></A><A NAME="marker-47362"></A>System<A NAME="marker-47363"></A></H5>
+<P CLASS="Paragraph"><A NAME="pgfId-35876"></A>Class <KBD CLASS="Filename-Command">java.lang.System</KBD> is not supported. Java Card technology supplies a class <KBD CLASS="Filename-Command">javacard.framework.JCSystem</KBD>, which provides an interface to system behavior.
+</P><H3 CLASS="Head2"><A NAME="pgfId-35877"></A>2.2.2	Supported Items</H3>
+<P CLASS="Paragraph"><A NAME="pgfId-35878"></A>If a language feature is not explicitly described as unsupported, it is part of the supported subset. Notable supported features are described in this section.
+</P><H4 CLASS="Head3"><A NAME="pgfId-35879"></A>2.2.2.1	Features</H4><H5 CLASS="Head4"><A NAME="pgfId-38898"></A><A NAME="marker-47364"></A>Packages</H5>
+<P CLASS="Paragraph"><A NAME="pgfId-38899"></A>Software written for the Java Card platform follows the standard rules for the Java platform packages. Java Card API classes are written as Java source files, which include package designations. Package mechanisms are used to identify and control access to classes, static fields and static methods. Except as noted in &quot;Access Control in Java Packages&quot; (<A HREF="JCVM02lang.html#23587" CLASS="XRef">Section 2.2.1.1, Unsupported Features</A>), packages in the Java Card platform are used exactly the way they are in the Java platform.
+</P><H5 CLASS="Head4"><A NAME="pgfId-35885"></A><STRONG>Dynamic Object Creation</STRONG><A NAME="marker-47365"></A></H5>
+<P CLASS="Paragraph"><A NAME="pgfId-43416"></A>The Java Card platform programs supports dynamically created objects, both class instances and arrays. This is done, as usual, by using the <KBD CLASS="Filename-Command">new</KBD> operator. Objects are allocated out of the heap.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-43420"></A>A Java Card virtual machine will not necessarily garbage collect objects. Any object allocated by a virtual machine may continue to exist and consume resources even after it becomes unreachable. See <A HREF="JCVM02lang.html#40841" CLASS="XRef">Section 2.2.3.2, Object Deletion Mechanism</A> for more information regarding support for an optional object deletion mechanism.
+</P><H5 CLASS="Head4"><A NAME="pgfId-35891"></A><A NAME="marker-47366"></A>Virtual Methods</H5>
+<P CLASS="Paragraph"><A NAME="pgfId-35892"></A>Since Java Card technology-based objects (&quot;Java Card objects&quot;) are Java programming language objects, invoking virtual methods on objects in a program written for the Java Card platform is exactly the same as in a program written for the Java platform. Inheritance is supported, including the use of the <KBD CLASS="Filename-Command">super</KBD> keyword.
+</P><H5 CLASS="Head4"><A NAME="pgfId-52553"></A>Interfaces</H5>
+<P CLASS="Paragraph"><A NAME="pgfId-38918"></A>Java Card API classes may define or implement interfaces as in the Java programming language. Invoking methods on interface types works as expected. Type checking and the <KBD CLASS="Filename-Command">instanceof</KBD> operator also work correctly with interfaces.
+</P><H5 CLASS="Head4"><A NAME="pgfId-35895"></A><A NAME="marker-47368"></A>Exceptions</H5>
+<P CLASS="Paragraph"><A NAME="pgfId-37107"></A>Java Card programs may define, throw and catch exceptions, as in Java programs. Class <KBD CLASS="Filename-Command">Throwable</KBD> and its relevant subclasses are supported. Some <KBD CLASS="Filename-Command">Exception</KBD> and <KBD CLASS="Filename-Command">Error</KBD> subclasses are omitted, since those exceptions cannot occur in the Java Card platform. See <A HREF="JCVM02lang.html#Exceptions" CLASS="XRef">Section 2.3.3, Exceptions</A> for specification of errors and exceptions.
+</P><H5 CLASS="Head4"><A NAME="pgfId-51748"></A>Generics</H5>
+<P CLASS="Paragraph"><A NAME="pgfId-51789"></A>This Java language facility allows a type or method to operate on objects of various types while providing compile-time type safety. It adds compile-time type safety and eliminates the need for casting. 
+</P><H5 CLASS="Head4"><A NAME="pgfId-51880"></A>Static Import</H5>
+<P CLASS="Paragraph"><A NAME="pgfId-51877"></A>This Java language facility lets you avoid importing an entire class simply to access its static members or qualifying static members with class names each time it is used.
+</P><H5 CLASS="Head4"><A NAME="pgfId-51886"></A>Runtime Invisible Metadata (Annotations)</H5>
+<P CLASS="Paragraph"><A NAME="pgfId-51884"></A>This language feature lets you avoid writing boilerplate code under many circumstances by enabling tools to generate it from annotations in the source code. The Java Card platform language subset supports the use of annotations which are not visible at runtime. These annotations do not themselves use the runtime visible meta-data annotation <KBD CLASS="Filename-Command">@Retention(RetentionPolicy.RUNTIME)</KBD>.
+</P><H4 CLASS="Head3"><A NAME="pgfId-51791"></A>2.2.2.2	<A NAME="marker-51790"></A>Keywords</H4>
+<P CLASS="Paragraph"><A NAME="pgfId-35901"></A>The following keywords are supported. Their use is the same as in the Java programming language.
+</P>
+<BR>
+<TABLE CLASS="Titled" BORDER=1 BORDERCOLORLIGHT="#FFFFFF" BORDERCOLORDARK="#000000" CELLPADDING=5 CELLSPACING=0 DIR="LTR"><CAPTION CLASS="TableCaption"><A NAME="pgfId-49073"> </A> TABLE 2-2 	Supported Keywords </CAPTION>
+<TBODY>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-35904"></A><KBD CLASS="Filename-Command">abstract</KBD><A NAME="marker-47370"></A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-35906"></A><KBD CLASS="Filename-Command">default</KBD><A NAME="marker-47371"></A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-35908"></A><KBD CLASS="Filename-Command">if</KBD><A NAME="marker-47386"></A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-39365"></A><KBD CLASS="Filename-Command">private</KBD><A NAME="marker-47394"></A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-39385"></A><KBD CLASS="Filename-Command">this</KBD><A NAME="marker-47402"></A>
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-35914"></A><KBD CLASS="Filename-Command">boolean</KBD><A NAME="marker-47372"></A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-35916"></A><KBD CLASS="Filename-Command">do</KBD><A NAME="marker-47373"></A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-35918"></A><KBD CLASS="Filename-Command">implements</KBD><A NAME="marker-47387"></A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-39367"></A><KBD CLASS="Filename-Command">protected</KBD><A NAME="marker-47395"></A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-39387"></A><KBD CLASS="Filename-Command">throw</KBD><A NAME="marker-47403"></A>
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-35924"></A><KBD CLASS="Filename-Command">break</KBD><A NAME="marker-47374"></A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-35926"></A><KBD CLASS="Filename-Command">else</KBD><A NAME="marker-47380"></A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-35928"></A><KBD CLASS="Filename-Command">import</KBD><A NAME="marker-47388"></A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-39369"></A><KBD CLASS="Filename-Command">public</KBD><A NAME="marker-47396"></A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-39389"></A><KBD CLASS="Filename-Command">throws</KBD><A NAME="marker-47404"></A>
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-35934"></A><KBD CLASS="Filename-Command">byte</KBD><A NAME="marker-47375"></A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-35936"></A><KBD CLASS="Filename-Command">extends</KBD><A NAME="marker-47381"></A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-35938"></A><KBD CLASS="Filename-Command">instanceof</KBD><A NAME="marker-47389"></A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-39371"></A><KBD CLASS="Filename-Command">return</KBD><A NAME="marker-47397"></A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-39391"></A><KBD CLASS="Filename-Command">try</KBD><A NAME="marker-47405"></A>
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-35944"></A><KBD CLASS="Filename-Command">case</KBD><A NAME="marker-47376"></A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-35946"></A><KBD CLASS="Filename-Command">final</KBD><A NAME="marker-47382"></A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-35948"></A><KBD CLASS="Filename-Command">int</KBD><A NAME="marker-47390"></A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-39373"></A><KBD CLASS="Filename-Command">short</KBD><A NAME="marker-47398"></A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-39393"></A><KBD CLASS="Filename-Command">void</KBD><A NAME="marker-47406"></A>
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-35954"></A><KBD CLASS="Filename-Command">catch</KBD><A NAME="marker-47377"></A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-35956"></A><KBD CLASS="Filename-Command">finally</KBD><A NAME="marker-47383"></A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-35958"></A><KBD CLASS="Filename-Command">interface</KBD><A NAME="marker-47391"></A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-39375"></A><KBD CLASS="Filename-Command">static</KBD><A NAME="marker-47399"></A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-39395"></A><KBD CLASS="Filename-Command">while</KBD><A NAME="marker-47407"></A>
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-35964"></A><KBD CLASS="Filename-Command">class</KBD><A NAME="marker-47378"></A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-35966"></A><KBD CLASS="Filename-Command">for</KBD><A NAME="marker-47384"></A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-35968"></A><KBD CLASS="Filename-Command">new</KBD><A NAME="marker-47392"></A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-39377"></A><KBD CLASS="Filename-Command">super</KBD><A NAME="marker-47400"></A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-35972"></A>&nbsp;
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-35974"></A><KBD CLASS="Filename-Command">continue</KBD><A NAME="marker-47379"></A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-35976"></A><KBD CLASS="Filename-Command">goto</KBD><A NAME="marker-47385"></A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-35978"></A><KBD CLASS="Filename-Command">package</KBD><A NAME="marker-47393"></A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-35980"></A><KBD CLASS="Filename-Command">switch</KBD><A NAME="marker-47401"></A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-35982"></A>&nbsp;
+</P>
+</TD>
+</TR>
+</TBODY>
+</TABLE>
+<BR><H4 CLASS="Head3"><A NAME="pgfId-35983"></A>2.2.2.3	<A NAME="marker-47408"></A>Types</H4>
+<P CLASS="Paragraph"><A NAME="pgfId-35984"></A>Java programming language types <KBD CLASS="Filename-Command">boolean</KBD>, <KBD CLASS="Filename-Command">byte</KBD>, <KBD CLASS="Filename-Command">short</KBD>, and <KBD CLASS="Filename-Command">int</KBD> are supported.<A NAME="marker-47409"></A> Objects (class instances and single-dimensional arrays) are also supported. <A NAME="marker-47410"></A>Arrays can contain the supported primitive data types, objects, and other arrays.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-35985"></A>Some Java Card implementations might not support use of the <KBD CLASS="Filename-Command">int</KBD> data type. (Refer to <A HREF="JCVM02lang.html#40889" CLASS="XRef">Section 2.2.3.1, Integer Data Type</A>).
+</P><H4 CLASS="Head3"><A NAME="pgfId-35990"></A>2.2.2.4	<A NAME="Classes"></A>Classes<A NAME="marker-47411"></A></H4>
+<P CLASS="Paragraph"><A NAME="pgfId-35991"></A>Most of the classes in the <KBD CLASS="Filename-Command">java.lang</KBD> package are not supported on the Java Card platform. The following classes from <KBD CLASS="Filename-Command">java.lang</KBD> are supported on the card in a limited form.
+</P><H5 CLASS="Head4"><A NAME="pgfId-35992"></A><A NAME="marker-47412"></A>Object</H5>
+<P CLASS="Paragraph"><A NAME="pgfId-35993"></A>Java Card API classes descend from <KBD CLASS="Filename-Command">java.lang.Object</KBD>, just as in the Java programming language. Most of the methods of <KBD CLASS="Filename-Command">Object</KBD> are not available in the Java Card API, but the class itself exists to provide a root for the class hierarchy.
+</P><H5 CLASS="Head4"><A NAME="pgfId-35994"></A><A NAME="marker-47413"></A>Throwable</H5>
+<P CLASS="Paragraph"><A NAME="pgfId-35995"></A>Class <KBD CLASS="Filename-Command">Throwable</KBD> and its subclasses are supported. Most of the methods of <KBD CLASS="Filename-Command">Throwable</KBD> are not available in the Java Card API, but the class itself exists to provide a common ancestor for all exceptions.
+</P><H3 CLASS="Head2"><A NAME="pgfId-35996"></A>2.2.3	Optionally Supported Items</H3>
+<P CLASS="Paragraph"><A NAME="pgfId-35997"></A>This section describes the optional features of the Java Card platform. An optional feature is not required to be supported in a Java Card platform-compatible implementation. However, if an implementation does include support for an optional feature, it must be supported fully, and exactly as specified in this document.
+</P><H4 CLASS="Head3"><A NAME="pgfId-36000"></A>2.2.3.1	<A NAME="40889"></A>Integer <A NAME="marker-47414"></A>Data Type</H4>
+<P CLASS="Paragraph"><A NAME="pgfId-36001"></A>The <KBD CLASS="Filename-Command">int</KBD> keyword and 32-bit integer data type need not be supported in a Java Card implementation. A Java Card virtual machine that does not support the <KBD CLASS="Filename-Command">int</KBD> data type will reject programs which use the <KBD CLASS="Filename-Command">int</KBD> data type or 32-bit intermediate values.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-43900"></A>The result of an arithmetic expression produced by a Java Card virtual machine must be equal to the result produced by a Java virtual machine, regardless of the input values. A Java Card virtual machine that does not support the <KBD CLASS="Filename-Command">int</KBD> data type must reject expressions that could produce a different result.
+</P><H4 CLASS="Head3"><A NAME="pgfId-46606"></A>2.2.3.2	<A NAME="40841"></A>Object Deletion <A NAME="marker-47415"></A>Mechanism</H4>
+<P CLASS="Paragraph"><A NAME="pgfId-46611"></A>Java Card technology, version 2.2.2 offers an optional, object deletion mechanism. Applications designed to run on these implementations can use the facility by invoking the appropriate API. See <I CLASS="Title"></I><EM CLASS="Emphasis">Application Programming Interface, Java Card Platform, Version 2.2.2</EM><I CLASS="Title"></I>. But, the facility is best suited for updating large objects such as certificates and keys atomically. Therefore, application programmers should conserve on the allocation of objects.
+</P><H3 CLASS="Head2"><A NAME="pgfId-36002"></A>2.2.4	Limitations of the<A NAME="marker-47416"></A> Java Card Virtual Machine</H3>
+<P CLASS="Paragraph"><A NAME="pgfId-36003"></A>The limitations of resource-constrained hardware prevent Java Card virtual machines from supporting the full range of functionality of certain Java platform features. The features in question are supported, but a particular virtual machine may limit the range of operation to less than that of the Java platform.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-36004"></A>To ensure a level of portability for application code, this section establishes a minimum required level for partial support of these language features.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-39102"></A>The limitations here are listed as maximums from the application programmer's perspective. Java packages that do not violate these maximum values can be converted into Java Card technology-based <KBD CLASS="Filename-Command">CAP</KBD> files (&quot;Java Card <KBD CLASS="Filename-Command">CAP</KBD> files&quot;), and will be portable across all Java Card implementations. From the Java Card virtual machine implementer's perspective, each maximum listed indicates a minimum level of support that will allow portability of applets. 
+</P><H4 CLASS="Head3"><A NAME="pgfId-39103"></A>2.2.4.1	Packages</H4><H5 CLASS="Head4"><A NAME="pgfId-46449"></A><A NAME="marker-47417"></A>Package References</H5>
+<P CLASS="Paragraph"><A NAME="pgfId-46450"></A>A package can reference at most 128 other packages.
+</P><H5 CLASS="Head4"><A NAME="pgfId-46902"></A><A NAME="marker-47418"></A>Package Name</H5>
+<P CLASS="Paragraph"><A NAME="pgfId-46903"></A>The fully qualified name of a package may contain a maximum of 255 characters. The package name size is further limited if it contains one or more characters which, when represented in UTF-8 format, requires multiple bytes.
+</P><H4 CLASS="Head3"><A NAME="pgfId-46448"></A>2.2.4.2	Classes</H4><H5 CLASS="Head4"><A NAME="pgfId-39139"></A><A NAME="marker-47419"></A>Classes in a Package</H5>
+<P CLASS="Paragraph"><A NAME="pgfId-38949"></A>A package can contain at most 255 classes and interfaces.
+</P><H5 CLASS="Head4"><A NAME="pgfId-39194"></A><A NAME="marker-47420"></A>Interfaces</H5>
+<P CLASS="Paragraph"><A NAME="pgfId-39195"></A>A class can implement at most 15 interfaces, including interfaces implemented by superclasses.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-39435"></A>An interface can inherit from at most 14 superinterfaces.
+</P><H5 CLASS="Head4"><A NAME="pgfId-39129"></A><A NAME="marker-47421"></A>Static Fields</H5>
+<P CLASS="Paragraph"><A NAME="pgfId-39126"></A>A class in an applet package can have at most 256 public or protected static non-final fields. A class in a library package can have at most 255 public or protected static non-final fields. There is no limit on the number of static final fields (constants) declared in a class.
+</P><H5 CLASS="Head4"><A NAME="pgfId-39135"></A><A NAME="marker-47422"></A>Static Methods</H5>
+<P CLASS="Paragraph"><A NAME="pgfId-39127"></A>A class in an applet package can have at most 256 public or protected static methods. A class in a library package can have at most 255 public or protected static methods.
+</P><H4 CLASS="Head3"><A NAME="pgfId-38944"></A>2.2.4.3	<A NAME="marker-47423"></A>Objects</H4><H5 CLASS="Head4"><A NAME="pgfId-36007"></A><A NAME="marker-47424"></A>Methods</H5>
+<P CLASS="Paragraph"><A NAME="pgfId-39113"></A>A class can implement a maximum of 128 public or protected instance methods, and a maximum of 128 instance methods with package visibility. These limits include inherited methods.
+</P><H5 CLASS="Head4"><A NAME="pgfId-39115"></A><A NAME="marker-47425"></A>Class Instances</H5>
+<P CLASS="Paragraph"><A NAME="pgfId-39116"></A>Class instances can contain a maximum of 255 fields, where an int data type is counted as occupying two fields. These limits include inherited fields.
+</P><H5 CLASS="Head4"><A NAME="pgfId-36011"></A><A NAME="marker-47426"></A>Arrays</H5>
+<P CLASS="Paragraph"><A NAME="pgfId-36012"></A>Arrays can hold a maximum of 32767 components.
+</P><H4 CLASS="Head3"><A NAME="pgfId-36013"></A>2.2.4.4	<A NAME="83511"></A>Methods<A NAME="marker-47427"></A></H4>
+<P CLASS="Paragraph"><A NAME="pgfId-39152"></A>The maximum number of variables that can be used in a method is 255. This limit includes local variables, method parameters, and, in the case of an instance method invocation, a reference to the object on which the instance method is being invoked (meaning, <KBD CLASS="Filename-Command">this</KBD>). An <KBD CLASS="Filename-Command">int</KBD> data type is counted as occupying two local variables.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-39179"></A>A method can have at most 32767 Java Card virtual machine bytecodes. The number of Java Card technology-based bytecodes (&quot;Java Card bytecodes&quot;) may differ from the number of Java bytecodes in the Java virtual machine implementation of that method.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-46936"></A>The maximum depth of an operand stack associated with a method is 255 16-bit cells.
+</P><H4 CLASS="Head3"><A NAME="pgfId-39154"></A>2.2.4.5	<A NAME="marker-47428"></A>Switch Statements</H4>
+<P CLASS="Paragraph"><A NAME="pgfId-36016"></A>The format of the Java Card virtual machine switch instructions limits switch statements to a maximum of 65536 cases. This limit is far greater than the limit imposed by the maximum size of methods (<A HREF="JCVM02lang.html#83511" CLASS="XRef">Section 2.2.4.4, Methods</A>).
+</P><H4 CLASS="Head3"><A NAME="pgfId-36017"></A>2.2.4.6	<A NAME="57798"></A>Class <A NAME="marker-47429"></A>Initialization</H4>
+<P CLASS="Paragraph"><A NAME="pgfId-36018"></A>The Java Card virtual machine contains limited support for class initialization because there is no general mechanism for executing <KBD CLASS="Filename-Command">&lt;clinit&gt;</KBD> methods. Support for <KBD CLASS="Filename-Command">&lt;clinit&gt;</KBD> methods is limited to the initialization of static field values with the following constraints: 
+</P>
+<UL>
+<LI CLASS="Bullet1"><A NAME="pgfId-46985"></A>Static fields of applet packages may only be initialized to primitive compile-time constant values, or arrays of primitive compile-time constants. 
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-46986"></A>Static fields of user libraries may only be initialized to primitive compile-time constant values. 
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-47174"></A>Only static fields declared in the current class may be initialized in the <KBD CLASS="Filename-Command">&lt;clinit&gt;</KBD> method.
+</LI>
+<P CLASS="Linebreak">
+</P>
+</UL>
+<P CLASS="Paragraph"><A NAME="pgfId-46987"></A>Primitive constant data types include <KBD CLASS="Filename-Command">boolean</KBD>, <KBD CLASS="Filename-Command">byte</KBD>, <KBD CLASS="Filename-Command">short</KBD>, and <KBD CLASS="Filename-Command">int</KBD>.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-43955"></A>Given Java technology source files that adhere to these language-level constraints on static field initialization, it is expected that reasonable Java compilers will:
+</P>
+<UL>
+<LI CLASS="Bullet1"><A NAME="pgfId-46703"></A>Inline constants in the bytecodes that reference static final primitive fields that are initialized in the declaration statement.
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-46705"></A>Produce only the following bytecodes:
+</LI>
+<P CLASS="Linebreak">
+</P>
+<UL>
+<LI CLASS="Bullet2"><A NAME="pgfId-43956"></A>load a value on the stack: <KBD CLASS="Filename-Command">iconst_[m1,0-5]</KBD>, <KBD CLASS="Filename-Command">[b|s]ipush, ldc, ldc_w, aconst_null</KBD>
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet2"><A NAME="pgfId-43957"></A>create an array: <KBD CLASS="Filename-Command">newarray([byte|short|boolean|int]</KBD> )
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet2"><A NAME="pgfId-43958"></A>duplicate items on the stack: <KBD CLASS="Filename-Command">dup</KBD>
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet2"><A NAME="pgfId-44057"></A>store values in arrays or static fields: <KBD CLASS="Filename-Command">[b|i|s]astore, putstatic</KBD>
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet2"><A NAME="pgfId-44065"></A>return from method: <KBD CLASS="Filename-Command">return</KBD>
+</LI>
+<P CLASS="Linebreak">
+</P>
+</UL>
+</UL><H3 CLASS="Head2"><A NAME="pgfId-44202"></A>2.2.5	<A NAME="marker-47430"></A>Multiselectable Applets Restrictions</H3>
+<P CLASS="Paragraph"><A NAME="pgfId-44210"></A>Applets that implement the <KBD CLASS="Filename-Command">javacard.framework.Multiselectable</KBD> interface are called multiselectable applets. For more details on multiselection, please see the <I CLASS="Title"></I><EM CLASS="Emphasis">Runtime Environment Specification, Java Card Platform, Version 2.2.2</EM><I CLASS="Title"></I>.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-44220"></A>All applets within a package shall be multiselectable, or none shall be.
+</P><H3 CLASS="Head2"><A NAME="pgfId-44232"></A>2.2.6	<A NAME="marker-47431"></A>Java Card Platform Remote Method Invocation<A NAME="marker-47432"></A> (<A NAME="marker-47433"></A>RMI) Restrictions</H3>
+<P CLASS="Paragraph"><A NAME="pgfId-44233"></A>This section defines the subset of the RMI system that is supported by Java Card platform RMI (&quot;Java Card RMI&quot;). 
+</P><H4 CLASS="Head3"><A NAME="pgfId-44234"></A>2.2.6.1	<A NAME="18736"></A>Remote <A NAME="marker-47434"></A>Classes and Remote Interfaces</H4>
+<P CLASS="Paragraph"><A NAME="pgfId-46393"></A>A class is remote if it or any of its superclasses implements a remote interface. 
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-46489"></A>A remote interface is an interface which satisfies the following requirements:
+</P>
+<UL>
+<LI CLASS="Bullet1"><A NAME="pgfId-46490"></A>The interface name is <KBD CLASS="Filename-Command">java.rmi.Remote</KBD> or the interface extends, directly or indirectly, the interface <KBD CLASS="Filename-Command">java.rmi.Remote</KBD>. 
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-46493"></A>Each method declaration in the remote interface or its super-interfaces includes the exception <KBD CLASS="Filename-Command">java.rmi.RemoteException</KBD> (or one of its superclasses) in its <KBD CLASS="Filename-Command">throws</KBD> clause.
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-46539"></A>In a remote method declaration, if a remote object is declared as a return type, it is declared as the remote interface, not the implementation class of that interface.
+</LI>
+<P CLASS="Linebreak">
+</P>
+</UL>
+<P CLASS="Paragraph"><A NAME="pgfId-46394"></A>In addition, Java Card RMI imposes additional constraints on the definition of remote methods. These constraints are as a result of the Java Card platform language subset and other feature limitations. For more information, see <A HREF="JCVM02lang.html#26167" CLASS="XRef">Section 2.2.6.2, Access Control of Remote Interfaces</A> and <A HREF="JCVM02lang.html#91413" CLASS="XRef">Section 2.2.6.3, Parameters and Return Values</A>.
+</P><H4 CLASS="Head3"><A NAME="pgfId-44265"></A>2.2.6.2	<A NAME="marker-47435"></A><A NAME="26167"></A>Access Control of Remote Interfaces</H4>
+<P CLASS="Paragraph"><A NAME="pgfId-44275"></A>The Java RMI system supports the package access control defined in the Java language. However, Java Card RMI does not support package-visible remote interfaces.
+</P><H4 CLASS="Head3"><A NAME="pgfId-44237"></A>2.2.6.3	<A NAME="marker-47436"></A><A NAME="91413"></A>Parameters and Return Values</H4>
+<P CLASS="Paragraph"><A NAME="pgfId-44238"></A>The parameters of a remote method must only include parameters of the following types:
+</P>
+<UL>
+<LI CLASS="Bullet1"><A NAME="pgfId-44239"></A>any primitive type supported by Java Card technology (<KBD CLASS="Filename-Command">boolean,</KBD> <KBD CLASS="Filename-Command">byte,</KBD> <KBD CLASS="Filename-Command">short, int</KBD>),
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-44240"></A>any single-dimension array type of an primitive type supported by Java Card technology (<KBD CLASS="Filename-Command">boolean[],</KBD> <KBD CLASS="Filename-Command">byte[],</KBD> <KBD CLASS="Filename-Command">short[],</KBD> <KBD CLASS="Filename-Command">int[]</KBD>).
+</LI>
+<P CLASS="Linebreak">
+</P>
+</UL>
+<P CLASS="Paragraph"><A NAME="pgfId-44241"></A>The return type of a remote method must only be one of the following types:
+</P>
+<UL>
+<LI CLASS="Bullet1"><A NAME="pgfId-44242"></A>any primitive type supported by Java Card technology (<KBD CLASS="Filename-Command">boolean,</KBD> <KBD CLASS="Filename-Command">byte,</KBD> <KBD CLASS="Filename-Command">short,</KBD> <KBD CLASS="Filename-Command">int</KBD>),
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-44243"></A>any single-dimension array type of an primitive type supported by Java Card technology (<KBD CLASS="Filename-Command">boolean[],</KBD> <KBD CLASS="Filename-Command">byte[],</KBD> <KBD CLASS="Filename-Command">short[],</KBD> <KBD CLASS="Filename-Command">int[]</KBD>),
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-44244"></A>any remote interface type
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-46420"></A>type <KBD CLASS="Filename-Command">void</KBD>
+</LI>
+<P CLASS="Linebreak">
+</P>
+</UL><H2 CLASS="Head1"><A NAME="pgfId-36019"></A>
+<DIV>
+<HR ALIGN=left SIZE=6 WIDTH=15% noshade>
+</DIV>2.3	<A NAME="marker-47437"></A>Java Card VM Subset</H2>
+<P CLASS="Paragraph"><A NAME="pgfId-36020"></A>Java Card technology uses a subset of the Java virtual machine, and familiarity with the Java platform is required to understand the Java Card virtual machine. 
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-36021"></A>The items discussed in this section are not described to the level of a virtual machine specification. For complete documentation on the Java virtual machine, refer to the <I CLASS="Title">The Java Virtual Machine Specification</I>.
+</P><H3 CLASS="Head2"><A NAME="pgfId-36023"></A>2.3.1	<A NAME="marker-47438"></A>class File Subset</H3>
+<P CLASS="Paragraph"><A NAME="pgfId-36024"></A>The operation of the Java Card virtual machine can be defined in terms of standard Java platform class files. Since the Java Card virtual machine supports only a subset of the behavior of the Java virtual machine, it also supports only a subset of the standard class file format.
+</P><H4 CLASS="Head3"><A NAME="pgfId-36025"></A>2.3.1.1	Not Supported in Class Files</H4><H5 CLASS="Head4"><A NAME="pgfId-51948"></A><A NAME="marker-51947"></A>Class access flags</H5><H5 CLASS="Head4"><A NAME="pgfId-36026"></A>In <KBD CLASS="Filename-Command">class_info</KBD> and <KBD CLASS="Filename-Command">interface_info</KBD> structures, the access flag <KBD CLASS="Filename-Command">ACC_ENUM</KBD> is not supported.</H5><H5 CLASS="Head4"><A NAME="pgfId-51945"></A><A NAME="marker-47439"></A>Field Descriptors</H5>
+<P CLASS="Paragraph"><A NAME="pgfId-36027"></A>Field descriptors may not contain <KBD CLASS="Filename-Command">BaseType</KBD> characters <KBD CLASS="Filename-Command">C</KBD>, <KBD CLASS="Filename-Command">D</KBD>, <KBD CLASS="Filename-Command">F</KBD> or <KBD CLASS="Filename-Command">J</KBD>. <KBD CLASS="Filename-Command">ArrayType</KBD> descriptors for arrays of more than one dimension may not be used.
+</P><H5 CLASS="Head4"><A NAME="pgfId-36028"></A><A NAME="marker-47440"></A>Constant Pool</H5>
+<P CLASS="Paragraph"><A NAME="pgfId-49127"></A>Constant pool table entries with the following <KBD CLASS="Filename-Command">tag</KBD> values are not supported.
+</P>
+<BR>
+<TABLE CLASS="Titled" BORDER=1 BORDERCOLORLIGHT="#FFFFFF" BORDERCOLORDARK="#000000" CELLPADDING=5 CELLSPACING=0 DIR="LTR"><CAPTION CLASS="TableCaption"><A NAME="pgfId-49104"> </A> TABLE 2-3 	Unsupported Java Constant Pool Tags </CAPTION>
+<THEAD>
+<TR>
+<TH SCOPE="COL" ROWSPAN="1" COLSPAN="1" BGCOLOR="#CCCCCC">
+<P CLASS="TableHead"><A NAME="pgfId-49108"></A>Constant Type
+</P>
+</TH>
+<TH SCOPE="COL" ROWSPAN="1" COLSPAN="1" BGCOLOR="#CCCCCC">
+<P CLASS="TableHead"><A NAME="pgfId-49110"></A>Value
+</P>
+</TH>
+</TR>
+</THEAD>
+<TBODY>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableTextCode"><A NAME="pgfId-49112"></A><KBD CLASS="Filename-Command">CONSTANT_String</KBD>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableTextCode"><A NAME="pgfId-49114"></A><KBD CLASS="Filename-Command">8</KBD>
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableTextCode"><A NAME="pgfId-49116"></A><KBD CLASS="Filename-Command">CONSTANT_Float</KBD>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableTextCode"><A NAME="pgfId-49118"></A><KBD CLASS="Filename-Command">4</KBD>
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableTextCode"><A NAME="pgfId-49120"></A><KBD CLASS="Filename-Command">CONSTANT_Long</KBD>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableTextCode"><A NAME="pgfId-49122"></A><KBD CLASS="Filename-Command">5</KBD>
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableTextCode"><A NAME="pgfId-49124"></A><KBD CLASS="Filename-Command">CONSTANT_Double</KBD>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableTextCode"><A NAME="pgfId-49126"></A><KBD CLASS="Filename-Command">6</KBD>
+</P>
+</TD>
+</TR>
+</TBODY>
+</TABLE>
+<BR><H5 CLASS="Head4"><A NAME="pgfId-49130"></A><A NAME="marker-49129"></A>Fields</H5>
+<P CLASS="Paragraph"><A NAME="pgfId-36054"></A>In <KBD CLASS="Filename-Command">field_info</KBD> structures, the access flags <KBD CLASS="Filename-Command">ACC_VOLATILE</KBD>, <KBD CLASS="Filename-Command">ACC_TRANSIENT</KBD> and <KBD CLASS="Filename-Command">ACC_ENUM</KBD> are not supported.
+</P><H5 CLASS="Head4"><A NAME="pgfId-36055"></A><A NAME="marker-47442"></A>Methods</H5>
+<P CLASS="Paragraph"><A NAME="pgfId-36056"></A>In <KBD CLASS="Filename-Command">method_info</KBD> structures, the access flags <KBD CLASS="Filename-Command">ACC_SYNCHRONIZED</KBD>, <KBD CLASS="Filename-Command">ACC_STRICT</KBD>, <KBD CLASS="Filename-Command">ACC_NATIVE</KBD>, and <KBD CLASS="Filename-Command">ACC_VARARGS</KBD> are not supported.
+</P><H4 CLASS="Head3"><A NAME="pgfId-36057"></A>2.3.1.2	Supported in Class Files</H4><H5 CLASS="Head4"><A NAME="pgfId-36058"></A><A NAME="marker-47443"></A>ClassFile</H5>
+<P CLASS="Paragraph"><A NAME="pgfId-36059"></A>All items in the <KBD CLASS="Filename-Command">ClassFile</KBD> structure are supported.
+</P><H5 CLASS="Head4"><A NAME="pgfId-36060"></A><A NAME="marker-47444"></A>Field Descriptors</H5>
+<P CLASS="Paragraph"><A NAME="pgfId-36061"></A>Field descriptors may contain BaseType characters <KBD CLASS="Filename-Command">B</KBD>, <KBD CLASS="Filename-Command">I</KBD>, <KBD CLASS="Filename-Command">S</KBD> and <KBD CLASS="Filename-Command">Z</KBD>, as well as any <KBD CLASS="Filename-Command">ObjectType</KBD>. <KBD CLASS="Filename-Command">ArrayType</KBD> descriptors for arrays of a single dimension may also be used.
+</P><H5 CLASS="Head4"><A NAME="pgfId-36062"></A><A NAME="marker-47445"></A>Method Descriptors</H5>
+<P CLASS="Paragraph"><A NAME="pgfId-36063"></A>All forms of method descriptors are supported.
+</P><H5 CLASS="Head4"><A NAME="pgfId-36064"></A><A NAME="marker-47446"></A>Constant pool </H5>
+<P CLASS="Paragraph"><A NAME="pgfId-36065"></A>Constant pool table entry with the following tag values are supported.
+</P>
+<BR>
+<TABLE CLASS="Titled" BORDER=1 BORDERCOLORLIGHT="#FFFFFF" BORDERCOLORDARK="#000000" CELLPADDING=5 CELLSPACING=0 DIR="LTR"><CAPTION CLASS="TableCaption"><A NAME="pgfId-49140"> </A> TABLE 2-4 	Supported Java Constant Pool Tags </CAPTION>
+<THEAD>
+<TR>
+<TH SCOPE="COL" ROWSPAN="1" COLSPAN="1" BGCOLOR="#CCCCCC">
+<P CLASS="TableHead"><A NAME="pgfId-43570"></A>Constant Type
+</P>
+</TH>
+<TH SCOPE="COL" ROWSPAN="1" COLSPAN="1" BGCOLOR="#CCCCCC">
+<P CLASS="TableHead"><A NAME="pgfId-43572"></A>Value
+</P>
+</TH>
+</TR>
+</THEAD>
+<TBODY>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableTextCode"><A NAME="pgfId-43574"></A><KBD CLASS="Filename-Command">CONSTANT_Class</KBD>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableTextCode"><A NAME="pgfId-43576"></A><KBD CLASS="Filename-Command">7</KBD>
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableTextCode"><A NAME="pgfId-43578"></A><KBD CLASS="Filename-Command">CONSTANT_Fieldref</KBD>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableTextCode"><A NAME="pgfId-43580"></A><KBD CLASS="Filename-Command">9</KBD>
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableTextCode"><A NAME="pgfId-43582"></A><KBD CLASS="Filename-Command">CONSTANT_Methodref</KBD>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableTextCode"><A NAME="pgfId-43584"></A><KBD CLASS="Filename-Command">10</KBD>
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableTextCode"><A NAME="pgfId-43586"></A><KBD CLASS="Filename-Command">CONSTANT_InterfaceMethodref</KBD>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableTextCode"><A NAME="pgfId-43588"></A><KBD CLASS="Filename-Command">11</KBD>
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableTextCode"><A NAME="pgfId-43590"></A><KBD CLASS="Filename-Command">CONSTANT_Integer</KBD>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableTextCode"><A NAME="pgfId-43592"></A><KBD CLASS="Filename-Command">3</KBD>
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableTextCode"><A NAME="pgfId-43594"></A><KBD CLASS="Filename-Command">CONSTANT_NameAndType</KBD>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableTextCode"><A NAME="pgfId-43596"></A><KBD CLASS="Filename-Command">12</KBD>
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableTextCode"><A NAME="pgfId-43598"></A><KBD CLASS="Filename-Command">CONSTANT_Utf8</KBD>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableTextCode"><A NAME="pgfId-43600"></A><KBD CLASS="Filename-Command">1</KBD>
+</P>
+</TD>
+</TR>
+</TBODY>
+</TABLE>
+<BR><H5 CLASS="Head4"><A NAME="pgfId-36101"></A><A NAME="marker-47447"></A>Fields</H5>
+<P CLASS="Paragraph"><A NAME="pgfId-36102"></A>In <KBD CLASS="Filename-Command">field_info</KBD> structures, the supported access flags are <KBD CLASS="Filename-Command">ACC_PUBLIC</KBD>, <KBD CLASS="Filename-Command">ACC_PRIVATE</KBD>, <KBD CLASS="Filename-Command">ACC_PROTECTED</KBD>, <KBD CLASS="Filename-Command">ACC_STATIC</KBD> and <KBD CLASS="Filename-Command">ACC_FINAL</KBD>.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-36103"></A>The remaining components of <KBD CLASS="Filename-Command">field_info</KBD> structures are fully supported.
+</P><H5 CLASS="Head4"><A NAME="pgfId-36104"></A><A NAME="marker-47448"></A>Methods</H5>
+<P CLASS="Paragraph"><A NAME="pgfId-36105"></A>In <KBD CLASS="Filename-Command">method_info</KBD> structures, the supported access flags are <KBD CLASS="Filename-Command">ACC_PUBLIC</KBD>, <KBD CLASS="Filename-Command">ACC_PRIVATE</KBD>, <KBD CLASS="Filename-Command">ACC_PROTECTED</KBD>, <KBD CLASS="Filename-Command">ACC_STATIC</KBD>, <KBD CLASS="Filename-Command">ACC_FINAL</KBD> and <KBD CLASS="Filename-Command">ACC_ABSTRACT</KBD>.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-36106"></A>The remaining components of <KBD CLASS="Filename-Command">method_info</KBD> structures are fully supported.
+</P><H5 CLASS="Head4"><A NAME="pgfId-36107"></A><A NAME="marker-47449"></A>Attributes</H5>
+<P CLASS="Paragraph"><A NAME="pgfId-36108"></A>The <KBD CLASS="Filename-Command">attribute_info</KBD> structure is supported. The <KBD CLASS="Filename-Command">Code</KBD>, <KBD CLASS="Filename-Command">ConstantValue</KBD>, <KBD CLASS="Filename-Command">Exceptions</KBD>, <KBD CLASS="Filename-Command">LocalVariableTable</KBD>, <KBD CLASS="Filename-Command">Synthetic</KBD>, <KBD CLASS="Filename-Command">InnerClasses</KBD>, <KBD CLASS="Filename-Command">RuntimeInvisibleAnnotations</KBD>, <KBD CLASS="Filename-Command">RuntimeInvisibleParameterAnnotations</KBD> and <KBD CLASS="Filename-Command">Deprecated</KBD> attributes are supported.
+</P><H3 CLASS="Head2"><A NAME="pgfId-36109"></A>2.3.2	<A NAME="marker-47450"></A>Bytecode Subset</H3>
+<P CLASS="Paragraph"><A NAME="pgfId-36110"></A>The following sections detail the bytecodes that are either supported or unsupported in the Java Card platform. For more details, refer to <A HREF="JCVM07instr.html#83338" CLASS="XRef">Chapter 7</A>, &quot;Java Card Virtual Machine Instruction Set&quot;.
+</P><H4 CLASS="Head3"><A NAME="pgfId-36264"></A>2.3.2.1	Unsupported Bytecodes</H4>
+<BR>
+<TABLE CLASS="Titled" BORDER=1 BORDERCOLORLIGHT="#FFFFFF" BORDERCOLORDARK="#000000" CELLPADDING=5 CELLSPACING=0 DIR="LTR"><CAPTION CLASS="TableCaption"><A NAME="pgfId-49153"> </A> TABLE 2-5 	Unsupported Bytecodes </CAPTION>
+<TBODY>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36113"></A><KBD CLASS="Filename-Command">lconst_&lt;l&gt;</KBD>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36115"></A><KBD CLASS="Filename-Command">fconst_&lt;f&gt;</KBD>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36117"></A><KBD CLASS="Filename-Command">dconst_&lt;d&gt;</KBD>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36119"></A><KBD CLASS="Filename-Command">ldc2_w2</KBD>
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36121"></A><KBD CLASS="Filename-Command">lload</KBD>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36123"></A><KBD CLASS="Filename-Command">fload</KBD>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36125"></A><KBD CLASS="Filename-Command">dload</KBD>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36127"></A><KBD CLASS="Filename-Command">lload_&lt;n&gt;</KBD>
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36129"></A><KBD CLASS="Filename-Command">fload_&lt;n&gt;</KBD>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36131"></A><KBD CLASS="Filename-Command">dload_&lt;n&gt;</KBD>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36133"></A><KBD CLASS="Filename-Command">laload</KBD>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36135"></A><KBD CLASS="Filename-Command">faload</KBD>
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36137"></A><KBD CLASS="Filename-Command">daload</KBD>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36139"></A><KBD CLASS="Filename-Command">caload</KBD>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36141"></A><KBD CLASS="Filename-Command">lstore</KBD>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36143"></A><KBD CLASS="Filename-Command">fstore</KBD>
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36145"></A><KBD CLASS="Filename-Command">dstore</KBD>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36147"></A><KBD CLASS="Filename-Command">lstore_&lt;n&gt;</KBD>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36149"></A><KBD CLASS="Filename-Command">fstore_&lt;n&gt;</KBD>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36151"></A><KBD CLASS="Filename-Command">dstore_&lt;n&gt;</KBD>
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36153"></A><KBD CLASS="Filename-Command">lastore</KBD>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36155"></A><KBD CLASS="Filename-Command">fastore</KBD>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36157"></A><KBD CLASS="Filename-Command">dastore</KBD>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36159"></A><KBD CLASS="Filename-Command">castore</KBD>
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36161"></A><KBD CLASS="Filename-Command">ladd</KBD>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36163"></A><KBD CLASS="Filename-Command">fadd</KBD>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36165"></A><KBD CLASS="Filename-Command">dadd</KBD>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36167"></A><KBD CLASS="Filename-Command">lsub</KBD>
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36169"></A><KBD CLASS="Filename-Command">fsub</KBD>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36171"></A><KBD CLASS="Filename-Command">dsub</KBD>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36173"></A><KBD CLASS="Filename-Command">lmul</KBD>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36175"></A><KBD CLASS="Filename-Command">fmul</KBD>
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36177"></A><KBD CLASS="Filename-Command">dmul</KBD>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36179"></A><KBD CLASS="Filename-Command">ldiv</KBD>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36181"></A><KBD CLASS="Filename-Command">fdiv</KBD>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36183"></A><KBD CLASS="Filename-Command">ddiv</KBD>
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36185"></A><KBD CLASS="Filename-Command">lrem</KBD>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36187"></A><KBD CLASS="Filename-Command">frem</KBD>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36189"></A><KBD CLASS="Filename-Command">drem</KBD>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36191"></A><KBD CLASS="Filename-Command">lneg</KBD>
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36193"></A><KBD CLASS="Filename-Command">fneg</KBD>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36195"></A><KBD CLASS="Filename-Command">dneg</KBD>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36197"></A><KBD CLASS="Filename-Command">lshl</KBD>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36199"></A><KBD CLASS="Filename-Command">lshr</KBD>
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36201"></A><KBD CLASS="Filename-Command">lushr</KBD>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36203"></A><KBD CLASS="Filename-Command">land</KBD>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36205"></A><KBD CLASS="Filename-Command">lor</KBD>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36207"></A><KBD CLASS="Filename-Command">lxor</KBD>
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36209"></A><KBD CLASS="Filename-Command">i2l</KBD>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36211"></A><KBD CLASS="Filename-Command">i2f</KBD>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36213"></A><KBD CLASS="Filename-Command">i2d</KBD>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36215"></A><KBD CLASS="Filename-Command">l2i</KBD>
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36217"></A><KBD CLASS="Filename-Command">l2f</KBD>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36219"></A><KBD CLASS="Filename-Command">l2d</KBD>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36221"></A><KBD CLASS="Filename-Command">f2i</KBD>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36223"></A><KBD CLASS="Filename-Command">f2d</KBD>
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36225"></A><KBD CLASS="Filename-Command">d2i</KBD>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36227"></A><KBD CLASS="Filename-Command">d2l</KBD>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36229"></A><KBD CLASS="Filename-Command">d2f</KBD>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36231"></A><KBD CLASS="Filename-Command">i2c</KBD>
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36233"></A><KBD CLASS="Filename-Command">lcmp</KBD>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36235"></A><KBD CLASS="Filename-Command">fcmpl</KBD>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36237"></A><KBD CLASS="Filename-Command">fcmpg</KBD>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36239"></A><KBD CLASS="Filename-Command">dcmpl</KBD>
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36241"></A><KBD CLASS="Filename-Command">dcmpg</KBD>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36243"></A><KBD CLASS="Filename-Command">lreturn</KBD>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36245"></A><KBD CLASS="Filename-Command">freturn</KBD>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36247"></A><KBD CLASS="Filename-Command">dreturn</KBD>
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36249"></A><KBD CLASS="Filename-Command">monitorenter</KBD>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36251"></A><KBD CLASS="Filename-Command">monitorexit</KBD>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36253"></A><KBD CLASS="Filename-Command">multianewarray</KBD>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36255"></A><KBD CLASS="Filename-Command">goto_w</KBD>
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36257"></A><KBD CLASS="Filename-Command">jsr_w</KBD>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36259"></A>&nbsp;
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36261"></A>&nbsp;
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36263"></A>&nbsp;
+</P>
+</TD>
+</TR>
+</TBODY>
+</TABLE>
+<BR><H4 CLASS="Head3"><A NAME="pgfId-36418"></A>2.3.2.2	Supported Bytecodes</H4>
+<BR>
+<TABLE CLASS="Titled" BORDER=1 BORDERCOLORLIGHT="#FFFFFF" BORDERCOLORDARK="#000000" CELLPADDING=5 CELLSPACING=0 DIR="LTR"><CAPTION CLASS="TableCaption"><A NAME="pgfId-49163"> </A> TABLE 2-6 	Supported Bytecodes </CAPTION>
+<TBODY>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36267"></A>nop
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36269"></A>aconst_null
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36271"></A>iconst_&lt;i&gt;
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36273"></A>bipush
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36275"></A>sipush
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36277"></A>ldc
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36279"></A>ldc_w
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36281"></A>iload
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36283"></A>aload
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36285"></A>iload_&lt;n&gt;
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36287"></A>aload_&lt;n&gt;
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36289"></A>iaload
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36291"></A>aaload
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36293"></A>baload
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36295"></A>saload
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36297"></A>istore
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36299"></A>astore
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36301"></A>istore_&lt;n&gt;
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36303"></A>astore_&lt;n&gt;
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36305"></A>iastore
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36307"></A>aastore
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36309"></A>bastore
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36311"></A>sastore
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36313"></A>pop
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36315"></A>pop2
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36317"></A>dup
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36319"></A>dup_x1
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36321"></A>dup_x2
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36323"></A>dup2
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36325"></A>dup2_x1
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36327"></A>dup2_x2
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36329"></A>swap
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36331"></A>iadd
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36333"></A>isub
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36335"></A>imul
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36337"></A>idiv
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36339"></A>irem
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36341"></A>ineg
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36343"></A>ior
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36345"></A>ishl
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36347"></A>ishr
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36349"></A>iushr
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36351"></A>iand
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36353"></A>ixor
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36355"></A>iinc
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36357"></A>i2b
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36359"></A>i2s
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36361"></A>if&lt;cond&gt;
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36363"></A>ificmp_&lt;cond&gt;
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36365"></A>ifacmp_&lt;cond&gt;
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36367"></A>goto
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36369"></A>jsr
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36371"></A>ret
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36373"></A>tableswitch
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36375"></A>lookupswitch
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36377"></A>ireturn
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36379"></A>areturn
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36381"></A>return
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36383"></A>getstatic
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36385"></A>putstatic
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36387"></A>getfield
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36389"></A>putfield
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36391"></A>invokevirtual
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36393"></A>invokespecial
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36395"></A>invokestatic
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36397"></A>invokeinterface
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36399"></A>new
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36401"></A>newarray
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36403"></A>anewarray
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36405"></A>arraylength
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36407"></A>athrow
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36409"></A>checkcast
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36411"></A>instanceof
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36413"></A>wide
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36415"></A>ifnull
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-36417"></A>ifnonnull
+</P>
+</TD>
+</TR>
+</TBODY>
+</TABLE>
+<BR><H4 CLASS="Head3"><A NAME="pgfId-36419"></A>2.3.2.3	Static Restrictions on Bytecodes</H4>
+<P CLASS="Paragraph"><A NAME="pgfId-36420"></A>A <KBD CLASS="Filename-Command">class</KBD> file must conform to the following restrictions on the static form of bytecodes.
+</P><H5 CLASS="Head4"><A NAME="pgfId-36421"></A><A NAME="marker-47451"></A>ldc, <A NAME="marker-47452"></A>ldc_w</H5>
+<P CLASS="Paragraph"><A NAME="pgfId-36422"></A>The <KBD CLASS="Filename-Command">ldc</KBD> and <KBD CLASS="Filename-Command">ldc_w</KBD> bytecodes can only be used to load integer constants. The constant pool entry at index must be a <KBD CLASS="Filename-Command">CONSTANT_Integer</KBD> entry. If a program contains an <KBD CLASS="Filename-Command">ldc</KBD> or <KBD CLASS="Filename-Command">ldc_w</KBD> instruction that is used to load an integer value less than 
+<BR>-32768 or greater than 32767, that program will require the optional int instructions (<A HREF="JCVM02lang.html#40889" CLASS="XRef">Section 2.2.3.1, Integer Data Type</A>).
+</P><H5 CLASS="Head4"><A NAME="pgfId-36423"></A><A NAME="marker-47453"></A>lookupswitch</H5>
+<P CLASS="Paragraph"><A NAME="pgfId-39555"></A>The value of the npairs operand must be less than 65536. This limit is far greater than the limit imposed by the maximum size of methods (<A HREF="JCVM02lang.html#83511" CLASS="XRef">Section 2.2.4.4, Methods</A>). If a program contains a lookupswitch instruction that uses keys of type int, that program will require the optional int instructions (<A HREF="JCVM02lang.html#40889" CLASS="XRef">Section 2.2.3.1, Integer Data Type</A>). Otherwise, key values must be in the range 
+<BR>-32768 to 32767.
+</P><H5 CLASS="Head4"><A NAME="pgfId-39563"></A><A NAME="marker-47454"></A>tableswitch</H5>
+<P CLASS="Paragraph"><A NAME="pgfId-39592"></A>The bytecode can contain at most 65536 cases. This limit is far greater than the limit imposed by the maximum size of methods (<A HREF="JCVM02lang.html#83511" CLASS="XRef">Section 2.2.4.4, Methods</A>). If a program does not use the optional int instructions (<A HREF="JCVM02lang.html#40889" CLASS="XRef">Section 2.2.3.1, Integer Data Type</A>), the values of the <KBD CLASS="Filename-Command">high</KBD> and <KBD CLASS="Filename-Command">low</KBD> operands must both be at least -32768 and at most 32767.
+</P><H5 CLASS="Head4"><A NAME="pgfId-46803"></A><A NAME="marker-47455"></A>wide</H5>
+<P CLASS="Paragraph"><A NAME="pgfId-46804"></A>The <KBD CLASS="Filename-Command">wide</KBD> bytecode can only be used with an <KBD CLASS="Filename-Command">iinc</KBD> instruction.
+</P><H3 CLASS="Head2"><A NAME="pgfId-46806"></A>2.3.3	<A NAME="Exceptions"></A>Exceptions<A NAME="marker-47456"></A></H3>
+<P CLASS="Paragraph"><A NAME="pgfId-36431"></A>The Java Card platform provides full support for the Java platform's exception mechanism. Users can define, throw and catch exceptions just as in the Java platform. The Java Card platform also makes use of the exceptions and errors defined in <I CLASS="Title">The Java Language Specification</I>. An updated list of the Java platform's exceptions is provided in the JDK<IMG SRC=shared/chars/tm.gif TITLE="trademark" ALT="trademark"> software documentation.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-36432"></A>Not all of the Java platform's exceptions are supported in the Java Card platform. Exceptions related to unsupported features are naturally not supported. Class loader exceptions (the bulk of the checked exceptions) are not supported.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-36433"></A>Note that some exceptions may be supported to the extent that their error conditions are detected correctly, but classes for those exceptions will not necessarily be present in the API.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-36434"></A>The supported subset is described in the tables below.
+</P><H4 CLASS="Head3"><A NAME="pgfId-36435"></A>2.3.3.1	Uncaught and Uncatchable <A NAME="marker-47457"></A>Exceptions</H4>
+<P CLASS="Paragraph"><A NAME="pgfId-39021"></A>In the Java platform, uncaught exceptions and errors will cause the virtual machine's current thread to exit. As the Java Card virtual machine is single-threaded, uncaught exceptions or errors will cause the virtual machine to halt. Further response to uncaught exceptions or errors after halting the virtual machine is an implementation-specific policy, and is not mandated in this document. 
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-51165"></A>Some error conditions are known to be unrecoverable at the time they are thrown. Throwing a runtime exception or error that cannot be caught will also cause the virtual machine to halt. As with uncaught exceptions, implementations may take further responses after halting the virtual machine. Uncatchable exceptions and errors which are supported by the Java Card platform may not be reflected in the Java Card API, though the Java Card platform will correctly detect the error condition.
+</P><H4 CLASS="Head3"><A NAME="pgfId-51349"></A>2.3.3.2	<A NAME="marker-51166"></A>Checked Exceptions</H4>
+<P CLASS="Paragraph"><A NAME="pgfId-51424"></A>&nbsp;
+</P>
+<BR>
+<TABLE CLASS="Titled" BORDER=1 BORDERCOLORLIGHT="#FFFFFF" BORDERCOLORDARK="#000000" CELLPADDING=5 CELLSPACING=0 DIR="LTR"><CAPTION CLASS="TableCaption"><A NAME="pgfId-51364"> </A> TABLE 2-7 	Support of Java Checked Exceptions </CAPTION>
+<THEAD>
+<TR>
+<TH SCOPE="COL" ROWSPAN="1" COLSPAN="1" BGCOLOR="#CCCCCC">
+<P CLASS="TableHead"><A NAME="pgfId-51370"></A>Exception
+</P>
+</TH>
+<TH SCOPE="COL" ROWSPAN="1" COLSPAN="1" BGCOLOR="#CCCCCC">
+<P CLASS="TableHead"><A NAME="pgfId-51372"></A>Supported
+</P>
+</TH>
+<TH SCOPE="COL" ROWSPAN="1" COLSPAN="1" BGCOLOR="#CCCCCC">
+<P CLASS="TableHead"><A NAME="pgfId-51374"></A>Not Supported
+</P>
+</TH>
+</TR>
+</THEAD>
+<TBODY>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-51377"></A><A NAME="marker-51376"></A>ClassNotFoundException
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-51379"></A>&nbsp;
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-51381"></A>X 
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-51384"></A><A NAME="marker-51383"></A>CloneNotSupportedException
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-51386"></A>&nbsp;
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-51388"></A>X 
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-51391"></A><A NAME="marker-51390"></A>IllegalAccessException
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-51393"></A>&nbsp;
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-51395"></A>X 
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-51398"></A><A NAME="marker-51397"></A>InstantiationException
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-51400"></A>&nbsp;
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-51402"></A>X 
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-51405"></A><A NAME="marker-51404"></A>InterruptedException
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-51407"></A>&nbsp;
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-51409"></A>X 
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-51412"></A><A NAME="marker-51411"></A>NoSuchFieldException
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-51414"></A>&nbsp;
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-51416"></A>X 
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-51419"></A><A NAME="marker-51418"></A>NoSuchMethodException
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-51421"></A>&nbsp;
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-51423"></A>X 
+</P>
+</TD>
+</TR>
+</TBODY>
+</TABLE>
+<BR><H4 CLASS="Head3"><A NAME="pgfId-51538"></A>2.3.3.3	<A NAME="marker-51425"></A>Runtime Exceptions</H4>
+<BR>
+<TABLE CLASS="Titled" BORDER=1 BORDERCOLORLIGHT="#FFFFFF" BORDERCOLORDARK="#000000" CELLPADDING=5 CELLSPACING=0 DIR="LTR"><CAPTION CLASS="TableCaption"><A NAME="pgfId-51429"> </A> TABLE 2-8 	Support of Java Runtime Exceptions </CAPTION>
+<THEAD>
+<TR>
+<TH SCOPE="COL" ROWSPAN="1" COLSPAN="1" BGCOLOR="#CCCCCC">
+<P CLASS="TableHead"><A NAME="pgfId-51435"></A>Runtime Exception
+</P>
+</TH>
+<TH SCOPE="COL" ROWSPAN="1" COLSPAN="1" BGCOLOR="#CCCCCC">
+<P CLASS="TableHead"><A NAME="pgfId-51437"></A>Supported
+</P>
+</TH>
+<TH SCOPE="COL" ROWSPAN="1" COLSPAN="1" BGCOLOR="#CCCCCC">
+<P CLASS="TableHead"><A NAME="pgfId-51439"></A>Not Supported
+</P>
+</TH>
+</TR>
+</THEAD>
+<TBODY>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-51442"></A><A NAME="marker-51441"></A>ArithmeticException
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-51444"></A>X
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-51446"></A>&nbsp;
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-51449"></A><A NAME="marker-51448"></A>ArrayStoreException
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-51451"></A>X 
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-51453"></A>&nbsp;
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-51456"></A><A NAME="marker-51455"></A>ClassCastException
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-51458"></A>X 
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-51460"></A>&nbsp;
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-51463"></A><A NAME="marker-51462"></A>IllegalArgumentException
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-51465"></A>&nbsp;
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-51467"></A>X 
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-51470"></A><A NAME="marker-51469"></A>IllegalThreadStateException
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-51472"></A>&nbsp;
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-51474"></A>X 
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-51477"></A><A NAME="marker-51476"></A>NumberFormatException
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-51479"></A>&nbsp;
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-51481"></A>X 
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-51484"></A><A NAME="marker-51483"></A>IllegalMonitorStateException
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-51486"></A>&nbsp;
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-51488"></A>X 
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-51491"></A><A NAME="marker-51490"></A>IllegalStateException
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-51493"></A>&nbsp;
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-51495"></A>X 
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-51498"></A><A NAME="marker-51497"></A>IndexOutOfBoundsException
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-51500"></A>X 
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-51502"></A>&nbsp;
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-51505"></A><A NAME="marker-51504"></A>ArrayIndexOutOfBoundsException
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-51507"></A>X 
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-51509"></A>&nbsp;
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-51512"></A><A NAME="marker-51511"></A>StringIndexOutOfBoundsException
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-51514"></A>&nbsp;
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-51516"></A>X 
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-51519"></A><A NAME="marker-51518"></A>NegativeArraySizeException
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-51521"></A>X 
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-51523"></A>&nbsp;
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-51526"></A><A NAME="marker-51525"></A>NullPointerException
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-51528"></A>X 
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-51530"></A>&nbsp;
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-51533"></A><A NAME="marker-51532"></A>SecurityException
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-51535"></A>X 
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-51537"></A>&nbsp;
+</P>
+</TD>
+</TR>
+</TBODY>
+</TABLE>
+<BR><H4 CLASS="Head3"><A NAME="pgfId-36584"></A>2.3.3.4	<A NAME="29009"></A>Errors<A NAME="marker-47481"></A></H4>
+<BR>
+<TABLE CLASS="Titled" BORDER=1 BORDERCOLORLIGHT="#FFFFFF" BORDERCOLORDARK="#000000" CELLPADDING=5 CELLSPACING=0 DIR="LTR"><CAPTION CLASS="TableCaption"><A NAME="pgfId-49208"> </A> TABLE 2-9 	Support of Java Errors </CAPTION>
+<THEAD>
+<TR>
+<TH SCOPE="COL" ROWSPAN="1" COLSPAN="1" BGCOLOR="#CCCCCC">
+<P CLASS="TableHead"><A NAME="pgfId-43762"></A>Error
+</P>
+</TH>
+<TH SCOPE="COL" ROWSPAN="1" COLSPAN="1" BGCOLOR="#CCCCCC">
+<P CLASS="TableHead"><A NAME="pgfId-43764"></A>Supported
+</P>
+</TH>
+<TH SCOPE="COL" ROWSPAN="1" COLSPAN="1" BGCOLOR="#CCCCCC">
+<P CLASS="TableHead"><A NAME="pgfId-43766"></A>Not Supported
+</P>
+</TH>
+</TR>
+</THEAD>
+<TBODY>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-51979"></A>AssertionError
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-51981"></A>&nbsp;
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-51983"></A>X
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-43768"></A><A NAME="marker-47482"></A>LinkageError
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-43770"></A>X 
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-43772"></A>&nbsp;
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-43774"></A><A NAME="marker-47483"></A>ClassCircularityError
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-43776"></A>X 
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-43778"></A>&nbsp;
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-43780"></A><A NAME="marker-47484"></A>ClassFormatError
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-43782"></A>X 
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-43784"></A>&nbsp;
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-43786"></A><A NAME="marker-47485"></A>ExceptionInInitializerError
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-43788"></A>X 
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-43790"></A>&nbsp;
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-43792"></A><A NAME="marker-47486"></A>IncompatibleClassChangeError
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-43794"></A>X 
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-43796"></A>&nbsp;
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-43798"></A><A NAME="marker-47487"></A>AbstractMethodError
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-43800"></A>X 
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-43802"></A>&nbsp;
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-43804"></A><A NAME="marker-47488"></A>IllegalAccessError
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-43806"></A>X 
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-43808"></A>&nbsp;
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-43810"></A><A NAME="marker-47489"></A>InstantiationError
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-43812"></A>X 
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-43814"></A>&nbsp;
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-43816"></A><A NAME="marker-47490"></A>NoSuchFieldError
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-43818"></A>X 
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-43820"></A>&nbsp;
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-43822"></A><A NAME="marker-47491"></A>NoSuchMethodError
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-43824"></A>X 
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-43826"></A>&nbsp;
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-43828"></A><A NAME="marker-47492"></A>NoClassDefFoundError
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-43830"></A>X 
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-43832"></A>&nbsp;
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-43834"></A><A NAME="marker-47493"></A>UnsatisfiedLinkError
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-43836"></A>X 
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-43838"></A>&nbsp;
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-43840"></A><A NAME="marker-47494"></A>VerifyError
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-43842"></A>X 
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-43844"></A>&nbsp;
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-43846"></A><A NAME="marker-47495"></A>ThreadDeath
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-43848"></A>&nbsp;
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-43850"></A>X 
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-43852"></A><A NAME="marker-47496"></A>VirtualMachineError
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-43854"></A>X 
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-43856"></A>&nbsp;
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-43858"></A><A NAME="marker-47497"></A>InternalError
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-43860"></A>X 
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-43862"></A>&nbsp;
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-43864"></A><A NAME="marker-47498"></A>OutOfMemoryError
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-43866"></A>X 
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-43868"></A>&nbsp;
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-43870"></A><A NAME="marker-47499"></A>StackOverflowError
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-43872"></A>X 
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-43874"></A>&nbsp;
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-43876"></A><A NAME="marker-47500"></A>UnknownError
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-43878"></A>X 
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-43880"></A>&nbsp;
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-51985"></A>UnsupportedClassVersionError
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-51987"></A>X
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-51989"></A>&nbsp;
+</P>
+</TD>
+</TR>
+</TBODY>
+</TABLE>
+<BR>
+<P CLASS="Paragraph"><A NAME="pgfId-13863"></A>&nbsp;
+</P>
+<div class="navbar" align="center">
+<br>
+<br>
+<table dir="LTR" summary="Navigation bar, includes the book title and navigation buttons" width=100% cellpadding="0" cellspacing="0" border="0"><colgroup span="3" width="100%"><col id="1" span="1" width="45%"><col id="2" span="1" width="25%"><col id="3" span="1" width="30%">
+<tr bgcolor="#cccccc">
+<td class="navbartitle" align=left rowspan="1" colspan="1" abbr="ChapTitle">&nbsp;&nbsp;Virtual Machine Specification, Java Card Platform, v2.2.2
+</td>
+<td class="navbartitle" align=right rowspan="1" colspan="1" abbr="PartNum">3-11-06
+</td>
+<td valign="top" align="right" rowspan="1" colspan="1" abbr="NavButtons"><a href="index.html"><img src="shared/toc01.gif" title="Table Of Contents" alt="Table Of Contents" width="30" height="26" border="0"></a><a href="JCVM01intro.html"><img src="shared/prev01.gif" title="Previous Chapter" alt="Previous Chapter" width="30" height="26" border="0"></a><a href="JCVM03structVM.html"><img src="shared/next01.gif" title="Next Chapter" alt="Next Chapter" width="30" height="26" border="0"></a><a href="ix.html"><img src="shared/index01.gif" title="Book Index" alt="Book Index" width="30" height="26" border="0"></a>
+</td>
+</tr>
+</table>
+<br>
+<br>
+</div>
+<P CLASS="copyrightlink"><a href="copyright.html">Copyright</a> &#169; 2005, Sun Microsystems, Inc.   All Rights Reserved.
+</P>
+</BODY>
+</HTML>

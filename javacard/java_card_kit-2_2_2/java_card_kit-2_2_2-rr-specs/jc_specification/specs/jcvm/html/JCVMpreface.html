@@ -1,0 +1,429 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type"
+ content="text/html; charset=ISO-8859-1">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="GENERATOR"
+ content="Adobe FrameMaker 7.0/HTML Export Filter">
+  <link rel="STYLESHEET" href="unx_unstr_styles.css"
+ charset="ISO-8859-1" type="text/css">
+  <meta name="DC.TITLE"
+ content="Virtual Machine Specification, Java Card Platform, v2.2.2">
+  <title>Preface</title>
+</head>
+<body bgcolor="#ffffff">
+<div>
+<div class="navbar" align="center">
+<table dir="ltr"
+ summary="Navigation bar, includes the book title and navigation buttons"
+ width="100%" cellpadding="0" cellspacing="0" border="0">
+  <colgroup span="2" width="100%"><col id="1" span="1" width="50%"><col
+ id="2" span="1" width="50%"></colgroup><tbody>
+    <tr bgcolor="#cccccc">
+      <td class="navbartitle" align="left" rowspan="1" colspan="1"
+ abbr="ChapTitle">&nbsp;&nbsp;Virtual Machine Specification, Java Card
+Platform, v2.2.2
+      </td>
+      <td valign="top" align="right" rowspan="1" colspan="1"
+ abbr="NavButtons"><a href="index.html"><img src="shared/toc01.gif"
+ title="Table Of Contents" alt="Table Of Contents" width="30"
+ height="26" border="0"></a><a href="JCVMLOT.html"><img
+ src="shared/prev01.gif" title="Previous Chapter" alt="Previous Chapter"
+ width="30" height="26" border="0"></a><a href="JCVM01intro.html"><img
+ src="shared/next01.gif" title="Next Chapter" alt="Next Chapter"
+ width="30" height="26" border="0"></a><a href="ix.html"><img
+ src="shared/index01.gif" title="Book Index" alt="Book Index" width="30"
+ height="26" border="0"></a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+</div>
+</div>
+<table dir="ltr" summary="Chapter Title" abbr="ChapTitle" width="100%"
+ border="0">
+  <colgroup span="1" width="100%"><col id="1" span="1" width="100%"></colgroup><tbody>
+    <tr>
+      <td align="right" class="ChapTitle">
+      <hr size="7" noshade="noshade"><a name="pgfId-9542"></a><a
+ name="_Hlt432228941"></a><a name="_Hlt432227868"></a><a
+ name="_Hlt432227877"></a><a name="_Toc432223435"></a>Preface
+      </td>
+    </tr>
+  </tbody>
+</table>
+<p class="Paragraph"><a name="pgfId-9549"></a>Java Card<img
+ src="shared/chars/tm.gif" title="trademark" alt="trademark">
+technology combines a subset of the Java<img src="shared/chars/tm.gif"
+ title="trademark" alt="trademark"> programming language with a runtime
+environment optimized for smart cards and similar small-memory embedded
+devices. The goal of Java Card technology is to bring many of the
+benefits of Java software programming to the resource-constrained world
+of devices such as smart cards.
+</p>
+<p class="Paragraph"><a name="pgfId-6292"></a>The Java Card platform is
+defined by three specifications: this <em class="Emphasis">Virtual
+Machine Specification for the Java Card Platform, Version 2.2.2</em>,
+the <em class="Emphasis">Application Programming Interface for the
+Java Card Platform, Version 2.2.2</em>, and the <em class="Emphasis">Runtime
+Environment Specification for the Java Card Platform, Version 2.2.2</em>.
+</p>
+<p class="Paragraph"><a name="pgfId-6293"></a>This specification
+describes the required behavior of the virtual machine (VM) for the
+Java Card platform ("Java Card virtual machine" or "Java Card VM"),
+version 2.2.2, that developers should adhere to when creating an
+implementation. An implementation within the context of this document
+refers to a licensee's implementation of the Java Card virtual machine,
+Application Programming Interface (API), Converter, or other component,
+based on the Java Card technology specifications. A "reference
+implementation" is an implementation produced by Sun Microsystems, Inc.
+Application software written for the Java Card platform is referred to
+as a Java Card technology-based applet ("Java Card applet" or "card
+applet").
+</p>
+<h2 class="Head1P"><a name="pgfId-6124"></a>
+<div>
+<hr align="left" size="6" width="15%" noshade="noshade"></div>
+Who Should Use This Specification</h2>
+<p class="Paragraph"><a name="pgfId-6125"></a>This document is for
+licensees of the Java Card technology to assist them in creating an
+implementation, developing a specification to extend the Java Card
+technology specifications, or in creating an extension to the runtime
+environment for the Java Card platform ("Java Card Runtime Environment"
+or "Java Card RE"). This document is also intended for Java Card applet
+developers who want a more detailed understanding of the Java Card
+technology specifications.
+</p>
+<h2 class="Head1P"><a name="pgfId-6126"></a>
+<div>
+<hr align="left" size="6" width="15%" noshade="noshade"></div>
+Before You Read This Specification</h2>
+<p class="Paragraph"><a name="pgfId-6127"></a>Before reading this
+document, you should be familiar with the Java programming language,
+the Java Card technology specifications, and smart card technology. A
+good resource for becoming familiar with Java technology and Java Card
+technology is the Sun Microsystems, Inc. web site, located at
+</p>
+<p class="Paragraph"><a name="pgfId-10048"></a><kbd class="URL"><a
+ href="http://java.sun.com" class="URL"></a><a
+ href="http://java.sun.com" class="URL">http://java.sun.com</a></kbd>
+</p>
+<h2 class="Head1P"><a name="pgfId-6128"></a>
+<div>
+<hr align="left" size="6" width="15%" noshade="noshade"></div>
+How This Book Is Organized</h2>
+<p class="Paragraph"><a name="pgfId-6129"></a><a
+ href="JCVM01intro.html#49617" class="XRef">Chapter 1</a>,
+"Introduction" provides an overview of the Java Card virtual machine
+architecture.
+</p>
+<p class="Paragraph"><a name="pgfId-6130"></a><a
+ href="JCVM02lang.html#45905" class="XRef">Chapter 2</a>, "A Subset of
+the Java Virtual Machine" describes the subset of the Java programming
+language and Java Virtual Machine<a name="fnote1"></a><a
+ href="#pgfId-9589" class="footnote"><sup>[1]</sup></a> that is
+supported by the Java Card specification.
+</p>
+<p class="Paragraph"><a name="pgfId-6271"></a><a
+ href="JCVM03structVM.html#57124" class="XRef">Chapter 3</a>,
+"Structure of the Java Card Virtual Machine" describes the differences
+between the Java virtual machine and the Java Card virtual machine.
+</p>
+<p class="Paragraph"><a name="pgfId-6131"></a><a
+ href="JCVM04naming.html#23356" class="XRef">Chapter 4</a>, "Binary
+Representation" provides information about how programs written for the
+Java Card platform are represented in binary form.
+</p>
+<p class="Paragraph"><a name="pgfId-6132"></a><a
+ href="JCVM05export.html#26841" class="XRef">Chapter 5</a>, "The Export
+File Format" describes the export file used to link code against
+another package.
+</p>
+<p class="Paragraph"><a name="pgfId-6133"></a><a
+ href="JCVM06cap.html#74217" class="XRef">Chapter 6</a>, "The CAP File
+Format" describes the format of the CAP file.
+</p>
+<p class="Paragraph"><a name="pgfId-6234"></a><a
+ href="JCVM07instr.html#83338" class="XRef">Chapter 7</a>, "Java Card
+Virtual Machine Instruction Set" describes the bytecodes (opcodes) that
+comprise the Java Card virtual machine instruction set.
+</p>
+<p class="Paragraph"><a name="pgfId-6241"></a><a
+ href="JCVM08instrTables.html#30970" class="XRef">Chapter 8</a>,
+"Tables of Instructions" summarizes the Java Card virtual machine
+instructions in two different tables: one sorted by Opcode Value and
+the other sorted by Mnemonic.
+</p>
+<p class="Paragraph"><a name="pgfId-7045"></a><a href="Glossary.html">Glossary</a>
+provides definitions of selected terms in this specification.
+</p>
+<h2 class="Head1P"><a name="pgfId-6237"></a>
+<div>
+<hr align="left" size="6" width="15%" noshade="noshade"></div>
+Prerequisites</h2>
+<p class="Paragraph"><a name="pgfId-6208"></a>This specification is not
+intended to stand on its own; rather it relies heavily on existing
+documentation of the Java platform. In particular, two books are
+required for the reader to understand the material presented here.
+</p>
+<p class="Paragraph"><a name="pgfId-6851"></a><em class="Emphasis">The
+Java Language Specification</em> by James Gosling, Bill Joy, and Guy L.
+Steele (Addison-Wesley, 1996) ISBN 0-201-31008-2, contains the
+definitive definition of the Java programming language. The Java Card
+platform, version 2.2.2, language subset defined here is based on the
+language specified in this book.
+</p>
+<p class="Paragraph"><a name="pgfId-6853"></a>The Java Virtual Machine
+Specification (Second Edition) by Tim Lindholm and Frank Yellin.
+(Addison-Wesley, 1999) ISBN 0-201-43294-3, defines the standard
+operation of the Java virtual machine. The Java Card virtual machine
+presented here is based on the definition specified in this book.
+</p>
+<h2 class="Head1P"><a name="pgfId-6136"></a>
+<div>
+<hr align="left" size="6" width="15%" noshade="noshade"></div>
+Related Documents</h2>
+<p class="Paragraph"><a name="pgfId-9511"></a>References to various
+documents or products are made in this manual. You should have the
+following documents available:
+</p>
+<ul>
+  <li class="Bullet1"><a name="pgfId-9514"></a><em class="Emphasis">Application
+Programming Interface for the Java Card Platform, Version 2.2.2</em>.
+  </li>
+  <p class="Linebreak">
+  </p>
+  <li class="Bullet1"><a name="pgfId-6139"></a><em class="Emphasis">Runtime
+Environment Specification for the Java Card Platform, Version 2.2.2</em>.
+  </li>
+  <p class="Linebreak">
+  </p>
+  <li class="Bullet1"><a name="pgfId-6141"></a><em class="Emphasis">The
+Java Language Specification</em> by James Gosling, Bill Joy, and Guy L.
+Steele (Addison-Wesley, 1996). </li>
+  <p class="Linebreak">
+  </p>
+  <li class="Bullet1"><a name="pgfId-6903"></a>The Java Virtual Machine
+Specification (Second Edition) by Tim Lindholm and Frank Yellin
+(Addison-Wesley, 1999). </li>
+  <p class="Linebreak">
+  </p>
+  <li class="Bullet1"><a name="pgfId-6906"></a><em class="Emphasis">The
+Java Class Libraries: An Annotated Reference, Second Edition (Java
+Series)</em> by Patrick Chan, Rosanna Lee and Doug Kramer
+(Addison-Wesley, 1999).
+  </li>
+  <p class="Linebreak">
+  </p>
+  <li class="Bullet1"><a name="pgfId-6957"></a>The Java Remote Method
+Invocation Specification, Revision 1.7, Sun Microsystems, Inc.
+  </li>
+  <p class="Linebreak">
+  </p>
+  <li class="Bullet1"><a name="pgfId-6693"></a>ISO 7816 International
+Standard, First Edition 1987-07-01, (<kbd class="URL"><a
+ href="http://www.iso.org" class="URL">http://www.iso.org</a></kbd>).
+  </li>
+  <p class="Linebreak">
+  </p>
+</ul>
+<h2 class="Head1P"><a name="pgfId-7688"></a>
+<div>
+<hr align="left" size="6" width="15%" noshade="noshade"></div>
+Typographic Conventions</h2>
+<br>
+<table class="Titled" border="1" bordercolorlight="#FFFFFF"
+ bordercolordark="#000000" cellpadding="5" cellspacing="0" dir="ltr">
+  <caption class="TableCaptionP"><a name="pgfId-7647"> </a> TABLE P-1
+Typographic Conventions </caption>
+  <thead><tr>
+    <th scope="col" rowspan="1" colspan="1" bgcolor="#cccccc">
+    <p class="TableHead"><a name="pgfId-7653"></a>Typeface
+    </p>
+    </th>
+    <th scope="col" rowspan="1" colspan="1" bgcolor="#cccccc">
+    <p class="TableHead"><a name="pgfId-7655"></a>Meaning
+    </p>
+    </th>
+    <th scope="col" rowspan="1" colspan="1" bgcolor="#cccccc">
+    <p class="TableHead"><a name="pgfId-7657"></a>Examples
+    </p>
+    </th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td scope="row" rowspan="1" colspan="1">
+      <p class="TableTextCode"><a name="pgfId-7659"></a><kbd
+ class="Filename-Command">AaBbCc123</kbd>
+      </p>
+      </td>
+      <td rowspan="1" colspan="1">
+      <p class="TableText"><a name="pgfId-7661"></a>The names of
+commands, files, and directories; on-screen computer output
+      </p>
+      <p class="TableText"><a name="pgfId-7662"></a>&nbsp;
+      </p>
+      </td>
+      <td rowspan="1" colspan="1">
+      <p class="TableText"><a name="pgfId-7664"></a>Edit your <kbd
+ class="Filename-Command">.login</kbd> file.
+      </p>
+      <p class="TableText"><a name="pgfId-7665"></a>Use <kbd
+ class="Filename-Command">ls -a</kbd> to list all files.
+      </p>
+      <p class="TableText"><a name="pgfId-7666"></a><kbd
+ class="Filename-Command">% You have mail</kbd>.
+      </p>
+      </td>
+    </tr>
+    <tr>
+      <td scope="row" rowspan="1" colspan="1">
+      <p class="TableText"><a name="pgfId-7668"></a><kbd
+ class="UserType">AaBbCc123</kbd>
+      </p>
+      </td>
+      <td rowspan="1" colspan="1">
+      <p class="TableText"><a name="pgfId-7670"></a>What you type, when
+contrasted with on-screen computer output
+      </p>
+      <p class="TableText"><a name="pgfId-7708"></a>Procedural steps
+      </p>
+      </td>
+      <td rowspan="1" colspan="1">
+      <p class="TableText"><a name="pgfId-7673"></a><kbd
+ class="Filename-Command">% </kbd><kbd class="UserType">su</kbd>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-7674"></a><kbd
+ class="Filename-Command">Password:</kbd>
+      </p>
+      <p class="TableText"><a name="pgfId-7698"></a>&nbsp;
+      </p>
+      <p class="TableText"><a name="pgfId-7701"></a><strong>1. Run </strong><kbd
+ class="Filename-Command">cref</kbd><strong> in a new window.</strong>
+      </p>
+      </td>
+    </tr>
+    <tr>
+      <td scope="row" rowspan="1" colspan="1">
+      <p class="TableText"><a name="pgfId-7676"></a><i class="Variable">AaBbCc123</i>
+      </p>
+      </td>
+      <td rowspan="1" colspan="1">
+      <p class="TableText"><a name="pgfId-7678"></a>Book titles, new
+words or terms, words to be emphasized
+      </p>
+      <p class="TableText"><a name="pgfId-7679"></a>&nbsp;
+      </p>
+      <p class="TableText"><a name="pgfId-7680"></a>&nbsp;
+      </p>
+      <p class="TableText"><a name="pgfId-7681"></a>Command-line
+variable; replace with a real name or value
+      </p>
+      </td>
+      <td rowspan="1" colspan="1">
+      <p class="TableText"><a name="pgfId-7683"></a>Read Chapter 6 in
+the <i class="Title">User's Guide</i>.
+      </p>
+      <p class="TableText"><a name="pgfId-7684"></a>These are called <em
+ class="Emphasis">class</em> options.
+      </p>
+      <p class="TableText"><a name="pgfId-7685"></a>You <em
+ class="Emphasis">must</em> be superuser to do this.
+      </p>
+      <p class="TableText"><a name="pgfId-7686"></a>&nbsp;
+      </p>
+      <p class="TableText"><a name="pgfId-7687"></a>To delete a file,
+type <kbd class="Filename-Command">rm</kbd> <i class="Variable">filename</i>.
+      </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<h2 class="Head1P"><a name="pgfId-6593"></a>
+<div>
+<hr align="left" size="6" width="15%" noshade="noshade"></div>
+Acknowledgements </h2>
+<p class="Paragraph"><a name="pgfId-6591"></a>Java Card technology is
+based on Java technology. This specification could not exist without
+all the hard work that went into the development of the Java platform
+specifications. In particular, this specification is based
+significantly on <em class="Emphasis">Java Virtual Machine
+Specification</em>. In order to maintain consistency with that
+specification, as well as to make differences easier to notice, we
+have, where possible, used the words, the style, and even the visual
+design of that book. Many thanks to Tim Lindholm and Frank Yellin for
+providing a solid foundation for our work.
+</p>
+<h2 class="Head1P"><a name="pgfId-7723"></a>
+<div>
+<hr align="left" size="6" width="15%" noshade="noshade"></div>
+Accessing Sun Documentation Online</h2>
+<p class="Paragraph"><a name="pgfId-7724"></a>The Java Developer
+Connection<img src="shared/chars/tm.gif" title="trademark"
+ alt="trademark"> program web site enables you to access Java platform
+technical documentation on the web at
+</p>
+<p class="Paragraph"><a name="pgfId-9993"></a><kbd class="URL"><a
+ href="http://developer.java.sun.com/developer/infodocs" class="URL"></a><a
+ href="http://developer.java.sun.com/developer/infodocs/" class="URL">http://developer.java.sun.com/developer/infodocs</a></kbd>
+</p>
+<h2 class="Head1P"><a name="pgfId-7726"></a>
+<div>
+<hr align="left" size="6" width="15%" noshade="noshade"></div>
+Sun Welcomes Your Comments</h2>
+<p class="Paragraph"><a name="pgfId-7727"></a>We are interested in
+improving our documentation and welcome your comments and suggestions.
+You can email your comments to us at <kbd class="Filename-Command">docs@java.sun.com</kbd>.
+</p>
+<p class="Paragraph"><a name="pgfId-5832"></a>&nbsp;
+</p>
+<hr>
+<div class="footnotes">
+<div class="footnote"><sup class="Footnote"><span class="footnoteNumber">1</span><b><a
+ href="#fnote1"> (Footnote) </a></b><a name="pgfId-9589"></a>The terms
+"Java Virtual Machine" and "JVM" mean a Virtual Machine for the Java
+platform.</sup>
+<div class="navbar" align="center"><br>
+<br>
+<table dir="ltr"
+ summary="Navigation bar, includes the book title and navigation buttons"
+ width="100%" cellpadding="0" cellspacing="0" border="0">
+  <colgroup span="3" width="100%"><col id="1" span="1" width="45%"><col
+ id="2" span="1" width="25%"><col id="3" span="1" width="30%"></colgroup><tbody>
+    <tr bgcolor="#cccccc">
+      <td class="navbartitle" align="left" rowspan="1" colspan="1"
+ abbr="ChapTitle">&nbsp;&nbsp;Virtual Machine Specification, Java Card
+Platform, v2.2.2
+      </td>
+      <td class="navbartitle" align="right" rowspan="1" colspan="1"
+ abbr="PartNum">3-11-06
+      </td>
+      <td valign="top" align="right" rowspan="1" colspan="1"
+ abbr="NavButtons"><a href="index.html"><img src="shared/toc01.gif"
+ title="Table Of Contents" alt="Table Of Contents" width="30"
+ height="26" border="0"></a><a href="JCVMLOT.html"><img
+ src="shared/prev01.gif" title="Previous Chapter" alt="Previous Chapter"
+ width="30" height="26" border="0"></a><a href="JCVM01intro.html"><img
+ src="shared/next01.gif" title="Next Chapter" alt="Next Chapter"
+ width="30" height="26" border="0"></a><a href="ix.html"><img
+ src="shared/index01.gif" title="Book Index" alt="Book Index" width="30"
+ height="26" border="0"></a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+</div>
+<p class="copyrightlink"><a href="copyright.html">Copyright</a> &copy;
+2005, Sun Microsystems, Inc. All Rights Reserved.
+</p>
+</div>
+</div>
+</body>
+</html>

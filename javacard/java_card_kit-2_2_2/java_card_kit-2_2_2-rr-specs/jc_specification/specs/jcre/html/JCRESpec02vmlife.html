@@ -1,0 +1,98 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<HTML LANG="en">
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 7.0/HTML Export Filter">
+
+<LINK REL="STYLESHEET" HREF="unx_unstr_styles.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<META name="DC.TITLE" content="Runtime Environment Specification for the Java Card Platform, Version 2.2.2">
+<TITLE>C H A P T E R    2 - Lifetime of the Java Card Virtual  Machine 
+</TITLE>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV>
+<div class="navbar" align="center">
+<table dir="LTR" summary="Navigation bar, includes the book title and navigation buttons" width=100% cellpadding="0" cellspacing="0" border="0"><colgroup span="2" width="100%"><col id="1" span="1" width="50%"><col id="2" span="1" width="50%">
+<tr bgcolor="#cccccc">
+<td class="navbartitle" align=left rowspan="1" colspan="1" abbr="ChapTitle">&nbsp;&nbsp;Runtime Environment Specification for the Java Card Platform, Version 2.2.2
+</td>
+<td valign="top" align="right" rowspan="1" colspan="1" abbr="NavButtons"><a href="index.html"><img src="shared/toc01.gif" title="Table Of Contents" alt="Table Of Contents" width="30" height="26" border="0"></a><a href="JCRESpec01intro.html"><img src="shared/prev01.gif" title="Previous Chapter" alt="Previous Chapter" width="30" height="26" border="0"></a><a href="JCRESpec03appletlife.html"><img src="shared/next01.gif" title="Next Chapter" alt="Next Chapter" width="30" height="26" border="0"></a><a href="ix.html"><img src="shared/index01.gif" title="Book Index" alt="Book Index" width="30" height="26" border="0"></a>
+</td>
+</tr>
+</table>
+<br>
+<br>
+</div>
+</DIV>
+<TABLE DIR="LTR" SUMMARY="Chapter Number" ABBR="ChapNum" WIDTH="100%" BORDER="0">
+<COLGROUP SPAN="1" WIDTH="100%"><COL ID="1" SPAN="1">
+<TR>
+<TD ALIGN="right" CLASS="ChapNumber"><SPAN CLASS="ChapNumPrefix"><A NAME="pgfId-409013"></A>C H A P T E R    </SPAN>&nbsp;<SPAN CLASS="ChapNumNum">2</SPAN><A NAME="37109"></A>
+</TD>
+</TR>
+</TABLE>
+<TABLE DIR="LTR" SUMMARY="Chapter Title" ABBR="ChapTitle" WIDTH="100%" BORDER="0">
+<COLGROUP SPAN="1" WIDTH="100%"><COL ID="1" SPAN="1" WIDTH="100%">
+<TR>
+<TD ALIGN="right" CLASS="ChapTitle">
+<HR SIZE=7 NOSHADE><A NAME="pgfId-409014"></A><A NAME="97353"></A>Lifetime of the Java Card Virtual Machine
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Paragraph"><A NAME="pgfId-406165"></A>In a PC or workstation, the <A NAME="marker-411147"></A>Java virtual machine<A NAME="fnote1"></A><A HREF="#pgfId-414620"  CLASS="footnote"><SUP>[1]</SUP></A> runs as an operating system process. When the OS process is terminated, the Java programming language applications and their objects are automatically destroyed.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-406167"></A>In Java Card technology, the execution lifetime of the virtual machine (VM) is the lifetime of the card. Most of the information stored on a card shall be preserved even when power is removed from the card. Persistent memory technology (such as EEPROM) enables a smart card to store information when power is removed. Because the VM and the objects created on the card are used to represent application information that is persistent, the Java Card VM appears to run forever. When power is removed, the VM only stops temporarily. When the card is next reset, the VM starts again and recovers its previous object heap from persistent storage.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-406169"></A>Aside from its persistent nature, the Java Card virtual machine is just like the Java virtual machine.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-406171"></A>The <A NAME="marker-411148"></A>card initialization time is the time after masking, and prior to the time of card personalization and issuance. At the time of card initialization, the Java Card RE is initialized. The framework objects created by the Java Card RE exist for the lifetime of the virtual machine. Because the execution lifetime of the virtual machine and the Java Card RE framework span Card Acceptance Device (CAD or card reader) sessions of the card, the lifetimes of objects created by applets also span CAD sessions. Objects that have this property are called <A NAME="marker-414567"></A>persistent objects. <A NAME="marker-411150"></A><A NAME="marker-411149"></A>Card sessions are those periods when the card is inserted into the CAD, powered up, and exchanging streams of APDUs with the CAD. The card session ends when the card is removed from the CAD.
+</P>
+<BR>
+<HR NOSHADE SIZE=1>
+<TABLE CLASS="TipNote" DIR="LTR" WIDTH="100%" SUMMARY="TipNote">
+<COLGROUP SPAN="1" WIDTH="100%">
+<TR ALIGN="left" VALIGN="top">
+<TD ROWSPAN="1" COLSPAN="1" ABBR="TipNoteText">
+<P CLASS="TipNote"><B CLASS="TipNote">Note - </B><A NAME="pgfId-414596"></A>The acronym CAD is used here and throughout this specification to refer to both types of card readers - the conventional Card Acceptance Device (CAD) for contacted I/O interfaces and the Proximity Coupling Device (PCD) for contactless interfaces.
+</P>
+</TD>
+</TR>
+</TABLE>
+<HR NOSHADE SIZE=1>
+<BR>
+<P CLASS="Paragraph"><A NAME="pgfId-406173"></A>The Java Card RE implementer shall make an object persistent when:
+</P>
+<UL>
+<LI CLASS="Bullet1"><A NAME="pgfId-406175"></A>The <KBD CLASS="Filename-Command">Applet.register</KBD> method is called. The Java Card RE stores a reference to the instance of the applet object. The Java Card RE implementer shall ensure that instances of class <KBD CLASS="Filename-Command">applet</KBD> are persistent.
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-406177"></A>A reference to an object is stored in a field of any other persistent object or in a class's static field. This requirement stems from the need to preserve the integrity of the Java Card RE's internal data structures.
+</LI>
+<P CLASS="Linebreak">
+</P>
+</UL>
+<HR>
+<DIV CLASS="footnotes">
+<DIV CLASS="footnote"><SUP CLASS="Footnote"><SPAN CLASS="footnoteNumber">1</SPAN><B><A HREF="#fnote1"> (Footnote) </A></B><A NAME="pgfId-414620"></A></A>The terms &quot;Java Virtual Machine&quot; and &quot;JVM&quot; mean a Virtual Machine for the Java platform.</SUP>
+<div class="navbar" align="center">
+<br>
+<br>
+<table dir="LTR" summary="Navigation bar, includes the book title and navigation buttons" width=100% cellpadding="0" cellspacing="0" border="0"><colgroup span="3" width="100%"><col id="1" span="1" width="45%"><col id="2" span="1" width="25%"><col id="3" span="1" width="30%">
+<tr bgcolor="#cccccc">
+<td class="navbartitle" align=left rowspan="1" colspan="1" abbr="ChapTitle">&nbsp;&nbsp;Runtime Environment Specification for the Java Card Platform, Version 2.2.2
+</td>
+<td class="navbartitle" align=right rowspan="1" colspan="1" abbr="PartNum">3-8-06
+</td>
+<td valign="top" align="right" rowspan="1" colspan="1" abbr="NavButtons"><a href="index.html"><img src="shared/toc01.gif" title="Table Of Contents" alt="Table Of Contents" width="30" height="26" border="0"></a><a href="JCRESpec01intro.html"><img src="shared/prev01.gif" title="Previous Chapter" alt="Previous Chapter" width="30" height="26" border="0"></a><a href="JCRESpec03appletlife.html"><img src="shared/next01.gif" title="Next Chapter" alt="Next Chapter" width="30" height="26" border="0"></a><a href="ix.html"><img src="shared/index01.gif" title="Book Index" alt="Book Index" width="30" height="26" border="0"></a>
+</td>
+</tr>
+</table>
+<br>
+<br>
+</div>
+<P CLASS="copyrightlink"><a href="copyright.html">Copyright</a> &#169; 2005, Sun Microsystems, Inc.   All Rights Reserved.
+</P>
+</BODY>
+</HTML>

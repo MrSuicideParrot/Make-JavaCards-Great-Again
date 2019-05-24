@@ -1,0 +1,559 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type"
+ content="text/html; charset=ISO-8859-1">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="GENERATOR"
+ content="Adobe FrameMaker 7.0/HTML Export Filter">
+  <link rel="STYLESHEET" href="unx_unstr_styles.css"
+ charset="ISO-8859-1" type="text/css">
+  <meta name="DC.TITLE"
+ content="Development Kit User's Guide, Java Card Platform, Version 2.2.2">
+  <title>Contents</title>
+</head>
+<body bgcolor="#ffffff">
+<div>
+<div class="navbar" align="center">
+<table dir="ltr"
+ summary="Navigation bar, includes the book title and navigation buttons"
+ width="100%" cellpadding="0" cellspacing="0" border="0">
+  <colgroup span="2" width="100%"><col id="1" span="1" width="50%"><col
+ id="2" span="1" width="50%"></colgroup><tbody>
+    <tr bgcolor="#cccccc">
+      <td class="navbartitle" align="left" rowspan="1" colspan="1"
+ abbr="ChapTitle">&nbsp;&nbsp;Development Kit User's Guide, Java Card
+Platform, Version 2.2.2
+      </td>
+      <td valign="top" align="right" rowspan="1" colspan="1"
+ abbr="NavButtons"><a href="index.html"><img src="shared/toc01.gif"
+ title="Table Of Contents" alt="Table Of Contents" width="30"
+ height="26" border="0"></a><a href="copyright.html"><img
+ src="shared/prev01.gif" title="Previous Chapter" alt="Previous Chapter"
+ width="30" height="26" border="0"></a><a href="cJDK_b_domLOF.html"><img
+ src="shared/next01.gif" title="Next Chapter" alt="Next Chapter"
+ width="30" height="26" border="0"></a><a href="ix.html"><img
+ src="shared/index01.gif" title="Book Index" alt="Book Index" width="30"
+ height="26" border="0"></a></td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+</div>
+</div>
+<p class="HTMLOnly-LogoTitle"><a name="pgfId-996992"></a>
+</p>
+<div><img src="shared/SunLogo.gif" title="Sun Logo" alt="Sun Logo"><br>
+<br>
+<br>
+<p class="booktitlehere" align="center">Development Kit User's Guide,
+Java Card Platform, Version 2.2.2
+</p>
+<p class="subtitlehere" align="center">For the Binary Release with
+Cryptography Extensions </p>
+<p class="subtitlehere" align="center">Java Card<img
+ src="shared/chars/tm.gif" title="trademark" alt="trademark"> Platform,
+Version 2.2.2 </p>
+<p class="subtitlehere" align="center"> </p>
+<p class="subtitlehere" align="center"> </p>
+<p class="partnumberhere" align="center">3-14-06
+</p>
+<br>
+</div>
+<table dir="ltr" summary="Chapter Title" abbr="ChapTitle" width="100%"
+ border="0">
+  <colgroup span="1" width="100%"><col id="1" span="1" width="100%"></colgroup><tbody>
+    <tr>
+      <td align="right" class="ChapTitle">
+      <hr size="7" noshade="noshade"><a name="pgfId-1022652"></a>Contents
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<p class="ChapTitleCTOC"><a name="pgfId-1016682"></a><a
+ href="cJDK_b_domLOF.html#pgfId-108319" class="Index">Figures </a></p>
+<p class="ChapTitleCTOC"><a name="pgfId-1016684"></a><a
+ href="cJDK_b_domLOT.html#pgfId-13161" class="Index">Tables </a></p>
+<p class="ChapTitlePTOC"><a name="pgfId-1016686"></a><a
+ href="cJDKPreface.html#pgfId-5585" class="Index">Preface </a></p>
+<p class="Head1PTOC"><a name="pgfId-1016688"></a><a
+ href="cJDKPreface.html#pgfId-5601" class="Index">Who Should Use This
+Book </a></p>
+<p class="Head1PTOC"><a name="pgfId-1016690"></a><a
+ href="cJDKPreface.html#pgfId-5610" class="Index">Before You Read This
+Book </a></p>
+<p class="Head1PTOC"><a name="pgfId-1016692"></a><a
+ href="cJDKPreface.html#pgfId-5614" class="Index">How This Book Is
+Organized </a></p>
+<p class="Head2PTOC"><a name="pgfId-1016694"></a><a
+ href="cJDKPreface.html#pgfId-5702" class="Index">Related Books </a></p>
+<p class="Head1PTOC"><a name="pgfId-1016696"></a><a
+ href="cJDKPreface.html#pgfId-6562" class="Index">Typographic
+Conventions </a></p>
+<p class="Head1PTOC"><a name="pgfId-1016698"></a><a
+ href="cJDKPreface.html#pgfId-9109" class="Index">Accessing Sun
+Documentation Online </a></p>
+<p class="Head1PTOC"><a name="pgfId-1016700"></a><a
+ href="cJDKPreface.html#pgfId-5797" class="Index">Sun Welcomes Your
+Comments </a></p>
+<p class="ChapTitleTOC"><a name="pgfId-1016702"></a><a
+ href="cJDKintro.html#pgfId-1000194" class="Index"> 1. Introduction </a></p>
+<p class="Head1TOC"><a name="pgfId-1016704"></a><a
+ href="cJDKintro.html#pgfId-1003538" class="Index">Converting Java
+Language Classes </a></p>
+<p class="ChapTitleTOC"><a name="pgfId-1016706"></a><a
+ href="cJDKinstall.html#pgfId-1023475" class="Index"> 2. Installation </a></p>
+<p class="Head1TOC"><a name="pgfId-1016708"></a><a
+ href="cJDKinstall.html#pgfId-1000233" class="Index">Prerequisites for
+Installing the Binary Release </a></p>
+<p class="Head1TOC"><a name="pgfId-1016710"></a><a
+ href="cJDKinstall.html#pgfId-1000298" class="Index">Installing the
+Development Kit Binaries </a></p>
+<p class="Head1TOC"><a name="pgfId-1016712"></a><a
+ href="cJDKinstall.html#pgfId-1000498" class="Index">Files Installed
+for the Binary Release </a></p>
+<p class="Head2TOC"><a name="pgfId-1016714"></a><a
+ href="cJDKinstall.html#pgfId-1000587" class="Index">Sample Programs
+and Demonstrations </a></p>
+<p class="ChapTitleTOC"><a name="pgfId-1016716"></a><a
+ href="cJDKdemo.html#pgfId-1001512" class="Index"> 3. Development Kit
+Samples and Demonstrations </a></p>
+<p class="Head1TOC"><a name="pgfId-1016718"></a><a
+ href="cJDKdemo.html#pgfId-1001517" class="Index">The Demonstrations </a></p>
+<p class="Head2TOC"><a name="pgfId-1016720"></a><a
+ href="cJDKdemo.html#pgfId-1019043" class="Index">Directories and Files
+in the <kbd class="Filename-Command">demo</kbd> Directory </a></p>
+<p class="Head1TOC"><a name="pgfId-1016722"></a><a
+ href="cJDKdemo.html#pgfId-1001727" class="Index">Preliminaries for
+Rebuilding the Demos </a></p>
+<p class="Head2TOC"><a name="pgfId-1016724"></a><a
+ href="cJDKdemo.html#pgfId-1001732" class="Index">Building Samples </a></p>
+<p class="Head3TOC"><a name="pgfId-1016726"></a><a
+ href="cJDKdemo.html#pgfId-1001744" class="Index">Running the Build
+Script </a></p>
+<p class="Head3TOC"><a name="pgfId-1016728"></a><a
+ href="cJDKdemo.html#pgfId-1001792" class="Index">Setting Environment
+Variables </a></p>
+<p class="Head1TOC"><a name="pgfId-1016730"></a><a
+ href="cJDKdemo.html#pgfId-1001819" class="Index">Building the Sample
+Applets </a></p>
+<p class="Head2TOC"><a name="pgfId-1016732"></a><a
+ href="cJDKdemo.html#pgfId-1001840" class="Index">Preparing to Compile
+the Sample Applets </a></p>
+<p class="Head2TOC"><a name="pgfId-1016734"></a><a
+ href="cJDKdemo.html#pgfId-1001850" class="Index">Compiling the Sample
+Applets </a></p>
+<p class="Head2TOC"><a name="pgfId-1016736"></a><a
+ href="cJDKdemo.html#pgfId-1001867" class="Index">Converting the Class
+Files </a></p>
+<p class="Head2TOC"><a name="pgfId-1016738"></a><a
+ href="cJDKdemo.html#pgfId-1001884" class="Index">Running <kbd
+ class="Filename-Command">scriptgen</kbd> to Generate Script Files </a></p>
+<p class="Head1TOC"><a name="pgfId-1016740"></a><a
+ href="cJDKdemo.html#pgfId-1064496" class="Index">Running the
+Demonstrations </a></p>
+<p class="Head2TOC"><a name="pgfId-1016742"></a><a
+ href="cJDKdemo.html#pgfId-1002037" class="Index">Demo 1 </a></p>
+<p class="Head2TOC"><a name="pgfId-1016744"></a><a
+ href="cJDKdemo.html#pgfId-1002096" class="Index">Demo 2 </a></p>
+<p class="Head3TOC"><a name="pgfId-1016746"></a><a
+ href="cJDKdemo.html#pgfId-1002100" class="Index">Running <kbd
+ class="Filename-Command">demo2 </kbd> </a></p>
+<p class="Head2TOC"><a name="pgfId-1016748"></a><a
+ href="cJDKdemo.html#pgfId-1002153" class="Index">Demo 3 </a></p>
+<p class="Head2TOC"><a name="pgfId-1016750"></a><a
+ href="cJDKdemo.html#pgfId-1002207" class="Index">Java Card RMI Demo </a></p>
+<p class="Head3TOC"><a name="pgfId-1016752"></a><a
+ href="cJDKdemo.html#pgfId-1110703" class="Index">Running the Java Card
+RMI Demo </a></p>
+<p class="Head2TOC"><a name="pgfId-1016754"></a><a
+ href="cJDKdemo.html#pgfId-1002296" class="Index">Secure Java Card RMI
+Demo </a></p>
+<p class="Head3TOC"><a name="pgfId-1016756"></a><a
+ href="cJDKdemo.html#pgfId-1002360" class="Index">Running the Secure
+Java Card RMI Demo </a></p>
+<p class="Head2TOC"><a name="pgfId-1016758"></a><a
+ href="cJDKdemo.html#pgfId-1002506" class="Index">Object Deletion Demo
+1 </a></p>
+<p class="Head2TOC"><a name="pgfId-1016760"></a><a
+ href="cJDKdemo.html#pgfId-1002546" class="Index">Object Deletion Demo
+2 </a></p>
+<p class="Head2TOC"><a name="pgfId-1016762"></a><a
+ href="cJDKdemo.html#pgfId-1002564" class="Index">Logical Channels Demo
+</a></p>
+<p class="Head2TOC"><a name="pgfId-1016764"></a><a
+ href="cJDKdemo.html#pgfId-1113300" class="Index">Demo 2 Cryptography
+Demo </a></p>
+<p class="Head2TOC"><a name="pgfId-1016766"></a><a
+ href="cJDKdemo.html#pgfId-1037442" class="Index">Photo Card Demo </a></p>
+<p class="Head2TOC"><a name="pgfId-1016768"></a><a
+ href="cJDKdemo.html#pgfId-1113469" class="Index">Transit System Demo </a></p>
+<p class="Head2TOC"><a name="pgfId-1016770"></a><a
+ href="cJDKdemo.html#pgfId-1047468" class="Index">Utility APIs Demo
+Applet </a></p>
+<p class="Head3TOC"><a name="pgfId-1016772"></a><a
+ href="cJDKdemo.html#pgfId-1035984" class="Index">PIN Protection </a></p>
+<p class="Head3TOC"><a name="pgfId-1016774"></a><a
+ href="cJDKdemo.html#pgfId-1035986" class="Index">Storage of Portfolio </a></p>
+<p class="Head3TOC"><a name="pgfId-1016776"></a><a
+ href="cJDKdemo.html#pgfId-1035993" class="Index">Stock Trading </a></p>
+<p class="Head3TOC"><a name="pgfId-1016778"></a><a
+ href="cJDKdemo.html#pgfId-1035999" class="Index">Get Information On a
+Stock </a></p>
+<p class="Head2TOC"><a name="pgfId-1016780"></a><a
+ href="cJDKdemo.html#pgfId-1064095" class="Index">Password Biometric
+Sample Application </a></p>
+<p class="Head3TOC"><a name="pgfId-1016782"></a><a
+ href="cJDKdemo.html#pgfId-1064121" class="Index">How the Biometric
+Sample Works </a></p>
+<p class="Head3TOC"><a name="pgfId-1016784"></a><a
+ href="cJDKdemo.html#pgfId-1064128" class="Index"><kbd
+ class="Filename-Command">SamplePasswdOwnerBioTemplate</kbd> Class </a></p>
+<p class="Head3TOC"><a name="pgfId-1016786"></a><a
+ href="cJDKdemo.html#pgfId-1064130" class="Index"><kbd
+ class="Filename-Command">SamplePasswdBioServer</kbd> Class </a></p>
+<p class="Head3TOC"><a name="pgfId-1016788"></a><a
+ href="cJDKdemo.html#pgfId-1064132" class="Index"><kbd
+ class="Filename-Command">SamplePasswdBioApplet</kbd> Class </a></p>
+<p class="Head3TOC"><a name="pgfId-1016790"></a><a
+ href="cJDKdemo.html#pgfId-1064134" class="Index">Off-card Tool </a></p>
+<p class="Head3TOC"><a name="pgfId-1016792"></a><a
+ href="cJDKdemo.html#pgfId-1064136" class="Index">Sequence Diagram Of
+How The Sample Works </a></p>
+<p class="Head3TOC"><a name="pgfId-1016794"></a><a
+ href="cJDKdemo.html#pgfId-1064149" class="Index">How The Biometric API
+Works </a></p>
+<p class="Head3TOC"><a name="pgfId-1016796"></a><a
+ href="cJDKdemo.html#pgfId-1064165" class="Index">Implementation Notes </a></p>
+<p class="Head2TOC"><a name="pgfId-1016798"></a><a
+ href="cJDKdemo.html#pgfId-1113486" class="Index">SignatureMessageRecovery
+Demo </a></p>
+<p class="Head3TOC"><a name="pgfId-1016800"></a><a
+ href="cJDKdemo.html#pgfId-1113488" class="Index">Message Recovery
+Order of Operations </a></p>
+<p class="Head3TOC"><a name="pgfId-1016802"></a><a
+ href="cJDKdemo.html#pgfId-1113497" class="Index">Sample Application </a></p>
+<p class="ChapTitleTOC"><a name="pgfId-1016804"></a><a
+ href="cJDKjcwde.html#pgfId-1000193" class="Index"> 4. Running Applets
+in an Emulated Card Environment </a></p>
+<p class="Head1TOC"><a name="pgfId-1016806"></a><a
+ href="cJDKjcwde.html#pgfId-1000219" class="Index">Preparing to Run
+Java Card WDE </a></p>
+<p class="Head2TOC"><a name="pgfId-1016808"></a><a
+ href="cJDKjcwde.html#pgfId-1000223" class="Index">Setting Environment
+Variables </a></p>
+<p class="Head2TOC"><a name="pgfId-1016810"></a><a
+ href="cJDKjcwde.html#pgfId-1000232" class="Index">Configuring the
+Applets in the Java Card WDE Mask </a></p>
+<p class="Head1TOC"><a name="pgfId-1016812"></a><a
+ href="cJDKjcwde.html#pgfId-1000252" class="Index">Running the Java
+Card WDE Tool </a></p>
+<p class="ChapTitleTOC"><a name="pgfId-1016814"></a><a
+ href="cJDKconverter.html#pgfId-1000355" class="Index"> 5. Converting
+Java Class Files </a></p>
+<p class="Head1TOC"><a name="pgfId-1016816"></a><a
+ href="cJDKconverter.html#pgfId-1000388" class="Index">Setting Java
+Compiler Options </a></p>
+<p class="Head2TOC"><a name="pgfId-1016818"></a><a
+ href="cJDKconverter.html#pgfId-1000394" class="Index">Generating the
+CAP File's Debug Component </a></p>
+<p class="Head1TOC"><a name="pgfId-1016820"></a><a
+ href="cJDKconverter.html#pgfId-1000397" class="Index">Running the
+Converter </a></p>
+<p class="Head2TOC"><a name="pgfId-1016822"></a><a
+ href="cJDKconverter.html#pgfId-1000407" class="Index">Converter
+Command Line Arguments </a></p>
+<p class="Head2TOC"><a name="pgfId-1016824"></a><a
+ href="cJDKconverter.html#pgfId-1000432" class="Index">Converter
+Command Line Options </a></p>
+<p class="Head3TOC"><a name="pgfId-1016826"></a><a
+ href="cJDKconverter.html#pgfId-1000517" class="Index">Using Delimiters
+with Command Line Options </a></p>
+<p class="Head2TOC"><a name="pgfId-1016828"></a><a
+ href="cJDKconverter.html#pgfId-1000536" class="Index">Using a Command
+Configuration File </a></p>
+<p class="Head1TOC"><a name="pgfId-1016830"></a><a
+ href="cJDKconverter.html#pgfId-1000569" class="Index">File and
+Directory Naming Conventions </a></p>
+<p class="Head2TOC"><a name="pgfId-1016832"></a><a
+ href="cJDKconverter.html#pgfId-1000574" class="Index">Input File
+Naming Conventions </a></p>
+<p class="Head2TOC"><a name="pgfId-1016834"></a><a
+ href="cJDKconverter.html#pgfId-1000581" class="Index">Output File
+Naming Conventions </a></p>
+<p class="Head2TOC"><a name="pgfId-1016836"></a><a
+ href="cJDKconverter.html#pgfId-1000591" class="Index">Verification of
+Input and Output Files </a></p>
+<p class="Head2TOC"><a name="pgfId-1016838"></a><a
+ href="cJDKconverter.html#pgfId-1000600" class="Index">Creating a <kbd
+ class="Filename-Command">debug.msk</kbd> Output File </a></p>
+<p class="Head1TOC"><a name="pgfId-1016840"></a><a
+ href="cJDKconverter.html#pgfId-1000606" class="Index">Loading Export
+Files </a></p>
+<p class="Head1TOC"><a name="pgfId-1016842"></a><a
+ href="cJDKconverter.html#pgfId-1000627" class="Index">Specifying an
+Export Map </a></p>
+<p class="ChapTitleTOC"><a name="pgfId-1016844"></a><a
+ href="cJDKviewexport.html#pgfId-1000355" class="Index"> 6. Viewing an
+Export File </a></p>
+<p class="ChapTitleTOC"><a name="pgfId-1016846"></a><a
+ href="cJDKverifier.html#pgfId-1000355" class="Index"> 7. Verifying CAP
+and Export Files </a></p>
+<p class="Head1TOC"><a name="pgfId-1016848"></a><a
+ href="cJDKverifier.html#pgfId-1000378" class="Index">Verifying CAP
+Files </a></p>
+<p class="Head2TOC"><a name="pgfId-1016850"></a><a
+ href="cJDKverifier.html#pgfId-1000395" class="Index">Running <kbd
+ class="Filename-Command">verifycap</kbd> </a></p>
+<p class="Head3TOC"><a name="pgfId-1016852"></a><a
+ href="cJDKverifier.html#pgfId-1000405" class="Index"><kbd
+ class="Filename-Command">verifycap</kbd> Command Line Arguments </a></p>
+<p class="Head3TOC"><a name="pgfId-1016854"></a><a
+ href="cJDKverifier.html#pgfId-1000425" class="Index"><kbd
+ class="Filename-Command">verifycap</kbd> Command Line Options </a></p>
+<p class="Head1TOC"><a name="pgfId-1016856"></a><a
+ href="cJDKverifier.html#pgfId-1000431" class="Index">Verifying Export
+Files </a></p>
+<p class="Head2TOC"><a name="pgfId-1016858"></a><a
+ href="cJDKverifier.html#pgfId-1001557" class="Index">Running <kbd
+ class="Filename-Command">verifyexp</kbd> </a></p>
+<p class="Head3TOC"><a name="pgfId-1016860"></a><a
+ href="cJDKverifier.html#pgfId-1000457" class="Index"><kbd
+ class="Filename-Command">verifyexp</kbd> Command Line Arguments </a></p>
+<p class="Head3TOC"><a name="pgfId-1016862"></a><a
+ href="cJDKverifier.html#pgfId-1000473" class="Index"><kbd
+ class="Filename-Command">verifyexp</kbd> Command Line Options </a></p>
+<p class="Head1TOC"><a name="pgfId-1016864"></a><a
+ href="cJDKverifier.html#pgfId-1000479" class="Index">Verifying Binary
+Compatibility </a></p>
+<p class="Head2TOC"><a name="pgfId-1016866"></a><a
+ href="cJDKverifier.html#pgfId-1000495" class="Index">Running <kbd
+ class="Filename-Command">verifyrev</kbd> </a></p>
+<p class="Head3TOC"><a name="pgfId-1016868"></a><a
+ href="cJDKverifier.html#pgfId-1000505" class="Index"><kbd
+ class="Filename-Command">verifyrev</kbd> Command Line Arguments </a></p>
+<p class="Head3TOC"><a name="pgfId-1016870"></a><a
+ href="cJDKverifier.html#pgfId-1000511" class="Index"><kbd
+ class="Filename-Command">verifyrev</kbd> Command Line Options </a></p>
+<p class="Head1TOC"><a name="pgfId-1016872"></a><a
+ href="cJDKverifier.html#pgfId-1000517" class="Index">Command Line
+Options for Off-Card Verifier Tools </a></p>
+<p class="ChapTitleTOC"><a name="pgfId-1016874"></a><a
+ href="cJDKcapgen.html#pgfId-1000355" class="Index"> 8. Generating a
+CAP File From a Java Card Assembly File </a></p>
+<p class="Head1TOC"><a name="pgfId-1016876"></a><a
+ href="cJDKcapgen.html#pgfId-1000359" class="Index">Running <kbd
+ class="Filename-Command">capgen</kbd> </a></p>
+<p class="Head2TOC"><a name="pgfId-1016878"></a><a
+ href="cJDKcapgen.html#pgfId-1000371" class="Index"><kbd
+ class="Filename-Command">capgen</kbd> Command Line Options </a></p>
+<p class="ChapTitleTOC"><a name="pgfId-1016880"></a><a
+ href="cJDKcapdump.html#pgfId-1000355" class="Index"> 9. Producing a
+Text Representation of a CAP File </a></p>
+<p class="Head1TOC"><a name="pgfId-1016882"></a><a
+ href="cJDKcapdump.html#pgfId-1000363" class="Index">Running <kbd
+ class="Filename-Command">capdump</kbd> </a></p>
+<p class="ChapTitleTOC"><a name="pgfId-1016884"></a><a
+ href="cJDKc-jcre.html#pgfId-1000355" class="Index"> 10. Using the
+Reference Implementation </a></p>
+<p class="Head1TOC"><a name="pgfId-1016886"></a><a
+ href="cJDKc-jcre.html#pgfId-1000380" class="Index">Running the
+C-Language Java Card RE </a></p>
+<p class="Head2TOC"><a name="pgfId-1016888"></a><a
+ href="cJDKc-jcre.html#pgfId-1000407" class="Index">Installer Mask </a></p>
+<p class="Head2TOC"><a name="pgfId-1016890"></a><a
+ href="cJDKc-jcre.html#pgfId-1006651" class="Index">Runtime Environment
+Command Line </a></p>
+<p class="Head3TOC"><a name="pgfId-1016892"></a><a
+ href="cJDKc-jcre.html#pgfId-1000426" class="Index">Runtime Environment
+Command-line Options </a></p>
+<p class="Head2TOC"><a name="pgfId-1016894"></a><a
+ href="cJDKc-jcre.html#pgfId-1000508" class="Index">Obtaining Resource
+Consumption Statistics </a></p>
+<p class="Head1TOC"><a name="pgfId-1016896"></a><a
+ href="cJDKc-jcre.html#pgfId-1000546" class="Index">Reference
+Implementation Limits </a></p>
+<p class="Head1TOC"><a name="pgfId-1016898"></a><a
+ href="cJDKc-jcre.html#pgfId-1000553" class="Index">Input and Output </a></p>
+<p class="Head1TOC"><a name="pgfId-1016900"></a><a
+ href="cJDKc-jcre.html#pgfId-1000559" class="Index">Working With EEPROM
+Image Files </a></p>
+<p class="Head3TOC"><a name="pgfId-1016902"></a><a
+ href="cJDKc-jcre.html#pgfId-1000569" class="Index">Input EEPROM Image
+File </a></p>
+<p class="Head3TOC"><a name="pgfId-1016904"></a><a
+ href="cJDKc-jcre.html#pgfId-1000572" class="Index">Output EEPROM Image
+File </a></p>
+<p class="Head3TOC"><a name="pgfId-1016906"></a><a
+ href="cJDKc-jcre.html#pgfId-1000575" class="Index">Same Input and
+Output EEPROM Image File </a></p>
+<p class="Head3TOC"><a name="pgfId-1016908"></a><a
+ href="cJDKc-jcre.html#pgfId-1000578" class="Index">Different Input and
+Output EEPROM Image Files </a></p>
+<p class="Head1TOC"><a name="pgfId-1016910"></a><a
+ href="cJDKc-jcre.html#pgfId-1007679" class="Index">The Default ROM
+Mask </a></p>
+<p class="ChapTitleTOC"><a name="pgfId-1016912"></a><a
+ href="cJDKinstaller.html#pgfId-1000355" class="Index"> 11. Using the
+Installer </a></p>
+<p class="Head1TOC"><a name="pgfId-1016914"></a><a
+ href="cJDKinstaller.html#pgfId-1000365" class="Index">Installer
+Components and Data Flow </a></p>
+<p class="Head1TOC"><a name="pgfId-1016916"></a><a
+ href="cJDKinstaller.html#pgfId-1000388" class="Index">Running <kbd
+ class="Filename-Command">scriptgen</kbd> </a></p>
+<p class="Head1TOC"><a name="pgfId-1016918"></a><a
+ href="cJDKinstaller.html#pgfId-1000447" class="Index">Installer Applet
+AID </a></p>
+<p class="Head1TOC"><a name="pgfId-1016920"></a><a
+ href="cJDKinstaller.html#pgfId-1003459" class="Index">Setting Default
+Applets </a></p>
+<p class="Head1TOC"><a name="pgfId-1016922"></a><a
+ href="cJDKinstaller.html#pgfId-1000450" class="Index">Downloading CAP
+Files and Creating Applets </a></p>
+<p class="Head2TOC"><a name="pgfId-1016924"></a><a
+ href="cJDKinstaller.html#pgfId-1000472" class="Index">Downloading the
+CAP File </a></p>
+<p class="Head2TOC"><a name="pgfId-1016926"></a><a
+ href="cJDKinstaller.html#pgfId-1003412" class="Index">Creating an
+Applet Instance </a></p>
+<p class="Head3TOC"><a name="pgfId-1016928"></a><a
+ href="cJDKinstaller.html#pgfId-1002889" class="Index">Installer APDU
+Protocol </a></p>
+<p class="Head3TOC"><a name="pgfId-1016930"></a><a
+ href="cJDKinstaller.html#pgfId-1002359" class="Index">APDU Types </a></p>
+<p class="Head2TOC"><a name="pgfId-1016932"></a><a
+ href="cJDKinstaller.html#pgfId-1000769" class="Index">APDU Responses
+to Installation Requests </a></p>
+<p class="Head2TOC"><a name="pgfId-1016934"></a><a
+ href="cJDKinstaller.html#pgfId-1000947" class="Index">A Sample APDU
+Script </a></p>
+<p class="Head1TOC"><a name="pgfId-1016936"></a><a
+ href="cJDKinstaller.html#pgfId-1001024" class="Index">Deleting
+Packages and Applets </a></p>
+<p class="Head2TOC"><a name="pgfId-1016938"></a><a
+ href="cJDKinstaller.html#pgfId-1001034" class="Index">How to Send a
+Deletion Request </a></p>
+<p class="Head3TOC"><a name="pgfId-1016940"></a><a
+ href="cJDKinstaller.html#pgfId-1001054" class="Index">APDU Requests to
+Delete Packages and Applets </a></p>
+<p class="Head2TOC"><a name="pgfId-1016942"></a><a
+ href="cJDKinstaller.html#pgfId-1001136" class="Index">APDU Responses
+to Deletion Requests </a></p>
+<p class="Head1TOC"><a name="pgfId-1016944"></a><a
+ href="cJDKinstaller.html#pgfId-1001227" class="Index">Installer Limits
+</a></p>
+<p class="ChapTitleTOC"><a name="pgfId-1016946"></a><a
+ href="cJDKapdu.html#pgfId-1000355" class="Index"> 12. Sending and
+Receiving APDU Commands </a></p>
+<p class="Head1TOC"><a name="pgfId-1016948"></a><a
+ href="cJDKapdu.html#pgfId-1001444" class="Index">Running <kbd
+ class="Filename-Command">apdutool</kbd> </a></p>
+<p class="Head2TOC"><a name="pgfId-1016950"></a><a
+ href="cJDKapdu.html#pgfId-1000440" class="Index"><kbd
+ class="Filename-Command">apdutool</kbd> Examples </a></p>
+<p class="Head3TOC"><a name="pgfId-1016952"></a><a
+ href="cJDKapdu.html#pgfId-1000441" class="Index">Directing Output to
+the Console </a></p>
+<p class="Head3TOC"><a name="pgfId-1016954"></a><a
+ href="cJDKapdu.html#pgfId-1001498" class="Index">Directing Output to a
+File </a></p>
+<p class="Head2TOC"><a name="pgfId-1016956"></a><a
+ href="cJDKapdu.html#pgfId-1000448" class="Index">Using APDU Script
+Files </a></p>
+<p class="ChapTitleTOC"><a name="pgfId-1016958"></a><a
+ href="cJDKcrypto.html#pgfId-1000355" class="Index"> 13. Using
+Cryptography Extensions </a></p>
+<p class="Head1TOC"><a name="pgfId-1016960"></a><a
+ href="cJDKcrypto.html#pgfId-1000383" class="Index">Supported
+Cryptography Classes </a></p>
+<p class="Head2TOC"><a name="pgfId-1016962"></a><a
+ href="cJDKcrypto.html#pgfId-1000463" class="Index">Instantiating the
+Classes </a></p>
+<p class="Head1TOC"><a name="pgfId-1016964"></a><a
+ href="cJDKcrypto.html#pgfId-1001474" class="Index">DES Encryption and
+Signature Performance Enhancements </a></p>
+<p class="Head1TOC"><a name="pgfId-1016966"></a><a
+ href="cJDKcrypto.html#pgfId-1001508" class="Index">Temporary RAM Usage
+by Cryptography Algorithms </a></p>
+<p class="ChapTitleTOC"><a name="pgfId-1016968"></a><a
+ href="cJDKrmiclientAPI.html#pgfId-1000514" class="Index"> 14. Java
+Card RMI Client-Side Reference Implementation </a></p>
+<p class="Head1TOC"><a name="pgfId-1016970"></a><a
+ href="cJDKrmiclientAPI.html#pgfId-1005092" class="Index">The Java Card
+Remote Stub Object </a></p>
+<p class="Head1TOC"><a name="pgfId-1016972"></a><a
+ href="cJDKrmiclientAPI.html#pgfId-1005364" class="Index">Java Card RMI
+Client-Side API </a></p>
+<p class="Head2TOC"><a name="pgfId-1016974"></a><a
+ href="cJDKrmiclientAPI.html#pgfId-1005432" class="Index">Package <kbd
+ class="Filename-Command">rmiclientlib </kbd> </a></p>
+<p class="Head2TOC"><a name="pgfId-1016976"></a><a
+ href="cJDKrmiclientAPI.html#pgfId-1005487" class="Index">Package <kbd
+ class="Filename-Command">clientlib </kbd> </a></p>
+<p class="ChapTitleATOC"><a name="pgfId-1016978"></a><a
+ href="cJDKAppendixA.html#pgfId-1000248" class="Index"> A. Java Card
+Assembly Syntax Example </a></p>
+<p class="ChapTitleATOC"><a name="pgfId-1016980"></a><a
+ href="cJDKAppManifest.html#pgfId-1000245" class="Index"> B. CAP File
+Manifest File Syntax </a></p>
+<p class="Head2ATOC"><a name="pgfId-1016982"></a><a
+ href="cJDKAppManifest.html#pgfId-1000320" class="Index">Sample
+Manifest File </a></p>
+<p class="ChapTitleATOC"><a name="pgfId-1016984"></a><a
+ href="cJDKLargeAddr.html#pgfId-1000256" class="Index"> C. Using the
+Large Address Space </a></p>
+<p class="Head2ATOC"><a name="pgfId-1016986"></a><a
+ href="cJDKLargeAddr.html#pgfId-1000729" class="Index">Programming
+Large Applications and Libraries </a></p>
+<p class="Head3ATOC"><a name="pgfId-1016988"></a><a
+ href="cJDKLargeAddr.html#pgfId-1000735" class="Index">Handling a
+Package as a Separate Code Space </a></p>
+<p class="Head2ATOC"><a name="pgfId-1016990"></a><a
+ href="cJDKLargeAddr.html#pgfId-1000738" class="Index">Storing Large
+Amounts of Data </a></p>
+<p class="Head2ATOC"><a name="pgfId-1016992"></a><a
+ href="cJDKLargeAddr.html#pgfId-1000749" class="Index">Example: The <kbd
+ class="Filename-Command">photocard</kbd> Demo Applet </a></p>
+<p class="Head3ATOC"><a name="pgfId-1016994"></a><a
+ href="cJDKLargeAddr.html#pgfId-1000804" class="Index">Notes on the <kbd
+ class="Filename-Command">photocard</kbd> Applet </a></p>
+<p class="ChapTitleITOC"><a name="pgfId-1016996"></a><a
+ href="ix.html#pgfId-2807" class="Index">Index </a></p>
+<div class="navbar" align="center"><br>
+<br>
+<table dir="ltr"
+ summary="Navigation bar, includes the book title and navigation buttons"
+ width="100%" cellpadding="0" cellspacing="0" border="0">
+  <colgroup span="3" width="100%"><col id="1" span="1" width="45%"><col
+ id="2" span="1" width="25%"><col id="3" span="1" width="30%"></colgroup><tbody>
+    <tr bgcolor="#cccccc">
+      <td class="navbartitle" align="left" rowspan="1" colspan="1"
+ abbr="ChapTitle">&nbsp;&nbsp;Development Kit User's Guide, Java Card
+Platform, Version 2.2.2
+      </td>
+      <td class="navbartitle" align="right" rowspan="1" colspan="1"
+ abbr="PartNum">3-14-06
+      </td>
+      <td valign="top" align="right" rowspan="1" colspan="1"
+ abbr="NavButtons"><a href="index.html"><img src="shared/toc01.gif"
+ title="Table Of Contents" alt="Table Of Contents" width="30"
+ height="26" border="0"></a><a href="copyright.html"><img
+ src="shared/prev01.gif" title="Previous Chapter" alt="Previous Chapter"
+ width="30" height="26" border="0"></a><a href="cJDK_b_domLOF.html"><img
+ src="shared/next01.gif" title="Next Chapter" alt="Next Chapter"
+ width="30" height="26" border="0"></a><a href="ix.html"><img
+ src="shared/index01.gif" title="Book Index" alt="Book Index" width="30"
+ height="26" border="0"></a></td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+</div>
+<p class="copyrightlink"><a href="copyright.html">Copyright</a> &copy;
+2005, Sun Microsystems, Inc. All Rights Reserved.</p>
+</body>
+</html>

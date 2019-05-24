@@ -1,0 +1,606 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type"
+ content="text/html; charset=ISO-8859-1">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="GENERATOR"
+ content="Adobe FrameMaker 7.0/HTML Export Filter">
+  <link rel="STYLESHEET" href="unx_unstr_styles.css"
+ charset="ISO-8859-1" type="text/css">
+  <meta name="DC.TITLE"
+ content="Ant Tasks User's Guide, Java Card Platform, Version 2.2.2">
+  <title>C H A P T E R 5 - NetBeans(TM) Software Integration</title>
+</head>
+<body bgcolor="#ffffff">
+<div>
+<div class="navbar" align="center">
+<table dir="ltr"
+ summary="Navigation bar, includes the book title and navigation buttons"
+ width="100%" cellpadding="0" cellspacing="0" border="0">
+  <colgroup span="2" width="100%"><col id="1" span="1" width="50%"><col
+ id="2" span="1" width="50%"></colgroup><tbody>
+    <tr bgcolor="#cccccc">
+      <td class="navbartitle" align="left" rowspan="1" colspan="1"
+ abbr="ChapTitle">&nbsp;&nbsp;Ant Tasks User's Guide, Java Card
+Platform, Version 2.2.2
+      </td>
+      <td valign="top" align="right" rowspan="1" colspan="1"
+ abbr="NavButtons"><a href="index.html"><img src="shared/toc01.gif"
+ title="Table Of Contents" alt="Table Of Contents" width="30"
+ height="26" border="0"></a><a href="types.html"><img
+ src="shared/prev01.gif" title="Previous Chapter" alt="Previous Chapter"
+ width="30" height="26" border="0"></a><a href="example.html"><img
+ src="shared/next01.gif" title="Next Chapter" alt="Next Chapter"
+ width="30" height="26" border="0"></a><a href="ix.html"><img
+ src="shared/index01.gif" title="Book Index" alt="Book Index" width="30"
+ height="26" border="0"></a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+</div>
+</div>
+<table dir="ltr" summary="Chapter Number" abbr="ChapNum" width="100%"
+ border="0">
+  <colgroup span="1" width="100%"><col id="1" span="1"></colgroup><tbody>
+    <tr>
+      <td align="right" class="ChapNumber"><span class="ChapNumPrefix"><a
+ name="pgfId-998523"></a>C H A P T E R </span>&nbsp;<span
+ class="ChapNumNum">5</span>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<table dir="ltr" summary="Chapter Title" abbr="ChapTitle" width="100%"
+ border="0">
+  <colgroup span="1" width="100%"><col id="1" span="1" width="100%"></colgroup><tbody>
+    <tr>
+      <td align="right" class="ChapTitle">
+      <hr size="7" noshade="noshade"><a name="pgfId-999553"></a>NetBeans<img
+ src="shared/chars/tm.gif" title="trademark" alt="trademark"> Software
+Integration<a name="marker-1002501"></a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<p class="Paragraph"><a name="pgfId-1000609"></a>NetBeans<img
+ src="shared/chars/tm.gif" title="trademark" alt="trademark">
+integrated development environmnet 4.1 creates Ant script for Java
+technology projects and uses this script to compile, build and run
+projects. The <kbd class="Filename-Command">build.xml</kbd> file for a
+NetBeans project is located in the project's root directory. Modify
+this <kbd class="Filename-Command">build.xml</kbd> file as explained
+in <a href="install.html#49832" class="XRef">Chapter 2</a> to enable
+usage of the Ant tasks.
+</p>
+<p class="Paragraph"><a name="pgfId-1001436"></a>Netbeans software
+recognizes some pre-defined targets in the <kbd
+ class="Filename-Command">build.xml</kbd> file that is generated for
+the project. Some of these targets exist, such as <kbd
+ class="Filename-Command">clean</kbd> and <kbd class="Filename-Command">compile</kbd>,
+while XML for others is left empty. One of these targets is <kbd
+ class="Filename-Command">-post-compile</kbd>. You may safely modify
+this target to incorporate usage of the Ant tasks in your project. An
+example of a modified <kbd class="Filename-Command">build.xml</kbd>
+file for a NetBeans project is included here. For information on
+NetBeans software, go to the NetBeans integrated development
+environment web site at <kbd class="URL"><a
+ href="http://www.netbeans.org" class="URL">http://www.netbeans.org</a>.</kbd>
+</p>
+<p class="TableTextCode"><a name="pgfId-1001768"></a>&nbsp;<br>
+</p>
+<div class="Code">
+<br>
+<table class="Code" border="1" bordercolorlight="#FFFFFF"
+ bordercolordark="#000000" cellpadding="5" cellspacing="0" dir="ltr">
+  <caption class="CodeCaption-Wide"><a name="pgfId-1002077"> </a> CODE
+EXAMPLE 5-1 <kbd class="Filename-Command"> build.xml </kbd> Modified
+for a NetBeans Project </caption>
+  <tbody>
+    <tr>
+      <td scope="row">
+      <p class="TableTextCode"><a name="pgfId-1002079"></a>&lt;?xml
+version="1.0" encoding="UTF-8"?&gt;<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002081"></a>&lt;!-- You
+may freely edit this file. See commented blocks below for --&gt;<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002083"></a>&lt;!-- some
+examples of how to customize the build. --&gt;<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002085"></a>&lt;!-- (If
+you delete it and reopen the project it will be recreated.) --&gt;<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002087"></a>&lt;project
+name="JavaPurse" default="default" basedir="."&gt;<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002089"></a>
+&lt;description&gt;Builds, tests, and runs the project
+JavaPurse.&lt;/description&gt;<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002091"></a> &lt;import
+file="nbproject/build-impl.xml"/&gt;<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002093"></a> &lt;!--<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002095"></a>&nbsp;<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002097"></a> There exist
+several targets which are by default empty and which can be <br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002099"></a> used for
+execution of your tasks. These targets are usually executed <br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002101"></a> before and
+after some main targets. They are: <br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002103"></a>&nbsp;<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002105"></a> -pre-init:
+called before initialization of project properties<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002107"></a> -post-init:
+called after initialization of project properties<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002109"></a>
+-pre-compile: called before javac compilation<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002111"></a>
+-post-compile: called after javac compilation<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002113"></a>
+-pre-compile-single: called before javac compilation of single file<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002115"></a>
+-post-compile-single: called after javac compilation of single file<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002117"></a>
+-pre-compile-test: called before javac compilation of JUnit tests<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002119"></a>
+-post-compile-test: called after javac compilation of JUnit tests<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002121"></a>
+-pre-compile-test-single: called before javac compilation of single
+JUnit test<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002123"></a>
+-post-compile-test-single: called after javac compilation of single
+JUunit test<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002125"></a> -pre-jar:
+called before JAR building<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002127"></a> -post-jar:
+called after JAR building<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002129"></a>
+-post-clean: called after cleaning build products<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002131"></a>&nbsp;<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002133"></a> (Targets
+beginning with '-' are not intended to be called on their own.)<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002135"></a>&nbsp;<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002137"></a> Example of
+inserting an obfuscator after compilation could look like this:<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002139"></a>&nbsp;<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002141"></a> &lt;target
+name="-post-compile"&gt;<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002143"></a>
+&lt;obfuscate&gt;<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002145"></a> &lt;fileset
+dir="${build.classes.dir}"/&gt;<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002147"></a>
+&lt;/obfuscate&gt;<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002149"></a>
+&lt;/target&gt;<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002151"></a>&nbsp;<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002153"></a> For list of
+available properties check the imported <br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002155"></a>
+nbproject/build-impl.xml file. <br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002157"></a>&nbsp;<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002159"></a>&nbsp;<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002161"></a> Another way
+to customize the build is by overriding existing main targets.<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002163"></a> The targets
+of interest are: <br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002165"></a>&nbsp;<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002167"></a>
+-init-macrodef-javac: defines macro for javac compilation<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002169"></a>
+-init-macrodef-junit: defines macro for junit execution<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002171"></a>
+-init-macrodef-debug: defines macro for class debugging<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002173"></a>
+-init-macrodef-java: defines macro for class execution<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002175"></a>
+-do-jar-with-manifest: JAR building (if you are using a manifest)<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002177"></a>
+-do-jar-without-manifest: JAR building (if you are not using a manifest)<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002179"></a> run:
+execution of project <br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002181"></a>
+-javadoc-build: Javadoc generation<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002183"></a>
+test-report: JUnit report generation<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002185"></a>&nbsp;<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002187"></a> An example
+of overriding the target for project execution could look like this:<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002189"></a>&nbsp;<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002191"></a> &lt;target
+name="run" depends="JavaPurse-impl.jar"&gt;<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002193"></a> &lt;exec
+dir="bin" executable="launcher.exe"&gt;<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002195"></a> &lt;arg
+file="${dist.jar}"/&gt;<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002197"></a>
+&lt;/exec&gt;<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002199"></a>
+&lt;/target&gt;<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002201"></a>&nbsp;<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002203"></a> Notice that
+the overridden target depends on the jar target and not only on <br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002205"></a> the compile
+target as the regular run target does. Again, for a list of available <br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002207"></a> properties
+which you can use, check the target you are overriding in the<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002209"></a>
+nbproject/build-impl.xml file. <br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002211"></a>&nbsp;<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002213"></a> --&gt;<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002215"></a> &lt;!-- the
+directory structure under the base directory --&gt;<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002217"></a>
+&lt;property name="sourceroot" value="src" /&gt;<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002219"></a>
+&lt;property name="classroot" value="build/classes" /&gt;<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002221"></a>
+&lt;property name="exportmap" value="exportmap" /&gt;<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002223"></a>&nbsp;<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002225"></a> &lt;!-- the
+directories where the Java Card(TM) export are located --&gt;<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002400"></a> &lt;!--
+could go into a properties file--&gt;<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002227"></a>
+&lt;property name="jcardkit_home" value="C:\java_card_kit-2_2_2" /&gt;<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002229"></a>
+&lt;property name="jcardkit_exports"
+value="${jcardkit_home}/api_export_files" /&gt;<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002231"></a>
+&lt;property name="jcardkit_libs" value="${jcardkit_home}/lib" /&gt;<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002233"></a>&nbsp;<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002235"></a> &lt;!--
+Definitions for tasks for Java Card tools --&gt;<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002237"></a> &lt;taskdef
+name="apdutool" <br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002239"></a>
+classname="com.sun.javacard.ant.tasks.APDUToolTask"/&gt; <br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002241"></a> &lt;taskdef
+name="capgen" <br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002243"></a>
+classname="com.sun.javacard.ant.tasks.CapgenTask" /&gt;<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002245"></a> &lt;taskdef
+name="maskgen" <br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002247"></a>
+classname="com.sun.javacard.ant.tasks.MaskgenTask" /&gt;<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002249"></a> &lt;taskdef
+name="deploycap" <br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002251"></a>
+classname="com.sun.javacard.ant.tasks.DeployCapTask" /&gt;<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002253"></a> &lt;taskdef
+name="exp2text" <br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002255"></a>
+classname="com.sun.javacard.ant.tasks.Exp2TextTask" /&gt;<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002257"></a> &lt;taskdef
+name="convert" <br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002259"></a>
+classname="com.sun.javacard.ant.tasks.ConverterTask" /&gt;<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002261"></a> &lt;taskdef
+name="verifyexport" <br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002263"></a>
+classname="com.sun.javacard.ant.tasks.VerifyExpTask" /&gt;<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002265"></a> &lt;taskdef
+name="verifycap" <br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002267"></a>
+classname="com.sun.javacard.ant.tasks.VerifyCapTask" /&gt;<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002269"></a> &lt;taskdef
+name="verifyrevision" <br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002271"></a>
+classname="com.sun.javacard.ant.tasks.VerifyRevTask" /&gt;<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002273"></a> &lt;taskdef
+name="scriptgen" <br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002275"></a>
+classname="com.sun.javacard.ant.tasks.ScriptgenTask" /&gt;<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002277"></a> &lt;typedef
+name="appletnameaid" <br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002279"></a>
+classname="com.sun.javacard.ant.types.AppletNameAID" /&gt;<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002281"></a> &lt;typedef
+name="jcainputfile" <br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002283"></a>
+classname="com.sun.javacard.ant.types.JCAInputFile" /&gt;<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002285"></a> &lt;typedef
+name="exportfiles" <br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002287"></a>
+classname="org.apache.tools.ant.types.FileSet" /&gt;<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002289"></a>&nbsp;<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002291"></a> &lt;!-- set
+the export path to the Java Card export files --&gt;<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002293"></a> &lt;path
+id="export" description="set the export file path"&gt;<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002295"></a>
+&lt;pathelement path="${jcardkit_exports}" /&gt;<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002297"></a>
+&lt;pathelement path="build/classes"/&gt;<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002299"></a>
+&lt;/path&gt;<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002301"></a>&nbsp;<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002303"></a> &lt;!-- set
+the classpath at minimum to the Java Card API --&gt; <br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002434"></a> &lt;!-- but
+also for all other API needed in the project--&gt; <br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002305"></a> &lt;path
+id="classpath" description="Sets the classpath to Java Card API and
+tools"&gt;<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002307"></a>
+&lt;pathelement path="${jcardkit_home}/lib/api.jar"/&gt;<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002309"></a>
+&lt;pathelement path="${jcardkit_home}/lib/converter.jar"/&gt;<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002311"></a>
+&lt;pathelement path="${jcardkit_home}/lib/offcardverifier.jar"/&gt;<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002313"></a>
+&lt;pathelement path="${jcardkit_home}/lib/scriptgen.jar"/&gt;<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002315"></a>
+&lt;pathelement path="${jcardkit_home}/lib/apdutool.jar"/&gt;<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002317"></a>
+&lt;pathelement path="${jcardkit_home}/lib/apduio.jar"/&gt;<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002319"></a>
+&lt;pathelement path="."/&gt;<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002321"></a>
+&lt;/path&gt;<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002323"></a> <br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002325"></a> &lt;target
+name="convert_library" <br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002472"></a>
+description="Build export file and CAP file for SampleLibrary"&gt;<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002327"></a> &lt;convert<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002329"></a> EXP="true"<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002331"></a> CAP="true"<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002333"></a>
+packagename="com.sun.javacard.samples.SampleLibrary"<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002335"></a>
+packageaid="0xA0:0x0:0x0:0x0:0x62:0x3:0x1:0xC:0x4"<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002337"></a>
+majorminorversion="1.0"<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002339"></a>
+classdir="${classroot}"<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002341"></a>
+outputdirectory="${classroot}"&gt;<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002343"></a>
+&lt;exportpath refid="export"/&gt;<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002345"></a>
+&lt;classpath refid="classpath"/&gt;<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002347"></a>
+&lt;/convert&gt;<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002349"></a>
+&lt;/target&gt;<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002351"></a>&nbsp;<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002353"></a> &lt;target
+name="convert_purse" depends="convert_library" <br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002483"></a>
+description="Build cap file for the JavaPurse package"&gt;<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002355"></a> &lt;convert<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002357"></a> CAP="true"<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002359"></a>
+packagename="com.sun.javacard.samples.JavaPurse"<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002361"></a>
+packageaid="0xA0:0x0:0x0:0x0:0x62:0x3:0x1:0xC:0x2"<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002363"></a>
+majorminorversion="1.0"<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002365"></a>
+classdir="${classroot}"<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002367"></a>
+outputdirectory="${classroot}"&gt;<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002369"></a>
+&lt;AppletNameAID <br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002371"></a>
+appletname="com.sun.javacard.samples.JavaPurse.JavaPurse" <br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002373"></a>
+aid="0xa0:0x0:0x0:0x0:0x62:0x3:0x1:0xc:0x2:0x1"/&gt;<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002375"></a>
+&lt;exportpath refid="export"/&gt;<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002377"></a>
+&lt;classpath refid="classpath"/&gt;<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002379"></a>
+&lt;/convert&gt;<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002381"></a>
+&lt;/target&gt;<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002383"></a> <br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002385"></a> &lt;target
+name="-post-compile" depends="convert_purse"&gt;<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002387"></a>
+&lt;/target&gt;<br>
+      </p>
+      <p class="TableTextCode"><a name="pgfId-1002389"></a>&lt;/project&gt;<br>
+      </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+</div>
+<p class="TableTextCode"><a name="pgfId-1001596"></a>&nbsp;<br>
+</p>
+<div class="navbar" align="center">
+<br>
+<br>
+<table dir="ltr"
+ summary="Navigation bar, includes the book title and navigation buttons"
+ width="100%" cellpadding="0" cellspacing="0" border="0">
+  <colgroup span="3" width="100%"><col id="1" span="1" width="45%"><col
+ id="2" span="1" width="25%"><col id="3" span="1" width="30%"></colgroup><tbody>
+    <tr bgcolor="#cccccc">
+      <td class="navbartitle" align="left" rowspan="1" colspan="1"
+ abbr="ChapTitle">&nbsp;&nbsp;Ant Tasks User's Guide, Java Card
+Platform, Version 2.2.2
+      </td>
+      <td class="navbartitle" align="right" rowspan="1" colspan="1"
+ abbr="PartNum">3-11-06
+      </td>
+      <td valign="top" align="right" rowspan="1" colspan="1"
+ abbr="NavButtons"><a href="index.html"><img src="shared/toc01.gif"
+ title="Table Of Contents" alt="Table Of Contents" width="30"
+ height="26" border="0"></a><a href="types.html"><img
+ src="shared/prev01.gif" title="Previous Chapter" alt="Previous Chapter"
+ width="30" height="26" border="0"></a><a href="example.html"><img
+ src="shared/next01.gif" title="Next Chapter" alt="Next Chapter"
+ width="30" height="26" border="0"></a><a href="ix.html"><img
+ src="shared/index01.gif" title="Book Index" alt="Book Index" width="30"
+ height="26" border="0"></a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+</div>
+<p class="copyrightlink"><a href="copyright.html">Copyright</a> &copy;
+2005, Sun Microsystems, Inc. All Rights Reserved.</p>
+</body>
+</html>

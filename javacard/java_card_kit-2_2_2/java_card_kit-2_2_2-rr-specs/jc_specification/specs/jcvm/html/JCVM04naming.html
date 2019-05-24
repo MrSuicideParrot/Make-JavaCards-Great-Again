@@ -1,0 +1,984 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type"
+ content="text/html; charset=ISO-8859-1">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="GENERATOR"
+ content="Adobe FrameMaker 7.0/HTML Export Filter">
+  <link rel="STYLESHEET" href="unx_unstr_styles.css"
+ charset="ISO-8859-1" type="text/css">
+  <meta name="DC.TITLE"
+ content="Virtual Machine Specification, Java Card Platform, v2.2.2">
+  <title>C H A P T E R 4 - Binary Representation</title>
+</head>
+<body bgcolor="#ffffff">
+<div>
+<div class="navbar" align="center">
+<table dir="ltr"
+ summary="Navigation bar, includes the book title and navigation buttons"
+ width="100%" cellpadding="0" cellspacing="0" border="0">
+  <colgroup span="2" width="100%"><col id="1" span="1" width="50%"><col
+ id="2" span="1" width="50%"></colgroup><tbody>
+    <tr bgcolor="#cccccc">
+      <td class="navbartitle" align="left" rowspan="1" colspan="1"
+ abbr="ChapTitle">&nbsp;&nbsp;Virtual Machine Specification, Java Card
+Platform, v2.2.2 </td>
+      <td valign="top" align="right" rowspan="1" colspan="1"
+ abbr="NavButtons"><a href="index.html"><img src="shared/toc01.gif"
+ title="Table Of Contents" alt="Table Of Contents" width="30"
+ height="26" border="0"></a><a href="JCVM03structVM.html"><img
+ src="shared/prev01.gif" title="Previous Chapter" alt="Previous Chapter"
+ width="30" height="26" border="0"></a><a href="JCVM05export.html"><img
+ src="shared/next01.gif" title="Next Chapter" alt="Next Chapter"
+ width="30" height="26" border="0"></a><a href="ix.html"><img
+ src="shared/index01.gif" title="Book Index" alt="Book Index" width="30"
+ height="26" border="0"></a> </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+</div>
+</div>
+<table dir="ltr" summary="Chapter Number" abbr="ChapNum" width="100%"
+ border="0">
+  <colgroup span="1" width="100%"><col id="1" span="1"></colgroup><tbody>
+    <tr>
+      <td align="right" class="ChapNumber"><span class="ChapNumPrefix"><a
+ name="pgfId-7777"></a>C H A P T E R </span>&nbsp;<span
+ class="ChapNumNum">4</span><a name="23356"></a> </td>
+    </tr>
+  </tbody>
+</table>
+<table dir="ltr" summary="Chapter Title" abbr="ChapTitle" width="100%"
+ border="0">
+  <colgroup span="1" width="100%"><col id="1" span="1" width="100%"></colgroup><tbody>
+    <tr>
+      <td align="right" class="ChapTitle">
+      <hr size="7" noshade="noshade"><a name="pgfId-7778"></a><a
+ name="25467"></a><a name="marker-14165"></a>Binary Representation </td>
+    </tr>
+  </tbody>
+</table>
+<p class="Paragraph"><a name="pgfId-7779"></a>This chapter presents
+information about the binary representation of Java Card programs. Java
+Card technology-based binaries ("Java Card binaries") are usually
+contained in files, therefore this chapter addresses binary
+representation in terms of this common case.
+</p>
+<p class="Paragraph"><a name="pgfId-8094"></a>Several topics relating
+to binary representation are covered. The first section describes the
+basic organization of program representation in export and CAP files,
+as well as the use of the Java<img src="shared/chars/tm.gif"
+ title="trademark" alt="trademark"> Archive (JAR) file containers. The
+second section covers how Java Card applets and packages are named
+using unique identifiers. The third section presents the scheme used
+for naming and linking items within Java Card API packages. The fourth
+and fifth sections describe the constraints for upward compatibility
+between different versions of a Java Card technology-based binary
+("Java Card binary") program file, and versions assigned based upon
+that compatibility.
+</p>
+<h2 class="Head1"><a name="pgfId-8434"></a>
+<div>
+<hr align="left" size="6" width="15%" noshade="noshade"></div>
+4.1 <a name="marker-14166"></a>Java Card Platform File Formats</h2>
+<p class="Paragraph"><a name="pgfId-8560"></a>Java programs are
+represented in compiled, binary form as <a name="marker-14167"></a>class
+files. Java class files are used not only to execute programs on a Java
+virtual machine, but also to provide type and name information to a
+Java compiler. In the latter role, a class file is essentially used to
+document the API of its class to client code. That client code is
+compiled into its own class file, including symbolic references used to
+dynamically link to the API class at runtime.
+</p>
+<p class="Paragraph"><a name="pgfId-8561"></a>Java Card technology uses
+a different strategy for binary representation of programs. Executable
+binaries and interface binaries are represented in two separate files.
+These files are respectively called <a name="marker-14168"></a>CAP
+files (for converted applet) and export files.
+</p>
+<h3 class="Head2"><a name="pgfId-8562"></a>4.1.1 <a name="38821"></a>Export
+<a name="marker-14170"></a>File Format</h3>
+<p class="Paragraph"><a name="pgfId-8619"></a>Export files are not used
+directly on a device that implements a Java Card virtual machine.
+However, the information in an export file is critical to the operation
+of the virtual machine on a device. An export file can be produced by a
+Java Card converter when a package is converted. This package's export
+file can be used later to convert another package that imports classes
+from the first package. Information in the export file is included in
+the CAP file of the second package, then is used on the device to link
+the contents of the second package to items imported from the first
+package.
+</p>
+<p class="Paragraph"><a name="pgfId-8634"></a>A Java Card
+technology-based export file ("Java Card export file") contains the
+public interface information for an entire package of classes. This
+means that an export file only contains information about the public
+API of a package, and does not include information used to link classes
+within a package.
+</p>
+<p class="Paragraph"><a name="pgfId-8620"></a>The name of an export
+file is the last portion of the package specification followed by the
+extension `.exp'. For example, the name of the export file of the
+javacard.framework package must be framework.exp. Operating systems
+that impose limitations on file name lengths may transform an export
+file's name according to their own conventions.
+</p>
+<p class="Paragraph"><a name="pgfId-8641"></a>For a complete
+description of the Java Card export file format, see <a
+ href="JCVM05export.html#26841" class="XRef">Chapter 5</a>, "The Export
+File Format".
+</p>
+<h3 class="Head2"><a name="pgfId-8564"></a>4.1.2 CAP File Format</h3>
+<p class="Paragraph"><a name="pgfId-8565"></a>A Java Card CAP file
+contains a binary representation of a package of classes that can be
+installed on a device and used to execute the package's classes on a
+Java Card virtual machine.
+</p>
+<p class="Paragraph"><a name="pgfId-8650"></a>A CAP file is produced by
+a Java Card converter when a package of classes is converted. A CAP
+file consists of a set of components, each of which describes a
+different aspect of the contents. The set of components in a CAP file
+can vary, depending on whether the file contains a library or applet
+definition(s).
+</p>
+<p class="Paragraph"><a name="pgfId-8643"></a>For a complete
+description of the Java Card CAP file format, see <a
+ href="JCVM06cap.html#74217" class="XRef">Chapter 6</a>, "The CAP File
+Format".
+</p>
+<h3 class="Head2"><a name="pgfId-8566"></a>4.1.3 <a name="10054"></a>JAR
+File <a name="marker-14172"></a>Container</h3>
+<p class="Paragraph"><a name="pgfId-8602"></a>The JAR file format is
+used as the container format for CAP files. What this specification
+calls a "CAP file" is just a JAR file that contains the required set of
+CAP components (see <a href="JCVM06cap.html#74217" class="XRef">Chapter
+6</a>, "The CAP File Format").
+</p>
+<p class="Paragraph"><a name="pgfId-8725"></a>CAP file components are
+stored as files in a JAR file. Each CAP file component is located in a
+subdirectory called javacard that is in a directory representing the
+package. For example, the CAP file components of the package
+com.sun.framework are located in the directory
+com/sun/framework/javacard.
+</p>
+<p class="Paragraph"><a name="pgfId-8726"></a>An export file may also
+be contained in a JAR file, whether that JAR file contains CAP file
+components or not. If an export file is included, it must be located in
+the same directory as the components for that package would be.
+</p>
+<p class="Paragraph"><a name="pgfId-8727"></a>The name of a JAR file
+containing CAP file components is not defined as part of this
+specification. Other files, including CAP file components for another
+package, may also reside in a JAR file that contains CAP file
+components.
+</p>
+<h2 class="Head1"><a name="pgfId-8482"></a>
+<div>
+<hr align="left" size="6" width="15%" noshade="noshade"></div>
+4.2 <a name="28462"></a>AID-based <a name="marker-14173"></a>Naming</h2>
+<p class="Paragraph"><a name="pgfId-8208"></a>This section describes
+the mechanism used for naming applets and packages in Java Card CAP
+files and export files, and custom components in Java Card CAP files.
+Java class files use Unicode strings to name Java packages. As the Java
+Card platform does not include support for strings, an alternative
+mechanism for naming is provided.
+</p>
+<p class="Paragraph"><a name="pgfId-8184"></a>ISO 7816 is a multipart
+standard that describes a broad range of technology for building smart
+card systems. ISO 7816-5 defines the <a name="marker-14174"></a>AID
+(application identifier) data format to be used for unique
+identification of card applications (and certain kinds of files in card
+file systems). The Java Card platform uses the AID data format to
+identify applets and packages. AIDs are administered by the
+International Standards Organization (ISO), so they can be used as
+unique identifiers.
+</p>
+<h3 class="Head2"><a name="pgfId-8232"></a>4.2.1 The AID Format<a
+ name="marker-14175"></a></h3>
+<p class="Paragraph"><a name="pgfId-7962"></a>This section presents a
+minimal description of the AID data format used in Java Card
+technology. For complete details, refer to ISO 7816-5, AID Registration
+Category `D' format.
+</p>
+<p class="Paragraph"><a name="pgfId-8236"></a>The AID format used by
+the Java Card platform is an array of bytes that can be interpreted as
+two distinct pieces, as shown in <a href="JCVM04naming.html#86206"
+ class="XRef">TABLE 4-1</a>. The first piece is a 5-byte value known as
+a <a name="marker-14176"></a>RID (resource identifier). The second
+piece is a variable length value known as a <a name="marker-14177"></a>PIX
+(proprietary identifier extension). A PIX can be from 0 to 11 bytes in
+length. Thus an AID can be from 5 to 16 bytes in total length.
+</p>
+<p class="Paragraph"><a name="pgfId-1002282"></a>&nbsp;
+</p>
+<a name="pgfId-1000647"> </a> TABLE 4-1 <a name="86206"> </a> AID
+Format <br>
+<table class="Untitled" border="1" bordercolorlight="#FFFFFF"
+ bordercolordark="#000000" cellpadding="5" cellspacing="0" dir="ltr">
+  <tbody>
+    <tr>
+      <td scope="row" rowspan="1" colspan="1">
+      <p class="TableText"><a name="pgfId-1000658"></a>RID (5 bytes) </p>
+      </td>
+      <td rowspan="1" colspan="1">
+      <p class="TableText"><a name="pgfId-1000660"></a>PIX (0-11 bytes)
+      </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<p class="Paragraph"><a name="pgfId-8325"></a>ISO controls the
+assignment of RIDs to companies, with each company obtaining its own
+unique RID from the ISO. Companies manage assignment of PIXs for AIDs
+using their own RIDs.
+</p>
+<h3 class="Head2"><a name="pgfId-8276"></a>4.2.2 AID Usage</h3>
+<p class="Paragraph"><a name="pgfId-8304"></a>In the Java platform,
+packages are uniquely identified using Unicode strings and a naming
+scheme based on internet domain names. In the Java Card platform,
+packages and applets are identified using AIDs.
+</p>
+<p class="Paragraph"><a name="pgfId-1002231"></a>Any package that is
+represented in an export file must be assigned a unique AID. The AID
+for a package is constructed from the concatenation of the company's
+RID and a PIX for that package. This AID corresponds to the string name
+for the package, as shown in <a href="JCVM04naming.html#10025"
+ class="XRef">FIGURE 4-1</a>.<br>
+<br>
+</p>
+<a name="pgfId-1002238"> </a><a name="pgfId-1002244"></a><a
+ name="10025" style="font-weight: bold;"> </a><span
+ style="font-weight: bold;"> FIGURE 4-1 Mapping Package Identifiers To
+AIDs</span>
+<p class="FigureBox"><img src="figures/JCVM04naming-4.jpg"
+ align="bottom">
+</p>
+<p class="Paragraph"><a name="pgfId-1008049"></a></p>
+<p class="Paragraph"><a name="pgfId-998883"></a>Each applet installed
+on a Java Card technology enabled device must also have a unique AID.
+This AID is constructed similarly to a package AID. It is a
+concatenation of the applet provider's RID and PIX for that applet. An
+applet AID must not have the same value as the AID of any package or
+the AID of any other applet. The RID of each applet in a package must
+be the same as the RID of the package.
+</p>
+<p class="Paragraph"><a name="pgfId-8344"></a>Custom components defined
+in a CAP file are also identified using AIDs. Like AIDs for applets and
+packages, component AIDs are formed by concatenating a RID and a PIX. </p>
+<h2 class="Head1"><a name="pgfId-8004"></a>
+<div>
+<hr align="left" size="6" width="15%" noshade="noshade"></div>
+4.3 <a name="marker-14179"></a>Token-based Linking</h2>
+<p class="Paragraph"><a name="pgfId-8011"></a>This section describes a
+scheme that allows downloaded software to be linked against APIs on a
+Java Card technology enabled device. The scheme represents referenced
+items as opaque tokens, instead of Unicode strings as are used in Java
+class files. The two basic requirements of this linking scheme are that
+it allows linking on the device, and that it does not require internal
+implementation details of APIs to be revealed to clients of those APIs.
+Secondary requirements are that the scheme be efficient in terms of
+resource use on the device, and have acceptable performance for
+linking. And of course, it must preserve the semantics of the Java
+language.
+</p>
+<h3 class="Head2"><a name="pgfId-8006"></a>4.3.1 <a name="marker-14180"></a>Externally
+Visible Items</h3>
+<p class="Paragraph"><a name="pgfId-8007"></a>Classes (including
+Interfaces) in Java packages may be declared with public or package
+visibility. A class's methods and fields may be declared with public,
+protected, package or private visibility. For purposes of this
+document, we define public classes, public or protected fields, and
+public or protected methods to be externally visible from the package.
+</p>
+<p class="Paragraph"><a name="pgfId-6956"></a>Each externally visible
+item must have a token associated with it to enable references from
+other packages to the item to be resolved on a device. There are six
+kinds of items in a package that require external identification.
+</p>
+<ul>
+  <li class="Bullet1"><a name="pgfId-6957"></a>Classes (including
+Interfaces) </li>
+  <p class="Linebreak"> </p>
+  <li class="Bullet1-"><a name="pgfId-6958"></a>Static Fields </li>
+  <p class="Linebreak"> </p>
+  <li class="Bullet1-"><a name="pgfId-6959"></a>Static Methods </li>
+  <p class="Linebreak"> </p>
+  <li class="Bullet1-"><a name="pgfId-6960"></a>Instance Fields </li>
+  <p class="Linebreak"> </p>
+  <li class="Bullet1-"><a name="pgfId-6961"></a>Virtual Methods </li>
+  <p class="Linebreak"> </p>
+  <li class="Bullet1-"><a name="pgfId-6962"></a>Interface Methods </li>
+  <p class="Linebreak"> </p>
+</ul>
+<h3 class="Head2"><a name="pgfId-6963"></a>4.3.2 <a name="marker-14181"></a>Private
+Tokens</h3>
+<p class="Paragraph"><a name="pgfId-6964"></a>Items that are not
+externally visible are internally visible. Internally visible items are
+not described in a package's export file, but some such items use
+private tokens to represent internal references. External references
+are represented by <a name="marker-14182"></a>public tokens. There are
+three kinds of items that can be assigned private tokens.
+</p>
+<ul>
+  <li class="Bullet1"><a name="pgfId-6965"></a>Instance Fields </li>
+  <p class="Linebreak"> </p>
+  <li class="Bullet1-"><a name="pgfId-6966"></a>Virtual Methods </li>
+  <p class="Linebreak"> </p>
+  <li class="Bullet1-"><a name="pgfId-13632"></a>Packages </li>
+  <p class="Linebreak"> </p>
+</ul>
+<h3 class="Head2"><a name="pgfId-6967"></a>4.3.3 <a name="12405"></a>The
+Export File<a name="marker-14183"></a> and Conversion</h3>
+<p class="Paragraph"><a name="pgfId-1001549"></a>An export file
+contains entries for externally visible items in the package. Each
+entry holds the item's name and its token. Some entries may include
+additional information as well. For detailed information on the export
+file format, see <a href="JCVM05export.html#26841" class="XRef">Chapter
+5</a>, "The Export File Format".
+</p>
+<p class="Paragraph"><a name="pgfId-1001553"></a>The export file is
+used to map names for imported items to tokens during package
+conversion. The Java Card converter uses these tokens to represent
+references to items in an imported package.
+</p>
+<p class="Paragraph"><a name="pgfId-6971"></a>For example, during the
+conversion of the class files of applet A, the export file of
+javacard.framework is used to find tokens for items in the API that are
+used by the applet. Applet A creates a new instance of framework class
+OwnerPIN. The framework export file contains an entry for
+javacard.framework.OwnerPIN that holds the token for this class. The
+converter places this token in the CAP file's constant pool to
+represent an unresolved reference to the class. The token value is
+later used to resolve the reference on a device.
+</p>
+<h3 class="Head2"><a name="pgfId-6972"></a>4.3.4 <a name="marker-14184"></a>References
+- External and Internal</h3>
+<p class="Paragraph"><a name="pgfId-6973"></a>In the context of a CAP
+file, references to items are made indirectly through a package's
+constant pool. References to items in other packages are called
+external, and are represented in terms of tokens. References to items
+in the same CAP file are called internal, and are represented either in
+terms of tokens, or in a different internal format.
+</p>
+<p class="Paragraph"><a name="pgfId-6974"></a>An external reference to
+a class is composed of a package token and a class token. Together
+those tokens specify a certain class in a certain package. An internal
+reference to a class is a 15-bit value that is a pointer to the class
+structure's location within the CAP file.
+</p>
+<p class="Paragraph"><a name="pgfId-6975"></a>An external reference to
+a static class member, either a field or method, consists of a package
+token, a class token, and a token for the static field or static
+method. An internal reference to a static class member is a 16-bit
+value that is a pointer to the item's location in the CAP file.
+</p>
+<p class="Paragraph"><a name="pgfId-6976"></a>References to instance
+fields, virtual methods and interface methods consist of a class
+reference and a token of the appropriate type. The class reference
+determines whether the reference is external or internal.
+</p>
+<h3 class="Head2"><a name="pgfId-6977"></a>4.3.5 Installation and <a
+ name="marker-14185"></a>Linking</h3>
+<p class="Paragraph"><a name="pgfId-6978"></a>External references in a
+CAP file can be resolved on a device from token form into the internal
+representation used by the virtual machine.
+</p>
+<p class="Paragraph"><a name="pgfId-6979"></a>A token can only be
+resolved in the context of the package that defines it. Just as the
+export file maps from a package's externally visible names to tokens,
+there is a set of link information for each package on the device that
+maps from tokens to resolved references.
+</p>
+<h3 class="Head2"><a name="pgfId-6980"></a>4.3.6 Token <a
+ name="marker-14186"></a>Assignment</h3>
+<p class="Paragraph"><a name="pgfId-6981"></a>Tokens for an API are
+assigned by the API's owner and published in the package export file(s)
+for that API. Since the name-to-token mappings are published, an API
+owner may choose any order for tokens (subject to the constraints
+listed below).
+</p>
+<p class="Paragraph"><a name="pgfId-6982"></a>A particular device
+platform can resolve tokens into whatever internal representation is
+most useful for that implementation of a Java Card virtual machine.
+Some tokens may be resolved to indices. For example, an instance field
+token may be resolved to an index into a class instance's fields. In
+such cases, the token value is distinct from and unrelated to the value
+of the resolved index.
+</p>
+<h3 class="Head2"><a name="pgfId-6983"></a>4.3.7 Token <a
+ name="marker-14187"></a>Details</h3>
+<p class="Paragraph"><a name="pgfId-8356"></a>Each kind of item in a
+package has its own independent scope for tokens of that kind. The
+token range and assignment rules for each kind are listed in <a
+ href="JCVM04naming.html#81010" class="XRef">TABLE 4-2</a>.
+</p>
+<br>
+<table class="Titled" border="1" bordercolorlight="#FFFFFF"
+ bordercolordark="#000000" cellpadding="5" cellspacing="0" dir="ltr">
+  <caption class="TableCaption"><a name="pgfId-998344"> </a> TABLE 4-2<br>
+  <a name="81010"> </a> Token Range, Type and Scope </caption> <thead><tr>
+    <th scope="col" rowspan="1" colspan="1" bgcolor="#cccccc">
+    <p class="TableHead"><a name="pgfId-998277"></a>Token Type </p>
+    </th>
+    <th scope="col" rowspan="1" colspan="1" bgcolor="#cccccc">
+    <p class="TableHead"><a name="pgfId-998279"></a>Range </p>
+    </th>
+    <th scope="col" rowspan="1" colspan="1" bgcolor="#cccccc">
+    <p class="TableHead"><a name="pgfId-998281"></a>Type </p>
+    </th>
+    <th scope="col" rowspan="1" colspan="1" bgcolor="#cccccc">
+    <p class="TableHead"><a name="pgfId-998283"></a>Scope </p>
+    </th>
+  </tr>
+  </thead> <tbody>
+    <tr>
+      <td scope="row" rowspan="1" colspan="1">
+      <p class="TableText"><a name="pgfId-998285"></a>Package </p>
+      </td>
+      <td rowspan="1" colspan="1">
+      <p class="TableText"><a name="pgfId-998287"></a>0 - 127 </p>
+      </td>
+      <td rowspan="1" colspan="1">
+      <p class="TableText"><a name="pgfId-998289"></a>Private </p>
+      </td>
+      <td rowspan="1" colspan="1">
+      <p class="TableText"><a name="pgfId-998291"></a>Package </p>
+      </td>
+    </tr>
+    <tr>
+      <td scope="row" rowspan="1" colspan="1">
+      <p class="TableText"><a name="pgfId-998293"></a>Class </p>
+      </td>
+      <td rowspan="1" colspan="1">
+      <p class="TableText"><a name="pgfId-998295"></a>0 - 254 </p>
+      </td>
+      <td rowspan="1" colspan="1">
+      <p class="TableText"><a name="pgfId-998297"></a>Public </p>
+      </td>
+      <td rowspan="1" colspan="1">
+      <p class="TableText"><a name="pgfId-998299"></a>Package </p>
+      </td>
+    </tr>
+    <tr>
+      <td scope="row" rowspan="1" colspan="1">
+      <p class="TableText"><a name="pgfId-998301"></a>Static Field </p>
+      </td>
+      <td rowspan="1" colspan="1">
+      <p class="TableText"><a name="pgfId-998303"></a>0 - 255 </p>
+      </td>
+      <td rowspan="1" colspan="1">
+      <p class="TableText"><a name="pgfId-998305"></a>Public </p>
+      </td>
+      <td rowspan="1" colspan="1">
+      <p class="TableText"><a name="pgfId-998307"></a>Class </p>
+      </td>
+    </tr>
+    <tr>
+      <td scope="row" rowspan="1" colspan="1">
+      <p class="TableText"><a name="pgfId-998309"></a>Static Method </p>
+      </td>
+      <td rowspan="1" colspan="1">
+      <p class="TableText"><a name="pgfId-998311"></a>0 - 255 </p>
+      </td>
+      <td rowspan="1" colspan="1">
+      <p class="TableText"><a name="pgfId-998313"></a>Public </p>
+      </td>
+      <td rowspan="1" colspan="1">
+      <p class="TableText"><a name="pgfId-998315"></a>Class </p>
+      </td>
+    </tr>
+    <tr>
+      <td scope="row" rowspan="1" colspan="1">
+      <p class="TableText"><a name="pgfId-998317"></a>Instance Field </p>
+      </td>
+      <td rowspan="1" colspan="1">
+      <p class="TableText"><a name="pgfId-998319"></a>0 - 255 </p>
+      </td>
+      <td rowspan="1" colspan="1">
+      <p class="TableText"><a name="pgfId-998321"></a>Public or Private
+      </p>
+      </td>
+      <td rowspan="1" colspan="1">
+      <p class="TableText"><a name="pgfId-998323"></a>Class </p>
+      </td>
+    </tr>
+    <tr>
+      <td scope="row" rowspan="1" colspan="1">
+      <p class="TableText"><a name="pgfId-998325"></a>Virtual Method </p>
+      </td>
+      <td rowspan="1" colspan="1">
+      <p class="TableText"><a name="pgfId-998327"></a>0 - 127 </p>
+      </td>
+      <td rowspan="1" colspan="1">
+      <p class="TableText"><a name="pgfId-998329"></a>Public or Private
+      </p>
+      </td>
+      <td rowspan="1" colspan="1">
+      <p class="TableText"><a name="pgfId-998331"></a>Class Hierarchy </p>
+      </td>
+    </tr>
+    <tr>
+      <td scope="row" rowspan="1" colspan="1">
+      <p class="TableText"><a name="pgfId-998333"></a>Interface Method </p>
+      </td>
+      <td rowspan="1" colspan="1">
+      <p class="TableText"><a name="pgfId-998335"></a>0 - 127 </p>
+      </td>
+      <td rowspan="1" colspan="1">
+      <p class="TableText"><a name="pgfId-998337"></a>Public </p>
+      </td>
+      <td rowspan="1" colspan="1">
+      <p class="TableText"><a name="pgfId-998339"></a>Class </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<h4 class="Head3"><a name="pgfId-7051"></a>4.3.7.1 <a name="13665"></a>Package</h4>
+<p class="Paragraph"><a name="pgfId-7052"></a>All package references
+from within a CAP file are assigned private <a name="marker-14188"></a>package
+tokens. Package token values must be in the range from 0 to 127,
+inclusive. The tokens for all the packages referenced from classes in a
+CAP file are numbered consecutively starting at zero. The ordering of
+package tokens is not specified.
+</p>
+<h4 class="Head3"><a name="pgfId-7053"></a>4.3.7.2 <a name="14497"></a>Classes
+and Interfaces</h4>
+<p class="Paragraph"><a name="pgfId-13188"></a>All externally visible
+classes and interfaces in a package are assigned public<a
+ name="marker-14189"></a> class tokens. Class token values must be in
+the range from 0 to 254, inclusive. The tokens for all the public
+classes and interfaces in a package are numbered consecutively starting
+at zero. The ordering of class tokens is not specified.
+</p>
+<p class="Paragraph"><a name="pgfId-13215"></a>Package-visible classes
+and interfaces are not assigned tokens.
+</p>
+<h4 class="Head3"><a name="pgfId-13190"></a>4.3.7.3 <a name="32517"></a>Static
+Fields</h4>
+<p class="Paragraph"><a name="pgfId-13191"></a>All externally visible
+static fields in a package are assigned public <a name="marker-14190"></a>static
+field tokens. The tokens for all externally visible static fields in a
+class are numbered consecutively starting at zero. Static fields token
+values must be in the range from 0 to 255, inclusive. The ordering of
+static field tokens is not specified.
+</p>
+<p class="Paragraph"><a name="pgfId-13206"></a>Package-visible and
+private static fields are not assigned tokens. In addition, no tokens
+are assigned for final static fields that are initialized to primitive,
+compile-time constants, as these fields are never represented as fields
+in CAP files.
+</p>
+<h4 class="Head3"><a name="pgfId-7057"></a>4.3.7.4 <a name="30947"></a>Static
+Methods and Constructors</h4>
+<p class="Paragraph"><a name="pgfId-7058"></a>All externally visible
+static methods and constructors in a package are assigned public<a
+ name="marker-14191"></a> static method tokens. Constructors are
+included in this category because they are statically bound. Static
+method token values must be in the range from 0 to 255, inclusive. The
+tokens for all the externally visible static methods and constructors
+in a class are numbered consecutively starting at zero. The ordering of
+static method tokens is not specified.
+</p>
+<p class="Paragraph"><a name="pgfId-13197"></a>Package-visible and
+private static methods as well as package-visible and private
+constructors are not assigned tokens.
+</p>
+<h4 class="Head3"><a name="pgfId-7059"></a>4.3.7.5 <a name="30617"></a>Instance
+Fields</h4>
+<p class="Paragraph"><a name="pgfId-13096"></a>All instance fields
+defined in a package are assigned either public or private <a
+ name="marker-14192"></a>instance field tokens. The scope of a set of
+instance field tokens is limited to the class that declares the
+instance fields, not including the fields declared by superclasses of
+that class.
+</p>
+<p class="Paragraph"><a name="pgfId-13241"></a>Instance field token
+values must be in the range from 0 to 255, inclusive. Public and
+private tokens for instance fields are assigned from the same
+namespace. The tokens for all the instance fields in a class are
+numbered consecutively starting at zero, except that the token after an
+int field is skipped and the token for the following field is numbered
+two greater than the token of the int field.
+</p>
+<p class="Paragraph"><a name="pgfId-998545"></a>Within a class, tokens
+for externally visible fields must be numbered less than the tokens for
+package and private fields. For public tokens, the tokens for reference
+type fields must be numbered greater than the tokens for primitive type
+fields. For private tokens, the tokens for reference type fields must
+be numbered less than the tokens for primitive type fields. Beyond
+that, the ordering of instance field tokens in a class is not
+specified.
+</p>
+<br>
+<table class="Titled" border="1" bordercolorlight="#FFFFFF"
+ bordercolordark="#000000" cellpadding="5" cellspacing="0" dir="ltr">
+  <caption class="TableCaption"><a name="pgfId-998548"> </a> TABLE 4-3<br>
+Tokens For Instance Fields </caption> <thead><tr>
+    <th scope="col" rowspan="1" colspan="1" bgcolor="#cccccc">
+    <p class="TableHead"><a name="pgfId-998795"></a>Visibility </p>
+    </th>
+    <th scope="col" rowspan="1" colspan="1" bgcolor="#cccccc">
+    <p class="TableHead"><a name="pgfId-998797"></a>Category </p>
+    </th>
+    <th scope="col" rowspan="1" colspan="1" bgcolor="#cccccc">
+    <p class="TableHead"><a name="pgfId-998799"></a>Type </p>
+    </th>
+    <th scope="col" rowspan="1" colspan="1" bgcolor="#cccccc">
+    <p class="TableHead"><a name="pgfId-998824"></a>Token Value </p>
+    </th>
+  </tr>
+  </thead> <tbody>
+    <tr>
+      <td scope="row" rowspan="5" colspan="1">
+      <p class="TableText"><a name="pgfId-998564"></a><br>
+public and protected fields (public tokens) <br>
+      </p>
+      </td>
+      <td rowspan="3" colspan="1">
+      <p class="TableText"><a name="pgfId-998566"></a>primitive </p>
+      </td>
+      <td rowspan="1" colspan="1">
+      <p class="TableText"><a name="pgfId-998568"></a><kbd
+ class="Filename-Command">boolean</kbd> </p>
+      </td>
+      <td rowspan="1" colspan="1">
+      <p class="TableText"><a name="pgfId-998570"></a>0 </p>
+      </td>
+    </tr>
+    <tr>
+      <td scope="row" rowspan="1" colspan="1">
+      <p class="TableText"><a name="pgfId-998576"></a><kbd
+ class="Filename-Command">byte</kbd> </p>
+      </td>
+      <td rowspan="1" colspan="1">
+      <p class="TableText"><a name="pgfId-998578"></a>1 </p>
+      </td>
+    </tr>
+    <tr>
+      <td scope="row" rowspan="1" colspan="1">
+      <p class="TableText"><a name="pgfId-998584"></a><kbd
+ class="Filename-Command">short</kbd> </p>
+      </td>
+      <td rowspan="1" colspan="1">
+      <p class="TableText"><a name="pgfId-998586"></a>2 </p>
+      </td>
+    </tr>
+    <tr>
+      <td scope="row" rowspan="2" colspan="1">
+      <p class="TableText"><a name="pgfId-998590"></a>reference </p>
+      </td>
+      <td rowspan="1" colspan="1">
+      <p class="TableText"><a name="pgfId-998592"></a><kbd
+ class="Filename-Command">byte[]</kbd> </p>
+      </td>
+      <td rowspan="1" colspan="1">
+      <p class="TableText"><a name="pgfId-998594"></a>3 </p>
+      </td>
+    </tr>
+    <tr>
+      <td scope="row" rowspan="1" colspan="1">
+      <p class="TableText"><a name="pgfId-998600"></a><kbd
+ class="Filename-Command">Applet</kbd> </p>
+      </td>
+      <td rowspan="1" colspan="1">
+      <p class="TableText"><a name="pgfId-998602"></a>4 </p>
+      </td>
+    </tr>
+    <tr>
+      <td scope="row" rowspan="4" colspan="1">
+      <p class="TableText"><a name="pgfId-998604"></a><br>
+package and private fields (private tokens) </p>
+      </td>
+      <td rowspan="2" colspan="1">
+      <p class="TableText"><a name="pgfId-998606"></a>reference </p>
+      </td>
+      <td rowspan="1" colspan="1">
+      <p class="TableText"><a name="pgfId-998608"></a><kbd
+ class="Filename-Command">short[]</kbd> </p>
+      </td>
+      <td rowspan="1" colspan="1">
+      <p class="TableText"><a name="pgfId-998610"></a>5 </p>
+      </td>
+    </tr>
+    <tr>
+      <td scope="row" rowspan="1" colspan="1">
+      <p class="TableText"><a name="pgfId-998616"></a><kbd
+ class="Filename-Command">Object</kbd> </p>
+      </td>
+      <td rowspan="1" colspan="1">
+      <p class="TableText"><a name="pgfId-998618"></a>6 </p>
+      </td>
+    </tr>
+    <tr>
+      <td scope="row" rowspan="2" colspan="1">
+      <p class="TableText"><a name="pgfId-998622"></a>primitive </p>
+      </td>
+      <td rowspan="1" colspan="1">
+      <p class="TableText"><a name="pgfId-998624"></a><kbd
+ class="Filename-Command">int</kbd> </p>
+      </td>
+      <td rowspan="1" colspan="1">
+      <p class="TableText"><a name="pgfId-998626"></a>7 </p>
+      <p class="TableText"><a name="pgfId-998627"></a>&nbsp; </p>
+      </td>
+    </tr>
+    <tr>
+      <td scope="row" rowspan="1" colspan="1">
+      <p class="TableText"><a name="pgfId-998633"></a><kbd
+ class="Filename-Command">short</kbd> </p>
+      </td>
+      <td rowspan="1" colspan="1">
+      <p class="TableText"><a name="pgfId-998635"></a>9 </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<h4 class="Head3"><a name="pgfId-998639"></a>4.3.7.6 <a name="22193"></a>Virtual
+<a name="marker-998638"></a>Methods</h4>
+<p class="Paragraph"><a name="pgfId-7135"></a>Virtual methods are
+instance methods that are resolved dynamically. The set includes all
+public, protected and package-visible instance methods. Private
+instance methods and all constructors are not virtual methods, but
+instead are resolved statically during compilation.
+</p>
+<p class="Paragraph"><a name="pgfId-13233"></a>All virtual methods
+defined in a package are assigned either public or private <a
+ name="marker-14194"></a>virtual method tokens. Virtual method token
+values must be in the range from 0 to 127, inclusive. Public and
+private tokens for virtual methods are assigned from different
+namespaces. The high bit of the byte containing a virtual method token
+is set to one if the token is a private token.
+</p>
+<p class="Paragraph"><a name="pgfId-7136"></a>Public tokens for the
+externally visible (public or protected) introduced virtual methods in
+a class are numbered consecutively starting at one greater than the
+highest numbered public virtual method token of the class's superclass.
+If a method overrides a method implemented in the class's superclass,
+that method is assigned the same token number as the method in the
+superclass. The high bit of the byte containing a public virtual method
+token is always set to zero, to indicate it is a public token. The
+ordering of public virtual method tokens in a class is not specified.
+</p>
+<p class="Paragraph"><a name="pgfId-7137"></a>Private virtual method
+tokens are assigned to package-visible virtual methods. They are
+assigned differently from public virtual method tokens. If a class and
+its superclass are defined in the same package, the tokens for the
+package-visible introduced virtual methods in that class are numbered
+consecutively starting at one greater than the highest numbered private
+virtual method token of the class's superclass. If the class and its
+superclass are defined in different packages, the tokens for the
+package-visible introduced virtual methods in that class are numbered
+consecutively starting at zero. If a method overrides a method
+implemented in the class's superclass, that method uses the same token
+number as the method in the superclass. The definition of the Java
+programming language specifies that overriding a package-visible
+virtual method is only possible if both the class and its superclass
+are defined in the same package. The high bit of the byte containing a
+virtual method token is always set to one, to indicate it is a private
+token. The ordering of private virtual method tokens in a class is not
+specified.
+</p>
+<h4 class="Head3"><a name="pgfId-7138"></a>4.3.7.7 <a name="17038"></a>Interface
+Methods</h4>
+<p class="Paragraph"><a name="pgfId-7139"></a>All interface methods
+defined in a package are assigned public<a name="marker-14195"></a>
+interface method tokens, as interface methods are always public.
+Interface methods tokens values must be in the range from 0 to 127,
+inclusive. The tokens for all the interface methods defined in or
+inherited by an interface are numbered consecutively starting at zero.
+The token value for an interface method in a given interface is
+unrelated to the token values of that same method in any of the
+interface's superinterfaces. Each interface includes its own token
+values for all the methods inherited from super-interfaces as well as
+its defined methods. The high bit of the byte containing an interface
+method token is always set to zero, to indicate it is a public token.
+The ordering of interface method tokens is not specified.
+</p>
+<h2 class="Head1"><a name="pgfId-8240"></a>
+<div>
+<hr align="left" size="6" width="15%" noshade="noshade"></div>
+4.4 <a name="36343"></a>Binary <a name="marker-14196"></a>Compatibility</h2>
+<p class="Paragraph"><a name="pgfId-8241"></a>In the Java programming
+language the granularity of binary compatibility can be between classes
+since binaries are stored in individual class files. In Java Card
+systems Java packages are processed as a single unit, and therefore the
+granularity of binary compatibility is between packages. In Java Card
+systems the binary of a package is represented in a CAP file, and the
+API of a package is represented in an export file.
+</p>
+<p class="Paragraph"><a name="pgfId-8242"></a>In a Java Card system, a
+change to a type in a Java package results in a new CAP file. A new CAP
+file is binary compatible with (equivalently, does not break
+compatibility with) a preexisting CAP file if another CAP file
+converted using the export file of the preexisting CAP file can link
+with the new CAP file without errors.
+</p>
+<p class="Paragraph"><a name="pgfId-8243"></a>shows an example of
+binary compatible CAP files, p1 and p1'. The preconditions for the
+example are: the package p1 is converted to create the p1 CAP file and
+p1 export file, and package p1 is modified and converted to create the
+p1' CAP file. Package p2 imports package p1, and therefore when the p2
+CAP file is created the export file of p1 is used. In the example, p2
+is converted using the original p1 export file. Because p1' is binary
+compatible with p1, p2 may be linked with either the p1 CAP file or the
+p1' CAP file.<br>
+<br>
+</p>
+<p class="FigureBox">FIGURE 4-2 Binary Compatibility Example<a
+ name="pgfId-1002353"></a><a name="pgfId-1002354"></a> </p>
+<img src="figures/JCVM04naming-5.jpg" align="bottom"><br>
+<p class="Paragraph"><a name="pgfId-9072"></a>Any modification that
+causes binary incompatibility in the Java programming language also
+causes binary incompatibility in Java Card systems. These modifications
+are described as causing a potential error in The Java Language
+Specification. Any modification that does not cause binary
+incompatibility in the Java programming language does not cause binary
+incompatibility in a Java Card system, except under the following
+conditions:
+</p>
+<ul>
+  <li class="Bullet1"><a name="pgfId-9074"></a>The value of a token
+assigned to an element in the API of a package is changed. </li>
+  <p class="Linebreak"> </p>
+  <li class="Bullet1"><a name="pgfId-8252"></a>The value of an
+externally visible final static field (compile-time constant) is
+changed. </li>
+  <p class="Linebreak"> </p>
+  <li class="Bullet1"><a name="pgfId-8254"></a>An externally visible
+virtual method that does not override a preexisting method is added to
+a non-final public class. </li>
+  <p class="Linebreak"> </p>
+  <li class="Bullet1"><a name="pgfId-996880"></a>An externally visible
+interface method that does not override a preexisting method is added
+to a public interface. </li>
+  <p class="Linebreak"> </p>
+</ul>
+<p class="Paragraph"><a name="pgfId-8255"></a>Tokens are used to
+resolve references to imported elements of a package. If a token value
+is modified, a linker on a device is unable to associate the new token
+value with the previous token value of the element, and therefore is
+unable to resolve the reference correctly.
+</p>
+<p class="Paragraph"><a name="pgfId-12468"></a>Compile-time constants
+are not stored as fields in CAP files. Instead their values are
+recorded in export files and placed inline in the bytecodes in CAP
+files. These values are said to be pre-linked in a CAP file of a
+package that imports those constants. During execution, information is
+not available to determine whether the value of an inlined constant is
+the same as the value defined by the binary of the imported package.
+</p>
+<p class="Paragraph"><a name="pgfId-12472"></a>As described above,
+tokens assigned to public and protected virtual methods are scoped to
+the hierarchy of a class. Tokens assigned to public and protected
+virtual methods introduced in a subclass have values starting at one
+greater than the maximum token value assigned in a superclass. If a
+new, non-override, public or protected virtual method is introduced in
+a superclass it is assigned a token value that would otherwise have
+been assigned in a subclass. Therefore, two unique virtual methods
+could be assigned the same token value within the same class hierarchy,
+making resolution of a reference to one of the methods ambiguous.
+</p>
+<p class="Paragraph"><a name="pgfId-997060"></a>The addition of an
+externally visible, non-override method to a public interface is a
+binary incompatible change. It allows classes which are not themselves
+abstract to contain an abstract method. For example, consider the case
+of an interface I implemented by a class C that is not abstract, where
+I and C reside in different packages. If a new method is added to I,
+creating I', then C cannot link with the new version of I' because this
+would result in the class C containing an abstract method without the
+class C being abstract. The fact that C can not link with I' means that
+I and I' are not binary compatible.
+</p>
+<h2 class="Head1"><a name="pgfId-9139"></a>
+<div>
+<hr align="left" size="6" width="15%" noshade="noshade"></div>
+4.5 <a name="12240"></a>Package <a name="marker-14197"></a>Versions</h2>
+<p class="Paragraph"><a name="pgfId-12845"></a>Each implementation of a
+package in a Java Card system is assigned a pair of major and minor
+version numbers. These version numbers are used to indicate binary
+compatibility or incompatibility between successive implementations of
+a package.
+</p>
+<h3 class="Head2"><a name="pgfId-9342"></a>4.5.1 Assigning</h3>
+<p class="Paragraph"><a name="pgfId-12850"></a>The major and minor
+versions of a package are assigned by the package provider. It is
+recommended that the initial implementation of a package be assigned a
+major version of 1 and a minor version of 0. However, any values may be
+chosen. It is also recommended that when either a major or a minor
+version is incremented, it is incremented exactly by 1.
+</p>
+<p class="Paragraph"><a name="pgfId-12855"></a>A major version must be
+changed when a new implementation of a package is not binary compatible
+with the previous implementation. The value of the new major version
+must be greater than the major version of the previous implementation.
+When a major version is changed, the associated minor version must be
+assigned the value of 0.
+</p>
+<p class="Paragraph"><a name="pgfId-12860"></a>When a new
+implementation of a package is binary compatible with the previous
+implementation, it must be assigned a major version equal to the major
+version of the previous implementation. The minor version assigned to
+the new implementation must be greater than the minor version of the
+previous implementation.
+</p>
+<h3 class="Head2"><a name="pgfId-9346"></a>4.5.2 Linking<a
+ name="marker-14198"></a></h3>
+<p class="Paragraph"><a name="pgfId-12865"></a>Both an export file and
+a CAP file contain the major and minor version numbers of the package
+described. When a CAP file is installed on a Java Card
+technology-enabled device a resident imag<a name="marker-14199"></a>e
+of the package is created, and the major and minor version numbers are
+recorded as part of that image. When an export file is used during
+preparation of a CAP file, the version numbers indicated in the export
+file are recorded in the CAP file.
+</p>
+<p class="Paragraph"><a name="pgfId-12771"></a>During installation,
+references from the package of the CAP file being installed to an
+imported package can be resolved only when the version numbers
+indicated in the export file used during preparation of the CAP file
+are compatible with the version numbers of the resident image. They are
+compatible when the major version numbers are equal and the minor
+version of the export file is less than or equal to the minor version
+of the resident image.
+</p>
+<div class="navbar" align="center">
+<br>
+<br>
+<table dir="ltr"
+ summary="Navigation bar, includes the book title and navigation buttons"
+ width="100%" cellpadding="0" cellspacing="0" border="0">
+  <colgroup span="3" width="100%"><col id="1" span="1" width="45%"><col
+ id="2" span="1" width="25%"><col id="3" span="1" width="30%"></colgroup><tbody>
+    <tr bgcolor="#cccccc">
+      <td class="navbartitle" align="left" rowspan="1" colspan="1"
+ abbr="ChapTitle">&nbsp;&nbsp;Virtual Machine Specification, Java Card
+Platform, v2.2.2 </td>
+      <td class="navbartitle" align="right" rowspan="1" colspan="1"
+ abbr="PartNum">3-11-06 </td>
+      <td valign="top" align="right" rowspan="1" colspan="1"
+ abbr="NavButtons"><a href="index.html"><img src="shared/toc01.gif"
+ title="Table Of Contents" alt="Table Of Contents" width="30"
+ height="26" border="0"></a><a href="JCVM03structVM.html"><img
+ src="shared/prev01.gif" title="Previous Chapter" alt="Previous Chapter"
+ width="30" height="26" border="0"></a><a href="JCVM05export.html"><img
+ src="shared/next01.gif" title="Next Chapter" alt="Next Chapter"
+ width="30" height="26" border="0"></a><a href="ix.html"><img
+ src="shared/index01.gif" title="Book Index" alt="Book Index" width="30"
+ height="26" border="0"></a> </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+</div>
+<p class="copyrightlink"><a href="copyright.html">Copyright</a> &copy;
+2005, Sun Microsystems, Inc. All Rights Reserved.
+</p>
+</body>
+</html>

@@ -1,0 +1,873 @@
+<!DOCTYPE html PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+  <meta http-equiv="Content-Type"
+ content="text/html; charset=iso-8859-1">
+  <meta name="GENERATOR"
+ content="Mozilla/4.79C-CCK-MCD  [en] (X11; U; SunOS 5.7 sun4u) [Netscape]">
+  <title>Release Notes - Java Card(TM) Specification Version 2.2.2</title>
+  <link rel="stylesheet" href="j2me-docs.css" type="text/css">
+</head>
+<body>
+&nbsp;
+<br>
+<table summary="This table is for formatting purposes only." border="0"
+ cellpadding="0" cellspacing="0" width="100%">
+  <caption><br>
+  </caption><tbody>
+  </tbody> <tbody>
+    <tr>
+      <td class="sun-darkblue">&nbsp;</td>
+    </tr>
+    <tr>
+      <td class="sun-darkblue">
+      <h1>Release Notes</h1>
+      <h2> Java Card<sup>TM</sup> Specifications<br>
+Version&nbsp; 2.2.2 <br>
+      </h2>
+      <h4>March 2006</h4>
+      </td>
+    </tr>
+    <tr>
+      <td class="sun-lightblue">&nbsp;</td>
+    </tr>
+  </tbody>
+</table>
+<p class="nav-link">[<a href="#_maincontent">Skip TOC</a>]<a name="_top"></a>
+</p>
+<h2>Table of Contents</h2>
+<dl>
+  <dt><a href="#introduction">Introduction</a></dt>
+  <dt><a href="#supported_platforms">Supported Platforms</a></dt>
+  <dt><a href="#installation_instructions">Installation Instructions</a></dt>
+  <dt><a href="#Release_Contents">Release Contents</a></dt>
+  <dt><a href="#new_features">New Features and Improvements</a></dt>
+  <dl>
+    <dt><a href="#Application_Programming_Interface_Changes">Changes to
+Application
+Programming Interface, Version 2.2.2</a></dt>
+    <dt> <a href="#Runtime_Environment_Specification_Changes">Changes
+to Runtime
+Environment
+Specification, Version 2.2.2</a></dt>
+    <dt><a href="#Virtual_Machine_Specification_Changes">Changes to
+Virtual
+Machine Specification,
+Version 2.2.2<br>
+      </a></dt>
+  </dl>
+  <dt><a href="#bugs">Known Bugs</a><br>
+    <a href="#prod_info">Where to Find Product Information and News</a></dt>
+  <dt><br>
+  </dt>
+</dl>
+<a name="_maincontent"></a>
+<h2><a name="introduction"></a>Introduction</h2>
+This document introduces the Java Card<sup>TM</sup>
+specifications,
+version 2.2.2. The specifications include the following:<br>
+<ul>
+  <li> <b style="font-style: italic;">Application Programming
+Interface for the Java Card<sup>TM</sup>
+Platform, Version 2.2.2</b><span style="font-style: italic;"> </span><br>
+This API defines a set of classes upon which Java Card technology-based
+applets can be constructed. </li>
+  <li> <b style="font-style: italic;">Runtime Environment
+Specification for the Java Card<sup>TM</sup>
+Platform, Version 2.2.2</b><span style="font-style: italic;"> </span><br>
+This specification describes the runtime environment required for
+interoperable
+Java Card technology-based applet execution. </li>
+  <li> <b style="font-style: italic;">Virtual Machine Specification
+for the Java Card<sup>TM</sup>
+Platform, Version 2.2.2</b><br>
+This specification defines the required behavior of a virtual machine
+for
+a Java Card technology-enabled device.</li>
+</ul>
+These specifications describe the platform standards of Java Card
+technology,
+version 2.2.2, and provide the foundation for designing
+implementations
+of
+Java Card technology-enabled devices and tools.
+<p class="nav-link">[<a href="#_top">Top</a>]</p>
+<h2><a name="supported_platforms"></a>Supported Platforms</h2>
+<p>The documents are accessible on any computer system with an <tt>unzip</tt>
+utility, Adobe Acrobat
+Reader
+(version 4.0 or later), and a CSS-compliant web browser.<br>
+<br>
+HTML can be viewed with any CSS-compliant browser software, such as:</p>
+<ul>
+  <li>Netscape Communicator, version 5.0 or later</li>
+  <li>Mozilla, version 1.1 or later</li>
+</ul>
+PDF files can be viewed in your web browser <i>with an appropriate
+plugin</i>
+or in Adobe&reg; Acrobat Reader. Most recent browsers include the PDF
+reader
+plugin.
+If your browser does not, you can download the plugin from the browser
+vendor's
+web site or the Adobe web site at <font color="#0000ff"><a
+ href="http://www.adobe.com/products/acrobat/readstep.html">http://www.adobe.com/products/acrobat/readstep.html</a>.</font>
+<p class="nav-link">[<a href="#_top">Top</a>]</p>
+<h2><a name="installation_instructions"></a>Installation Instructions</h2>
+<p>Download and unzip the specification bundle. The specifications are
+unzipped
+into a <code>jc_specification/specs</code> directory (<code>jc_specification\specs</code>
+on the Microsoft Windows XP platform). The specifications are placed
+in
+these subdirectories under <code>specs</code>:</p>
+<ul>
+  <li><code>api</code> - contains the Java Card API specification in
+PDF format (<code>JavaCard222API.pdf</code>)
+and an <code>html</code> subdirectory that contains the API
+specification in HTML
+format.</li>
+  <li><code>jcre</code> - contains the Java Card runtime environment
+specification in
+PDF format (<code>JavaCard222JCREspec.pdf</code>) and an <code>html</code>
+subdirectory that contains the runtime environment specification in
+HTML
+format.<br>
+  </li>
+  <li><code>jcvm</code> - contains the Java Card virtual machine
+specification in
+PDF
+format (<code style="font-family: monospace;">JavaCard222VMspec.pdf</code>)
+and an <code>html</code>
+subdirectory that contains the Java Card virtual machine specification
+in HTML
+format.</li>
+</ul>
+<p>[<a href="#_top">Top</a>]<br>
+</p>
+<h2><a name="Release_Contents"></a>Release Contents<br>
+</h2>
+<p>The following table provides links to the documentation for the Java
+Card technology specifications, version 2.2.2.<br>
+</p>
+<table>
+  <thead><tr>
+    <th class="sun-verylightblue" scope="col">Document</th>
+    <th class="sun-verylightblue" scope="col">Description</th>
+  </tr>
+  <tr>
+    <td align="left" valign="top"><i>Application Programming Interface
+for the Java
+Card
+Platform, Version 2.2.2</i></td>
+    <td align="left" valign="top">Provides application developers and
+platform and tools implementers the documentation for a Java Card
+technology conformant Java
+Card API. <br>
+    <br>
+    </td>
+  </tr>
+  </thead> <tfoot> <tr>
+    <td colspan="2">
+    <hr class="pTableHr"> </td>
+  </tr>
+  </tfoot> <tbody>
+    <tr>
+      <td align="left" valign="top"><i>Virtual Machine Specification
+for
+the
+Java Card Platform, Version 2.2.2</i></td>
+      <td align="left" valign="top">Provides application developers and
+platform and tools implementers the documentation for a Java Card
+technology conformant Java Card Virtual Machine implementation.<br>
+      <br>
+      </td>
+    </tr>
+    <tr>
+      <td align="left" valign="top"><i>Runtime Environment
+Specification
+for
+the Java Card Platform, Version 2.2.2</i></td>
+      <td align="left" valign="top">Provides application developers and
+platform and tools implementers the documentation for a
+Java Card technology conformant Java Card Runtime Environment
+implementation.</td>
+    </tr>
+  </tbody>
+</table>
+<p class="nav-link">[<a href="#_top">Top</a>]</p>
+<h2><a name="new_features"></a>New Features and Improvements</h2>
+The following sections describe the changes to the specifications since
+the version 2.2.1 release of the Java Card specifications.<br>
+<br>
+<h3><a name="Application_Programming_Interface_Changes"></a>Changes to
+Application
+Programming
+Interface, Version 2.2.2<br>
+</h3>
+This section describes changes in the <span style="font-style: italic;">Application
+Programming Interface Specification for
+the Java Card Platform, Version 2.2.2</span>.<br>
+<h4>Summary of Changes</h4>
+The following is a summary of changes to the API specification:<br>
+<ul>
+  <li>Made numerous Javadoc<sup>TM</sup> tool file formatting and font
+improvements<br>
+  </li>
+  <li>Added support for ISO7816-4:2005 and 20 logical channels</li>
+  <li>Added applet programmability assists for ISO 7816 defined
+extended length APDU</li>
+  <li><span style="font-family: monospace;">MessageDigest</span> now
+supports the initial message digest capability<br>
+  </li>
+  <li>Added support for the following new hashing algorithms:</li>
+  <ul>
+    <li><span style="font-family: monospace;">SHA-256,</span> <span
+ style="font-family: monospace;">SHA-384,</span> <span
+ style="font-family: monospace;">SHA-512</span><br>
+    </li>
+  </ul>
+  <li>Added support for the following new signature algorithms:</li>
+  <ul>
+    <li><span style="font-family: monospace;">ISO9796-2</span> with
+message recovery</li>
+    <li><span style="font-family: monospace;">HMAC</span></li>
+    <li><span style="font-family: monospace;">Korean SEED MAC NOPAD<br>
+      </span></li>
+  </ul>
+  <li>Added support for the following new cipher algorithms:</li>
+  <ul>
+    <li><span style="font-family: monospace;">Korean SEED NOPAD</span><br>
+    </li>
+  </ul>
+  <li>New extension package for ISO 7816 defined extended length APDU</li>
+  <li>New extension package for External Memory Subsystem access</li>
+  <li>New extension package for Biometry <br>
+  </li>
+  <li>New extension framework package includes<br>
+  </li>
+  <ul>
+    <li>utility package to manipulate arrays and primitives of <span
+ style="font-family: monospace;">short</span> and <span
+ style="font-family: monospace;">int</span> type</li>
+    <li>math package for BCD and DES parity computations</li>
+    <li>TLV package for managing BER-TLV structures</li>
+  </ul>
+</ul>
+<h4>Detailed List of Changes since 2.2.1</h4>
+<span style="color: rgb(204, 51, 204);">
+</span>
+<ul>
+  <ul>
+    <ul>
+      <ul>
+        <ul>
+        </ul>
+      </ul>
+    </ul>
+  </ul>
+  <li>&nbsp;Package: <tt>javacard.framework</tt></li>
+  <ul>
+    <li>Class: <tt>APDU</tt></li>
+    <ul>
+      <li>Class description</li>
+      <ul>
+        <li>Added comments on header format for extended length
+transfers</li>
+        <li>Defines the extended length tagging Interface&nbsp; - "<span
+ style="font-family: monospace;">javacardx.apdu.ExtendedLength</span>"</li>
+        <li>Added note about the APDU Case number notation used in
+method descriptions<br>
+        </li>
+      </ul>
+    </ul>
+    <ul>
+      <li>Method <tt>getCLAChannel<br>
+        </tt></li>
+      <ul>
+        <li>returns a channel number between 0-19</li>
+      </ul>
+      <li>New methods <span style="font-family: monospace;">isISOInterindustryCLA,</span>
+        <span style="font-family: monospace;">isCommandChainingCLA,</span>
+        <span style="font-family: monospace;">isSecureMessagingCLA</span></li>
+      <ul>
+        <li>convenience methods for parsing CLA format</li>
+      </ul>
+      <li>New methods <span style="font-family: monospace;">getIncomingLength,</span>
+        <span style="font-family: monospace;">getOffsetCData</span></li>
+      <ul>
+        <li>convenience methods for managing extended length APDU</li>
+      </ul>
+      <li>Methods <span style="font-family: monospace;">setOutgoing()</span>
+and <span style="font-family: monospace;">setOutgoingNoChaining()</span></li>
+      <ul>
+        <li>Added note to methods to require previous
+call to <span style="font-family: monospace;">setIncomingAndReceive()</span>
+for case 4</li>
+        <li>Added comments on semantics for&nbsp; extended length
+transfers</li>
+        <li>Added sentence to say that the method must only be called
+in APDU case 2 and 4<br>
+        </li>
+      </ul>
+      <li>Methods&nbsp;<tt>setIncomingAndReceive</tt><span
+ style="font-family: monospace;">()</span></li>
+      <ul>
+        <li>Added comments on semantics for&nbsp; extended length
+transfers</li>
+        <li>Added sentence to say that the method must only be
+called&nbsp; in APDU case 3 or 4<br>
+        </li>
+      </ul>
+      <li>Methods&nbsp;<tt>setOutgoingLength</tt><span
+ style="font-family: monospace;">()</span></li>
+      <ul>
+        <li>Clarified that ILLEGAL_USE exception if <code>setOutgoing()</code>
+or <code>setOutgoingNoChaining()</code> not previously called</li>
+      </ul>
+      <li>Methods <tt>getCurrentAPDU</tt><span
+ style="font-family: monospace;">()</span> and <tt>getCurrentAPDUBuffer</tt><span
+ style="font-family: monospace;">()</span></li>
+      <ul>
+        <li>Clarified in method description that these must be called
+during the <code>Applet.process()</code> method</li>
+      </ul>
+    </ul>
+    <li>Class: <tt>Applet</tt></li>
+    <ul>
+      <li>Class description</li>
+      <ul>
+        <li>Added comments on optional tagging interface for extended
+length transfers</li>
+      </ul>
+      <li>Method <tt>process()</tt></li>
+      <ul>
+        <li>Added comments on semantics for&nbsp; extended length
+transfers</li>
+      </ul>
+    </ul>
+    <li>Interface ISO7816</li>
+    <ul>
+      <li>New constant fields:&nbsp; <tt>SW_LAST_COMMAND_EXPECTED </tt>and<tt>
+SW_COMMAND_CHAINING_NOT_SUPPORTED</tt></li>
+      <ul>
+        <li>Response status words to support ISO7816-4:2005 defined
+command chaining</li>
+      </ul>
+      <li>Reworded definition of <span style="font-family: monospace;">SW_LOGICAL_CHANNEL_NOT_SUPPORTED</span>
+to be more generic.</li>
+    </ul>
+    <li>Class: <tt>Util</tt></li>
+    <ul>
+      <li>Methods <tt>getShort() </tt>and <tt>setShort()</tt></li>
+      <ul>
+        <li>Fixed typo in <code>ArrayIndexOutOfBoundsException</code>
+clause<br>
+        </li>
+      </ul>
+    </ul>
+  </ul>
+  <li>Package: <tt>javacard.framework.service</tt></li>
+  <ul>
+    <li>Class: <tt>BasicService</tt></li>
+    <ul>
+      <li>Class description</li>
+    </ul>
+    <ul>
+      <ul>
+        <li>Clarify that CSF format is not defined for extended length
+transfers<br>
+        </li>
+      </ul>
+    </ul>
+  </ul>
+  <li>&nbsp;Package: <tt>javacard.security</tt></li>
+  <ul>
+    <li>New Interface: <span style="font-family: monospace;">HMACKey</span></li>
+    <ul>
+      <li>Key interface to encapsulate HMAC algorithm keys<br>
+      </li>
+    </ul>
+    <li>New Class: <span style="font-family: monospace;">InitializedMessageDigest</span></li>
+    <ul>
+      <li>Subclass of <span style="font-family: monospace;">MessageDigest</span>
+class with additional initialization method</li>
+    </ul>
+    <li>Class: <tt>KeyBuilder</tt></li>
+  </ul>
+  <ul>
+    <ul>
+      <li>New Fields: <tt>TYPE_KOREAN_SEED_TRANSIENT_RESET, </tt><tt>TYPE_KOREAN_SEED_TRANSIENT_DESELECT,
+        </tt><tt>TYPE_KOREAN_SEED, </tt><tt>TYPE_HMAC_TRANSIENT_RESET,
+        </tt><tt>TYPE_HMAC_TRANSIENT_DESELECT, </tt><tt>TYPE_HMAC</tt><br>
+        <ul>
+          <li>Constant identifiers for keys for new signature and
+cipher algorithms</li>
+        </ul>
+      </li>
+    </ul>
+    <li>New Interface: <span style="font-family: monospace;">KoreanSEEDKey</span></li>
+    <ul>
+      <li>Key interface to encapsulate Korean SEED algorithm keys</li>
+    </ul>
+    <li>Class: <span style="font-family: monospace;">MessageDigest</span></li>
+    <ul>
+      <li>New Fields: <tt>ALG_SHA_256, </tt><tt>ALG_SHA_384, </tt><tt>ALG_SHA_512</tt></li>
+    </ul>
+    <ul>
+      <ul>
+        <li>Constant identifiers for&nbsp; new message digest
+algorithms</li>
+      </ul>
+    </ul>
+    <ul>
+      <li>New Fields: <span style="font-family: monospace;">LENGTH_SHA,
+LENGTH_MD5, LENGTH_RIPEMD160, LENGTH_SHA_256, LENGTH_SHA_384,
+LENGTH_SHA_512</span></li>
+    </ul>
+    <ul>
+      <ul>
+        <li>Constant identifiers for lengths of message digests<br>
+        </li>
+      </ul>
+    </ul>
+    <ul>
+      <li>New Method: <tt>getInitializedMessageDigestInstance</tt></li>
+    </ul>
+    <ul>
+      <ul>
+        <li>factory method to obtain instance with initial message
+digest capability</li>
+      </ul>
+      <li>Methods <tt>update() </tt>and <tt>doFinal()</tt></li>
+      <ul>
+        <li>Throw
+exception if the accumulated length exceeds algorithm specific maximum<br>
+        </li>
+      </ul>
+    </ul>
+    <li>Class: <tt>Signature</tt></li>
+    <ul>
+      <li>New Fields: <tt>ALG_HMAC_SHA1, </tt><tt>ALG_HMAC_SHA_256, </tt><tt>ALG_HMAC_SHA_384,
+        </tt><tt>ALG_HMAC_SHA_512, </tt><tt>ALG_HMAC_MD5, </tt><tt>ALG_HMAC_RIPEMD160,
+        </tt><tt>ALG_RSA_SHA_ISO9796_MR, </tt><tt>ALG_RSA_RIPEMD160_ISO9796_MR,
+ALG_KOREAN_SEED_MAC_NOPAD</tt><tt> </tt></li>
+      <ul>
+        <li>Constant identifiers for&nbsp; new signature algorithms</li>
+      </ul>
+      <li>Methods <tt>init(Key, byte), init(Key, byte, byte[], short,
+short)</tt></li>
+      <ul>
+        <li>Added implementation note on optimal performance</li>
+      </ul>
+    </ul>
+    <li>New Interface: <span style="font-family: monospace;">SignatureMessageRecovery</span></li>
+    <ul>
+      <ul>
+        <li>Specialized signature interface for message recovery
+algorithms </li>
+      </ul>
+    </ul>
+  </ul>
+</ul>
+<ul>
+  <li type="disc">Package: <tt>javacardx.crypto</tt></li>
+  <ul>
+    <li>Class: <tt>Cipher</tt></li>
+    <ul>
+      <li>New Fields: <tt>ALG_KOREAN_SEED_ECB_NOPAD,
+ALG_KOREAN_SEED_CBC_NOPAD</tt><tt> </tt></li>
+      <ul>
+        <li>Constant identifiers for&nbsp; new signature algorithms</li>
+      </ul>
+    </ul>
+    <ul>
+      <li>Methods <tt>init(Key, byte), init(Key, byte, byte[], short,
+short)</tt></li>
+      <ul>
+        <li>Added implementation note on optimal performance</li>
+      </ul>
+    </ul>
+  </ul>
+  <li>New Package: <tt>javacardx.apdu</tt></li>
+  <ul>
+    <li>extension package with tagging interface for extended length
+transfers</li>
+  </ul>
+  <li>New Package: <tt>javacardx.biometry</tt></li>
+  <ul>
+    <li>&nbsp;extension package for biometric server and client applets</li>
+  </ul>
+  <li>New Package: <tt>javacardx.external</tt></li>
+  <ul>
+    <li>&nbsp;extension package for accessing non-Java Card runtime
+environment managed memory
+subsystems<br>
+    </li>
+  </ul>
+  <li>New Package: <tt>javacardx.framework</tt></li>
+  <ul>
+    <li>&nbsp;extension framework package containing programmer
+utilities<br>
+    </li>
+  </ul>
+  <li>New Package: <tt>javacardx.framework.math</tt></li>
+  <ul>
+    <li>&nbsp;extension package with BCD arithmetic and parity
+computation utilities, as well as the BigNumber API</li>
+  </ul>
+  <li>New Package: <tt>javacardx.framework.tlv</tt></li>
+  <ul>
+    <li>&nbsp;extension package with TLV parsing and&nbsp; construction
+utilities</li>
+  </ul>
+  <li>New Package: <tt>javacardx.framework.util</tt></li>
+  <ul>
+    <li>&nbsp;extension package with <span
+ style="font-family: monospace;">short</span> and <span
+ style="font-family: monospace;">int</span> array manipulation utility<br>
+    </li>
+  </ul>
+  <li>New Package: <tt>javacardx.framework.util.intx</tt></li>
+  <ul>
+    <li>&nbsp;extension package with <span
+ style="font-family: monospace;">int</span> array and primitive
+manipulation utility<br>
+    </li>
+  </ul>
+</ul>
+<div class="nav-link">[<a href="#_top">Top</a>]</div>
+<h3><a name="Runtime_Environment_Specification_Changes"></a>Changes
+to Runtime
+Environment
+Specification, Version 2.2.2<br>
+</h3>
+This section describes changes in the <span style="font-style: italic;">Runtime
+Environment Specification
+for
+the Java Card Platform, Version 2.2.2</span>.
+<h4>Summary of Changes<br>
+</h4>
+<ul>
+  <ul>
+  </ul>
+</ul>
+<ul>
+  <li>Added support for ISO7816-4:2005 and 20 logical channels</li>
+  <li>Management of logical channels in contactless interface and in
+concurrent dual interface mode defined</li>
+  <li>Java Card RE support for extended length APDU defined<br>
+  </li>
+  <li>Punctuation and rewording changes for readability and trademark
+restrictions<br>
+  </li>
+  <li>Font changes for conformance with Sun's style guide for
+specifications<br>
+  </li>
+  <li>Grammatical corrections for conformance with Sun's style guide
+for specifications<br>
+- improved list introductions<br>
+- fixed some verb tenses to present tense</li>
+</ul>
+<ul style="margin-left: 40px;">
+</ul>
+<h4>Detailed List of Changes since 2.2.1</h4>
+<ul>
+  <li>Chapter 2<br>
+  </li>
+  <ul style="list-style-type: disc;">
+    <li>Introduction section<br>
+    </li>
+    <ul>
+      <li>Note on use of acronym CAD added to include use in
+contactless mode<br>
+      </li>
+    </ul>
+  </ul>
+  <li>Chapter 3</li>
+  <ul>
+    <li>Section 3.6</li>
+    <ul>
+      <li>Categorizes RF field loss and ISO14443 S(DESELECT) command
+reception in contactless card as cases of power loss and reset.</li>
+    </ul>
+    <li>Section 3.6.1</li>
+    <ul>
+      <li>New section defines the behavior of dual interface cards
+operating concurrently in both contact and contactless modes when RF
+field loss occurs and when ISO14443 S(DESELECT) command is received.<br>
+      </li>
+    </ul>
+  </ul>
+  <li>Chapter 4</li>
+  <ul style="list-style-type: disc;">
+    <li>Introduction section<br>
+    </li>
+    <ul>
+      <li>Notion of different I/O interfaces and dual interfaces is
+introduced</li>
+      <li>Behavior of card reset and tear in concurrent dual
+interface
+mode defined</li>
+      <li>Up to 20 channels on each I/O interface possible</li>
+      <li>Updated Figure 4-1 to illustrate logical channels on I/O
+interfaces<br>
+      </li>
+    </ul>
+    <li>Section 4.1</li>
+    <ul>
+      <li>Notion of default applet extended to contactless logical
+channels</li>
+    </ul>
+    <li>Section 4.2</li>
+    <ul>
+      <li>Updated multiselection figures 4-2, 4-3 for additional
+possible logical channels<br>
+      </li>
+    </ul>
+    <li>Section 4.3</li>
+    <ul>
+      <li>Re-written to describe the CLA encoding and parsing
+requirements of&nbsp; ISO7816-4:2005</li>
+    </ul>
+    <li>Section 4.5.1, 4.5.2, 4.6.1</li>
+    <ul>
+      <li>Updated the processing sequence of SELECT and MANAGE
+CHANNEL
+APDU commands for the ISO7816-4:2005 CLA encoding rules</li>
+      <li>Behavior of SELECT and MANAGE CHANNEL APDU command binding
+to
+source I/O interface defined</li>
+    </ul>
+  </ul>
+  <li>Chapter 8</li>
+  <ul>
+    <li>Section 8.3.5.2</li>
+    <ul>
+      <li>Added RMI protocol exception type values for the newly
+defined exception classes<br>
+      </li>
+    </ul>
+  </ul>
+  <ul style="list-style-type: disc;">
+    <li>Section 8.4</li>
+    <ul>
+      <li>Added note on Java Card remote method invocation (Java Card
+RMI) APDU messages using short
+length
+format only</li>
+      <li>Updated Table 8-1 and 8-2 to reflect new CLA encoding from
+ISO7816-4:2005.<br>
+      </li>
+    </ul>
+  </ul>
+  <li>Chapter 9<br>
+  </li>
+  <ul style="list-style-type: disc;">
+    <li>Section 9.4.4<br>
+    </li>
+    <ul>
+      <li>Behavior of Java Card RE for extended length APDU support
+described</li>
+    </ul>
+    <li>Section 9.7</li>
+    <ul>
+      <li>New section "Optional Extension Packages" describes the
+optional nature of the API packages named "<code>javacardx.*</code>"<br>
+      </li>
+    </ul>
+  </ul>
+  <li>Chapter 12<br>
+  </li>
+  <ul style="list-style-type: disc;">
+    <li>Section 12.14-12.28 </li>
+    <ul>
+      <li>New API constants value assignments added</li>
+    </ul>
+  </ul>
+</ul>
+<ul>
+  <ul style="list-style-type: disc;">
+    <ul>
+      <ul>
+      </ul>
+    </ul>
+  </ul>
+</ul>
+<ul style="list-style-type: disc;">
+</ul>
+<ul>
+  <ul>
+    <ul>
+      <ul>
+      </ul>
+    </ul>
+  </ul>
+</ul>
+<div class="nav-link">[<a href="#_top">Top</a>]</div>
+<h3><a name="Virtual_Machine_Specification_Changes"></a>Changes to
+Virtual Machine
+Specification,
+Version 2.2.2<br>
+</h3>
+&nbsp;This section describes changes in the <span
+ style="font-style: italic;">Virtual Machine
+Specification
+for the Java Card Platform, Version 2.2.2</span>.
+<h4>Summary of Changes</h4>
+<ul>
+  <li>Punctuation and rewording changes for readability and trademark
+restrictions<br>
+  </li>
+  <li>Font changes for conformance with Sun's style guide for
+specifications</li>
+  <li>Java Card platform language aligned with JDK<small><sup>TM</sup></small>
+version
+1.5 technology and
+tools</li>
+</ul>
+<ul style="margin-left: 40px;">
+</ul>
+<ul>
+  <ul>
+  </ul>
+</ul>
+<ul>
+</ul>
+<h4>Detailed List of Changes since 2.2.1</h4>
+<ul>
+  <li>Chapter 2 Java Card Platform Language Subset </li>
+  <ul style="list-style-type: disc;">
+    <li>Section 2.2.1.1 -&nbsp; Unsupported features</li>
+    <ul>
+      <li>Added items:</li>
+      <ul>
+        <li>&nbsp;Typesafe Enums</li>
+        <li>&nbsp;Enhanced for Loop</li>
+        <li>&nbsp;Varargs</li>
+        <li>&nbsp;Runtime Visible Metadata (Annotations)</li>
+        <li>Assertions</li>
+      </ul>
+    </ul>
+    <li>Section 2.2.1.2 - Unsupported keywords</li>
+    <ul>
+      <li>Added items:</li>
+      <ul>
+        <li>&nbsp;enum</li>
+        <li>assert</li>
+      </ul>
+    </ul>
+    <li>Section 2.2.2 - Supported features</li>
+    <ul>
+      <li>Added items:</li>
+      <ul>
+        <li>Generics</li>
+        <li>Static Import</li>
+        <li>Runtime Invisible Metadata(Annotations)</li>
+      </ul>
+    </ul>
+    <li>Section 2.3.1.1 - VM Subset - Not supported in Class files</li>
+    <ul>
+      <li>Class access flags item - ACC_ENUM</li>
+      <li>Methods - ACC_VARARGS<br>
+      </li>
+      <li>Fields - ACC_ENUM</li>
+    </ul>
+    <li>Section 2.3.1.1 - VM Subset - Supported in Class files</li>
+    <ul>
+      <li>Attributes - RuntimeInvisibleAnnotations,
+RuntimeInvisibleParameterAnnotations</li>
+    </ul>
+    <li>Section 2.3.3.4 - VM Subset - Support for exceptions and
+errors</li>
+    <ul>
+      <li>Added items:</li>
+      <ul>
+        <li>AssertionError</li>
+        <li>UnsupportedClassVersionError</li>
+      </ul>
+    </ul>
+  </ul>
+</ul>
+<div class="nav-link">[<a href="#_top">Top</a>]</div>
+<h2><a name="bugs"></a>Known Bugs</h2>
+This section describes known bugs in the specification.<br>
+<br>
+<table>
+  <thead><tr>
+    <th class="sun-verylightblue" scope="col"
+ style="text-align: left; vertical-align: top;">BUG ID</th>
+    <th style="vertical-align: top;">TYPE</th>
+    <th class="sun-verylightblue" scope="col"
+ style="text-align: left; vertical-align: top;">DESCRIPTION</th>
+  </tr>
+  <tr>
+    <td style="vertical-align: top; text-align: center;">6270320<br>
+    </td>
+    <td style="vertical-align: top; text-align: center;">RFE<br>
+    </td>
+    <td style="text-align: left; vertical-align: top;">"Suite B"
+algorithms missing from
+Java Card specifications.<br>
+    </td>
+  </tr>
+  </thead> <tfoot> <tr>
+    <td style="vertical-align: top; text-align: center;">6350704<br>
+    </td>
+    <td style="vertical-align: top; text-align: center;">RFE<br>
+    </td>
+    <td style="vertical-align: top;">Add the following algorithms
+RSA-KEM/AES Wrap.<br>
+    </td>
+  </tr>
+  <tr>
+    <td style="vertical-align: top; text-align: center;">6270329<br>
+    </td>
+    <td style="vertical-align: top; text-align: center;">RFE<br>
+    </td>
+    <td style="vertical-align: top;">Add support for transient
+private
+keys in specifications<br>
+    </td>
+  </tr>
+  <tr>
+    <td style="vertical-align: top; text-align: center;">6350708<br>
+    </td>
+    <td style="vertical-align: top; text-align: center;">RFE<br>
+    </td>
+    <td style="vertical-align: top;">64K support for ExtendedLength.<br>
+    </td>
+  </tr>
+  <tr>
+    <td style="vertical-align: top; text-align: center;">6356185<br>
+    </td>
+    <td style="vertical-align: top; text-align: center;">RFE<br>
+    </td>
+    <td style="vertical-align: top;">No support for contactless
+feature
+- AFI (Application Family Identifier).<br>
+    </td>
+  </tr>
+  </tfoot>
+</table>
+<h2><a name="prod_info"></a>Where to Find Product Information and News</h2>
+Visit the product web
+site at <font color="#0000ff"><a
+ href="http://java.sun.com/products/javacard/">http://java.sun.com/products/javacard</a></font>
+for up-to-date information on&nbsp; product news and
+reviews on the following:
+<ul>
+  <li>Release Notes and Product Documentation</li>
+  <li>Technical Support Contact Information</li>
+  <li>Frequently Asked Questions (FAQs)<br>
+  </li>
+</ul>
+<ul type="disc">
+</ul>
+<div class="nav-link">[<a href="#_top">Top</a>]</div>
+<br>
+<hr class="pHr">
+<p><a href="./copyright/COPYRIGHT_jcspecs.html">Copyright</a> &copy;
+2005 Sun
+Microsystems, Inc. All rights reserved.</p>
+</body>
+</html>

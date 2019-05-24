@@ -1,0 +1,264 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<HTML LANG="en">
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 7.0/HTML Export Filter">
+
+<LINK REL="STYLESHEET" HREF="unx_unstr_styles.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<META name="DC.TITLE" content="Ant Tasks User's Guide, Java Card Platform, Version 2.2.2">
+<TITLE>C H A P T E R    4 - Custom Types 
+</TITLE>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV>
+<div class="navbar" align="center">
+<table dir="LTR" summary="Navigation bar, includes the book title and navigation buttons" width=100% cellpadding="0" cellspacing="0" border="0"><colgroup span="2" width="100%"><col id="1" span="1" width="50%"><col id="2" span="1" width="50%">
+<tr bgcolor="#cccccc">
+<td class="navbartitle" align=left rowspan="1" colspan="1" abbr="ChapTitle">&nbsp;&nbsp;Ant Tasks User's Guide, Java Card Platform, Version 2.2.2
+</td>
+<td valign="top" align="right" rowspan="1" colspan="1" abbr="NavButtons"><a href="index.html"><img src="shared/toc01.gif" title="Table Of Contents" alt="Table Of Contents" width="30" height="26" border="0"></a><a href="tasks.html"><img src="shared/prev01.gif" title="Previous Chapter" alt="Previous Chapter" width="30" height="26" border="0"></a><a href="netbeans.html"><img src="shared/next01.gif" title="Next Chapter" alt="Next Chapter" width="30" height="26" border="0"></a><a href="ix.html"><img src="shared/index01.gif" title="Book Index" alt="Book Index" width="30" height="26" border="0"></a>
+</td>
+</tr>
+</table>
+<br>
+<br>
+</div>
+</DIV>
+<TABLE DIR="LTR" SUMMARY="Chapter Number" ABBR="ChapNum" WIDTH="100%" BORDER="0">
+<COLGROUP SPAN="1" WIDTH="100%"><COL ID="1" SPAN="1">
+<TR>
+<TD ALIGN="right" CLASS="ChapNumber"><SPAN CLASS="ChapNumPrefix"><A NAME="pgfId-998523"></A>C H A P T E R    </SPAN>&nbsp;<SPAN CLASS="ChapNumNum">4</SPAN>
+</TD>
+</TR>
+</TABLE>
+<TABLE DIR="LTR" SUMMARY="Chapter Title" ABBR="ChapTitle" WIDTH="100%" BORDER="0">
+<COLGROUP SPAN="1" WIDTH="100%"><COL ID="1" SPAN="1" WIDTH="100%">
+<TR>
+<TD ALIGN="right" CLASS="ChapTitle">
+<HR SIZE=7 NOSHADE><A NAME="pgfId-999553"></A>Custom Types
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Paragraph"><A NAME="pgfId-1001230"></A>The custom types available for the Ant tasks are described in this chapter.
+</P><H2 CLASS="Head1"><A NAME="pgfId-1000234"></A>
+<DIV>
+<HR ALIGN=left SIZE=6 WIDTH=15% noshade>
+</DIV><A NAME="28817"></A>AppletNameAID </H2>
+<P CLASS="Paragraph"><A NAME="pgfId-1000262"></A><KBD CLASS="Filename-Command">AppletNameAID</KBD><A NAME="AppletNameAID"></A> groups together name and AID for a Java Card applet. 
+</P>
+<BR>
+<TABLE CLASS="Titled" BORDER=1 BORDERCOLORLIGHT="#FFFFFF" BORDERCOLORDARK="#000000" CELLPADDING=5 CELLSPACING=0 DIR="LTR"><CAPTION CLASS="TableCaption"><A NAME="pgfId-1001301"> </A> TABLE 4-1 	Parameters for ApplietNameAID </CAPTION>
+<THEAD>
+<TR>
+<TH SCOPE="COL" ROWSPAN="1" COLSPAN="1" BGCOLOR="#CCCCCC">
+<P CLASS="TableHead"><A NAME="pgfId-1000877"></A>Attribute
+</P>
+</TH>
+<TH SCOPE="COL" ROWSPAN="1" COLSPAN="1" BGCOLOR="#CCCCCC">
+<P CLASS="TableHead"><A NAME="pgfId-1000879"></A>Description
+</P>
+</TH>
+<TH SCOPE="COL" ROWSPAN="1" COLSPAN="1" BGCOLOR="#CCCCCC">
+<P CLASS="TableHead"><A NAME="pgfId-1000881"></A>Required
+</P>
+</TH>
+</TR>
+</THEAD>
+<TBODY>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-1000883"></A>appletname
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-1000885"></A>Fully qualified name of the Java Card applet.
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-1000887"></A>Yes
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-1000889"></A>aid
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-1000891"></A>AID (Application Identifier) of the Java Card applet.
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-1000893"></A>Yes
+</P>
+</TD>
+</TR>
+</TBODY>
+</TABLE>
+<BR><H3 CLASS="Head2"><A NAME="pgfId-1000240"></A>Example </H3>
+<P CLASS="Paragraph"><A NAME="pgfId-1000973"></A>Set the fully qualified name and AID for the <KBD CLASS="Filename-Command">HelloWorld</KBD> applet.
+</P>
+<DIV CLASS="Code">
+<BR>
+<TABLE CLASS="Code" BORDER=1 BORDERCOLORLIGHT="#FFFFFF" BORDERCOLORDARK="#000000" CELLPADDING=5 CELLSPACING=0 DIR="LTR">
+<TBODY>
+<TR>
+<TD SCOPE="ROW">
+<PRE CLASS="ScreenText"><A NAME="pgfId-1000982"></A>&lt;AppletNameAID
+</PRE>
+<PRE CLASS="ScreenText"><A NAME="pgfId-1000984"></A>appletname=&quot;com.sun.javacard.samples.HelloWorld.HelloWorld&quot;
+</PRE>
+<PRE CLASS="ScreenText"><A NAME="pgfId-1000986"></A>aid=&quot;0xa0:0x0:0x0:0x0:0x62:0x3:0x1:0xc:0x1:0x1&quot;/&gt;
+</PRE>
+</TD>
+</TR>
+</TBODY>
+</TABLE>
+<BR>
+</DIV><H2 CLASS="Head1"><A NAME="pgfId-1000977"></A>
+<DIV>
+<HR ALIGN=left SIZE=6 WIDTH=15% noshade>
+</DIV><A NAME="JCAInputFile"></A>JCAInputFile</H2>
+<P CLASS="Paragraph"><A NAME="pgfId-1000476"></A>This type is a simple wrapper for a fully qualified JCA file name or a name of an input file that contains a list of input JCA files. In case the input file contains a list of input JCA files, the name of the file should be prepended with &quot;@&quot;. 
+</P>
+<BR>
+<TABLE CLASS="Titled" BORDER=1 BORDERCOLORLIGHT="#FFFFFF" BORDERCOLORDARK="#000000" CELLPADDING=5 CELLSPACING=0 DIR="LTR"><CAPTION CLASS="TableCaption"><A NAME="pgfId-1001310"> </A> TABLE 4-2 	Parameters for JCAInputFile </CAPTION>
+<THEAD>
+<TR>
+<TH SCOPE="COL" ROWSPAN="1" COLSPAN="1" BGCOLOR="#CCCCCC">
+<P CLASS="TableHead"><A NAME="pgfId-1000895"></A>Attribute
+</P>
+</TH>
+<TH SCOPE="COL" ROWSPAN="1" COLSPAN="1" BGCOLOR="#CCCCCC">
+<P CLASS="TableHead"><A NAME="pgfId-1000897"></A>Description
+</P>
+</TH>
+<TH SCOPE="COL" ROWSPAN="1" COLSPAN="1" BGCOLOR="#CCCCCC">
+<P CLASS="TableHead"><A NAME="pgfId-1000899"></A>Required
+</P>
+</TH>
+</TR>
+</THEAD>
+<TBODY>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-1000901"></A>inputfile
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-1000903"></A>Fully qualified name of the input file
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-1000905"></A>Yes
+</P>
+</TD>
+</TR>
+</TBODY>
+</TABLE>
+<BR><H3 CLASS="Head2"><A NAME="pgfId-1000453"></A>Examples </H3>
+<P CLASS="Paragraph"><A NAME="pgfId-1000555"></A>Set the fully qualified name of an input JCA file.
+</P>
+<DIV CLASS="Code">
+<BR>
+<TABLE CLASS="Code" BORDER=1 BORDERCOLORLIGHT="#FFFFFF" BORDERCOLORDARK="#000000" CELLPADDING=5 CELLSPACING=0 DIR="LTR">
+<TBODY>
+<TR>
+<TD SCOPE="ROW">
+<PRE CLASS="ScreenText"><A NAME="pgfId-1001009"></A>&lt;jcainputfile 
+</PRE>
+<PRE CLASS="ScreenText"><A NAME="pgfId-1001011"></A>   inputfile=&quot;C:&#92;jcas&#92;common&#92;com&#92;sun&#92;javacard&#92;installer
+</PRE>
+<PRE CLASS="ScreenText"><A NAME="pgfId-1001013"></A>&#92;javacard&#92;installer.jca&quot; /&gt;
+</PRE>
+</TD>
+</TR>
+</TBODY>
+</TABLE>
+<BR>
+</DIV>
+<P CLASS="Paragraph"><A NAME="pgfId-1000557"></A>Set the fully qualified name of an input file that contains a list of JCA files.
+</P>
+<DIV CLASS="Code">
+<BR>
+<TABLE CLASS="Code" BORDER=1 BORDERCOLORLIGHT="#FFFFFF" BORDERCOLORDARK="#000000" CELLPADDING=5 CELLSPACING=0 DIR="LTR">
+<TBODY>
+<TR>
+<TD SCOPE="ROW">
+<PRE CLASS="ScreenText"><A NAME="pgfId-1001016"></A>&lt;jcainputfile inputfile=&quot;@C:&#92;jc&#92;mathDemo.in&quot; /&gt;
+</PRE>
+</TD>
+</TR>
+</TBODY>
+</TABLE>
+<BR>
+</DIV><H2 CLASS="Head1"><A NAME="pgfId-1000491"></A>
+<DIV>
+<HR ALIGN=left SIZE=6 WIDTH=15% noshade>
+</DIV><A NAME="46004"></A>ExportFiles<A NAME="marker-1001042"></A></H2>
+<P CLASS="Paragraph"><A NAME="pgfId-1000655"></A>This type is actually the Ant FileSet type. It is used to specify a group of export files for the off-card verifier. For details, see Apache Ant documentation for FileSet type.
+</P><H3 CLASS="Head2"><A NAME="pgfId-1000814"></A>Examples </H3>
+<P CLASS="Paragraph"><A NAME="pgfId-1000815"></A>The following example sets the fully qualified name of an input EXP file.
+</P>
+<DIV CLASS="Code">
+<BR>
+<TABLE CLASS="Code" BORDER=1 BORDERCOLORLIGHT="#FFFFFF" BORDERCOLORDARK="#000000" CELLPADDING=5 CELLSPACING=0 DIR="LTR">
+<TBODY>
+<TR>
+<TD SCOPE="ROW">
+<PRE CLASS="ScreenText"><A NAME="pgfId-1000989"></A>&lt;exportfiles 
+</PRE>
+<PRE CLASS="ScreenText"><A NAME="pgfId-1000991"></A>   file=&quot;C:&#92;samples&#92;classes&#92;com&#92;sun&#92;javacard&#92;samples
+</PRE>
+<PRE CLASS="ScreenText"><A NAME="pgfId-1000993"></A>&#92;HelloWorld&#92;javacard&#92;HelloWorld.exp&quot;
+</PRE>
+</TD>
+</TR>
+</TBODY>
+</TABLE>
+<BR>
+</DIV>
+<P CLASS="Paragraph"><A NAME="pgfId-1000521"></A>The following example groups all the files in the directory <KBD CLASS="Filename-Command">${server.src}</KBD> that are EXP files and do not have the text <KBD CLASS="Filename-Command">Test</KBD> in their names.
+</P>
+<DIV CLASS="Code">
+<BR>
+<TABLE CLASS="Code" BORDER=1 BORDERCOLORLIGHT="#FFFFFF" BORDERCOLORDARK="#000000" CELLPADDING=5 CELLSPACING=0 DIR="LTR">
+<TBODY>
+<TR>
+<TD SCOPE="ROW">
+<PRE CLASS="ScreenText"><A NAME="pgfId-1000996"></A>&lt;exportfiles dir=&quot;${server.src}&quot;&gt; 
+</PRE>
+<PRE CLASS="ScreenText"><A NAME="pgfId-1000998"></A>  &lt;include name=&quot;**/*.exp&quot;/&gt; 
+</PRE>
+<PRE CLASS="ScreenText"><A NAME="pgfId-1001000"></A>  &lt;exclude name=&quot;**/*Test*&quot;/&gt;
+</PRE>
+<PRE CLASS="ScreenText"><A NAME="pgfId-1001002"></A>&lt;/exportfiles&gt;
+</PRE>
+</TD>
+</TR>
+</TBODY>
+</TABLE>
+<BR>
+</DIV>
+<P CLASS="Paragraph"><A NAME="pgfId-999099"></A>&nbsp;
+</P>
+<div class="navbar" align="center">
+<br>
+<br>
+<table dir="LTR" summary="Navigation bar, includes the book title and navigation buttons" width=100% cellpadding="0" cellspacing="0" border="0"><colgroup span="3" width="100%"><col id="1" span="1" width="45%"><col id="2" span="1" width="25%"><col id="3" span="1" width="30%">
+<tr bgcolor="#cccccc">
+<td class="navbartitle" align=left rowspan="1" colspan="1" abbr="ChapTitle">&nbsp;&nbsp;Ant Tasks User's Guide, Java Card Platform, Version 2.2.2
+</td>
+<td class="navbartitle" align=right rowspan="1" colspan="1" abbr="PartNum">3-11-06
+</td>
+<td valign="top" align="right" rowspan="1" colspan="1" abbr="NavButtons"><a href="index.html"><img src="shared/toc01.gif" title="Table Of Contents" alt="Table Of Contents" width="30" height="26" border="0"></a><a href="tasks.html"><img src="shared/prev01.gif" title="Previous Chapter" alt="Previous Chapter" width="30" height="26" border="0"></a><a href="netbeans.html"><img src="shared/next01.gif" title="Next Chapter" alt="Next Chapter" width="30" height="26" border="0"></a><a href="ix.html"><img src="shared/index01.gif" title="Book Index" alt="Book Index" width="30" height="26" border="0"></a>
+</td>
+</tr>
+</table>
+<br>
+<br>
+</div>
+<P CLASS="copyrightlink"><A HREF="copyright.html">Copyright</a> &#169; 2005, Sun Microsystems, Inc.   All Rights Reserved.</P>
+</BODY>
+</HTML>

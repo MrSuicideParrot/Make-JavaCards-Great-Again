@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<HTML LANG="en">
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 7.0/HTML Export Filter">
+
+<LINK REL="STYLESHEET" HREF="unx_unstr_styles.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<META name="DC.TITLE" content="Runtime Environment Specification for the Java Card Platform, Version 2.2.2">
+<TITLE>C H A P T E R    10 - Virtual Machine Topics 
+</TITLE>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV>
+<div class="navbar" align="center">
+<table dir="LTR" summary="Navigation bar, includes the book title and navigation buttons" width=100% cellpadding="0" cellspacing="0" border="0"><colgroup span="2" width="100%"><col id="1" span="1" width="50%"><col id="2" span="1" width="50%">
+<tr bgcolor="#cccccc">
+<td class="navbartitle" align=left rowspan="1" colspan="1" abbr="ChapTitle">&nbsp;&nbsp;Runtime Environment Specification for the Java Card Platform, Version 2.2.2
+</td>
+<td valign="top" align="right" rowspan="1" colspan="1" abbr="NavButtons"><a href="index.html"><img src="shared/toc01.gif" title="Table Of Contents" alt="Table Of Contents" width="30" height="26" border="0"></a><a href="JCRESpec09api.html"><img src="shared/prev01.gif" title="Previous Chapter" alt="Previous Chapter" width="30" height="26" border="0"></a><a href="JCRESpec11installer.html"><img src="shared/next01.gif" title="Next Chapter" alt="Next Chapter" width="30" height="26" border="0"></a><a href="ix.html"><img src="shared/index01.gif" title="Book Index" alt="Book Index" width="30" height="26" border="0"></a>
+</td>
+</tr>
+</table>
+<br>
+<br>
+</div>
+</DIV>
+<TABLE DIR="LTR" SUMMARY="Chapter Number" ABBR="ChapNum" WIDTH="100%" BORDER="0">
+<COLGROUP SPAN="1" WIDTH="100%"><COL ID="1" SPAN="1">
+<TR>
+<TD ALIGN="right" CLASS="ChapNumber"><SPAN CLASS="ChapNumPrefix"><A NAME="pgfId-409409"></A>C H A P T E R    </SPAN>&nbsp;<SPAN CLASS="ChapNumNum">10</SPAN><A NAME="19667"></A>
+</TD>
+</TR>
+</TABLE>
+<TABLE DIR="LTR" SUMMARY="Chapter Title" ABBR="ChapTitle" WIDTH="100%" BORDER="0">
+<COLGROUP SPAN="1" WIDTH="100%"><COL ID="1" SPAN="1" WIDTH="100%">
+<TR>
+<TD ALIGN="right" CLASS="ChapTitle">
+<HR SIZE=7 NOSHADE><A NAME="pgfId-409410"></A><A NAME="26948"></A><A NAME="marker-411241"></A>Virtual Machine Topics
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Paragraph"><A NAME="pgfId-407479"></A>This chapter details virtual machine resource failures and security violations.
+</P><H2 CLASS="Head1"><A NAME="pgfId-407487"></A>
+<DIV>
+<HR ALIGN=left SIZE=6 WIDTH=15% noshade>
+</DIV>10.1	<A NAME="marker-411242"></A>Resource Failures</H2>
+<P CLASS="Paragraph"><A NAME="pgfId-407489"></A>A lack of resources condition, such as heap space, that is recoverable shall result in a <KBD CLASS="Filename-Command">SystemException</KBD> with reason code <KBD CLASS="Filename-Command">NO_RESOURCE</KBD>. The factory methods in <KBD CLASS="Filename-Command">JCSystem</KBD> used to create transient arrays throw a <KBD CLASS="Filename-Command">SystemException</KBD> with reason code <KBD CLASS="Filename-Command">NO_TRANSIENT_SPACE</KBD> to indicate lack of transient space.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-407491"></A>All other (non-recoverable) virtual machine errors, such as stack overflow, shall result in a virtual machine error. These conditions shall cause the virtual machine to halt. When such a non-recoverable virtual machine error occurs, an implementation can optionally require the card to be muted or blocked from further use.
+</P><H2 CLASS="Head1"><A NAME="pgfId-411019"></A>
+<DIV>
+<HR ALIGN=left SIZE=6 WIDTH=15% noshade>
+</DIV>10.2	<A NAME="marker-411243"></A>Security Violations</H2>
+<P CLASS="Paragraph"><A NAME="pgfId-411020"></A>The Java Card RE throws a <KBD CLASS="Filename-Command">java.lang.SecurityException</KBD> exception when it detects an attempt to illegally access an object belonging to another applet across the firewall boundary. A <KBD CLASS="Filename-Command">java.lang.SecurityException</KBD> exception may optionally be thrown by a Java Card VM implementation to indicate a violation of fundamental language restrictions, such as attempting to invoke a private method in another class.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-411005"></A>For security reasons, the Java Card RE implementation may mute the card instead of throwing the exception object.
+</P>
+<div class="navbar" align="center">
+<br>
+<br>
+<table dir="LTR" summary="Navigation bar, includes the book title and navigation buttons" width=100% cellpadding="0" cellspacing="0" border="0"><colgroup span="3" width="100%"><col id="1" span="1" width="45%"><col id="2" span="1" width="25%"><col id="3" span="1" width="30%">
+<tr bgcolor="#cccccc">
+<td class="navbartitle" align=left rowspan="1" colspan="1" abbr="ChapTitle">&nbsp;&nbsp;Runtime Environment Specification for the Java Card Platform, Version 2.2.2
+</td>
+<td class="navbartitle" align=right rowspan="1" colspan="1" abbr="PartNum">3-8-06
+</td>
+<td valign="top" align="right" rowspan="1" colspan="1" abbr="NavButtons"><a href="index.html"><img src="shared/toc01.gif" title="Table Of Contents" alt="Table Of Contents" width="30" height="26" border="0"></a><a href="JCRESpec09api.html"><img src="shared/prev01.gif" title="Previous Chapter" alt="Previous Chapter" width="30" height="26" border="0"></a><a href="JCRESpec11installer.html"><img src="shared/next01.gif" title="Next Chapter" alt="Next Chapter" width="30" height="26" border="0"></a><a href="ix.html"><img src="shared/index01.gif" title="Book Index" alt="Book Index" width="30" height="26" border="0"></a>
+</td>
+</tr>
+</table>
+<br>
+<br>
+</div>
+<P CLASS="copyrightlink"><a href="copyright.html">Copyright</a> &#169; 2005, Sun Microsystems, Inc.   All Rights Reserved.
+</P>
+</BODY>
+</HTML>

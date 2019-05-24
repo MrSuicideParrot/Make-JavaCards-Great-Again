@@ -1,0 +1,169 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<HTML LANG="en">
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 7.0/HTML Export Filter">
+
+<LINK REL="STYLESHEET" HREF="unx_unstr_styles.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<META name="DC.TITLE" content="Runtime Environment Specification for the Java Card Platform, Version 2.2.2">
+<TITLE>C H A P T E R    5 - Transient Objects 
+</TITLE>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV>
+<div class="navbar" align="center">
+<table dir="LTR" summary="Navigation bar, includes the book title and navigation buttons" width=100% cellpadding="0" cellspacing="0" border="0"><colgroup span="2" width="100%"><col id="1" span="1" width="50%"><col id="2" span="1" width="50%">
+<tr bgcolor="#cccccc">
+<td class="navbartitle" align=left rowspan="1" colspan="1" abbr="ChapTitle">&nbsp;&nbsp;Runtime Environment Specification for the Java Card Platform, Version 2.2.2
+</td>
+<td valign="top" align="right" rowspan="1" colspan="1" abbr="NavButtons"><a href="index.html"><img src="shared/toc01.gif" title="Table Of Contents" alt="Table Of Contents" width="30" height="26" border="0"></a><a href="JCRESpec04selection.html"><img src="shared/prev01.gif" title="Previous Chapter" alt="Previous Chapter" width="30" height="26" border="0"></a><a href="JCRESpec06firewall.html"><img src="shared/next01.gif" title="Next Chapter" alt="Next Chapter" width="30" height="26" border="0"></a><a href="ix.html"><img src="shared/index01.gif" title="Book Index" alt="Book Index" width="30" height="26" border="0"></a>
+</td>
+</tr>
+</table>
+<br>
+<br>
+</div>
+</DIV>
+<TABLE DIR="LTR" SUMMARY="Chapter Number" ABBR="ChapNum" WIDTH="100%" BORDER="0">
+<COLGROUP SPAN="1" WIDTH="100%"><COL ID="1" SPAN="1">
+<TR>
+<TD ALIGN="right" CLASS="ChapNumber"><SPAN CLASS="ChapNumPrefix"><A NAME="pgfId-409281"></A>C H A P T E R    </SPAN>&nbsp;<SPAN CLASS="ChapNumNum">5</SPAN><A NAME="20735"></A>
+</TD>
+</TR>
+</TABLE>
+<TABLE DIR="LTR" SUMMARY="Chapter Title" ABBR="ChapTitle" WIDTH="100%" BORDER="0">
+<COLGROUP SPAN="1" WIDTH="100%"><COL ID="1" SPAN="1" WIDTH="100%">
+<TR>
+<TD ALIGN="right" CLASS="ChapTitle">
+<HR SIZE=7 NOSHADE><A NAME="pgfId-409286"></A><A NAME="37566"></A>Transient <A NAME="marker-411545"></A>Objects
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Paragraph"><A NAME="pgfId-415153"></A>Applets sometimes require objects that contain temporary (transient) data that need not be persistent across CAD sessions. The Java Card platform does not support the Java programming language keyword <A NAME="marker-411546"></A><KBD CLASS="Filename-Command">transient</KBD>. However, Java Card technology provides methods to create transient arrays with primitive components or references to <KBD CLASS="Filename-Command">Object</KBD>.
+</P>
+<BR>
+<HR NOSHADE SIZE=1>
+<TABLE CLASS="TipNote" DIR="LTR" WIDTH="100%" SUMMARY="TipNote">
+<COLGROUP SPAN="1" WIDTH="100%">
+<TR ALIGN="left" VALIGN="top">
+<TD ROWSPAN="1" COLSPAN="1" ABBR="TipNoteText">
+<P CLASS="TipNote"><B CLASS="TipNote">Note - </B><A NAME="pgfId-410119"></A>In this section, the term <A NAME="marker-411547"></A><EM CLASS="Emphasis">field</EM> is used to refer to the <A NAME="marker-411548"></A><EM CLASS="Emphasis">component</EM> of an array object also.
+</P>
+</TD>
+</TR>
+</TABLE>
+<HR NOSHADE SIZE=1>
+<BR>
+<P CLASS="Paragraph"><A NAME="pgfId-409293"></A>The term &quot;transient object&quot; is a misnomer. It can be incorrectly interpreted to mean that the object itself is transient. However, only the <EM CLASS="Emphasis">contents</EM> of the fields of the object (except for the length field) have a transient nature. As with any other object in the Java programming language, transient objects within the Java Card platform exist as long as they are referenced from:
+</P>
+<UL>
+<LI CLASS="Bullet1"><A NAME="pgfId-409294"></A>The stack
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1-"><A NAME="pgfId-409295"></A>Local variables
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1-"><A NAME="pgfId-406415"></A>A class static field
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1-"><A NAME="pgfId-406417"></A>A field in another existing object
+</LI>
+<P CLASS="Linebreak">
+</P>
+</UL>
+<P CLASS="Paragraph"><A NAME="pgfId-406419"></A>A transient object within the Java Card platform has the following <A NAME="marker-411549"></A>required behavior:
+</P>
+<UL>
+<LI CLASS="Bullet1"><A NAME="pgfId-406421"></A>The fields of a transient object shall be <EM CLASS="Emphasis">cleared</EM> to the field's default value (zero, <KBD CLASS="Filename-Command">false</KBD>, or <KBD CLASS="Filename-Command">null</KBD>) at the occurrence of certain events (see <A HREF="JCRESpec05transient.html#66284" CLASS="XRef">Section 5.1, Events That Clear Transient Objects</A>). 
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-406423"></A>For security reasons, the fields of a transient object shall never be stored in a &quot;persistent memory technology.&quot; Using current smart card technology as an example, the contents of transient objects can be stored in RAM, but never in EEPROM. The purpose of this requirement is to allow transient objects to be used to store session keys. 
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-406425"></A>Writes to the fields of a transient object shall not have a performance penalty. Using current smart card technology as an example, the contents of transient objects can be stored in RAM, while the contents of persistent objects can be stored in EEPROM. Typically, RAM technology has a much faster write cycle time than EEPROM.
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-406427"></A>Writes to the fields of a transient object shall not be affected by &quot;transactions.&quot; That is, an <KBD CLASS="Filename-Command">abortTransaction</KBD> never causes a field in a transient object to be restored to a previous value.
+</LI>
+<P CLASS="Linebreak">
+</P>
+</UL>
+<P CLASS="Paragraph"><A NAME="pgfId-406429"></A>This behavior makes transient objects ideal for small amounts of temporary applet data that is frequently modified, but that need not be preserved across CAD or select sessions.
+</P><H2 CLASS="Head1"><A NAME="pgfId-406437"></A>
+<DIV>
+<HR ALIGN=left SIZE=6 WIDTH=15% noshade>
+</DIV>5.1	<A NAME="66284"></A>Events That Clear <A NAME="marker-411550"></A>Transient Objects</H2>
+<P CLASS="Paragraph"><A NAME="pgfId-406439"></A>Persistent <A NAME="marker-411551"></A>objects are used for maintaining states that shall be preserved across card resets. When a transient object is created, one of two events is specified that causes its fields to be cleared. <A NAME="marker-411552"></A><KBD CLASS="Filename-Command">CLEAR_ON_RESET</KBD> transient objects are used for maintaining states that shall be preserved across applet selections, but not across card resets. <A NAME="marker-411553"></A><KBD CLASS="Filename-Command">CLEAR_ON_DESELECT</KBD> transient objects are used for maintaining states that must be preserved while an applet is selected, but not across applet selections or card resets.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-406441"></A>Details of the two clear events are as follows:
+</P>
+<UL>
+<LI CLASS="Bullet1"><A NAME="pgfId-409302"></A><KBD CLASS="Filename-Command">CLEAR_ON_RESET</KBD><STRONG CLASS="Lead-In2para"> - </STRONG>The object's fields (except for the length field) are cleared when the card is reset. When a card is powered on, this also causes a card reset.
+</LI>
+<P CLASS="Linebreak">
+</P>
+</UL>
+<BR>
+<HR NOSHADE SIZE=1>
+<TABLE CLASS="TipNote" DIR="LTR" WIDTH="100%" SUMMARY="TipNote">
+<COLGROUP SPAN="1" WIDTH="100%">
+<TR ALIGN="left" VALIGN="top">
+<TD ROWSPAN="1" COLSPAN="1" ABBR="TipNoteText">
+<P CLASS="TipNote"><B CLASS="TipNote">Note - </B><A NAME="pgfId-409306"></A>It is not necessary to clear the fields of transient objects before power is removed from a card. However, it is necessary to guarantee that the previous contents of such fields cannot be recovered once power is lost.
+</P>
+</TD>
+</TR>
+</TABLE>
+<HR NOSHADE SIZE=1>
+<BR>
+<UL>
+<LI CLASS="Bullet1"><A NAME="pgfId-409307"></A><KBD CLASS="Filename-Command">CLEAR_ON_DESELECT</KBD><STRONG CLASS="Lead-In2para"> - </STRONG>The object's fields (except for the length field) are cleared whenever the applet is deselected and no other applets from the same package are active on the card. Because a card reset implicitly deselects the currently selected applet, the fields of <KBD CLASS="Filename-Command">CLEAR_ON_DESELECT</KBD> objects are also cleared by the same events specified for <KBD CLASS="Filename-Command">CLEAR_ON_RESET</KBD>.
+</LI>
+<P CLASS="Linebreak">
+</P>
+</UL>
+<P CLASS="Paragraph"><A NAME="pgfId-406449"></A>The currently selected applet is explicitly deselected (its <KBD CLASS="Filename-Command">deselect</KBD> method is called) only when a SELECT FILE command or MANAGE CHANNEL CLOSE command is processed. The currently selected applet is deselected and then the fields of all <KBD CLASS="Filename-Command">CLEAR_ON_DESELECT</KBD> transient objects owned by the applet are cleared if no other applets from the same package are active on the card, regardless of whether the SELECT FILE command:
+</P>
+<UL>
+<LI CLASS="Bullet1"><A NAME="pgfId-406451"></A>Fails to select an applet
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1-"><A NAME="pgfId-406453"></A>Selects a different applet
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1-"><A NAME="pgfId-406455"></A>Reselects the same applet
+</LI>
+<P CLASS="Linebreak">
+</P>
+</UL>
+<P CLASS="Paragraph"><A NAME="pgfId-408007"></A>&nbsp;
+</P>
+<div class="navbar" align="center">
+<br>
+<br>
+<table dir="LTR" summary="Navigation bar, includes the book title and navigation buttons" width=100% cellpadding="0" cellspacing="0" border="0"><colgroup span="3" width="100%"><col id="1" span="1" width="45%"><col id="2" span="1" width="25%"><col id="3" span="1" width="30%">
+<tr bgcolor="#cccccc">
+<td class="navbartitle" align=left rowspan="1" colspan="1" abbr="ChapTitle">&nbsp;&nbsp;Runtime Environment Specification for the Java Card Platform, Version 2.2.2
+</td>
+<td class="navbartitle" align=right rowspan="1" colspan="1" abbr="PartNum">3-8-06
+</td>
+<td valign="top" align="right" rowspan="1" colspan="1" abbr="NavButtons"><a href="index.html"><img src="shared/toc01.gif" title="Table Of Contents" alt="Table Of Contents" width="30" height="26" border="0"></a><a href="JCRESpec04selection.html"><img src="shared/prev01.gif" title="Previous Chapter" alt="Previous Chapter" width="30" height="26" border="0"></a><a href="JCRESpec06firewall.html"><img src="shared/next01.gif" title="Next Chapter" alt="Next Chapter" width="30" height="26" border="0"></a><a href="ix.html"><img src="shared/index01.gif" title="Book Index" alt="Book Index" width="30" height="26" border="0"></a>
+</td>
+</tr>
+</table>
+<br>
+<br>
+</div>
+<P CLASS="copyrightlink"><a href="copyright.html">Copyright</a> &#169; 2005, Sun Microsystems, Inc.   All Rights Reserved.
+</P>
+</BODY>
+</HTML>

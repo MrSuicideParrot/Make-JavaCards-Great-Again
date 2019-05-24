@@ -1,0 +1,402 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type"
+ content="text/html; charset=ISO-8859-1">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="GENERATOR"
+ content="Adobe FrameMaker 7.0/HTML Export Filter">
+  <link rel="STYLESHEET" href="unx_unstr_styles.css"
+ charset="ISO-8859-1" type="text/css">
+  <meta name="DC.TITLE"
+ content="Runtime Environment Specification for the Java Card Platform, Version 2.2.2">
+  <title>Preface</title>
+</head>
+<body bgcolor="#ffffff">
+<div>
+<div class="navbar" align="center">
+<table dir="ltr"
+ summary="Navigation bar, includes the book title and navigation buttons"
+ width="100%" cellpadding="0" cellspacing="0" border="0">
+  <colgroup span="2" width="100%"><col id="1" span="1" width="50%"><col
+ id="2" span="1" width="50%"></colgroup><tbody>
+    <tr bgcolor="#cccccc">
+      <td class="navbartitle" align="left" rowspan="1" colspan="1"
+ abbr="ChapTitle">&nbsp;&nbsp;Runtime Environment Specification for the
+Java Card Platform, Version 2.2.2
+      </td>
+      <td valign="top" align="right" rowspan="1" colspan="1"
+ abbr="NavButtons"><a href="index.html"><img src="shared/toc01.gif"
+ title="Table Of Contents" alt="Table Of Contents" width="30"
+ height="26" border="0"></a><a href="JCRESpecLOF.html"><img
+ src="shared/prev01.gif" title="Previous Chapter" alt="Previous Chapter"
+ width="30" height="26" border="0"></a><a href="JCRESpec01intro.html"><img
+ src="shared/next01.gif" title="Next Chapter" alt="Next Chapter"
+ width="30" height="26" border="0"></a><a href="ix.html"><img
+ src="shared/index01.gif" title="Book Index" alt="Book Index" width="30"
+ height="26" border="0"></a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+</div>
+</div>
+<table dir="ltr" summary="Chapter Title" abbr="ChapTitle" width="100%"
+ border="0">
+  <colgroup span="1" width="100%"><col id="1" span="1" width="100%"></colgroup><tbody>
+    <tr>
+      <td align="right" class="ChapTitle">
+      <hr size="7" noshade="noshade"><a name="pgfId-6072"></a>Preface
+      </td>
+    </tr>
+  </tbody>
+</table>
+<p class="Paragraph"><a name="pgfId-7132"></a>Java Card<img
+ src="shared/chars/tm.gif" title="trademark" alt="trademark">
+technology combines a portion of the Java<img src="shared/chars/tm.gif"
+ title="trademark" alt="trademark"> programming language with a runtime
+environment optimized for smart cards and related, small-memory
+embedded devices. The goal of Java Card technology is to bring many of
+the benefits of the Java programming language to the
+resource-constrained world of smart cards.
+</p>
+<p class="Paragraph"><a name="pgfId-7133"></a>This document is a
+specification of the Java Card Platform, Version 2.2.2, Runtime
+Environment (Java Card Runtime Environment or Java Card RE). A vendor
+of a Java Card technology-enabled device provides an implementation of
+the Java Card RE. A Java Card RE implementation within the context of
+this specification refers to a vendor's implementation of the virtual
+machine (VM) for the Java Card platform (Java Card virtual machine or
+Java Card VM), the Java Card Application Programming Interface (API),
+or other component, based on the Java Card technology specifications. A
+"reference implementation" is an implementation produced by Sun
+Microsystems, Inc. Application software written for the Java Card
+platform is referred to as a Java Card technology-based applet (Java
+Card applet or card applet).
+</p>
+<h2 class="Head1P"><a name="pgfId-7134"></a>
+<div>
+<hr align="left" size="6" width="15%" noshade="noshade"></div>
+Who Should Use This Specification</h2>
+<p class="Paragraph"><a name="pgfId-7135"></a>This specification is
+intended to assist implementers of the Java Card RE in creating an
+implementation, developing a specification to extend the Java Card
+technology specifications, or in creating an extension to the runtime
+environment for the Java Card platform. This specification is also
+intended for Java Card applet developers who want a greater
+understanding of the Java Card technology specifications.
+</p>
+<h2 class="Head1P"><a name="pgfId-7136"></a>
+<div>
+<hr align="left" size="6" width="15%" noshade="noshade"></div>
+Before You Read This Specification</h2>
+<p class="Paragraph"><a name="pgfId-7137"></a>Before reading this
+guide, you should be familiar with the Java programming language, the
+other Java Card technology specifications, and smart card technology. A
+good resource for becoming familiar with Java technology and Java Card
+technology is the Sun Microsystems, Inc. web site, located at
+</p>
+<p class="Paragraph"><a name="pgfId-11212"></a><a
+ href="http://java.sun.com" class="URL"></a><kbd class="URL"><a
+ href="http://java.sun.com" class="URL">http://java.sun.com</a></kbd>
+</p>
+<h2 class="Head1P"><a name="pgfId-6511"></a>
+<div>
+<hr align="left" size="6" width="15%" noshade="noshade"></div>
+How This Specification Is Organized</h2>
+<p class="Paragraph"><a name="pgfId-7143"></a><a
+ href="JCRESpec01intro.html#42420" class="XRef">Chapter 1</a>,
+"Introduction," gives an overview of the information contained in this
+specification.
+</p>
+<p class="Paragraph"><a name="pgfId-7144"></a><a
+ href="JCRESpec02vmlife.html#37109" class="XRef">Chapter 2</a>,
+"Lifetime of the Java Card Virtual Machine," defines the lifetime of
+the Java Card virtual machine.
+</p>
+<p class="Paragraph"><a name="pgfId-7145"></a><a
+ href="JCRESpec03appletlife.html#64379" class="XRef">Chapter 3</a>,
+"Java Card Applet Lifetime," defines the lifetime of an applet.
+</p>
+<p class="Paragraph"><a name="pgfId-7146"></a><a
+ href="JCRESpec04selection.html#57085" class="XRef">Chapter 4</a>,
+"Logical Channels and Applet Selection," describes how the Java Card RE
+handles applet selection.
+</p>
+<p class="Paragraph"><a name="pgfId-7147"></a><a
+ href="JCRESpec05transient.html#20735" class="XRef">Chapter 5</a>,
+"Transient Objects," describes the properties of transient objects.
+</p>
+<p class="Paragraph"><a name="pgfId-7148"></a><a
+ href="JCRESpec06firewall.html#92454" class="XRef">Chapter 6</a>,
+"Applet Isolation and Object Sharing," describes applet isolation and
+object sharing.
+</p>
+<p class="Paragraph"><a name="pgfId-7149"></a><a
+ href="JCRESpec07transact.html#18113" class="XRef">Chapter 7</a>,
+"Transactions and Atomicity," describes the functionality of atomicity
+and transactions.
+</p>
+<p class="Paragraph"><a name="pgfId-7437"></a><a
+ href="JCRESpec08rmi.html#53672" class="XRef">Chapter 8</a>, "Remote
+Method Invocation Service," describes the server-side (card-side)
+functionality of the Remote Method Invocation (RMI) feature of Java
+Card Platform, Version 2.2.2.
+</p>
+<p class="Paragraph"><a name="pgfId-7150"></a><a
+ href="JCRESpec09api.html#85430" class="XRef">Chapter 9</a>, "API
+Topics," describes API functionality required of a Java Card RE but not
+completely specified in the <em class="Emphasis">Application
+Programming Interface, Java Card Platform, Version 2.2.2</em>.
+</p>
+<p class="Paragraph"><a name="pgfId-7151"></a><a
+ href="JCRESpec10vm.html#19667" class="XRef">Chapter 10</a>, "Virtual
+Machine Topics," describes virtual machine resource failures and
+security violations.
+</p>
+<p class="Paragraph"><a name="pgfId-7152"></a><a
+ href="JCRESpec11installer.html#17042" class="XRef">Chapter 11</a>,
+"Applet Installation and Deletion," provides an overview of the Applet
+Installer and Java Card RE required behavior.
+</p>
+<p class="Paragraph"><a name="pgfId-10727"></a><a
+ href="JCRESpec12constants.html#15447" class="XRef">Chapter 12</a>,
+"API Constants," provides the numeric value of constants that are not
+specified in the <em class="Emphasis">Application Programming
+Interface, Java Card Platform, Version 2.2.2</em>.
+</p>
+<p class="Paragraph"><a name="pgfId-10791"></a>"<a
+ href="Glossary.html#48508" class="XRef">Glossary</a>," provides
+definitions of selected terms used in this specification.
+</p>
+<h2 class="Head1P"><a name="pgfId-10738"></a>
+<div>
+<hr align="left" size="6" width="15%" noshade="noshade"></div>
+Related Books</h2>
+<p class="Paragraph"><a name="pgfId-6094"></a>References to various
+documents or products are made in this guide, Have the following
+documents available:
+</p>
+<ul>
+  <li class="Bullet1"><a name="pgfId-6545"></a> <em class="Emphasis">Application
+Programming Interface for the Java Card Platform, Version 2.2.2</em>.
+  </li>
+  <p class="Linebreak">
+  </p>
+  <li class="Bullet1"><a name="pgfId-6548"></a> <em class="Emphasis">Virtual
+Machine Specification for the Java Card Platform, Version 2.2.2</em>.
+  </li>
+  <p class="Linebreak">
+  </p>
+  <li class="Bullet1"><a name="pgfId-6560"></a> <em class="Emphasis">The
+Java</em><em class="Emphasis"></em><em class="Emphasis"> Language
+Specification</em> by James Gosling, Bill Joy, and Guy L. Steele
+(Addison-Wesley, 1996). </li>
+  <p class="Linebreak">
+  </p>
+  <li class="Bullet1"><a name="pgfId-7554"></a> <em class="Emphasis">The
+Java</em><em class="Emphasis"></em><em class="Emphasis"> Virtual
+Machine Specification (Java Series), Second Edition</em> by Tim
+Lindholm and Frank Yellin (Addison-Wesley, 1999).
+  </li>
+  <p class="Linebreak">
+  </p>
+  <li class="Bullet1"><a name="pgfId-7562"></a> <em class="Emphasis">The
+Java</em><em class="Emphasis"></em><em class="Emphasis"> Remote Method
+Invocation Specification</em>, Sun Microsystems, Inc.
+    <br>
+(<kbd class="URL"><a href="http://java.sun.com/products/jdk/rmi"
+ class="URL"></a><a href="http://java.sun.com/products/jdk/rmi"
+ class="URL">http://java.sun.com/products/jdk/rmi</a>).</kbd>
+  </li>
+  <p class="Linebreak">
+  </p>
+  <li class="Bullet1"><a name="pgfId-7558"></a> <em class="Emphasis">The
+Java Class Libraries: An Annotated Reference, Second Edition (Java
+Series)</em> by Patrick Chan, Rosanna Lee and Doug Kramer
+(Addison-Wesley, 1999).
+  </li>
+  <p class="Linebreak">
+  </p>
+  <li class="Bullet1"><a name="pgfId-7195"></a> <em class="Emphasis">ISO
+7816 Specification</em> Parts 1-6. (<kbd class="URL"><a
+ href="http://www.iso.org" class="URL">http://www.iso.org</a></kbd>)
+  </li>
+  <p class="Linebreak">
+  </p>
+  <li class="Bullet1"><a name="pgfId-7196"></a> EMV '96 Integrated
+Circuit Card Specification for Payment Systems Version 3.0. EMV 2000
+Integrated Circuit Card Specification for Payment Systems Version 4.0. (<kbd
+ class="URL"><a href="http://www.emvco.com" class="URL">http://www.emvco.com</a></kbd>)
+  </li>
+  <p class="Linebreak">
+  </p>
+</ul>
+<h2 class="Head1P"><a name="pgfId-8938"></a>
+<div>
+<hr align="left" size="6" width="15%" noshade="noshade"></div>
+Typographic Conventions</h2>
+<br>
+<table class="Titled" border="1" bordercolorlight="#FFFFFF"
+ bordercolordark="#000000" cellpadding="5" cellspacing="0" dir="ltr">
+  <caption class="TableCaptionP"><a name="pgfId-8897"> </a> TABLE P-1 </caption>
+  <thead><tr>
+    <th scope="col" rowspan="1" colspan="1" bgcolor="#cccccc">
+    <p class="TableHead"><a name="pgfId-8903"></a>Typeface
+    </p>
+    </th>
+    <th scope="col" rowspan="1" colspan="1" bgcolor="#cccccc">
+    <p class="TableHead"><a name="pgfId-8905"></a>Meaning
+    </p>
+    </th>
+    <th scope="col" rowspan="1" colspan="1" bgcolor="#cccccc">
+    <p class="TableHead"><a name="pgfId-8907"></a>Examples
+    </p>
+    </th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td scope="row" rowspan="1" colspan="1">
+      <p class="TableText"><a name="pgfId-8909"></a><kbd
+ class="Filename-Command">AaBbCc123</kbd>
+      </p>
+      </td>
+      <td rowspan="1" colspan="1">
+      <p class="TableText"><a name="pgfId-8911"></a>The names of
+commands, files, and directories; on-screen computer output
+      </p>
+      <p class="TableText"><a name="pgfId-8912"></a>&nbsp;
+      </p>
+      </td>
+      <td rowspan="1" colspan="1">
+      <p class="TableText"><a name="pgfId-8914"></a>Edit your <kbd
+ class="Filename-Command">.login</kbd> file.
+      </p>
+      <p class="TableText"><a name="pgfId-8915"></a>Use <kbd
+ class="Filename-Command">ls -a</kbd> to list all files.
+      </p>
+      <p class="TableText"><a name="pgfId-8916"></a><kbd
+ class="Filename-Command">% You have mail</kbd>.
+      </p>
+      </td>
+    </tr>
+    <tr>
+      <td scope="row" rowspan="1" colspan="1">
+      <p class="TableText"><a name="pgfId-8918"></a><kbd
+ class="UserType">AaBbCc123</kbd>
+      </p>
+      </td>
+      <td rowspan="1" colspan="1">
+      <p class="TableText"><a name="pgfId-8920"></a>What you type, when
+contrasted with on-screen computer output
+      </p>
+      <p class="TableText"><a name="pgfId-8921"></a>&nbsp;
+      </p>
+      </td>
+      <td rowspan="1" colspan="1">
+      <p class="TableText"><a name="pgfId-8923"></a><kbd
+ class="Filename-Command">% </kbd><kbd class="UserType">su</kbd>
+      </p>
+      <p class="TableText"><a name="pgfId-8924"></a><kbd
+ class="Filename-Command">Password:</kbd>
+      </p>
+      </td>
+    </tr>
+    <tr>
+      <td scope="row" rowspan="1" colspan="1">
+      <p class="TableText"><a name="pgfId-8926"></a><i class="Variable">AaBbCc123</i>
+      </p>
+      </td>
+      <td rowspan="1" colspan="1">
+      <p class="TableText"><a name="pgfId-8928"></a>Book titles, new
+words or terms, words to be emphasized
+      </p>
+      <p class="TableText"><a name="pgfId-8929"></a>&nbsp;
+      </p>
+      <p class="TableText"><a name="pgfId-8930"></a>&nbsp;
+      </p>
+      <p class="TableText"><a name="pgfId-8931"></a>Command-line
+variable; replace with a real name or value
+      </p>
+      </td>
+      <td rowspan="1" colspan="1">
+      <p class="TableText"><a name="pgfId-8933"></a>Read Chapter 6 in
+the <i class="Title">User's Guide</i>.
+      </p>
+      <p class="TableText"><a name="pgfId-8934"></a>These are called <em
+ class="Emphasis">class</em> options.
+      </p>
+      <p class="TableText"><a name="pgfId-8935"></a>You <em
+ class="Emphasis">must</em> be superuser to do this.
+      </p>
+      <p class="TableText"><a name="pgfId-8936"></a>&nbsp;
+      </p>
+      <p class="TableText"><a name="pgfId-8937"></a>To delete a file,
+type <kbd class="Filename-Command">rm</kbd> <i class="Variable">filename</i>.
+      </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<h2 class="Head1P"><a name="pgfId-8990"></a>
+<div>
+<hr align="left" size="6" width="15%" noshade="noshade"></div>
+Accessing Sun Documentation Online</h2>
+<p class="Paragraph"><a name="pgfId-10530"></a>Access Java platform
+technical documentation Java Developer Connection<img
+ src="shared/chars/tm.gif" title="trademark" alt="trademark"> program
+web site at </p>
+<p class="Paragraph"><a name="pgfId-10898"></a><kbd class="URL"><a
+ href="http://developer.java.sun.com/developer/infodocs" class="URL"></a><a
+ href="http://developer.java.sun.com/developer/infodocs/" class="URL">http://developer.java.sun.com/developer/infodocs</a></kbd>
+</p>
+<h2 class="Head1P"><a name="pgfId-8993"></a>
+<div>
+<hr align="left" size="6" width="15%" noshade="noshade"></div>
+Sun Welcomes Your Comments</h2>
+<p class="Paragraph"><a name="pgfId-10543"></a>We are interested in
+improving our documentation and welcome your comments and suggestions.
+You can email your comments to us at <kbd class="Filename-Command">docs@java.sun.com</kbd>.
+</p>
+<div class="navbar" align="center">
+<br>
+<br>
+<table dir="ltr"
+ summary="Navigation bar, includes the book title and navigation buttons"
+ width="100%" cellpadding="0" cellspacing="0" border="0">
+  <colgroup span="3" width="100%"><col id="1" span="1" width="45%"><col
+ id="2" span="1" width="25%"><col id="3" span="1" width="30%"></colgroup><tbody>
+    <tr bgcolor="#cccccc">
+      <td class="navbartitle" align="left" rowspan="1" colspan="1"
+ abbr="ChapTitle">&nbsp;&nbsp;Runtime Environment Specification for the
+Java Card Platform, Version 2.2.2
+      </td>
+      <td class="navbartitle" align="right" rowspan="1" colspan="1"
+ abbr="PartNum">3-8-06
+      </td>
+      <td valign="top" align="right" rowspan="1" colspan="1"
+ abbr="NavButtons"><a href="index.html"><img src="shared/toc01.gif"
+ title="Table Of Contents" alt="Table Of Contents" width="30"
+ height="26" border="0"></a><a href="JCRESpecLOF.html"><img
+ src="shared/prev01.gif" title="Previous Chapter" alt="Previous Chapter"
+ width="30" height="26" border="0"></a><a href="JCRESpec01intro.html"><img
+ src="shared/next01.gif" title="Next Chapter" alt="Next Chapter"
+ width="30" height="26" border="0"></a><a href="ix.html"><img
+ src="shared/index01.gif" title="Book Index" alt="Book Index" width="30"
+ height="26" border="0"></a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+</div>
+<p class="copyrightlink"><a href="copyright.html">Copyright</a> &copy;
+2005, Sun Microsystems, Inc. All Rights Reserved.
+</p>
+</body>
+</html>

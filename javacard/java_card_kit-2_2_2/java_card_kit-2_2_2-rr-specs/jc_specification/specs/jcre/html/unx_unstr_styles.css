@@ -1,0 +1,301 @@
+/* CSS FILE FOR UNSTRUCTURED BOOKS FOR UNIX */
+/* Simple style sheet for FM 7.0 HTML client */
+/* Styles updated on 09.26.05 by Pat Gee Best */
+
+/* Tassos - chnages made on 8dec04 - requested by Minoru */
+/* New */
+em.Emphasis { font-style: italic; font-weight: bold; }
+
+/* End of changes made on 8dec04 */
+
+
+/* ERROR MESSAGES FORMATS */
+/* Pat added styles for ErrorMsg, 09.12.00 */
+/* Pat modified styles for ErrorMsg, 09.09.04 */
+.ErrorTxt { margin-left: 36pt; }
+.ErrorMsg { margin-top: 2.5em; white-space: pre; font-family: courier;
+	font-size: 112%; }
+
+
+/* CAUTION, NOTE, TIPS FORMATTING */
+/* Pat added styles, 09.08.04 */
+B.Caution { font-family: helvetica, sans-serif; font-style: regular;
+	font-weight: bold; font-size: 115%; }
+B.TipNote { font-family: helvetica, sans-serif; font-style: regular;
+	font-weight: bold; font-size: 115%; }
+
+	
+/* BULLET FORMATS */
+/* Pat added Julia's fix for adding white space between bullets, 03.22.01 */
+.Linebreak { line-height: 0.5em; }
+	
+
+/* GLOBAL TABLE FORMATTING */
+/* If Caution Icon doesn't need to create using TABLE, top: 1em, bottom: 1em. */
+/* Pat added styles for Tables using Code, Titled, NoTitle. 02.01.01 */
+/* Pat added styles for NoBorder tables, 09.16.04 */
+TD { vertical-align: top; }
+TD P { vertical-align: top; }
+TH { vertical-align: bottom; }
+.Code { margin-top: 0.5em; margin-bottom: 0.5em; }
+.TableCaption { margin-top: 1.5em; margin-bottom: 0.5em; }
+.TableCaptionA { margin-top: 1.5em; margin-bottom: 0.5em; }
+.TableCaptionP { margin-top: 1.5em; margin-bottom: 0.5em; }
+.TableCaptionG { margin-top: 1.5em; margin-bottom: 0.5em; }
+.TableCaption-Wide { margin-top: 1.5em; margin-bottom: 0.5em; }
+.TableCaptionA-Wide { margin-top: 1.5em; margin-bottom: 0.5em; }
+.TableCaptionP-Wide { margin-top: 1.5em; margin-bottom: 0.5em; }
+.Untitled { margin-bottom: 1.0em; margin-top: 1.0em; }
+.NoBorder { margin-top: 1.0em; margin-bottom: 1.0em; line-height: 2pt; }
+
+/* tda(10mar05) only in unstructured to support TCK_CH2 template */
+.RulePara { margin-bottom: 3pt; margin-top: 6pt; }
+
+
+/* INLINE FORMATTING */
+/* Pat added styles for URL tag, 03.28.03 */
+/* Pat modified styles for Mozilla, 09.03.04 */
+KBD.UserInput { font-family: courier; font-weight: bold; font-style: regular;
+	white-space: pre; }
+KBD.UserType { font-family: courier; font-weight: bold; font-style: regular;
+	white-space: pre; }
+KBD.Filename-Command { font-family: courier; font-weight: normal;
+	white-space: pre; }
+KBD.URL { font-family: courier; font-weight: normal; white-space: pre; }
+I.EquationVariables { font-family: Times; font-weight: normal;
+	font-style: italic; }
+I.Title { font-weight: normal; font-style: italic; }
+I.Strong { font-style: regular; font-weight: bold; }
+I.Variable { font-family: Times; font-weight: normal; font-style: italic; }
+
+
+
+/* FOOTNOTE FORMATS */
+/* Pat added styles for footnotes 02.02.01 */
+.footnote { vertical-align: super; font-size: 10pt; }
+
+
+/* CROSS-REF FORMATTING */
+/* Pat added styles for cross-references to include point size. 02.02.01 */
+/* Pat commented out styles for cross-references as it displays in correct 
+   size in Mozilla. 08.12.04 */
+/* .XRef { font-size: 10pt; } */
+
+
+/* CHAPTER NUMBERING AND TITLES FORMATTING */
+/* Pat added styles for Heads; 11.07.00 */
+/* Pat modified styles for Heads by increasing font size; added styles for
+      H4 which is used to format Procedure titles. 02.01.01 */
+/* Pat added styles for the copyright link, booktitle and subtitled based on
+   new markup for these objects. 11.30.01 */
+/* Added PartTitle to ChapTitle styles. 03.27.03 */
+/* Updated font sizes for chaptitles and heads, 05.02.03 */
+/* Updated font sizes for chap titles and heads again, 09.09.04 */
+/* Changed Head4 to regular font, 09.17.04 */
+   
+SPAN.ChapNumPrefix { font-size: 12pt; font-weight: normal; font-style: regular;
+	font-family: helvetica, sans-serif; }
+	
+TD.navbartitle { vertical-align: center; font-size: 12pt; font-weight: normal; 
+	font-style: regular; font-family: helvetica, sans-serif; }
+	
+TD.ChapNumber, TD.ChapNumberA
+	{ font-size: 30pt; font-weight: bold; font-style: regular;
+	font-family: helvetica, sans-serif; }
+	
+.ChapTitle, .ChapTitleA, .ChapTitleCSR, .ChapTitleC, .ChapTitleG,
+	.ChapTitleI, .ChapTitleP, .ChapTitleS, .PartTitle
+	{ font-size: 26pt; font-weight: bold; font-style: regular;
+	font-family: helvetica, sans-serif; }
+	
+.Head1, .Head1A, .Head1CSR, .Head1G, .Head1P
+	{ margin-top: 1.0em; font-size: 22pt; font-weight: bold;
+	font-style: regular; font-family: helvetica, sans-serif; }
+	
+.Head2, .Head2A, .Head2CSR, .Head2G, .Head2P, .Head2-Procedure,
+	.Head2ProcTitle, .Head2-OptFlag
+	{ margin-top: 1.0em; font-size: 18pt; font-weight: bold;
+	font-style: regular; font-family: helvetica, sans-serif; }
+	
+.Head3, .Head3A, .Head3CSR, .Head3G, .Head3P, .Head3-Procedure,
+	.Head3ProcTitle, .Head3-OptCat
+	{ margin-top: 1.0em; font-size: 16pt; font-weight: bold;
+	font-style: regular; font-family: helvetica, sans-serif; }
+	
+.Head4 { font-size: 12pt; font-family: helvetica, sans-serif;
+	font-weight: bold; font-style: regular; }
+	
+	
+/* MISC FORMATTING */
+/* crashes Netscape on Windows */
+/* Pat removed font size for copyrightlink. Not needed in Mozilla,
+   09.10.04 */
+P.copyrightlink { font-weight: bold; font-style: regular;
+	font-family: helvetica, sans-serif; }
+
+P.booktitlehere { font-size: 16pt; font-style: regular;
+	font-family: helvetica, sans-serif; }
+	
+P.subtitlehere { font-size: 12pt; font-weight: regular; font-style: italic;
+	font-family: helvetica, sans-serif; }
+	
+/*P.partnumberhere  { font-size: 12pt; font-style: regular; } */
+
+
+
+/* TABLE, CODE, FIGURE CAPTIONS FORMATTING */
+/* Pat added missing TableCaption and FigureCaption tags, 09.12.00 */
+/* Add more space before every figure, table, and code caption, 09.12.00 */
+/* Julia changed font-size from 10pt to 11pt - 11.17.2000 */
+/* Pat added styles for CAPTION based on changes to HTML output for all
+   languages, 09.09.04 */
+/* Pat added styles for FigureBox based on new behavior in mozilla, 09.09.04 */
+
+CAPTION.TableCaption, CAPTION.TableCaption-Wide, CAPTION.TableCaptionA,
+	CAPTION.TableCaptionA-Wide, CAPTION.TableCaptionG,
+	CAPTION.TableCaptionG-Wide, CAPTION.TableCaptionP-Wide,
+	CAPTION.TableCaptionP, CAPTION.TableCaptionP-Wide
+	{ white-space: pre; font-weight: bold; font-style: regular;
+	font-family: helvetica, sans-serif; }
+	
+.CodeCaption, .CodeCaption-Wide, .CodeCaptionA, .CodeCaptionA-Wide,
+	.CodeCaptionG, .CodeCaptionG-Wide, .CodeCaptionP, .CodeCaptionP-Wide
+	{ white-space: pre; font-weight: bold; font-style: regular;
+	font-family: helvetica, sans-serif; }
+
+.FigureBox, .FigureBox-Wide { white-space: pre; font-weight: bold;
+	font-family: helvetica, sans-serif; font-style: regular; }
+	  
+/* CAPTION.FigureCaption, CAPTION.FigureCaption-Wide, CAPTION.FigureCaptionA,
+	CAPTION.FigureCaptionA-Wide, CAPTION.FigureCaptionG,
+	CAPTION.FigureCaptionG-Wide, CAPTION.FigureCaptionP,
+	CAPTION.FigureCaptionP-Wide
+	{ white-space: pre; font-weight: bold; font-style: regular;
+	font-family: helvetica, sans-serif; } */
+
+
+/* PROCECURE STEP LISTS FORMATS */
+/* Pat adjusted styles for the StepPara tags, 09.12.00 */
+/* Pat corrected typo in styles for StepSingle, 08.10.04 */
+/* Pat adjusted indents for StepPara tags for better alignment in mozilla,
+   08.10.04 */
+.Step1, .Step1-, .StepSingle { margin-left: 22px; font-weight: bold; 
+	font-style: regular; font-family: helvetica, sans-serif; }
+.Step2, .Step2- { margin-left: 65px; font-weight: bold; font-style: regular;
+	font-family: helvetica, sans-serif; }
+.Step3 { margin-left: 115px; font-weight: bold; font-style: regular; 
+	font-family: helvetica, sans-serif; }
+.Step3- { margin-left: 112px; font-weight: bold; font-weight: bold;
+	font-style: regular; font-family: helvetica, sans-serif; }
+.StepPara1 { margin-left: 38px; font-weight: regular; }
+.StepPara2 { margin-left: 80px; font-weight: regular; } 
+.StepPara3 { margin-left: 125px; font-weight: regular; }
+
+
+
+/* ORDEREDLIST FORMATS */
+/* Pat adjusted styles for the List tags, 09.10.00 */
+.List1, .List1- { margin-left: 22px; }
+.List2, .List2- { margin-left: 65px; }
+.List3 { margin-left: 115px; }
+.List3- { margin-left: 112px; }
+
+
+/* PARAINDENTS FOR ORDEREDLISTS */
+/* Pat adjusted styles for ParaIndent tags, 09.10.00*/
+.ParaIndent1 { margin-left: 39px; }
+.ParaIndent2 { margin-left: 80px; }
+.ParaIndent3 { margin-left: 127px; }
+
+
+/* GLOSSARY TERM FORMATS*/
+/* won't format a DT or DD, use a P */
+.GlossTerm { font-size: 115%; font-weight: bold; font-style: regular; }
+.GlossText { margin: 0em 0em 3.0em 3.0em }
+
+
+/* This is for caution icons. Needs class assigned to icons in the HTML. */
+/* Not needed if cautions are converted to tables */
+/* IMG.CautionIcon { float: left } */
+
+
+/* CODE LINE STYLES AND SPACING*/
+/* Pat adjusted line height down for ScreenText, 08.30.04 */
+/* Pat added font family, 09.14.04 */
+PRE.ScreenText { font-family: courier; white-space: pre; line-height: 8pt; }
+PRE.Codeline { font-family: courier; white-space: pre; margin-left: 35px; }
+.TableTextCode { font-family: courier; font-weight: normal; white-space: pre; }
+
+
+/* TOC FORMATS */
+/* Pat added styles for Parts, and modified indentions to better align TOC
+   entries with the addition of parts. 03.27.03 */
+/* Pat again adjusted indentions for better display in Mozilla 08.10.04 */
+
+.PartTitleTOC { margin: 1.25em 0em 0em 2em; font-size: 16pt; font-weight: bold;
+	font-style: regular; font-familiy: helvetica, sans-serif; }
+	
+.ChapTitleTOC, .ChapTitleATOC, .ChapTitleCTOC, .ChapTitleCSRTOC, .ChapTitleGTOC,
+	.ChapTitleITOC, .ChapTitlePTOC, .ChapTitleSTOC
+	{ margin: 1.25em 0em 0em 4em; font-size: 14pt; font-weight: bold;
+	font-style: regular; font-family: helvetica, sans-serif; }
+	
+.Head1TOC, .Head1ATOC, .Head1PTOC, .Head1CSRTOC, .Head1GTOC
+	{ margin: .75em 0em 0em 6em; font-size: 12pt; font-weight: normal;
+	font-style: regular; font-family: helvetica, sans-serif; }
+	
+.Head2TOC, .Head2ATOC, .Head2-ProcedureTOC, .Head2-OptCatTOC, .Head2-OptFlagTOC,
+	.Head2CRSTOC, .Head2PTOC
+	{ margin: .75em 0em 0em 8em; font-size: 12pt; font-weight: normal;
+	font-style: regular; font-family: helvetica, sans-serif; }
+	
+.Head3TOC, .Head3ATOC, .Head3-ProcedureTOC, .Head3-OptCatTOC, .Head3CSRTOC,
+	.Head3PTOC
+	{ margin: .75em 0em 0em 10em; font-size: 12pt; font-weight: normal;
+	font-style: regular; font-family: helvetica, sans-serif; }
+	
+.GroupTitlesIX { margin: 1.5em 0em 0em 0em; font-size: 18pt; }
+	
+
+
+/* LOT, LOF, LOC formats */
+.FigureCaptionLOF, .FigureCaption-WideLOF, .FigureCaptionA-WideLOF,
+	.FigureCaptionALOF, .FigureCaptionPLOF, .FigureCaptionP-WideLOF,
+	.FigureCaptionGLOF, .FigureCaptionG-WideLOF
+	{ margin: .65em 0em 0em 2em; font-size: 12pt; font-weight: normal;
+	font-style: regular; font-family: helvetica, sans-serif; }
+	
+.TableCaptionLOT, .TableCaption-WideLOT, .TableCaptionALOT,
+	.TableCaptionA-WideLOT, .TableCaptionGLOT, .TableCaptionG-WideLOT,
+	.TableCaptionPLOT, .TableCaptionP-WideLOT
+	{ margin: .65em 0em 0em 2em; font-size: 12pt; font-weight: normal;
+	font-style: regular; font-family: helvetica, sans-serif; }
+	
+.CodeCaptionLOP, .CodeCaption-WideLOP, .CodeCaptionALOP, .CodeCaptionA-WideLOP, 
+	.CodeCaptionGLOP, .CodeCaptionG-WideLOP, .CodeCaptionP,
+	.CodeCaptionP-WideLOP
+	{ margin: .65em .5em 0em 2em; font-size: 12pt; font-weight: normal;
+	font-style: regular; font-family: helvetica, sans-serif; }
+
+
+/* INDEX FORMATS */
+/* Pat adjusted font size for index entries, 02.13.01 */
+P.Level1IX {
+	margin: .25em 0em 0em 2em;
+	font-size: 110%; font-weight: normal; font-style: regular;
+	font-family: helvetica, sans-serif; }
+	
+P.Level2IX {
+	margin: .25em 0em 0em 4em;
+	font-size: 110%; font-weight: normal; font-style: regular;
+	font-family: helvetica, sans-serif; }
+	
+P.Level3IX {
+	margin: .25em 0em 0em 6em;
+	font-size: 110%; font-weight: normal; font-style: regular;
+	font-family: helvetica, sans-serif; }
+	
+P.Level4IX {
+	margin: .25em 0em 0em 8em;
+	font-size: 110%; font-weight: normal; font-style: regular;
+	font-family: helvetica, sans-serif; }

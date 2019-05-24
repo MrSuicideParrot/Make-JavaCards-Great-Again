@@ -1,0 +1,246 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<HTML LANG="en">
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 7.0/HTML Export Filter">
+
+<LINK REL="STYLESHEET" HREF="unx_unstr_styles.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<META name="DC.TITLE" content="Development Kit User's Guide, Java Card Platform, Version 2.2.2">
+<TITLE>C H A P T E R    4 - Running Applets in an Emulated  Card Environment 
+</TITLE>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV>
+<div class="navbar" align="center">
+<table dir="LTR" summary="Navigation bar, includes the book title and navigation buttons" width=100% cellpadding="0" cellspacing="0" border="0"><colgroup span="2" width="100%"><col id="1" span="1" width="50%"><col id="2" span="1" width="50%">
+<tr bgcolor="#cccccc">
+<td class="navbartitle" align=left rowspan="1" colspan="1" abbr="ChapTitle">&nbsp;&nbsp;Development Kit User's Guide, Java Card Platform, Version 2.2.2
+</td>
+<td valign="top" align="right" rowspan="1" colspan="1" abbr="NavButtons"><a href="index.html"><img src="shared/toc01.gif" title="Table Of Contents" alt="Table Of Contents" width="30" height="26" border="0"></a><a href="cJDKdemo.html"><img src="shared/prev01.gif" title="Previous Chapter" alt="Previous Chapter" width="30" height="26" border="0"></a><a href="cJDKconverter.html"><img src="shared/next01.gif" title="Next Chapter" alt="Next Chapter" width="30" height="26" border="0"></a><a href="ix.html"><img src="shared/index01.gif" title="Book Index" alt="Book Index" width="30" height="26" border="0"></a>
+</td>
+</tr>
+</table>
+<br>
+<br>
+</div>
+</DIV>
+<TABLE DIR="LTR" SUMMARY="Chapter Number" ABBR="ChapNum" WIDTH="100%" BORDER="0">
+<COLGROUP SPAN="1" WIDTH="100%"><COL ID="1" SPAN="1">
+<TR>
+<TD ALIGN="right" CLASS="ChapNumber"><SPAN CLASS="ChapNumPrefix"><A NAME="pgfId-1000192"></A>C H A P T E R    </SPAN>&nbsp;<SPAN CLASS="ChapNumNum">4</SPAN><A NAME="63403"></A>
+</TD>
+</TR>
+</TABLE>
+<TABLE DIR="LTR" SUMMARY="Chapter Title" ABBR="ChapTitle" WIDTH="100%" BORDER="0">
+<COLGROUP SPAN="1" WIDTH="100%"><COL ID="1" SPAN="1" WIDTH="100%">
+<TR>
+<TD ALIGN="right" CLASS="ChapTitle">
+<HR SIZE=7 NOSHADE><A NAME="pgfId-1000193"></A>Running Applets in an Emulated Card Environment
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Paragraph"><A NAME="pgfId-1000194"></A>The Java Card platform Workstation Development Environment (&quot;Java Card Workstation Development Environment&quot; or &quot;<A NAME="marker-1000195"></A>Java Card WDE&quot;) tool allows the simulated running of a Java Card applet as if it were masked in ROM. It emulates the card environment.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-1000196"></A>The Java Card WDE is not an implementation of the Java Card virtual machine. It uses the Java virtual machine to emulate the Java Card RE. Class files that represent masked packages must be available on the classpath for the Java Card WDE.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-1000200"></A>For the version 2.2.2 release of the Java Card platform reference implementation, Java Card WDE adds support for Java Card Remote Method Invocation (Java Card RMI).
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-1000202"></A><A NAME="marker-1000201"></A>Some of the Java Card RE features that are <EM CLASS="Emphasis">not</EM> supported by Java Card WDE are:
+</P>
+<UL>
+<LI CLASS="Bullet1"><A NAME="pgfId-1000203"></A>package installation
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-1000205"></A>persistent card state
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-1000206"></A>firewall
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-1000207"></A>transactions
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-1000208"></A>transient array clearing
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-1000209"></A>object deletion
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-1000210"></A>applet deletion
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-1001434"></A>package deletion
+</LI>
+<P CLASS="Linebreak">
+</P>
+</UL>
+<P CLASS="Paragraph"><A NAME="pgfId-1000213"></A>The Java Card WDE tool uses the <KBD CLASS="Filename-Command">jcwde.jar</KBD>, <KBD CLASS="Filename-Command">api.jar</KBD> (with cryptography extensions) and <KBD CLASS="Filename-Command">apduio.jar</KBD> files. The main class for Java Card WDE is <KBD CLASS="Filename-Command">com.sun.javacard.jcwde.Main</KBD>. A sample batch and shell script are provided to start Java Card WDE.
+</P><H2 CLASS="Head1"><A NAME="pgfId-1000219"></A>
+<DIV>
+<HR ALIGN=left SIZE=6 WIDTH=15% noshade>
+</DIV>Preparing to Run Java Card WDE<A NAME="marker-1000220"></A></H2>
+<P CLASS="Paragraph"><A NAME="pgfId-1000221"></A>Before you run the Java Card WDE tool, you must ensure that the environment variables are set appropriately and the applets to be configured are listed in a configuration file.
+</P><H3 CLASS="Head2"><A NAME="pgfId-1000223"></A>Setting Environment Variables<A NAME="marker-1000222"></A></H3>
+<P CLASS="Paragraph"><A NAME="pgfId-1000226"></A>To set the environment variables correctly, refer to <EM CLASS="Z-Xref"><A HREF="cJDKinstall.html#71588" CLASS="XRef">Setting Environment Variables for the Solaris or Linux Platform</A></EM> or <EM CLASS="Z-Xref"><A HREF="cJDKinstall.html#16556" CLASS="XRef">Setting Environment Variables for Microsoft Windows Platform</A></EM>.
+</P><H3 CLASS="Head2"><A NAME="pgfId-1000232"></A><A NAME="76437"></A>Configuring the Applets in the Java Card WDE Mask<A NAME="marker-1000233"></A></H3>
+<P CLASS="Paragraph"><A NAME="pgfId-1000234"></A>The applets to be configured in the mask during Java Card WDE simulation need to be listed in a <A NAME="marker-1000235"></A>configuration file that is passed to the Java Card WDE as a command line argument. Also, the <KBD CLASS="Filename-Command">CLASSPATH</KBD> environment variable needs to be set to reflect the location of the class files for the applets to be simulated. In this release, the sample applets are listed in a configuration file called <KBD CLASS="Filename-Command">jcwde.app</KBD>. Each entry in this file contains the name of the applet class, and its associated AID. 
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-1000236"></A>The configuration file contains one line per installed applet. Each line is a white space(s) separated <KBD CLASS="Filename-Command">{CLASS_NAME AID}</KBD> pair, where <KBD CLASS="Filename-Command">CLASS NAME</KBD> is the fully qualified Java name of the class defining the applet, and <KBD CLASS="Filename-Command">AID</KBD> is an Application Identifier for the applet class used to uniquely identify the applet. <KBD CLASS="Filename-Command">AID</KBD> may be a string or hexadecimal representation in form: 
+</P>
+<PRE CLASS="Codeline"><A NAME="pgfId-1000237"></A>0xXX[:0xXX]
+</PRE>
+<P CLASS="Paragraph"><A NAME="pgfId-1000238"></A>where the construct <KBD CLASS="Filename-Command">0xXX</KBD> is repeated as many times as necessary.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-1000239"></A>Note that <KBD CLASS="Filename-Command">AID</KBD> should be 5 to 16 bytes in length.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-1000240"></A>For example:
+</P>
+<PRE CLASS="Codeline"><A NAME="pgfId-1000241"></A>com.sun.javacard.samples.wallet.Wallet 0xa0:0x0:0x0:0x0:0x62:0x3:0x1:0xc:0x6:0x1
+</PRE>
+<BR>
+<HR NOSHADE SIZE=1>
+<TABLE CLASS="TipNote" DIR="LTR" WIDTH="100%" SUMMARY="TipNote">
+<COLGROUP SPAN="1" WIDTH="100%">
+<TR ALIGN="left" VALIGN="top">
+<TD ROWSPAN="1" COLSPAN="1" ABBR="TipNoteText">
+<P CLASS="TipNote"><B CLASS="TipNote">Note - </B><A NAME="pgfId-1000242"></A>The installer applet must be listed first in the Java Card WDE configuration file.
+</P>
+</TD>
+</TR>
+</TABLE>
+<HR NOSHADE SIZE=1>
+<BR>
+<P CLASS="Paragraph"><A NAME="pgfId-1000243"></A>If you write your own applets for public distribution, you should obtain an AID for each of your packages and applets according to the directions in Section 4.2 of the <EM CLASS="Emphasis">Virtual Machine Specification for the Java Card Platform, Version 2.2.2</EM>, and in the <EM CLASS="Emphasis">ISO 7816 Specification</EM> Parts 1-6.
+</P><H2 CLASS="Head1"><A NAME="pgfId-1000252"></A>
+<DIV>
+<HR ALIGN=left SIZE=6 WIDTH=15% noshade>
+</DIV><A NAME="18840"></A>Running the Java Card WDE Tool<A NAME="marker-1000251"></A></H2>
+<P CLASS="Paragraph"><A NAME="pgfId-1001682"></A>The general format of the command to run the Java Card WDE and emulate the Java Card RE is:
+</P>
+<PRE CLASS="Codeline"><A NAME="pgfId-1001683"></A>jcwde [-help] [-verbose] [-p port] [-t0] [-version] [-nobanner] &lt;config-file&gt;
+</PRE>
+<P CLASS="Paragraph"><A NAME="pgfId-1000288"></A><A HREF="cJDKjcwde.html#27932" CLASS="XRef">TABLE 4-1</A> describes the command line options for Java Card WDE. <A NAME="marker-1000287"></A>
+</P>
+<BR>
+<TABLE CLASS="Titled" BORDER=1 BORDERCOLORLIGHT="#FFFFFF" BORDERCOLORDARK="#000000" CELLPADDING=5 CELLSPACING=0 DIR="LTR"><CAPTION CLASS="TableCaption"><A NAME="pgfId-1000260"> </A> TABLE 4-1 	 <A NAME="27932"> </A> Command Line Options for Java Card WDE  </CAPTION>
+<THEAD>
+<TR>
+<TH SCOPE="COL" ROWSPAN="1" COLSPAN="1" BGCOLOR="#CCCCCC">
+<P CLASS="TableHead"><A NAME="pgfId-1000264"></A>Option 
+</P>
+</TH>
+<TH SCOPE="COL" ROWSPAN="1" COLSPAN="1" BGCOLOR="#CCCCCC">
+<P CLASS="TableHead"><A NAME="pgfId-1000266"></A>Description
+</P>
+</TH>
+</TR>
+</THEAD>
+<TBODY>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableTextCode"><A NAME="pgfId-1000268"></A><KBD CLASS="Filename-Command">&lt;</KBD><EM CLASS="Emphasis">config-file</EM><KBD CLASS="Filename-Command">&gt;</KBD>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-1000270"></A>The configuration file described above.
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableTextCode"><A NAME="pgfId-1000272"></A><KBD CLASS="Filename-Command">-help</KBD>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-1000274"></A>Prints a help message.
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableTextCode"><A NAME="pgfId-1000276"></A><KBD CLASS="Filename-Command">-nobanner</KBD> <KBD CLASS="Filename-Command"></KBD>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-1000278"></A>Suppresses all banner messages.
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableTextCode"><A NAME="pgfId-1000280"></A><KBD CLASS="Filename-Command">-p</KBD> port
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-1000282"></A>Allows you to specify a TCP/IP port other than the default port.
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableTextCode"><A NAME="pgfId-1001476"></A><KBD CLASS="Filename-Command">-t0</KBD>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-1001474"></A>Runs T=0 single interface only.
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableTextCode"><A NAME="pgfId-1001630"></A><KBD CLASS="Filename-Command">-verbose</KBD>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-1001632"></A>Prints more verbose output.
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableTextCode"><A NAME="pgfId-1000284"></A><KBD CLASS="Filename-Command">-version</KBD> <KBD CLASS="Filename-Command"></KBD>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-1000286"></A>Prints the Java Card WDE version number.
+</P>
+</TD>
+</TR>
+</TBODY>
+</TABLE>
+<BR>
+<P CLASS="Paragraph"><A NAME="pgfId-1000289"></A>Java Card WDE starts listening to APDUs in T=1 as the default format, unless otherwise specified, on the TCP/IP port specified by the <KBD CLASS="Filename-Command">-p port</KBD> parameter for contacted and <KBD CLASS="Filename-Command">port+1</KBD> for contactless. The default port is 9025.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-1000290"></A>&nbsp;
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-1000291"></A>&nbsp;
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-999099"></A>&nbsp;
+</P>
+<div class="navbar" align="center">
+<br>
+<br>
+<table dir="LTR" summary="Navigation bar, includes the book title and navigation buttons" width=100% cellpadding="0" cellspacing="0" border="0"><colgroup span="3" width="100%"><col id="1" span="1" width="45%"><col id="2" span="1" width="25%"><col id="3" span="1" width="30%">
+<tr bgcolor="#cccccc">
+<td class="navbartitle" align=left rowspan="1" colspan="1" abbr="ChapTitle">&nbsp;&nbsp;Development Kit User's Guide, Java Card Platform, Version 2.2.2
+</td>
+<td class="navbartitle" align=right rowspan="1" colspan="1" abbr="PartNum">3-14-06
+</td>
+<td valign="top" align="right" rowspan="1" colspan="1" abbr="NavButtons"><a href="index.html"><img src="shared/toc01.gif" title="Table Of Contents" alt="Table Of Contents" width="30" height="26" border="0"></a><a href="cJDKdemo.html"><img src="shared/prev01.gif" title="Previous Chapter" alt="Previous Chapter" width="30" height="26" border="0"></a><a href="cJDKconverter.html"><img src="shared/next01.gif" title="Next Chapter" alt="Next Chapter" width="30" height="26" border="0"></a><a href="ix.html"><img src="shared/index01.gif" title="Book Index" alt="Book Index" width="30" height="26" border="0"></a>
+</td>
+</tr>
+</table>
+<br>
+<br>
+</div>
+<P CLASS="copyrightlink"><A HREF="copyright.html">Copyright</a> &#169; 2005, Sun Microsystems, Inc.   All Rights Reserved.</P>
+</BODY>
+</HTML>

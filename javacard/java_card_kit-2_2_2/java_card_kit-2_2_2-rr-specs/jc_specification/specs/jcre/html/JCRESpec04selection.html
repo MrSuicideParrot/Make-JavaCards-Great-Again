@@ -1,0 +1,1052 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<HTML LANG="en">
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 7.0/HTML Export Filter">
+
+<LINK REL="STYLESHEET" HREF="unx_unstr_styles.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<META name="DC.TITLE" content="Runtime Environment Specification for the Java Card Platform, Version 2.2.2">
+<TITLE>C H A P T E R    4 - Logical Channels and Applet  Selection 
+</TITLE>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV>
+<div class="navbar" align="center">
+<table dir="LTR" summary="Navigation bar, includes the book title and navigation buttons" width=100% cellpadding="0" cellspacing="0" border="0"><colgroup span="2" width="100%"><col id="1" span="1" width="50%"><col id="2" span="1" width="50%">
+<tr bgcolor="#cccccc">
+<td class="navbartitle" align=left rowspan="1" colspan="1" abbr="ChapTitle">&nbsp;&nbsp;Runtime Environment Specification for the Java Card Platform, Version 2.2.2
+</td>
+<td valign="top" align="right" rowspan="1" colspan="1" abbr="NavButtons"><a href="index.html"><img src="shared/toc01.gif" title="Table Of Contents" alt="Table Of Contents" width="30" height="26" border="0"></a><a href="JCRESpec03appletlife.html"><img src="shared/prev01.gif" title="Previous Chapter" alt="Previous Chapter" width="30" height="26" border="0"></a><a href="JCRESpec05transient.html"><img src="shared/next01.gif" title="Next Chapter" alt="Next Chapter" width="30" height="26" border="0"></a><a href="ix.html"><img src="shared/index01.gif" title="Book Index" alt="Book Index" width="30" height="26" border="0"></a>
+</td>
+</tr>
+</table>
+<br>
+<br>
+</div>
+</DIV>
+<TABLE DIR="LTR" SUMMARY="Chapter Number" ABBR="ChapNum" WIDTH="100%" BORDER="0">
+<COLGROUP SPAN="1" WIDTH="100%"><COL ID="1" SPAN="1">
+<TR>
+<TD ALIGN="right" CLASS="ChapNumber"><SPAN CLASS="ChapNumPrefix"><A NAME="pgfId-409566"></A>C H A P T E R    </SPAN>&nbsp;<SPAN CLASS="ChapNumNum">4</SPAN><A NAME="57085"></A>
+</TD>
+</TR>
+</TABLE>
+<TABLE DIR="LTR" SUMMARY="Chapter Title" ABBR="ChapTitle" WIDTH="100%" BORDER="0">
+<COLGROUP SPAN="1" WIDTH="100%"><COL ID="1" SPAN="1" WIDTH="100%">
+<TR>
+<TD ALIGN="right" CLASS="ChapTitle">
+<HR SIZE=7 NOSHADE><A NAME="pgfId-409567"></A><A NAME="marker-419752"></A>Logical Channels and Applet <A NAME="87111"></A>Selection
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Paragraph"><A NAME="pgfId-415904"></A>Java Card platform, version 2.2.2, provides support for logical channels: The ability to allow a terminal to open up to twenty sessions into the smart card over any I/O interface, one session per logical channel. Logical channels functionality is described in detail in the <EM CLASS="Emphasis">ISO 7816-4:2005 Specification</EM>.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-415907"></A>Cards receive requests for service from the CAD in the form of APDUs. The SELECT FILE APDU and MANAGE CHANNEL OPEN APDU are used by the Java Card RE to designate the <A NAME="marker-419753"></A>active applet instance for a logical channel session. Once selected, an applet instance receives all subsequent APDUs dispatched to that logical channel, until the applet instance becomes deselected.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-426178"></A>Some cards support only the contacted I/O interface conforming to ISO 7816 specifications, and some support only the contactless I/O interface based on the ISO 14443 specifications. Yet others are able to support both types of I/O interfaces. Logical channel sessions as described in this chapter may be supported over either interface. In addition, a card may be able to sustain logical channel sessions over both interfaces simultaneously.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-426868"></A>An implementation may support between 1 and 20 logical channels over the contacted I/O interface. Similarly, an implementation may support between 1 and 20 logical channels over the contactless I/O interface. When both I/O interfaces are concurrently active, the number of logical channels supported on each of the two interfaces is also implementation specific.
+</P>
+<BR>
+<HR NOSHADE SIZE=1>
+<TABLE CLASS="TipNote" DIR="LTR" WIDTH="100%" SUMMARY="TipNote">
+<COLGROUP SPAN="1" WIDTH="100%">
+<TR ALIGN="left" VALIGN="top">
+<TD ROWSPAN="1" COLSPAN="1" ABBR="TipNoteText">
+<P CLASS="TipNote"><B CLASS="TipNote">Note - </B><A NAME="pgfId-426869"></A>To establish a card session over both contacted and contactless interfaces concurrently, the CAD must initiate the contacted session first. A power loss or card reset on the contacted interface results in a card tear and card reset event even if a contactless session is in progress. An RF signal loss on the contactless interface must not affect an ongoing contacted session.
+</P>
+</TD>
+</TR>
+</TABLE>
+<HR NOSHADE SIZE=1>
+<BR>
+<P CLASS="Paragraph"><A NAME="pgfId-426196"></A>The Java Card RE processes APDUs sequentially whether received over the same I/O interface or over two different I/O interfaces. The I/O subsystem must present concurrently received APDUs to the Java Card RE command dispatcher sequentially. The arbitration required to make concurrently received APDU commands sequential, as well as the mechanisms used to ensure proper synchronization with the CAD (for contact) and with the proximity coupling device, PCD (for contactless), are not specified in this specification. The I/O subsystem must ensure that APDU commands received over the contactless I/O interface are given higher priority, but without causing a timeout on any concurrently received APDU command over the contacted I/O interface. The algorithm used for this purpose is not specified in this specification.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-415912"></A>A new applet written for version 2.2.* of the Java Card platform can be designed to take advantage of logical channel support. Such an applet can take advantage of <A NAME="marker-419754"></A>multi-session functionality, can be concurrently selected alongside another applet on a different logical channel, and even be selected multiple times simultaneously on different logical channels. As shown in <A HREF="JCRESpec04selection.html#66307" CLASS="XRef">FIGURE 4-1</A>, an implementation may support from one to twenty logical channels on each I/O interface, each with its own distinct <KBD CLASS="Filename-Command">CLEAR_ON_DESELECT</KBD> memory segment.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-415950"></A>Only one logical channel, logical channel number 0 (the <A NAME="marker-419755"></A>basic logical channel) becomes active on the contacted I/O interface following a card reset. Similarly, only one logical channel, logical 0 (the basic logical channel) becomes active on the contactless I/O interface following a PICC activation sequence. A MANAGE CHANNEL APDU command may be issued on this logical channel to instruct the card to open a new logical channel. Applet instances can be selected on different logical channels using the SELECT FILE APDU command, just as they would in a single logical channel environment. The MANAGE CHANNEL APDU command is also used for closing a logical channel. Note that the basic logical channel is permanent and can never be closed as long as the I/O interface remains activated.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-426230"></A>On a card that is able to sustain logical channel sessions over both interfaces simultaneously, there are two sets of twenty logical channels possible. A logical channel number 0 on the contacted I/O interface is not the same as the logical channel number 0 on the contactless I/O interface. An applet instance selected on a logical channel on the contacted I/O interface would normally receive APDUs only from the contacted I/O interface. However, it can receive APDUs from the contactless I/O interface also, only if the applet instance is concurrently selected on a logical channel on the contactless I/O interface. Rules of multiselection apply as described in <A HREF="JCRESpec04selection.html#32535" CLASS="XRef">Section 4.2, Multiselectable Applets</A>.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-426482"></A><A NAME="marker-426481"></A>Legacy applets (written for version 2.1 of the Java Card platform) running on version 2.2.*, need not be aware of logical channel support to work correctly. The Java Card RE must guarantee that an applet that was not designed to be aware of multiple sessions is not selected more than once or concurrently with another applet from the same package.
+</P>
+<BR>
+<P CLASS="FigureBox-Wide"><A NAME="pgfId-428599"></A><CAPTION CLASS="FigureCaption-Wide"><A NAME="pgfId-426484"></A>FIGURE 4-1 	 <A NAME="66307"></A>Logical Channels for Distinct Applets </CAPTION>
+</P><IMG SRC="figures/JCRESpec04selection-4.jpg" ALIGN="BASELINE">
+<BR>
+<P CLASS="Paragraph"><A NAME="pgfId-420494"></A>Support for multiple logical channels (with multiple selected applet instances) requires a change to the Java Card platform version 2.1.* concept of <A NAME="marker-420495"></A>selected applet. Because more than one applet instance can be selected at the same time, and one applet instance can be selected on different logical channels simultaneously, it is necessary to differentiate the state of the applet instances in more detail.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-416010"></A>An applet instance is be considered an <A NAME="marker-419758"></A>active applet instance if it is currently selected in at least one logical channel, up to a maximum of forty. Each active applet instance from a distinct package executes with a distinct <KBD CLASS="Filename-Command">CLEAR_ON_DESELECT</KBD> transient memory segment, see <A HREF="JCRESpec04selection.html#66307" CLASS="XRef">FIGURE 4-1</A>. An applet instance is the <A NAME="marker-419759"></A>currently selected applet instance only if it is processing the current command. There can only be one currently selected applet instance at a given time.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-425114"></A>Applets with the capability of being selected on multiple logical channels at the same time, or accepting other applets belonging to the same package being selected simultaneously, are referred to as <A NAME="marker-419760"></A>multiselectable applets. (Refer to <A HREF="JCRESpec04selection.html#66786" CLASS="XRef">FIGURE 4-2</A> below.)
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-416052"></A>No applet is active on the new (or only) logical channel when one of the following occurs:
+</P>
+<UL>
+<LI CLASS="Bullet1"><A NAME="pgfId-426239"></A>The card is reset and no applet is designated as the default applet instance for the basic channel on the contacted I/O interface, or the default applet instance for the basic channel on the contacted I/O interface rejects selection.
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-406295"></A>The card successfully completes its PICC activation sequence and no applet is designated as the default applet instance for the basic channel on the contactless I/O interface, or the default applet instance for the basic channel on the contactless I/O interface rejects selection.
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-414658"></A>A MANAGE CHANNEL OPEN command on the basic channel opens a new channel, and no applet is designated as the <A NAME="marker-419761"></A>default applet instance for that logical channel.
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-419191"></A>A new logical channel is opened when a MANAGE CHANNEL OPEN command is issued on a logical channel other than the basic channel, on which there is no active applet.
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-425905"></A>A SELECT FILE command fails when attempting to select an applet instance.
+</LI>
+<P CLASS="Linebreak">
+</P>
+</UL><H2 CLASS="Head1"><A NAME="pgfId-425907"></A>
+<DIV>
+<HR ALIGN=left SIZE=6 WIDTH=15% noshade>
+</DIV>4.1	<A NAME="52464"></A>Default Applets</H2>
+<P CLASS="Paragraph"><A NAME="pgfId-425908"></A>Normally, applet instances become selected only via a successful SELECT FILE command. However, some smart card CAD applications require a <A NAME="marker-425909"></A>default card applet instance to become implicitly selected after every card reset. In addition, some CAD applications may also require a default applet selection when a new logical channel is opened.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-426243"></A>In a similar manner, smart card proximity coupling device (PCD) applications require a default card applet instance to become implicitly selected after the proximity card (PICC) activation sequence successfully completes. In addition, default applet selection may also be required on each new logical channel opened during the contactless session.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-416106"></A>The Java Card platform allows the card implementer to designate a default applet instance for each of the logical channels supported by the card. For any logical channel, the card implementation may designate an applet instance as the default applet instance for that logical channel. Alternatively, for any logical channel, the implementation may choose to designate no default applet instance at all. Logical channels may share the same applet instance as the default applet instance for more than one channel.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-425627"></A>Upon card reset on the contacted interface and upon the completion of the PICC activation sequence on the contactless interface, only the <A NAME="marker-425626"></A>basic logical channel (channel 0) is automatically opened. The default card applet instance for the contacted interface, if any, is therefore the default applet instance for logical channel 0 on the contacted interface. Similarly, the default card applet instance for the contactless interface, if any, is therefore the default applet instance for logical channel 0 on the contactless interface. A card that supports both I/O interfaces could designate a different applet instance as default for each interface.
+</P><H3 CLASS="Head2"><A NAME="pgfId-425630"></A>4.1.1	<A NAME="marker-425629"></A>Card Reset Behavior</H3>
+<P CLASS="Paragraph"><A NAME="pgfId-425637"></A>The following describes card reset behavior:
+</P>
+<P CLASS="List1"><A NAME="pgfId-416125"></A>1.	After card reset (or power on, which is a form of reset) on the contacted I/O interface, the Java Card RE performs its initialization and checks to see if its internal state indicates that a particular applet instance is the default applet instance for the basic logical channel. If so, the Java Card RE makes this applet instance the currently selected applet instance on the basic logical channel, and the applet's <KBD CLASS="Filename-Command">select</KBD> method is called. If this method throws an exception or returns <KBD CLASS="Filename-Command">false</KBD>, the Java Card RE sets its state to indicate that no applet is active on the basic logical channel.
+</P>
+<P CLASS="ParaIndent1"><A NAME="pgfId-419961"></A>When a default card applet instance becomes active upon card reset, it shall not require its <KBD CLASS="Filename-Command">process</KBD> method to be called. The applet instance's <KBD CLASS="Filename-Command">process</KBD> method is not called during default applet selection because there is no SELECT FILE APDU.
+</P>
+<P CLASS="List1-"><A NAME="pgfId-419962"></A>2. 	The Java Card RE ensures that the Answer to Reset (ATR) was sent and the card is now ready to accept APDU commands.
+</P><H3 CLASS="Head2"><A NAME="pgfId-426270"></A>4.1.2	Proximity Card (PICC) Activation Behavior</H3>
+<P CLASS="Paragraph"><A NAME="pgfId-426271"></A>The following describes the PICC activation behavior:
+</P>
+<P CLASS="List1"><A NAME="pgfId-426272"></A>1.	After the successful completion of the PICC activation sequence on the contactless interface, the Java Card RE performs its initialization, if the contacted interface is not already active, and then checks to see if its internal state indicates that a particular applet instance is the default applet instance for the basic logical channel on the contactless I/O interface. If the default applet is not a multiselectable applet (see <A HREF="JCRESpec04selection.html#32535" CLASS="XRef">Section 4.2, Multiselectable Applets</A>) and either an instance of the default applet is already active on the contacted interface, or another applet instance from the same package is active on the contacted interface, the Java Card RE sets its state to indicate that no applet is active on the basic logical channel. Otherwise, the Java Card RE makes this applet instance the currently selected applet instance on the basic logical channel on the contactless I/O interface, and the applet's <KBD CLASS="Filename-Command">select</KBD> method is called. If this method throws an exception or returns <KBD CLASS="Filename-Command">false</KBD>, the Java Card RE sets its state to indicate that no applet is active on the basic logical channel on the contactless I/O interface.
+</P>
+<P CLASS="ParaIndent1"><A NAME="pgfId-426295"></A>When a default card applet instance becomes active after the successful completion of the PICC activation sequence on the contactless interface, it shall not require its <KBD CLASS="Filename-Command">process</KBD> method to be called. The applet instance's <KBD CLASS="Filename-Command">process</KBD> method is not called during default applet selection because there is no SELECT FILE APDU.
+</P>
+<P CLASS="List1-"><A NAME="pgfId-426296"></A>2. 	The Java Card RE ensures that the Answer to Select (ATS) was sent and the card is now ready to accept APDU commands.
+</P><H3 CLASS="Head2"><A NAME="pgfId-414606"></A>4.1.3	Default Applet Selection Behavior on Opening a New Channel</H3>
+<P CLASS="Paragraph"><A NAME="pgfId-425644"></A>The following <A NAME="marker-419766"></A>default applet selection behavior occurs on opening a new logical channel.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-416206"></A>When a MANAGE CHANNEL command is issued on the basic logical channel and a new logical channel is opened, the Java Card RE checks if there is a designated default applet instance for the newly opened logical channel. If so, the Java Card RE makes this applet instance the currently selected applet instance on the new logical channel, and the applet's <KBD CLASS="Filename-Command">select</KBD> method (<KBD CLASS="Filename-Command">MultiSelectable.select</KBD> method if required) is called. If this method throws an exception or returns <KBD CLASS="Filename-Command">false</KBD>, then the Java Card RE closes the new logical channel. (The applet instance's <KBD CLASS="Filename-Command">process</KBD> method is not called during default applet selection, because there is no SELECT FILE APDU). A default applet instance shall not require its <KBD CLASS="Filename-Command">process</KBD> method to be called.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-416225"></A>If a default applet instance is successfully selected, then APDU commands can be sent directly to the applet instance on that logical channel. If no applet is active, then only SELECT FILE commands for applet selection or MANAGE CHANNEL commands can be processed on that logical channel.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-426299"></A>A MANAGE CHANNEL command issued over an I/O interface shall open a new logical channel only on the same I/O interface. Similarly a SELECT FILE command issued over an I/O interface to open a new logical channel shall open a new logical channel only on the same I/O interface.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-416229"></A>The mechanism for specifying the default applet instance for a logical channel is not defined in the Java Card API. It is a Java Card RE implementation detail and is left to the individual implementers.
+</P><H2 CLASS="Head1"><A NAME="pgfId-411529"></A>
+<DIV>
+<HR ALIGN=left SIZE=6 WIDTH=15% noshade>
+</DIV>4.2	<A NAME="32535"></A>Multiselectable<A NAME="marker-419767"></A> Applets</H2>
+<P CLASS="Paragraph"><A NAME="pgfId-416245"></A>Applets having the capability of being selected on multiple logical channels at the same time, or accepting other applets belonging to the same package being selected simultaneously, are referred to as multiselectable applets.
+</P>
+<BR>
+<HR NOSHADE SIZE=1>
+<TABLE CLASS="TipNote" DIR="LTR" WIDTH="100%" SUMMARY="TipNote">
+<COLGROUP SPAN="1" WIDTH="100%">
+<TR ALIGN="left" VALIGN="top">
+<TD ROWSPAN="1" COLSPAN="1" ABBR="TipNoteText">
+<P CLASS="TipNote"><B CLASS="TipNote">Note - </B><A NAME="pgfId-420176"></A>All applets within a package shall be multiselectable or none shall be.
+</P>
+</TD>
+</TR>
+</TABLE>
+<HR NOSHADE SIZE=1>
+<BR>
+<P CLASS="Paragraph"><A NAME="pgfId-419068"></A>An <A NAME="marker-419768"></A>applet's context is active when either an instance of the applet is already active, or when another applet instance from the same package is active. For more information about contexts see <A HREF="JCRESpec06firewall.html#43635" CLASS="XRef">Section 6.1.2, Contexts and Context Switching</A>. An attempt to select an applet instance when the applet's context is active, is referred to as a <A NAME="marker-419769"></A>multiselection attempt. If successful, multiselection occurs, and the applet instance becomes multiselected.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-416286"></A>Multiselectable applets shall implement the <KBD CLASS="Filename-Command">javacard.framework.MultiSelectable</KBD> interface. In case of multiselection, the applet instance is informed by invoking its methods <KBD CLASS="Filename-Command">MultiSelectable.select</KBD> and <KBD CLASS="Filename-Command">MultiSelectable.deselect</KBD> during selection and deselection respectively.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-416314"></A>When an applet instance not currently active is the first one selected in its package, its <KBD CLASS="Filename-Command">Applet.select</KBD> method is called. Subsequent multiselections to this applet instance or selection of other applet instances in the same package shall result in a call to <KBD CLASS="Filename-Command">MultiSelectable.select</KBD> method. This method is defined in the <KBD CLASS="Filename-Command">MultiSelectable</KBD> interface. Its only purpose is to inform the applet instance that it will be multiselected. The applet instance may accept or reject a multiselection attempt.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-416345"></A>If a multiselection attempt is made on an applet which does not implement the <KBD CLASS="Filename-Command">MultiSelectable</KBD> interface, the selection shall be rejected by the Java Card RE.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-419131"></A>When a multiselected applet instance is deselected from one of the logical channels, the method <KBD CLASS="Filename-Command">MultiSelectable.deselect</KBD> is called. Only when the multiselected applet instance is the last active applet instance in the applet's context, is its regular method <KBD CLASS="Filename-Command">Applet.deselect</KBD> called.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-419132"></A>The following list describes the two cases of multiselection:
+</P>
+<P CLASS="List1"><A NAME="pgfId-420498"></A>1.	When two distinct applet instances from within the same package are multiselected, each applet instance shares the same <KBD CLASS="Filename-Command">CLEAR_ON_DESELECT</KBD> memory transient segment. The applet instances share objects within the context firewall as well as their transient data. The Java Card RE shall not reset this <KBD CLASS="Filename-Command">CLEAR_ON_DESELECT</KBD> transient objects until all applet instances within the package are deselected, see <A HREF="JCRESpec04selection.html#66786" CLASS="XRef">FIGURE 4-2</A>.
+</P>
+<BR>
+<P CLASS="FigureBox"><A NAME="pgfId-426959"></A><CAPTION CLASS="FigureCaption"><A NAME="pgfId-420571"></A>FIGURE 4-2 	 <A NAME="66786"></A>Different Applet Instances in Same Package </CAPTION>
+</P><IMG SRC="figures/JCRESpec04selection-6.jpg" ALIGN="BASELINE">
+<BR>
+<P CLASS="List1-"><A NAME="pgfId-416402"></A>2. 	When the same applet instance is multiselected on two different logical channels simultaneously, it shares the <KBD CLASS="Filename-Command">CLEAR_ON_DESELECT</KBD> memory segment space across logical channels. The Java Card RE shall not reset the <KBD CLASS="Filename-Command">CLEAR_ON_DESELECT</KBD> transient objects until all applet instances within the package are deselected, see <A HREF="JCRESpec04selection.html#44317" CLASS="XRef">FIGURE 4-3</A>.
+</P>
+<BR>
+<P CLASS="FigureBox"><A NAME="pgfId-426973"></A><CAPTION CLASS="FigureCaption"><A NAME="pgfId-420584"></A>FIGURE 4-3 	 <A NAME="44317"></A>Same Applet Instance Selected on Multiple Logical Channels </CAPTION>
+</P><IMG SRC="figures/JCRESpec04selection-7.jpg" ALIGN="BASELINE">
+<BR>
+<P CLASS="Paragraph"><A NAME="pgfId-416427"></A>In both cases of multiselection, the applets must implement the <KBD CLASS="Filename-Command">MultiSelectable</KBD> interface. If the applets do not support this feature, the selection must be rejected by the Java Card RE.
+</P><H2 CLASS="Head1"><A NAME="pgfId-414082"></A>
+<DIV>
+<HR ALIGN=left SIZE=6 WIDTH=15% noshade>
+</DIV>4.3	<A NAME="13304"></A>Forwarding <A NAME="marker-419770"></A>APDU Commands To a Logical <A NAME="marker-419786"></A>Channel</H2>
+<P CLASS="Paragraph"><A NAME="pgfId-426583"></A>According to Section 5.4 of the <EM CLASS="Emphasis">ISO 7816-4:2005 Specification</EM> specification, the interindustry values of the CLA byte equal to 0x0X and 0x1X in the APDU command encode channel numbers in the range 0-3, whereas interindustry values of the CLA byte equal to 0x4Y, 0x5Y, 0x6Y and 0x7Y in the APDU command encode channel numbers in the range 4-19.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-426584"></A>In addition, cards compliant with Java Card platform specification v2.2.2 must also support proprietary class values of the CLA byte equal to 0x8X, 0x9X, 0xAx and 0xBX for channel numbers in the range 0-3 and proprietary class values of the CLA byte equal to 0xCY, 0xDY, 0xEY and 0xFY for channel numbers 4-19 (using <KBD CLASS="Filename-Command">0</KBD> origin notation). The bit encoding of the proprietary class values of the CLA byte mirror that of the <EM CLASS="Emphasis">ISO 7816-4:2005 Specification</EM> defined interindustry values with the most significant bit b8 set to <KBD CLASS="Filename-Command">1</KBD>. <A HREF="JCRESpec04selection.html#59337" CLASS="XRef">TABLE 4-1</A> and <A HREF="JCRESpec04selection.html#44855" CLASS="XRef">TABLE 4-2</A> show the supported encodings of the CLA byte.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-426594"></A>The two least significant bits (b2,b1*) of the X nibble encodes the logical channels numbers 0-3, whereas the Y nibble (b4-b1*) encodes logical channel numbers in the range 4-19 (using <KBD CLASS="Filename-Command">0</KBD> origin notation). When an APDU command is received, the Java Card RE shall process it and determine whether or not the command has logical channel information. If logical channel information is encoded, the card dispatches the APDU command to the appropriate logical channel on that I/O interface. All other APDU commands are forwarded to the basic logical channel (logical channel 0) on that I/O interface.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-428660"></A>&nbsp;
+</P><CAPTION CLASS="TableCaption"><A NAME="pgfId-426655"> </A> TABLE 4-1 	 <A NAME="59337"> </A> <EM CLASS="Emphasis"> ISO 7816-4:2005 Specification </EM>  Interindustry CLA Semantics </CAPTION>
+<BR>
+<TABLE CLASS="Untitled" BORDER=1 BORDERCOLORLIGHT="#FFFFFF" BORDERCOLORDARK="#000000" CELLPADDING=5 CELLSPACING=0 DIR="LTR">
+<THEAD>
+<TR>
+<TH SCOPE="COL" ROWSPAN="1" COLSPAN="1" BGCOLOR="#CCCCCC">
+<P CLASS="TableHead"><A NAME="pgfId-427740"></A>CLA byte encoding
+</P>
+</TH>
+<TH SCOPE="COL" ROWSPAN="1" COLSPAN="1" BGCOLOR="#CCCCCC">
+<P CLASS="TableHead"><A NAME="pgfId-427812"></A>&nbsp;
+</P>
+</TH>
+<TH SCOPE="COL" ROWSPAN="1" COLSPAN="1" BGCOLOR="#CCCCCC">
+<P CLASS="TableHead"><A NAME="pgfId-427742"></A>Semantic details
+</P>
+</TH>
+</TR>
+</THEAD>
+<TBODY>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-427744"></A>%b0000 00zz
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-427814"></A>&nbsp;
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-427746"></A>(Type 4) last or only command in chain, no SM
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-427748"></A>%b0001 00zz
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-427816"></A>&nbsp;
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-427750"></A>(Type 4) not last command in chain, no SM
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-427752"></A>%b0000 yyzz
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-427818"></A>&nbsp;
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-427754"></A>(Type 4) last or only command in chain, with SM
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-427756"></A>%b0001 yyzz
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-427820"></A>&nbsp;
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-427758"></A>(Type 4) not last command in chain, with SM
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-427760"></A>%b0010 uuuu
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-427822"></A>&nbsp;
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-427762"></A>RFU
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-427764"></A>%b0011 uuuu
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-427824"></A>&nbsp;
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-427766"></A>RFU
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-427768"></A>%b0100 zzzz
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-427826"></A>&nbsp;
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-427770"></A>(Type 16) last or only command in chain, no SM
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-427772"></A>%b0101 zzzz
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-427828"></A>&nbsp;
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-427774"></A>(Type 16) not last command in chain, no SM
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-427776"></A>%b01y0 zzzz
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-427830"></A>&nbsp;
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-427778"></A>(Type 16) last or only command in chain, with SM
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-427780"></A>%b01y1 zzzz 
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-427832"></A>&nbsp;
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-427782"></A>(Type 16) not last command in chain, with SM
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableTextCode"><A NAME="pgfId-427873"></A>&nbsp;
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableTextCode"><A NAME="pgfId-427875"></A>NOTATION
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-427877"></A>&nbsp;
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableTextCode"><A NAME="pgfId-427792"></A>&nbsp;
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-427838"></A>u
+</P>
+<P CLASS="TableText"><A NAME="pgfId-428664"></A>y
+</P>
+<P CLASS="TableText"><A NAME="pgfId-428665"></A>&nbsp;
+</P>
+<P CLASS="TableText"><A NAME="pgfId-428681"></A>&nbsp;
+</P>
+<P CLASS="TableText"><A NAME="pgfId-428682"></A>z
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-427794"></A>undefined
+</P>
+<P CLASS="TableText"><A NAME="pgfId-428670"></A>Secure Messaging (SM) indicator
+</P>
+<P CLASS="TableText"><A NAME="pgfId-428668"></A>	See <EM CLASS="Emphasis">ISO 7816-4:2005 Specification</EM> Section 6 for further information.
+</P>
+<P CLASS="TableText"><A NAME="pgfId-428687"></A>Logical channel indicator
+</P>
+<P CLASS="TableText"><A NAME="pgfId-428688"></A>Type 4 supports logical channels [0..3]
+</P>
+<P CLASS="TableText"><A NAME="pgfId-428685"></A>	Type 16 supports logical channels [4..19]
+</P>
+</TD>
+</TR>
+</TBODY>
+</TABLE>
+<BR><CAPTION CLASS="TableCaption"><A NAME="pgfId-426723"> </A> TABLE 4-2 	 <A NAME="44855"> </A> Java Card Technology Proprietary CLA Semantics </CAPTION>
+<BR>
+<TABLE CLASS="Untitled" BORDER=1 BORDERCOLORLIGHT="#FFFFFF" BORDERCOLORDARK="#000000" CELLPADDING=5 CELLSPACING=0 DIR="LTR">
+<THEAD>
+<TR>
+<TH SCOPE="COL" ROWSPAN="1" COLSPAN="1" BGCOLOR="#CCCCCC">
+<P CLASS="TableHead"><A NAME="pgfId-426659"></A>CLA byte encoding
+</P>
+</TH>
+<TH SCOPE="COL" ROWSPAN="1" COLSPAN="1" BGCOLOR="#CCCCCC">
+<P CLASS="TableHead"><A NAME="pgfId-427910"></A>&nbsp;
+</P>
+</TH>
+<TH SCOPE="COL" ROWSPAN="1" COLSPAN="1" BGCOLOR="#CCCCCC">
+<P CLASS="TableHead"><A NAME="pgfId-426661"></A>Semantic details
+</P>
+</TH>
+</TR>
+</THEAD>
+<TBODY>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-426663"></A>%b1000 00zz
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-427912"></A>&nbsp;
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-426665"></A>(Type 4) last or only command in chain, no SM
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-426667"></A>%b1001 00zz
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-427914"></A>&nbsp;
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-426669"></A>(Type 4) not last command in chain, no SM 
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-426671"></A>%b1000 yyzz
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-427916"></A>&nbsp;
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-426673"></A>(Type 4) last or only command in chain, with SM
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-426675"></A>%b1001 yyzz
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-427918"></A>&nbsp;
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-426677"></A>(Type 4) not last command in chain, with SM
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-426679"></A>%b1010 00zz
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-427920"></A>&nbsp;
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-426681"></A>(Type 4) last or only command in chain, no SM
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-426683"></A>%b1011 00zz
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-427922"></A>&nbsp;
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-426685"></A>(Type 4) not last command in chain, no SM
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-426687"></A>%b1010 yyzz
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-427924"></A>&nbsp;
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-426689"></A>((Type 4) last or only command in chain, with SM
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-426691"></A>%b1011 yyzz
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-427926"></A>&nbsp;
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-426693"></A>(Type 4) not last command in chain, with SM
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-426695"></A>%b1100 zzzz
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-427928"></A>&nbsp;
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-426697"></A>(Type 16) last or only command in chain. no SM
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-426699"></A>%b1101 zzzz
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-427930"></A>&nbsp;
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-426701"></A>(Type 16) not last command in chain, no SM
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-426703"></A>%b11y0 zzzz
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-427932"></A>&nbsp;
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-426705"></A>(Type 16) last or only command in chain, with SM
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-426707"></A>%b11y1 zzzz 
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-427934"></A>&nbsp;
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-426709"></A>(Type 16) not last command in chain, with SM
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-427906"></A>&nbsp;
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableTextCode"><A NAME="pgfId-428696"></A>NOTATION
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-427908"></A>&nbsp;
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-427902"></A>&nbsp;
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-427938"></A>u
+</P>
+<P CLASS="TableText"><A NAME="pgfId-428705"></A>y
+</P>
+<P CLASS="TableText"><A NAME="pgfId-428706"></A>&nbsp;
+</P>
+<P CLASS="TableText"><A NAME="pgfId-428707"></A>&nbsp;
+</P>
+<P CLASS="TableText"><A NAME="pgfId-428724"></A>z
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-427904"></A>undefined
+</P>
+<P CLASS="TableText"><A NAME="pgfId-428712"></A>Secure Messaging indicator
+</P>
+<P CLASS="TableText"><A NAME="pgfId-428710"></A>	See <EM CLASS="Emphasis">ISO 7816-4:2005 Specification</EM> Section 6 for further information.
+</P>
+<P CLASS="TableText"><A NAME="pgfId-428728"></A>Logical channel indicator
+</P>
+<P CLASS="TableText"><A NAME="pgfId-428729"></A>Type 4 supports logical channels [0..3]
+</P>
+<P CLASS="TableText"><A NAME="pgfId-428723"></A>	Type 16 supports logical channels [4..19]
+</P>
+</TD>
+</TR>
+</TBODY>
+</TABLE>
+<BR>
+<BR>
+<HR NOSHADE SIZE=1>
+<TABLE CLASS="TipNote" DIR="LTR" WIDTH="100%" SUMMARY="TipNote">
+<COLGROUP SPAN="1" WIDTH="100%">
+<TR ALIGN="left" VALIGN="top">
+<TD ROWSPAN="1" COLSPAN="1" ABBR="TipNoteText">
+<P CLASS="TipNote"><B CLASS="TipNote">Note - </B><A NAME="pgfId-426724"></A>CLA byte 0xFX cannot encode logical channel 19 because <KBD CLASS="Filename-Command">CLA = 0xFF</KBD> is a reserved value for Protocol Type Selection. In compliance with <EM CLASS="Emphasis">ISO 7816-4:2005 Specification</EM>, logical channel number 19 is not available when using this CLA byte. 
+</P>
+</TD>
+</TR>
+</TABLE>
+<HR NOSHADE SIZE=1>
+<BR>
+<P CLASS="Paragraph"><A NAME="pgfId-419408"></A>The Java Card RE always forwards the command &quot;as is&quot; to the appropriate applet instance. In particular, the Java Card RE does not clear the logical channel encoding bits of the CLA byte.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-426835"></A>To avoid the complexity of the transport information encoded in the CLA byte of the APDU command header, the application programmer is advised not to parse the CLA byte directly. The following methods in the <KBD CLASS="Filename-Command">javacard.framework.APDU</KBD> class may be used to extract application specific information:
+</P>
+<UL>
+<LI CLASS="Bullet1"><A NAME="pgfId-426847"></A><KBD CLASS="Filename-Command">APDU.isISOInterindustryCLA</KBD>
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-426848"></A><KBD CLASS="Filename-Command">APDU.isSecureMessagingCLA</KBD>
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-426849"></A><KBD CLASS="Filename-Command">APDU.isCommandChainingCLA</KBD>
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-426850"></A><KBD CLASS="Filename-Command">APDU.getCLAChannel</KBD>
+</LI>
+<P CLASS="Linebreak">
+</P>
+</UL>
+<BR>
+<HR NOSHADE SIZE=1>
+<TABLE CLASS="TipNote" DIR="LTR" WIDTH="100%" SUMMARY="TipNote">
+<COLGROUP SPAN="1" WIDTH="100%">
+<TR ALIGN="left" VALIGN="top">
+<TD ROWSPAN="1" COLSPAN="1" ABBR="TipNoteText">
+<P CLASS="TipNote"><B CLASS="TipNote">Note - </B><A NAME="pgfId-426406"></A>An asterisk indicates binary notation (%b) using bit numbering as in the ISO7816 specification. Most significant bit is b8. Least significant bit is b1.
+</P>
+</TD>
+</TR>
+</TABLE>
+<HR NOSHADE SIZE=1>
+<BR><H2 CLASS="Head1"><A NAME="pgfId-426408"></A>
+<DIV>
+<HR ALIGN=left SIZE=6 WIDTH=15% noshade>
+</DIV>4.4	<A NAME="marker-426407"></A>Opening and Closing Logical Channels</H2>
+<P CLASS="Paragraph"><A NAME="pgfId-426409"></A>According to Section 5.5.2 of the ISO 7816-4 Specification, the following two ways to open a logical channel in the smart card exist:
+</P>
+<P CLASS="List1"><A NAME="pgfId-416450"></A>1.	By selecting an applet instance on a new logical channel. This is accomplished by issuing an Applet SELECT FILE APDU command, and specifying the logical channel number in the CLA byte of the command. If this logical channel is currently closed, it shall be opened, and the specified applet instance shall be selected. See <A HREF="JCRESpec04selection.html#55974" CLASS="XRef">Section 4.5.2, Applet Selection with SELECT FILE</A>.
+</P>
+<P CLASS="List1-"><A NAME="pgfId-416470"></A>2. 	By issuing a MANAGE CHANNEL OPEN APDU command. MANAGE CHANNEL commands are provided to open a logical channel from another logical channel, or to close a logical channel from another logical channel. See <A HREF="JCRESpec04selection.html#90206" CLASS="XRef">Section 4.4.1, MANAGE CHANNEL Command Processing</A>.
+</P><H3 CLASS="Head2"><A NAME="pgfId-411722"></A>4.4.1	<A NAME="90206"></A>MANAGE <A NAME="marker-419772"></A>CHANNEL Command Processing</H3>
+<P CLASS="Paragraph"><A NAME="pgfId-416472"></A>The Java Card RE shall intercept all APDU messages coming into the card, perform card management functions (such as selecting or deselecting applet instances), and shall forward APDU messages to the appropriate applet instance. As part of its card management functions, the Java Card RE notifies applet instances about selection events (a function it performs by calling the applet instances' <KBD CLASS="Filename-Command">select</KBD> and <KBD CLASS="Filename-Command">deselect</KBD> methods).
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-416479"></A>With the addition of logical channels in Java Card platform, the Java Card RE includes a <A NAME="marker-419773"></A>multichannel dispatching mechanism, as well as checks to ensure applet integrity during multi-channel operations. The Java Card RE must ensure that applets written to operate in a single logical channel environment operate consistently on a multiple logical channel smart card.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-416528"></A>Java Card platform defines a class of APDU commands, called MANAGE CHANNEL commands. The functions the Java Card RE must perform by using MANAGE CHANNEL command processing are:
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-412716"></A>MANAGE CHANNEL OPEN: Open a new logical channel from an already-open logical channel. Two variations of this command are supported:
+</P>
+<UL>
+<LI CLASS="Bullet1"><A NAME="pgfId-412717"></A>The Java Card RE selects the new logical channel specified in the command
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1-"><A NAME="pgfId-411920"></A>The Java Card RE automatically assigns a new logical channel. 
+</LI>
+<P CLASS="Linebreak">
+</P>
+</UL>
+<P CLASS="Paragraph"><A NAME="pgfId-412074"></A>MANAGE CHANNEL CLOSE: Close a specified logical channel from another open logical channel. 
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-412733"></A>In addition, the SELECT FILE APDU command to select an applet instance is extended to specify a new or already opened logical channel on which the specified applet instance is to be selected.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-414077"></A>The term origin logical channel refers to the logical channel on which the command is received based on the logical channel number encoding within the CLA byte, as described in <A HREF="JCRESpec04selection.html#13304" CLASS="XRef">Section 4.3, Forwarding APDU Commands To a Logical Channel</A>.
+</P><H2 CLASS="Head1"><A NAME="pgfId-412161"></A>
+<DIV>
+<HR ALIGN=left SIZE=6 WIDTH=15% noshade>
+</DIV>4.5	<A NAME="92536"></A>Applet <A NAME="marker-419774"></A>Selection</H2>
+<P CLASS="Paragraph"><A NAME="pgfId-412984"></A>There are two ways to select an applet instance in the Java Card platform: with a MANAGE CHANNEL OPEN command (<A HREF="JCRESpec04selection.html#16012" CLASS="XRef">Section 4.5.1, Applet Selection with MANAGE CHANNEL OPEN</A>), or with a SELECT FILE command (<A HREF="JCRESpec04selection.html#55974" CLASS="XRef">Section 4.5.2, Applet Selection with SELECT FILE</A>).
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-426155"></A>The Java Card RE shall guarantee that an applet that is designed to run on any logical channel can be selected on any of the available logical channels on the card. The resources accessed by the applet instance must be the same, irrespective of the logical channel on which it is selected.
+</P><H3 CLASS="Head2"><A NAME="pgfId-426161"></A>4.5.1	<A NAME="16012"></A>Applet Selection with <A NAME="marker-426158"></A><A NAME="marker-426159"></A>MANAGE <A NAME="marker-426160"></A>CHANNEL OPEN</H3>
+<P CLASS="Paragraph"><A NAME="pgfId-412180"></A>Upon receiving a MANAGE CHANNEL OPEN command on an I/O interface, the Java Card RE shall run the following procedure:
+</P>
+<P CLASS="List1"><A NAME="pgfId-416538"></A>1.	The MANAGE CHANNEL OPEN command uses: CLA=<KBD CLASS="Filename-Command">%b000000cc*</KBD> (where <KBD CLASS="Filename-Command">cc</KBD> in the bits (b2,b1) denotes the origin logical channel: 0-3), or CLA=<KBD CLASS="Filename-Command">%0100dddd*</KBD> (where <KBD CLASS="Filename-Command">dddd</KBD> in the bits (b4-b1) denote the origin logical channel: 4-19), INS=<KBD CLASS="Filename-Command">0x70</KBD> and P1=<KBD CLASS="Filename-Command">0</KBD>. Two variants of this command are supported: 
+</P>
+<UL>
+<LI CLASS="Bullet1"><A NAME="pgfId-413007"></A>P2=<KBD CLASS="Filename-Command">0</KBD> when the Java Card RE shall assign a new logical channel number.
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1-"><A NAME="pgfId-413011"></A>P2= the logical channel number specified.
+</LI>
+<P CLASS="Linebreak">
+</P>
+<UL>
+<LI CLASS="Bullet2"><A NAME="pgfId-417353"></A>If the MANAGE CHANNEL OPEN command has non-zero secure messaging bits (b4,b3*) in the CLA byte when the origin logical channel is 0-3 or non-zero bit (b6*) when the origin logical channel is 4-19, the Java Card RE responds with status code <KBD CLASS="Filename-Command">0x6882</KBD> (<KBD CLASS="Filename-Command">SW_SECURE_MESSAGING_NOT_SUPPORTED</KBD>). 
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet2"><A NAME="pgfId-417365"></A>If the MANAGE CHANNEL command is issued with P1 not equal to <KBD CLASS="Filename-Command">0</KBD> or <KBD CLASS="Filename-Command">0x80</KBD>, or if the unsigned value of P2 is greater than <KBD CLASS="Filename-Command">19</KBD>, the Java Card RE responds with status code <KBD CLASS="Filename-Command">0x6A81</KBD> (<KBD CLASS="Filename-Command">SW_FUNC_NOT_SUPPORTED</KBD>).
+</LI>
+<P CLASS="Linebreak">
+</P>
+</UL>
+</UL>
+<P CLASS="List1-"><A NAME="pgfId-417354"></A>2. 	If the origin logical channel on that I/O interface is not open, the Java Card RE responds with status code <KBD CLASS="Filename-Command">0x6881</KBD> (<KBD CLASS="Filename-Command">SW_LOGICAL_CHANNEL_NOT_SUPPORTED</KBD>).
+</P>
+<P CLASS="List1-"><A NAME="pgfId-416562"></A>3. 	If the Java Card RE supports only the basic logical channel on that I/O interface, the Java Card RE responds with status code <KBD CLASS="Filename-Command">0x6881</KBD> (<KBD CLASS="Filename-Command">SW_LOGICAL_CHANNEL_NOT_SUPPORTED</KBD>).
+</P>
+<P CLASS="List1-"><A NAME="pgfId-414734"></A>4. 	If the P2=<KBD CLASS="Filename-Command">0</KBD> variant is used:
+</P>
+<UL>
+<LI CLASS="Bullet1"><A NAME="pgfId-414740"></A>If the expected length value (Le) is not equal to <KBD CLASS="Filename-Command">1</KBD>, the Java Card RE responds with status code <KBD CLASS="Filename-Command">0x6C01</KBD> (<KBD CLASS="Filename-Command">SW_CORRECT_LENGTH_00+0x01</KBD>).
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-416575"></A>If resources for the new logical channel are not available, the Java Card RE responds with status code <KBD CLASS="Filename-Command">0x6A81</KBD> (<KBD CLASS="Filename-Command">SW_FUNC_NOT_SUPPORTED</KBD>).
+</LI>
+<P CLASS="Linebreak">
+</P>
+</UL>
+<P CLASS="List1-"><A NAME="pgfId-416585"></A>5. 	If the P2 != <KBD CLASS="Filename-Command">0</KBD> variant is used:
+</P>
+<P CLASS="ParaIndent1"><A NAME="pgfId-417246"></A>If resources for the specified logical channel are not available or the logical channel is already open, the Java Card RE responds with status code <KBD CLASS="Filename-Command">0x6A86</KBD> (<KBD CLASS="Filename-Command">SW_INCORRECT_P1P2</KBD>). 
+</P>
+<P CLASS="List1-"><A NAME="pgfId-413119"></A>6. 	The new logical channel on the I/O interface that received the MANAGE CHANNEL OPEN command is now open. This logical channel will be the assigned channel for the applet instance that will be selected on it.
+</P>
+<P CLASS="List1-"><A NAME="pgfId-413364"></A>7. 	Determine the applet instance to be selected on the new logical channel.
+</P>
+<UL>
+<LI CLASS="Bullet1"><A NAME="pgfId-412188"></A>If the origin logical channel is the basic logical channel (logical channel 0), then:
+</LI>
+<P CLASS="Linebreak">
+</P>
+<UL>
+<LI CLASS="Bullet2"><A NAME="pgfId-412189"></A>If a default applet instance for the new logical channel on the I/O interface is defined, pick the default applet instance for that logical channel as the candidate for selection on the new logical channel.
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet2"><A NAME="pgfId-413169"></A>Otherwise, set the Java Card RE state so that no applet is active on the new logical channel. The Java Card RE responds with status code <KBD CLASS="Filename-Command">0x9000</KBD> and if the P2=<KBD CLASS="Filename-Command">0</KBD> variant is used, one data byte containing the newly assigned logical channel number.
+</LI>
+<P CLASS="Linebreak">
+</P>
+</UL>
+<LI CLASS="Bullet1"><A NAME="pgfId-413170"></A>If the origin logical channel is not the basic logical channel:
+</LI>
+<P CLASS="Linebreak">
+</P>
+<UL>
+<LI CLASS="Bullet2"><A NAME="pgfId-412192"></A>If an applet instance is active on the origin logical channel, pick the applet instance as the candidate for selection on the new logical channel.
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet2"><A NAME="pgfId-413153"></A>Otherwise, set the Java Card RE state so that no applet is active on the new logical channel. The Java Card RE responds with status code <KBD CLASS="Filename-Command">0x9000</KBD> and if the P2=<KBD CLASS="Filename-Command">0</KBD> variant is used, one data byte containing the newly assigned logical channel number.
+</LI>
+<P CLASS="Linebreak">
+</P>
+</UL>
+</UL>
+<P CLASS="List1-"><A NAME="pgfId-419142"></A>8. 	If the candidate applet instance is not a multiselectable applet (as defined in <A HREF="JCRESpec04selection.html#32535" CLASS="XRef">Section 4.2, Multiselectable Applets</A>) and the candidate applet's context is active, the Java Card RE shall close the new logical channel. The Java Card RE responds with status code <KBD CLASS="Filename-Command">0x6985</KBD> (<KBD CLASS="Filename-Command">SW_CONDITIONS_NOT_SATISFIED</KBD>).
+</P>
+<P CLASS="List1-"><A NAME="pgfId-413215"></A>9. 	Assign the <KBD CLASS="Filename-Command">CLEAR_ON_DESELECT</KBD> transient memory segment for the new logical channel:
+</P>
+<UL>
+<LI CLASS="Bullet1"><A NAME="pgfId-416627"></A>If the applet's context is active, assign the <KBD CLASS="Filename-Command">CLEAR_ON_DESELECT</KBD> transient memory segment associated with that context to this logical channel.
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-416640"></A>Otherwise, assign a new (zero-filled) <KBD CLASS="Filename-Command">CLEAR_ON_DESELECT</KBD> transient memory segment to this new logical channel.
+</LI>
+<P CLASS="Linebreak">
+</P>
+</UL>
+<P CLASS="List1-"><A NAME="pgfId-413228"></A>10. 	Check whether the candidate applet instance accepts selection:
+</P>
+<UL>
+<LI CLASS="Bullet1"><A NAME="pgfId-416650"></A>If the candidate applet's context is active, the Java Card RE shall set the candidate applet instance as the currently selected applet instance and call the <KBD CLASS="Filename-Command">MultiSelectable.select</KBD> method, where the parameter <KBD CLASS="Filename-Command">appInstAlreadyActive</KBD> is set to <KBD CLASS="Filename-Command">true</KBD> if the same applet instance is already active on another logical channel. A context switch into the candidate applet instance's context occurs at this point. For more details on contexts, see <A HREF="JCRESpec06firewall.html#43635" CLASS="XRef">Section 6.1.2, Contexts and Context Switching</A>.
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-416682"></A>Otherwise, if the candidate applet's context is not active, the Java Card RE shall set the candidate applet instance as the currently selected applet instance and call the <KBD CLASS="Filename-Command">Applet.select</KBD> method. A context switch into the candidate applet instance's context occurs at this point.
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-416701"></A>If the applet instance's <KBD CLASS="Filename-Command">select</KBD> method throws an exception or returns <KBD CLASS="Filename-Command">false</KBD>, then the Java Card RE closes the new logical channel. The Java Card RE responds with status code <KBD CLASS="Filename-Command">0x6999</KBD> (<KBD CLASS="Filename-Command">SW_APPLET_SELECT_FAILED</KBD>).
+</LI>
+<P CLASS="Linebreak">
+</P>
+</UL>
+<P CLASS="List1-"><A NAME="pgfId-416717"></A>11. 	The Java Card RE responds with status code <KBD CLASS="Filename-Command">0x9000</KBD> (and if the P2=<KBD CLASS="Filename-Command">0</KBD> variant is used, 1 data byte containing the newly assigned logical channel number.)
+</P>
+<BR>
+<HR NOSHADE SIZE=1>
+<TABLE CLASS="TipNote" DIR="LTR" WIDTH="100%" SUMMARY="TipNote">
+<COLGROUP SPAN="1" WIDTH="100%">
+<TR ALIGN="left" VALIGN="top">
+<TD ROWSPAN="1" COLSPAN="1" ABBR="TipNoteText">
+<P CLASS="TipNote"><B CLASS="TipNote">Note - </B><A NAME="pgfId-412401"></A>Unlike the SELECT FILE commands to select an applet instance, the MANAGE CHANNEL command is never forwarded to the applet instance.
+</P>
+</TD>
+</TR>
+</TABLE>
+<HR NOSHADE SIZE=1>
+<BR><H3 CLASS="Head2"><A NAME="pgfId-412407"></A>4.5.2	<A NAME="55974"></A>Applet Selection with <A NAME="marker-419777"></A>SELECT <A NAME="marker-419778"></A>FILE</H3>
+<P CLASS="Paragraph"><A NAME="pgfId-412418"></A>Upon receiving a SELECT FILE command on an I/O interface, the Java Card RE shall run the following procedure:
+</P>
+<P CLASS="List1"><A NAME="pgfId-416727"></A>1.	The Applet SELECT FILE command uses: CLA=<KBD CLASS="Filename-Command">%b000000cc*</KBD> (where <KBD CLASS="Filename-Command">cc</KBD> in the bits (b2,b1*) specifies the logical channel to be selected: 0-3), or CLA=<KBD CLASS="Filename-Command">%0100dddd*</KBD> (where <KBD CLASS="Filename-Command">dddd</KBD> in the bits (b4-b1) denote the origin logical channel: 4-19) and INS=<KBD CLASS="Filename-Command">0xA4</KBD>.
+</P>
+<P CLASS="ParaIndent1"><A NAME="pgfId-419029"></A>If the SELECT FILE command has non-zero secure messaging bits (b4,b3*) in the CLA byte when the origin logical channel is 0-3 or non-zero bit (b6*) when the origin logical channel is 4-19, it is deemed not to be an Applet SELECT FILE command. The Java Card RE simply forwards the command to the active applet on the specified logical channel.
+</P>
+<UL>
+<LI CLASS="Bullet1"><A NAME="pgfId-416734"></A>The Applet SELECT FILE command uses &quot;Selection by DF name&quot; with P1=<KBD CLASS="Filename-Command">0x04</KBD>.
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-416741"></A>The Java Card RE shall support both of the following:
+</LI>
+<P CLASS="Linebreak">
+</P>
+<UL>
+<LI CLASS="Bullet2"><A NAME="pgfId-419665"></A>Selection by &quot;exact DF name(AID)&quot; with P2=<KBD CLASS="Filename-Command">%b0000xx00</KBD> (b4,b3* are don't care) and
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet2"><A NAME="pgfId-419669"></A>The RFU variant described in ISO 7816-4 Specification with P2=<KBD CLASS="Filename-Command">%b0001xx00</KBD> (b4,b3* are don't care).
+</LI>
+<P CLASS="Linebreak">
+</P>
+</UL>
+<LI CLASS="Bullet1"><A NAME="pgfId-413318"></A>All other partial DF name SELECT FILE options (b2,b1* variants) are Java Card RE implementation dependent.
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-413319"></A>All file control information options codes (b4,b3*) of the P2 parameter shall be supported by the Java Card RE and interpreted and processed by the applet instance itself.
+</LI>
+<P CLASS="Linebreak">
+</P>
+</UL>
+<P CLASS="List1-"><A NAME="pgfId-416748"></A>2. 	If resources for the specified logical channel (in bits <KBD CLASS="Filename-Command">cc</KBD> of the CLA) are not available, the Java Card RE responds with status code <KBD CLASS="Filename-Command">0x6881</KBD> (<KBD CLASS="Filename-Command">SW_LOGICAL_CHANNEL_NOT_SUPPORTED</KBD>).
+</P>
+<P CLASS="List1-"><A NAME="pgfId-416775"></A>3. 	If the specified logical channel is not open on the I/O interface that received the SELECT FILE command, it is now opened and the Java Card RE state is set so that no applet is active on this new logical channel. The specified logical channel will be the assigned channel for the applet instance that will be active on it.
+</P>
+<P CLASS="List1-"><A NAME="pgfId-416782"></A>4. 	The Java Card RE searches the internal applet table which lists all successfully installed applet instances on the card for an applet instance with a matching AID. If a matching applet instance is found, it is picked as the candidate applet instance. Otherwise, if no AID match is found:
+</P>
+<UL>
+<LI CLASS="Bullet1"><A NAME="pgfId-416793"></A>If there is no active applet instance on the specified logical channel, the Java Card RE responds with status code <KBD CLASS="Filename-Command">0x6999</KBD> (<KBD CLASS="Filename-Command">SW_APPLET_SELECT_FAILED</KBD>).
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-416808"></A>Otherwise, the active applet instance on this logical channel is set as the currently selected applet instance and the SELECT FILE command is forwarded to that applet instance's <KBD CLASS="Filename-Command">process</KBD> method. A context switch into the applet instance's context occurs at this point, see <A HREF="JCRESpec06firewall.html#69025" CLASS="XRef">Section 6.1.1, Firewall Protection</A>. Applets may use the SELECT FILE command for their own internal processing. Upon return from the applet's <KBD CLASS="Filename-Command">process</KBD> method, the Java Card RE sends the applet instance's response as the response to the SELECT FILE command.
+</LI>
+<P CLASS="Linebreak">
+</P>
+</UL>
+<P CLASS="List1-"><A NAME="pgfId-416832"></A>5. 	If the candidate applet instance is not a multiselectable applet, and the candidate applet's context is active, the logical channel remains open and the Java Card RE records an error response status code of <KBD CLASS="Filename-Command">0x6985</KBD> (<KBD CLASS="Filename-Command">SW_CONDITIONS_NOT_SATISFIED</KBD>). Prior to sending the response code, if there is an active applet instance on the logical channel, then the Java Card RE may optionally deselect the applet instance, as described in <A HREF="JCRESpec04selection.html#11324" CLASS="XRef">Section 4.6, Applet Deselection</A>, and set the state so that no applet is active on the specified logical channel.
+</P>
+<P CLASS="List1-"><A NAME="pgfId-413421"></A>6. 	Assign the <KBD CLASS="Filename-Command">CLEAR_ON_DESELECT</KBD> transient memory segment for the new logical channel in the following cases:
+</P>
+<UL>
+<LI CLASS="Bullet1"><A NAME="pgfId-416864"></A>If any applet instance from the same package as that of the candidate applet instance is active on another logical channel, assign the same <KBD CLASS="Filename-Command">CLEAR_ON_DESELECT</KBD> transient memory segment to this logical channel.
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-413423"></A>Otherwise, assign a different (zero-filled) <KBD CLASS="Filename-Command">CLEAR_ON_DESELECT</KBD> transient memory segment to this new logical channel.
+</LI>
+<P CLASS="Linebreak">
+</P>
+</UL>
+<P CLASS="List1-"><A NAME="pgfId-413424"></A>7. 	Check whether the candidate applet instance accepts selection:
+</P>
+<UL>
+<LI CLASS="Bullet1"><A NAME="pgfId-416877"></A>If the candidate applet's context is active, the Java Card RE shall set the candidate applet instance as the currently selected applet instance and call the <KBD CLASS="Filename-Command">MultiSelectable.select(appInstAlreadyActive)</KBD> method, where the parameter <KBD CLASS="Filename-Command">appInstAlreadyActive</KBD> is set to <KBD CLASS="Filename-Command">true</KBD> if the same applet instance is already active on another logical channel. A context switch into the candidate applet instance's context occurs at this point, see <A HREF="JCRESpec06firewall.html#43635" CLASS="XRef">Section 6.1.2, Contexts and Context Switching</A>.
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-416909"></A>Otherwise, if the candidate applet's context is not active, the Java Card RE shall set the candidate applet instance as the currently selected applet instance and call the <KBD CLASS="Filename-Command">Applet.select</KBD> method. A context switch into the candidate applet instance's context occurs at this point.
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-416930"></A>If the applet instance's <KBD CLASS="Filename-Command">select</KBD> method throws an exception or returns <KBD CLASS="Filename-Command">false</KBD>, then the Java Card RE state is set so that no applet is active on the specified logical channel. The logical channel remains open, and the Java Card RE responds with status code <KBD CLASS="Filename-Command">0x6999</KBD> (<KBD CLASS="Filename-Command">SW_APPLET_SELECT_FAILED</KBD>).
+</LI>
+<P CLASS="Linebreak">
+</P>
+</UL>
+<P CLASS="List1-"><A NAME="pgfId-416951"></A>8. 	The Java Card RE shall set the candidate applet instance as the currently selected applet instance and call the <KBD CLASS="Filename-Command">Applet.process</KBD> method with the SELECT FILE APDU as the input parameter. A context switch occurs into the applet instance's context at this point. Upon return from the applet instance's <KBD CLASS="Filename-Command">process</KBD> method, the Java Card RE sends the applet instance's response as the response to the SELECT FILE command. 
+</P>
+<BR>
+<HR NOSHADE SIZE=1>
+<TABLE CLASS="TipNote" DIR="LTR" WIDTH="100%" SUMMARY="TipNote">
+<COLGROUP SPAN="1" WIDTH="100%">
+<TR ALIGN="left" VALIGN="top">
+<TD ROWSPAN="1" COLSPAN="1" ABBR="TipNoteText">
+<P CLASS="TipNote"><B CLASS="TipNote">Note - </B><A NAME="pgfId-413504"></A>If the SELECT FILE command does not conform to the exact format of an Applet SELECT FILE command described in item 1 above or if there is no matching AID, the SELECT FILE command is forwarded to the active applet instance (if any) on that logical channel for processing as a normal applet APDU command.
+<BR>
+<BR>If there is a matching AID and the SELECT FILE command fails, the Java Card RE always sets the state in which no applet is active on that logical channel.
+<BR>
+<BR>If the matching AID is the same as the active applet instance on the specified logical channel, the Java Card RE still goes through the process of deselecting the applet instance and then selecting it. Reselection could fail, leaving the card in a state in which no applet is active on that logical channel.
+</P>
+</TD>
+</TR>
+</TABLE>
+<HR NOSHADE SIZE=1>
+<BR><H2 CLASS="Head1"><A NAME="pgfId-413485"></A>
+<DIV>
+<HR ALIGN=left SIZE=6 WIDTH=15% noshade>
+</DIV>4.6	<A NAME="11324"></A>Applet <A NAME="marker-419780"></A>Deselection</H2>
+<P CLASS="Paragraph"><A NAME="pgfId-416971"></A>An applet instance is deselected either upon receipt of a <A NAME="marker-419781"></A>MANAGE CHANNEL CLOSE command, or as a result of a SELECT FILE command that selects a different (or the same) applet instance on the specified logical channel.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-416981"></A>In either case, when an applet instance is deselected the following procedure shall be followed by the Java Card RE:
+</P>
+<UL>
+<LI CLASS="Bullet1"><A NAME="pgfId-417017"></A>If the applet instance to be deselected is active on more than one logical channel, or another applet instance from the same package is also active, the Java Card RE sets the currently selected applet instance to be the applet instance being deselected, and calls its <KBD CLASS="Filename-Command">MultiSelectable.deselect(appInstStillActive)</KBD> method, where the <KBD CLASS="Filename-Command">appInstStillActive</KBD> parameter is set to <KBD CLASS="Filename-Command">true</KBD> if the same applet instance is still active on another logical channel. A context switch occurs into the applet instance's context at this point, see <A HREF="JCRESpec06firewall.html#43635" CLASS="XRef">Section 6.1.2, Contexts and Context Switching</A>.
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-417027"></A>Otherwise, the Java Card RE sets the currently selected applet instance to be the applet instance being deselected, and calls its <KBD CLASS="Filename-Command">Applet.deselect</KBD> method. Upon return or uncaught exception, the Java Card RE clears the fields of all <KBD CLASS="Filename-Command">CLEAR_ON_DESELECT</KBD> transient objects in the context of deselected applet instance.
+</LI>
+<P CLASS="Linebreak">
+</P>
+</UL>
+<BR>
+<HR NOSHADE SIZE=1>
+<TABLE CLASS="TipNote" DIR="LTR" WIDTH="100%" SUMMARY="TipNote">
+<COLGROUP SPAN="1" WIDTH="100%">
+<TR ALIGN="left" VALIGN="top">
+<TD ROWSPAN="1" COLSPAN="1" ABBR="TipNoteText">
+<P CLASS="TipNote"><B CLASS="TipNote">Note - </B><A NAME="pgfId-413583"></A>Note that the deselection is always successful even if the applet instance throws an exception from within the <KBD CLASS="Filename-Command">deselect</KBD> method.
+</P>
+</TD>
+</TR>
+</TABLE>
+<HR NOSHADE SIZE=1>
+<BR><H3 CLASS="Head2"><A NAME="pgfId-412357"></A>4.6.1	MANAGE CHANNEL <A NAME="marker-419782"></A>CLOSE Command</H3>
+<P CLASS="Paragraph"><A NAME="pgfId-413606"></A>Upon receiving a MANAGE CHANNEL CLOSE command on an I/O interface, the Java Card RE shall run the following procedure:
+</P>
+<P CLASS="List1"><A NAME="pgfId-419015"></A>1.	The MANAGE CHANNEL CLOSE command uses: CLA=<KBD CLASS="Filename-Command">%b000000cc*</KBD> (where <KBD CLASS="Filename-Command">cc</KBD> in the bits (b2,b1) denotes the origin logical channel: 0-3) or CLA=<KBD CLASS="Filename-Command">%0100dddd*</KBD> (where <KBD CLASS="Filename-Command">dddd</KBD> in the bits (b4-b1) denote the origin logical channel:<KBD CLASS="Filename-Command"> </KBD>4-19), INS=<KBD CLASS="Filename-Command">0x70</KBD>, P1=<KBD CLASS="Filename-Command">0x80</KBD> and P2 specifies the logical channel to be closed.
+</P>
+<UL>
+<LI CLASS="Bullet1"><A NAME="pgfId-419016"></A>If the MANAGE CHANNEL CLOSE command has non-zero secure messaging bits (b4,b3) in the CLA byte when the origin logical channel is 0-3 or non-zero bit (b6*) when the origin logical channel is 4-19, the Java Card RE responds with status code <KBD CLASS="Filename-Command">0x6882</KBD> (<KBD CLASS="Filename-Command">SW_SECURE_MESSAGING_NOT_SUPPORTED</KBD>).
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-419017"></A>If the MANAGE CHANNEL command is issued with P1 not equal <KBD CLASS="Filename-Command">0</KBD> or <KBD CLASS="Filename-Command">0x80</KBD>, the Java Card RE responds with status code <KBD CLASS="Filename-Command">0x6A81</KBD> (<KBD CLASS="Filename-Command">SW_FUNC_NOT_SUPPORTED</KBD>).
+</LI>
+<P CLASS="Linebreak">
+</P>
+</UL>
+<P CLASS="List1-"><A NAME="pgfId-413639"></A>2. 	If the origin logical channel on the I/O interface that received the MANAGE CHANNEL CLOSE command is not open, the Java Card RE responds with status code <KBD CLASS="Filename-Command">0x6881</KBD> (<KBD CLASS="Filename-Command">SW_LOGICAL_CHANNEL_NOT_SUPPORTED</KBD>).
+</P>
+<P CLASS="List1-"><A NAME="pgfId-413640"></A>3. 	If the Java Card RE supports only the basic logical channel on the I/O interface that received the MANAGE CHANNEL CLOSE command, the Java Card RE responds with status code <KBD CLASS="Filename-Command">0x6881</KBD> (<KBD CLASS="Filename-Command">SW_LOGICAL_CHANNEL_NOT_SUPPORTED</KBD>).
+</P>
+<P CLASS="List1-"><A NAME="pgfId-413655"></A>4. 	If the specified logical channel to close is the basic logical channel (logical channel <KBD CLASS="Filename-Command">0</KBD>) or the specified logical channel number is greater than 19, the Java Card RE responds with status code <KBD CLASS="Filename-Command">0x6A81</KBD> (<KBD CLASS="Filename-Command">SW_FUNC_NOT_SUPPORTED</KBD>).
+</P>
+<P CLASS="List1-"><A NAME="pgfId-412363"></A>5. 	If the specified logical channel to close is currently open on the I/O interface that received the MANAGE CHANNEL CLOSE command, deselect the active applet instance (if any) on the specified logical channel as described above in <A HREF="JCRESpec04selection.html#11324" CLASS="XRef">Section 4.6, Applet Deselection</A>. The specified logical channel is now closed. The Java Card RE responds with status code <KBD CLASS="Filename-Command">0x9000</KBD>.
+</P>
+<P CLASS="List1-"><A NAME="pgfId-413691"></A>6. 	Otherwise, if the specified logical channel is closed or not available on that I/O interface, the Java Card RE responds with warning status code <KBD CLASS="Filename-Command">0x6200</KBD> (<KBD CLASS="Filename-Command">SW_WARNING_STATE_UNCHANGED</KBD>).
+</P><H2 CLASS="Head1"><A NAME="pgfId-413686"></A>
+<DIV>
+<HR ALIGN=left SIZE=6 WIDTH=15% noshade>
+</DIV>4.7	Other <A NAME="marker-419783"></A>Command Processing</H2>
+<P CLASS="Paragraph"><A NAME="pgfId-417046"></A>When an APDU other than a SELECT FILE or MANAGE CHANNEL command is received, the logical channel to be used for dispatching the command is based on the CLA byte as described in <A HREF="JCRESpec04selection.html#13304" CLASS="XRef">Section 4.3, Forwarding APDU Commands To a Logical Channel</A>.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-425773"></A>When the Java Card RE receives an APDU other than a SELECT FILE or MANAGE CHANNEL command with either of the following:
+</P>
+<UL>
+<LI CLASS="Bullet1"><A NAME="pgfId-424285"></A>An unsupported logical channel number in the CLA byte
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1-"><A NAME="pgfId-424286"></A>An unopened logical channel number in the CLA byte
+</LI>
+<P CLASS="Linebreak">
+</P>
+</UL>
+<P CLASS="Paragraph"><A NAME="pgfId-424287"></A>It shall respond to the APDU with status code <KBD CLASS="Filename-Command">0x6881</KBD> (<KBD CLASS="Filename-Command">SW_LOGICAL_CHANNEL_NOT_SUPPORTED</KBD>).
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-417050"></A>If there is no active applet instance on the logical channel to be used for dispatching the command, the Java Card RE shall respond to the APDU with status code <KBD CLASS="Filename-Command">0x6999</KBD> (<KBD CLASS="Filename-Command">SW_APPLET_SELECT_FAILED</KBD>).
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-417053"></A>When an APDU other than a Applet SELECT FILE or a MANAGE CHANNEL command is received, and there is an active applet instance on the logical channel to be used for dispatching the command, the Java Card RE sets the active applet instance on the origin channel as the currently selected applet instance and invokes the <KBD CLASS="Filename-Command">process</KBD> method passing the APDU as a parameter. This causes a context switch from the Java Card RE context into the currently selected applet instance's context (For more information on contexts see <A HREF="JCRESpec06firewall.html#43635" CLASS="XRef">Section 6.1.2, Contexts and Context Switching</A>.) When the <KBD CLASS="Filename-Command">process</KBD> method exits, the VM switches back to the Java Card RE context. The Java Card RE sends the response APDU and waits for the next command APDU.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-417061"></A>Note that the Java Card RE dispatches the APDU command &quot;as is&quot; to the applet instance for processing via the <KBD CLASS="Filename-Command">process</KBD> method. Therefore, the CLA byte in the command header contains in its least significant bits the origin channel number. An applet designed to run on any logical channel needs to mask out these two bits before checking for specific values.
+</P>
+<div class="navbar" align="center">
+<br>
+<br>
+<table dir="LTR" summary="Navigation bar, includes the book title and navigation buttons" width=100% cellpadding="0" cellspacing="0" border="0"><colgroup span="3" width="100%"><col id="1" span="1" width="45%"><col id="2" span="1" width="25%"><col id="3" span="1" width="30%">
+<tr bgcolor="#cccccc">
+<td class="navbartitle" align=left rowspan="1" colspan="1" abbr="ChapTitle">&nbsp;&nbsp;Runtime Environment Specification for the Java Card Platform, Version 2.2.2
+</td>
+<td class="navbartitle" align=right rowspan="1" colspan="1" abbr="PartNum">3-8-06
+</td>
+<td valign="top" align="right" rowspan="1" colspan="1" abbr="NavButtons"><a href="index.html"><img src="shared/toc01.gif" title="Table Of Contents" alt="Table Of Contents" width="30" height="26" border="0"></a><a href="JCRESpec03appletlife.html"><img src="shared/prev01.gif" title="Previous Chapter" alt="Previous Chapter" width="30" height="26" border="0"></a><a href="JCRESpec05transient.html"><img src="shared/next01.gif" title="Next Chapter" alt="Next Chapter" width="30" height="26" border="0"></a><a href="ix.html"><img src="shared/index01.gif" title="Book Index" alt="Book Index" width="30" height="26" border="0"></a>
+</td>
+</tr>
+</table>
+<br>
+<br>
+</div>
+<P CLASS="copyrightlink"><a href="copyright.html">Copyright</a> &#169; 2005, Sun Microsystems, Inc.   All Rights Reserved.
+</P>
+</BODY>
+</HTML>

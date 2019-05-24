@@ -1,0 +1,700 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<HTML LANG="en">
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 7.0/HTML Export Filter">
+
+<LINK REL="STYLESHEET" HREF="unx_unstr_styles.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<META name="DC.TITLE" content="Runtime Environment Specification for the Java Card Platform, Version 2.2.2">
+<TITLE>C H A P T E R    12 - API Constants 
+</TITLE>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV>
+<div class="navbar" align="center">
+<table dir="LTR" summary="Navigation bar, includes the book title and navigation buttons" width=100% cellpadding="0" cellspacing="0" border="0"><colgroup span="2" width="100%"><col id="1" span="1" width="50%"><col id="2" span="1" width="50%">
+<tr bgcolor="#cccccc">
+<td class="navbartitle" align=left rowspan="1" colspan="1" abbr="ChapTitle">&nbsp;&nbsp;Runtime Environment Specification for the Java Card Platform, Version 2.2.2
+</td>
+<td valign="top" align="right" rowspan="1" colspan="1" abbr="NavButtons"><a href="index.html"><img src="shared/toc01.gif" title="Table Of Contents" alt="Table Of Contents" width="30" height="26" border="0"></a><a href="JCRESpec11installer.html"><img src="shared/prev01.gif" title="Previous Chapter" alt="Previous Chapter" width="30" height="26" border="0"></a><a href="Glossary.html"><img src="shared/next01.gif" title="Next Chapter" alt="Next Chapter" width="30" height="26" border="0"></a><a href="ix.html"><img src="shared/index01.gif" title="Book Index" alt="Book Index" width="30" height="26" border="0"></a>
+</td>
+</tr>
+</table>
+<br>
+<br>
+</div>
+</DIV>
+<TABLE DIR="LTR" SUMMARY="Chapter Number" ABBR="ChapNum" WIDTH="100%" BORDER="0">
+<COLGROUP SPAN="1" WIDTH="100%"><COL ID="1" SPAN="1">
+<TR>
+<TD ALIGN="right" CLASS="ChapNumber"><SPAN CLASS="ChapNumPrefix"><A NAME="pgfId-409778"></A>C H A P T E R    </SPAN>&nbsp;<SPAN CLASS="ChapNumNum">12</SPAN><A NAME="15447"></A>
+</TD>
+</TR>
+</TABLE>
+<TABLE DIR="LTR" SUMMARY="Chapter Title" ABBR="ChapTitle" WIDTH="100%" BORDER="0">
+<COLGROUP SPAN="1" WIDTH="100%"><COL ID="1" SPAN="1" WIDTH="100%">
+<TR>
+<TD ALIGN="right" CLASS="ChapTitle">
+<HR SIZE=7 NOSHADE><A NAME="pgfId-409779"></A><A NAME="58704"></A>API<A NAME="marker-413537"></A> Constants
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Paragraph"><A NAME="pgfId-417691"></A>Some of the API classes do not have values specified for their constants in <EM CLASS="Emphasis">Application Programming Interface, Java Card Platform, Version 2.2.2</EM>. If constant values are not specified consistently by implementers of this <EM CLASS="Emphasis">Runtime Environment Specification, Java Card Platform, Version 2.2.2</EM>, industry-wide interoperability is impossible. This chapter provides the required values for constants that are not specified in the <EM CLASS="Emphasis">Application Programming Interface, Java Card Platform, Version 2.2.2</EM>.
+</P><H2 CLASS="Head1"><A NAME="pgfId-409790"></A>
+<DIV>
+<HR ALIGN=left SIZE=6 WIDTH=15% noshade>
+</DIV>12.1	Class <A NAME="marker-413538"></A><KBD CLASS="Filename-Command">javacard.framework.APDU</KBD></H2>
+<PRE CLASS="Codeline"><A NAME="pgfId-412941"></A>public static final byte PROTOCOL_TYPE_MASK = (byte)0x0F;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412935"></A>public static final byte PROTOCOL_T0 = 0;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412937"></A>public static final byte PROTOCOL_T1 = 1;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412953"></A>public static final byte PROTOCOL_MEDIA_MASK = (byte)0xF0;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412954"></A>public static final byte PROTOCOL_MEDIA_DEFAULT = (byte)0x00;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412955"></A>public static final byte PROTOCOL_MEDIA_CONTACTLESS_TYPE_A = (byte)0x80;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412541"></A>public static final byte PROTOCOL_MEDIA_CONTACTLESS_TYPE_B = (byte)0x90;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-413092"></A>public static final byte PROTOCOL_MEDIA_USB = (byte)0xA0;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412542"></A>public static final byte STATE_INITIAL = 0;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412543"></A>public static final byte STATE_PARTIAL_INCOMING = 1;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412544"></A>public static final byte STATE_FULL_INCOMING = 2;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412545"></A>public static final byte STATE_OUTGOING = 3;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412546"></A>public static final byte STATE_OUTGOING_LENGTH_KNOWN = 4;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412547"></A>public static final byte STATE_PARTIAL_OUTGOING = 5;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412548"></A>public static final byte STATE_FULL_OUTGOING = 6;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412549"></A>public static final byte STATE_ERROR_NO_T0_GETRESPONSE = (byte)-1;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412550"></A>public static final byte STATE_ERROR_T1_IFD_ABORT = (byte)-2;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412551"></A>public static final byte STATE_ERROR_IO = (byte) -3;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412552"></A>public static final byte STATE_ERROR_NO_T0_REISSUE = (byte) -4;
+</PRE><H2 CLASS="Head1"><A NAME="pgfId-409793"></A>
+<DIV>
+<HR ALIGN=left SIZE=6 WIDTH=15% noshade>
+</DIV>12.2	Class <KBD CLASS="Filename-Command">javacard.framework.APDUException</KBD><A NAME="marker-413539"></A></H2>
+<PRE CLASS="Codeline"><A NAME="pgfId-409794"></A>public static final short ILLEGAL_USE = 1;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412558"></A>public static final short BUFFER_BOUNDS = 2;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412559"></A>public static final short BAD_LENGTH = 3;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412560"></A>public static final short IO_ERROR = 4;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412563"></A>public static final short NO_T0_GETRESPONSE = 0xAA;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412564"></A>public static final short T1_IFD_ABORT = 0xAB;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412565"></A>public static final short NO_T0_REISSUE = 0xAC;
+</PRE><H2 CLASS="Head1"><A NAME="pgfId-412349"></A>
+<DIV>
+<HR ALIGN=left SIZE=6 WIDTH=15% noshade>
+</DIV>12.3	Interface <KBD CLASS="Filename-Command">javacard.framework.ISO7816</KBD><A NAME="marker-413540"></A></H2>
+<PRE CLASS="Codeline"><A NAME="pgfId-412353"></A>public final static short SW_NO_ERROR = (short)0x9000;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412356"></A>public final static short SW_BYTES_REMAINING_00 = 0x6100;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412362"></A>public final static short SW_WARNING_STATE_UNCHANGED = 0x6200;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412363"></A>public final static short SW_WRONG_LENGTH = 0x6700;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412364"></A>public final static short SW_LOGICAL_CHANNEL_NOT_SUPPORTED = 0x6881;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412365"></A>public final static short SW_SECURE_MESSAGING_NOT_SUPPORTED = 0x6882;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-419348"></A>public final static short SW_LAST_COMMAND_EXPECTED = 0x6883;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-419349"></A>public final static short SW_COMMAND_CHAINING_NOT_SUPPORTED = 0x6884;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412366"></A>public final static short SW_SECURITY_STATUS_NOT_SATISFIED = 0x6982;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412367"></A>public final static short SW_FILE_INVALID = 0x6983;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412368"></A>public final static short SW_DATA_INVALID = 0x6984;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412369"></A>public final static short SW_CONDITIONS_NOT_SATISFIED = 0x6985;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412370"></A>public final static short SW_COMMAND_NOT_ALLOWED = 0x6986;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412371"></A>public final static short SW_APPLET_SELECT_FAILED = 0x6999;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412372"></A>public final static short SW_WRONG_DATA = 0x6A80;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412373"></A>public final static short SW_FUNC_NOT_SUPPORTED = 0x6A81;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412374"></A>public final static short SW_FILE_NOT_FOUND = 0x6A82;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412375"></A>public final static short SW_RECORD_NOT_FOUND = 0x6A83;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412376"></A>public final static short SW_INCORRECT_P1P2 = 0x6A86;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412377"></A>public final static short SW_WRONG_P1P2  = 0x6B00;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412378"></A>public final static short SW_CORRECT_LENGTH_00 = 0x6C00;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412379"></A>public final static short SW_INS_NOT_SUPPORTED = 0x6D00;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412380"></A>public final static short SW_CLA_NOT_SUPPORTED = 0x6E00;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412381"></A>public final static short SW_UNKNOWN = 0x6F00;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412382"></A>public static final short SW_FILE_FULL = 0x6A84;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412383"></A>public final static byte OFFSET_CLA = 0;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412384"></A>public final static byte OFFSET_INS = 1;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412385"></A>public final static byte OFFSET_P1 = 2;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412386"></A>public final static byte OFFSET_P2 = 3;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412387"></A>public final static byte OFFSET_LC = 4;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412388"></A>public final static byte OFFSET_CDATA = 5;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-419312"></A>public final static byte OFFSET_EXT_CDATA = 7;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412389"></A>public final static byte CLA_ISO7816 = 0x00;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412390"></A>public final static byte INS_SELECT = (byte) 0xA4;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412391"></A>public final static byte INS_EXTERNAL_AUTHENTICATE = (byte) 0x82;
+</PRE><H2 CLASS="Head1"><A NAME="pgfId-409830"></A>
+<DIV>
+<HR ALIGN=left SIZE=6 WIDTH=15% noshade>
+</DIV>12.4	Class <A NAME="marker-413541"></A><KBD CLASS="Filename-Command">javacard.framework.JCSystem</KBD></H2>
+<PRE CLASS="Codeline"><A NAME="pgfId-409831"></A>public static final byte NOT_A_TRANSIENT_OBJECT = 0;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412394"></A>public static final byte CLEAR_ON_RESET = 1;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412395"></A>public static final byte CLEAR_ON_DESELECT = 2;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412396"></A>public static final byte MEMORY_TYPE_PERSISTENT = 0;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412397"></A>public static final byte MEMORY_TYPE_TRANSIENT_RESET = 1;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412398"></A>public static final byte MEMORY_TYPE_TRANSIENT_DESELECT = 2;
+</PRE><H2 CLASS="Head1"><A NAME="pgfId-411001"></A>
+<DIV>
+<HR ALIGN=left SIZE=6 WIDTH=15% noshade>
+</DIV>12.5	Class <A NAME="marker-413542"></A><KBD CLASS="Filename-Command">javacard.framework.PINException</KBD></H2>
+<PRE CLASS="Codeline"><A NAME="pgfId-411002"></A>public static final short ILLEGAL_VALUE = 1;
+</PRE><H2 CLASS="Head1"><A NAME="pgfId-409836"></A>
+<DIV>
+<HR ALIGN=left SIZE=6 WIDTH=15% noshade>
+</DIV>12.6	Class <A NAME="marker-413543"></A><KBD CLASS="Filename-Command">javacard.framework.SystemException</KBD></H2>
+<PRE CLASS="Codeline"><A NAME="pgfId-409837"></A>public static final short ILLEGAL_VALUE = 1;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412401"></A>public static final short NO_TRANSIENT_SPACE = 2;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412402"></A>public static final short ILLEGAL_TRANSIENT = 3;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412403"></A>public static final short ILLEGAL_AID = 4;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412404"></A>public static final short NO_RESOURCE = 5;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412405"></A>public static final short ILLEGAL_USE = 6;
+</PRE><H2 CLASS="Head1"><A NAME="pgfId-409842"></A>
+<DIV>
+<HR ALIGN=left SIZE=6 WIDTH=15% noshade>
+</DIV>12.7	Class <A NAME="marker-413544"></A><KBD CLASS="Filename-Command">javacard.framework.TransactionException</KBD></H2>
+<PRE CLASS="Codeline"><A NAME="pgfId-409843"></A>public static final short IN_PROGRESS = 1;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412408"></A>public static final short NOT_IN_PROGRESS = 2;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412409"></A>public static final short BUFFER_FULL = 3;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412410"></A>public static final short INTERNAL_FAILURE = 4;
+</PRE><H2 CLASS="Head1"><A NAME="pgfId-413816"></A>
+<DIV>
+<HR ALIGN=left SIZE=6 WIDTH=15% noshade>
+</DIV>12.8	Class <A NAME="marker-413869"></A><KBD CLASS="Filename-Command">javacard.framework.service.Dispatcher</KBD></H2>
+<PRE CLASS="Codeline"><A NAME="pgfId-413820"></A>public static final byte PROCESS_NONE = (byte)0;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-413827"></A>public static final byte PROCESS_INPUT_DATA = (byte)1;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-413836"></A>public static final byte PROCESS_COMMAND= (byte)2;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-413841"></A>public static final byte PROCESS_OUTPUT_DATA = (byte)3;
+</PRE><H2 CLASS="Head1"><A NAME="pgfId-413703"></A>
+<DIV>
+<HR ALIGN=left SIZE=6 WIDTH=15% noshade>
+</DIV>12.9	Class <A NAME="marker-413702"></A><KBD CLASS="Filename-Command">javacard.framework.service.RMIService</KBD></H2>
+<PRE CLASS="Codeline"><A NAME="pgfId-413704"></A>public static final byte DEFAULT_RMI_INVOKE_INSTRUCTION = 0x38;
+</PRE><H2 CLASS="Head1"><A NAME="pgfId-413423"></A>
+<DIV>
+<HR ALIGN=left SIZE=6 WIDTH=15% noshade>
+</DIV>12.10	Class <KBD CLASS="Filename-Command">javacard.framework.service.ServiceException</KBD><A NAME="marker-413545"></A></H2>
+<PRE CLASS="Codeline"><A NAME="pgfId-413429"></A>public static final short ILLEGAL_PARAM = 1;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-413434"></A>public static final short DISPATCH_TABLE_FULL = 2;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-413440"></A>public static final short COMMAND_DATA_TOO_LONG = 3;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-413446"></A>public static final short CANNOT_ACCESS_IN_COMMAND = 4 ;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-413452"></A>public static final short CANNOT_ACCESS_OUT_COMMAND =  5;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-413458"></A>public static final short COMMAND_IS_FINISHED = 6;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-413424"></A>public static final short REMOTE_OBJECT_NOT_EXPORTED = 7;
+</PRE><H2 CLASS="Head1"><A NAME="pgfId-413425"></A>
+<DIV>
+<HR ALIGN=left SIZE=6 WIDTH=15% noshade>
+</DIV>12.11	Class <A NAME="marker-413546"></A><KBD CLASS="Filename-Command">javacard.security.Checksum</KBD></H2>
+<PRE CLASS="Codeline"><A NAME="pgfId-413234"></A>public static final byte ALG_ISO3309_CRC16 = 1;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-413222"></A>public static final byte ALG_ISO3309_CRC32 = 2;
+</PRE><H2 CLASS="Head1"><A NAME="pgfId-413218"></A>
+<DIV>
+<HR ALIGN=left SIZE=6 WIDTH=15% noshade>
+</DIV>12.12	Class <A NAME="marker-413547"></A><KBD CLASS="Filename-Command">javacard.security.CryptoException</KBD></H2>
+<PRE CLASS="Codeline"><A NAME="pgfId-409848"></A>public static final short ILLEGAL_VALUE = 1;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412413"></A>public static final short UNINITIALIZED_KEY = 2;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412414"></A>public static final short NO_SUCH_ALGORITHM = 3;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412415"></A>public static final short INVALID_INIT = 4;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412416"></A>public static final short ILLEGAL_USE = 5;
+</PRE><H2 CLASS="Head1"><A NAME="pgfId-413300"></A>
+<DIV>
+<HR ALIGN=left SIZE=6 WIDTH=15% noshade>
+</DIV>12.13	Class <A NAME="marker-413548"></A><KBD CLASS="Filename-Command">javacard.security.KeyAgreement</KBD></H2>
+<PRE CLASS="Codeline"><A NAME="pgfId-413306"></A>public static final byte ALG_EC_SVDP_DH = 1;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-413301"></A>public static final byte ALG_EC_SVDP_DHC = 2;
+</PRE><H2 CLASS="Head1"><A NAME="pgfId-413302"></A>
+<DIV>
+<HR ALIGN=left SIZE=6 WIDTH=15% noshade>
+</DIV>12.14	Class <KBD CLASS="Filename-Command">javacard.security.KeyBuilder</KBD><A NAME="marker-413549"></A></H2>
+<PRE CLASS="Codeline"><A NAME="pgfId-409854"></A>public static final byte TYPE_DES_TRANSIENT_RESET = 1;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412419"></A>public static final byte TYPE_DES_TRANSIENT_DESELECT = 2;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412420"></A>public static final byte TYPE_DES = 3;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412421"></A>public static final byte TYPE_RSA_PUBLIC = 4;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412422"></A>public static final byte TYPE_RSA_PRIVATE = 5;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412423"></A>public static final byte TYPE_RSA_CRT_PRIVATE = 6;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412424"></A>public static final byte TYPE_DSA_PUBLIC = 7;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412425"></A>public static final byte TYPE_DSA_PRIVATE = 8;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412426"></A>public static final byte TYPE_EC_F2M_PUBLIC = 9;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-411217"></A>public static final byte TYPE_EC_F2M_PRIVATE = 10;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412430"></A>public static final byte TYPE_EC_FP_PUBLIC = 11;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412431"></A>public static final byte TYPE_EC_FP_PRIVATE = 12;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412432"></A>public static final byte TYPE_AES_TRANSIENT_RESET = 13;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412433"></A>public static final byte TYPE_AES_TRANSIENT_DESELECT = 14;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412434"></A>public static final byte TYPE_AES = 15;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-419283"></A>public static final byte TYPE_KOREAN_SEED_TRANSIENT_RESET = 16;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-417949"></A>public static final byte TYPE_KOREAN_SEED_TRANSIENT_DESELECT = 17;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-417955"></A>public static final byte TYPE_KOREAN_SEED = 18;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-417963"></A>public static final byte TYPE_HMAC_TRANSIENT_RESET = 19;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-417971"></A>public static final byte TYPE_HMAC_TRANSIENT_DESELECT = 20;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-417938"></A>public static final byte TYPE_HMAC = 21;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412435"></A>public static final short LENGTH_DES = 64;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412436"></A>public static final short LENGTH_DES3_2KEY = 128;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412437"></A>public static final short LENGTH_DES3_3KEY = 192;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412438"></A>public static final short LENGTH_RSA_512 = 512;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-413928"></A>public static final short LENGTH_RSA_736 = 736;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412439"></A>public static final short LENGTH_RSA_768 = 768;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-413941"></A>public static final short LENGTH_RSA_896 = 896;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412440"></A>public static final short LENGTH_RSA_1024 = 1024;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-413103"></A>public static final short LENGTH_RSA_1280 = 1280;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-413108"></A>public static final short LENGTH_RSA_1536 = 1536;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-413113"></A>public static final short LENGTH_RSA_1984 = 1984;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412441"></A>public static final short LENGTH_RSA_2048 = 2048;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412442"></A>public static final short LENGTH_DSA_512 = 512;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412443"></A>public static final short LENGTH_DSA_768 = 768;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412444"></A>public static final short LENGTH_DSA_1024 = 1024;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412445"></A>public static final short LENGTH_EC_FP_112 = 112;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412446"></A>public static final short LENGTH_EC_F2M_113 = 113;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412587"></A>public static final short LENGTH_EC_FP_128 = 128;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412588"></A>public static final short LENGTH_EC_F2M_131 = 131;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412447"></A>public static final short LENGTH_EC_FP_160 = 160;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412448"></A>public static final short LENGTH_EC_F2M_163 = 163;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412595"></A>public static final short LENGTH_EC_FP_192 = 192;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412596"></A>public static final short LENGTH_EC_F2M_193 = 193;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412450"></A>public static final short LENGTH_AES_128= 128;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412451"></A>public static final short LENGTH_AES_192= 192;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412452"></A>public static final short LENGTH_AES_256= 256;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-418028"></A>public static final short LENGTH_KOREAN_SEED_128= 128; 
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-418025"></A>public static final short LENGTH_HMAC_SHA_1_BLOCK_64= 64;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-419292"></A>public static final short LENGTH_HMAC_SHA_256_BLOCK_64= 64;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-419302"></A>public static final short LENGTH_HMAC_SHA_384_BLOCK_64= 128;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-419297"></A>public static final short LENGTH_HMAC_SHA_512_BLOCK_64= 128;
+</PRE><H2 CLASS="Head1"><A NAME="pgfId-410211"></A>
+<DIV>
+<HR ALIGN=left SIZE=6 WIDTH=15% noshade>
+</DIV>12.15	Class <A NAME="marker-413550"></A><KBD CLASS="Filename-Command">javacard.security.KeyPair</KBD></H2>
+<PRE CLASS="Codeline"><A NAME="pgfId-410185"></A>public static final byte ALG_RSA = 1;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412455"></A>public static final byte ALG_RSA_CRT = 2;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412456"></A>public static final byte ALG_DSA = 3;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412457"></A>public static final byte ALG_EC_F2M = 4;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412458"></A>public static final byte ALG_EC_FP = 5;
+</PRE><H2 CLASS="Head1"><A NAME="pgfId-409872"></A>
+<DIV>
+<HR ALIGN=left SIZE=6 WIDTH=15% noshade>
+</DIV>12.16	Class <A NAME="marker-413551"></A><KBD CLASS="Filename-Command">javacard.security.MessageDigest</KBD></H2>
+<PRE CLASS="Codeline"><A NAME="pgfId-409873"></A>public static final byte ALG_SHA = 1;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412461"></A>public static final byte ALG_MD5 = 2;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-418082"></A>public static final byte ALG_RIPEMD160 = 3;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-418083"></A>public static final byte ALG_SHA_256    = 4;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-418089"></A>public static final byte ALG_SHA_384    = 5;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-418059"></A>public static final byte ALG_SHA_512    = 6;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-418106"></A>public static final byte LENGTH_SHA = (byte) 20;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-418110"></A>public static final byte LENGTH_MD5 = (byte) 16;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-418114"></A>public static final byte LENGTH_RIPEMD160 = (byte) 20;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-418118"></A>public static final byte LENGTH_SHA_256 = (byte) 32;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-418122"></A>public static final byte LENGTH_SHA_384 = (byte) 48;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-418104"></A>public static final byte LENGTH_SHA_512 = (byte) 64;
+</PRE><H2 CLASS="Head1"><A NAME="pgfId-409876"></A>
+<DIV>
+<HR ALIGN=left SIZE=6 WIDTH=15% noshade>
+</DIV>12.17	Class <A NAME="marker-413552"></A><KBD CLASS="Filename-Command">javacard.security.RandomData</KBD></H2>
+<PRE CLASS="Codeline"><A NAME="pgfId-409877"></A>public static final byte ALG_PSEUDO_RANDOM = 1;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412465"></A>public static final byte ALG_SECURE_RANDOM = 2;
+</PRE><H2 CLASS="Head1"><A NAME="pgfId-409879"></A>
+<DIV>
+<HR ALIGN=left SIZE=6 WIDTH=15% noshade>
+</DIV>12.18	Class <A NAME="marker-413553"></A><KBD CLASS="Filename-Command">javacard.security.Signature</KBD></H2>
+<PRE CLASS="Codeline"><A NAME="pgfId-409880"></A>public static final byte ALG_DES_MAC4_NOPAD = 1;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412468"></A>public static final byte ALG_DES_MAC8_NOPAD = 2;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412469"></A>public static final byte ALG_DES_MAC4_ISO9797_M1 = 3;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412470"></A>public static final byte ALG_DES_MAC8_ISO9797_M1 = 4;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412471"></A>public static final byte ALG_DES_MAC4_ISO9797_M2 = 5;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412472"></A>public static final byte ALG_DES_MAC8_ISO9797_M2 = 6;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412473"></A>public static final byte ALG_DES_MAC4_PKCS5 = 7;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412474"></A>public static final byte ALG_DES_MAC8_PKCS5 = 8;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412475"></A>public static final byte ALG_RSA_SHA_ISO9796 = 9; 
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412476"></A>public static final byte ALG_RSA_SHA_PKCS1 = 10;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412477"></A>public static final byte ALG_RSA_MD5_PKCS1 = 11;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412478"></A>public static final byte ALG_RSA_RIPEMD160_ISO9796 = 12; 
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412479"></A>public static final byte ALG_RSA_RIPEMD160_PKCS1 = 13;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412480"></A>public static final byte ALG_DSA_SHA = 14;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412481"></A>public static final byte ALG_RSA_SHA_RFC2409 = 15;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412482"></A>public static final byte ALG_RSA_MD5_RFC2409 = 16;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412483"></A>public static final byte ALG_ECDSA_SHA = 17;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412484"></A>public static final byte ALG_AES_MAC_128_NOPAD = 18;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-413213"></A>public static final byte ALG_DES_MAC4_ISO9797_1_M2_ALG3 = 19;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-413208"></A>public static final byte ALG_DES_MAC8_ISO9797_1_M2_ALG3 = 20;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-413188"></A>public static final byte ALG_RSA_SHA_PKCS1_PSS = 21;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-413194"></A>public static final byte ALG_RSA_MD5_PKCS1_PSS = 22;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-413199"></A>public static final byte ALG_RSA_RIPEMD160_PKCS1_PSS = 23;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-418167"></A>public static final byte ALG_HMAC_SHA1 = 24;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-418174"></A>public static final byte ALG_HMAC_SHA_256 = 25;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-418181"></A>public static final byte ALG_HMAC_SHA_384 = 26;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-418188"></A>public static final byte ALG_HMAC_SHA_512 = 27;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-418195"></A>public static final byte ALG_HMAC_MD5 = 28;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-418202"></A>public static final byte ALG_HMAC_RIPEMD160 = 29;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-418288"></A>public static final byte ALG_RSA_SHA_ISO9796_MR = 30;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-418302"></A>public static final byte ALG_RSA_RIPEMD160_ISO9796_MR = 31;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-419820"></A>public static final byte ALG_SEED_MAC_NOPAD = 32;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412485"></A>public static final byte MODE_SIGN = 1;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-419618"></A>public static final byte MODE_VERIFY = 2;
+</PRE><H2 CLASS="Head1"><A NAME="pgfId-419645"></A>
+<DIV>
+<HR ALIGN=left SIZE=6 WIDTH=15% noshade>
+</DIV>12.19	Class <A NAME="marker-419644"></A><KBD CLASS="Filename-Command">javacardx.biometry.BioBuilder</KBD></H2>
+<PRE CLASS="Codeline"><A NAME="pgfId-419646"></A>public static final byte FACIAL_FEATURE=(byte)1;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-419651"></A>public static final byte VOICE_PRINT = (byte)2;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-419825"></A>public static final byte FINGERPRINT = (byte)3;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-419525"></A>public static final byte IRIS_SCAN= (byte)4;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-419529"></A>public static final byte RETINA_SCAN = (byte)5;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-419533"></A>public static final byte HAND_GEOMETRY =(byte)6;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-419537"></A>public static final byte SIGNATURE = (byte)7;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-419541"></A>public static final byte KEYSTROKES = (byte)8;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-419545"></A>public static final byte LIP_MOVEMENT = (byte)9;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-419549"></A>public static final byte THERMAL_FACE = (byte)10;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-419553"></A>public static final byte THERMAL_HAND = (byte)11;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-419557"></A>public static final byte GAIT_STYLE = (byte)12;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-419561"></A>public static final byte BODY_ODOR = (byte)13;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-419565"></A>public static final byte DNA_SCAN = (byte)14;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-419566"></A>public static final byte EAR_GEOMETRY = (byte)15;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-419573"></A>public static final byte FINGER_GEOMETRY = (byte)16;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-419577"></A>public static final byte PALM_GEOMETRY = (byte)17;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-419582"></A>public static final byte VEIN_PATTERN = (byte)18;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-419590"></A>public static final byte PASSWORD = (byte)31;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-419502"></A>public static final byte DEFAULT_INITPARAM = (byte)0;
+</PRE><H2 CLASS="Head1"><A NAME="pgfId-419504"></A>
+<DIV>
+<HR ALIGN=left SIZE=6 WIDTH=15% noshade>
+</DIV>12.20	Class <A NAME="marker-419503"></A><KBD CLASS="Filename-Command">javacardx.biometry.BioException</KBD></H2>
+<PRE CLASS="Codeline"><A NAME="pgfId-419414"></A>public static final short ILLEGAL_VALUE = (short)1;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-419419"></A>public static final short INVALID_DATA = (short)2;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-419424"></A>public static final short NO_SUCH_BIO_TEMPLATE = (short)3;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-419429"></A>public static final short NO_TEMPLATES_ENROLLED = (short)4;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-419404"></A>public static final short ILLEGAL_USE = (short)5;
+</PRE><H2 CLASS="Head1"><A NAME="pgfId-419406"></A>
+<DIV>
+<HR ALIGN=left SIZE=6 WIDTH=15% noshade>
+</DIV>12.21	Class <A NAME="marker-419780"></A><KBD CLASS="Filename-Command">javacardx.biometry.BioTemplate</KBD></H2>
+<PRE CLASS="Codeline"><A NAME="pgfId-419789"></A>public static final short MINIMUM_SUCCESSFUL_MATCH_SCORE =(short)16384;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-419784"></A>public static final short MATCH_NEEDS_MORE_DATA =(short)-1;
+</PRE><H2 CLASS="Head1"><A NAME="pgfId-419778"></A>
+<DIV>
+<HR ALIGN=left SIZE=6 WIDTH=15% noshade>
+</DIV>12.22	Class <KBD CLASS="Filename-Command">javacardx.crypto.Cipher</KBD><A NAME="marker-419405"></A></H2>
+<PRE CLASS="Codeline"><A NAME="pgfId-410025"></A>public static final byte ALG_DES_CBC_NOPAD = 1;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412489"></A>public static final byte ALG_DES_CBC_ISO9797_M1 = 2;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412490"></A>public static final byte ALG_DES_CBC_ISO9797_M2 = 3;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412491"></A>public static final byte ALG_DES_CBC_PKCS5 = 4;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412492"></A>public static final byte ALG_DES_ECB_NOPAD = 5;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412493"></A>public static final byte ALG_DES_ECB_ISO9797_M1 = 6;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412494"></A>public static final byte ALG_DES_ECB_ISO9797_M2 = 7;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412495"></A>public static final byte ALG_DES_ECB_PKCS5 = 8;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412496"></A>public static final byte ALG_RSA_ISO14888 = 9;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412497"></A>public static final byte ALG_RSA_PKCS1 = 10;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412498"></A>public static final byte ALG_RSA_ISO9796 = 11;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412499"></A>public static final byte ALG_RSA_NOPAD = 12;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412500"></A>public static final byte ALG_AES_BLOCK_128_CBC_NOPAD = 13;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412501"></A>public static final byte ALG_AES_BLOCK_128_ECB_NOPAD = 14;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-413251"></A>public static final byte ALG_RSA_PKCS1_OAEP = 15;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-418325"></A>public static final byte ALG_KOREAN_SEED_ECB_NOPAD = 16;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-419307"></A>public static final byte ALG_KOREAN_SEED_CBC_NOPAD = 17;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412502"></A>public static final byte MODE_DECRYPT = 1;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-412503"></A>public static final byte MODE_ENCRYPT = 2;
+</PRE><H2 CLASS="Head1"><A NAME="pgfId-419845"></A>
+<DIV>
+<HR ALIGN=left SIZE=6 WIDTH=15% noshade>
+</DIV>12.23	Class <KBD CLASS="Filename-Command">javacardx.external.ExternalExeption</KBD></H2>
+<PRE CLASS="Codeline"><A NAME="pgfId-419846"></A>public static final short NO_SUCH_SUBSYSTEM = 1;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-419854"></A>public static final short INVALID_PARAM = 2;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-419863"></A>public static final short INTERNAL_ERROR = 3;
+</PRE><H2 CLASS="Head1"><A NAME="pgfId-419843"></A>
+<DIV>
+<HR ALIGN=left SIZE=6 WIDTH=15% noshade>
+</DIV>12.24	Class <KBD CLASS="Filename-Command">javacardx.external.Memory</KBD></H2>
+<PRE CLASS="Codeline"><A NAME="pgfId-418372"></A>public static final short MEMORY_TYPE_MIFARE = (short) 1;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-418351"></A>public static final short MEMORY_TYPE_EXTENDED_STORE = (short) 2;
+</PRE><H2 CLASS="Head1"><A NAME="pgfId-418444"></A>
+<DIV>
+<HR ALIGN=left SIZE=6 WIDTH=15% noshade>
+</DIV>12.25	Class <KBD CLASS="Filename-Command">javacardx.framework.math.BigNumber</KBD></H2>
+<PRE CLASS="Codeline"><A NAME="pgfId-418461"></A>public static final byte FORMAT_BCD = (byte)1;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-418442"></A>public static final byte FORMAT_HEX = (byte)2;
+</PRE><H2 CLASS="Head1"><A NAME="pgfId-418542"></A>
+<DIV>
+<HR ALIGN=left SIZE=6 WIDTH=15% noshade>
+</DIV>12.26	Class <KBD CLASS="Filename-Command">javacardx.framework.tlv.BERTag</KBD></H2>
+<PRE CLASS="Codeline"><A NAME="pgfId-418547"></A>public static final byte BER_TAG_CLASS_UNIVERSAL = (byte)0;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-418510"></A>public static final byte BER_TAG_CLASS_APPLICATION = (byte)1;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-418515"></A>public static final byte BER_TAG_CLASS_CONTEXT_SPECIFIC = (byte)2;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-418520"></A>public static final byte BER_TAG_CLASS_PRIVATE = (byte)3;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-418525"></A>public static final boolean BER_TAG_TYPE_CONSTRUCTED = true;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-418488"></A>public static final boolean BER_TAG_TYPE_PRIMITIVE = false;
+</PRE><H2 CLASS="Head1"><A NAME="pgfId-418591"></A>
+<DIV>
+<HR ALIGN=left SIZE=6 WIDTH=15% noshade>
+</DIV>12.27	Class <KBD CLASS="Filename-Command">javacardx.framework.tlv.TLVException</KBD> </H2>
+<PRE CLASS="Codeline"><A NAME="pgfId-418601"></A>public static final short INVALID_PARAM = 1;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-418608"></A>public static final short ILLEGAL_SIZE = 2;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-418613"></A>public static final short EMPTY_TAG = 3;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-418618"></A>public static final short EMPTY_TLV = 4;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-418624"></A>public static final short MALFORMED_TAG = 5;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-418630"></A>public static final short MALFORMED_TLV = 6;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-418636"></A>public static final short INSUFFICIENT_STORAGE = 7;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-418642"></A>public static final short TAG_SIZE_GREATER_THAN_127 = 8;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-418648"></A>public static final short TAG_NUMBER_GREATER_THAN_32767 = 9;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-418654"></A>public static final short TLV_SIZE_GREATER_THAN_32767 = 10;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-418589"></A>public static final short TLV_LENGTH_GREATER_THAN_32767 = 11;
+</PRE><H2 CLASS="Head1"><A NAME="pgfId-418734"></A>
+<DIV>
+<HR ALIGN=left SIZE=6 WIDTH=15% noshade>
+</DIV>12.28	Class <KBD CLASS="Filename-Command">javacardx.framework.util.UtilException</KBD> </H2>
+<PRE CLASS="Codeline"><A NAME="pgfId-418755"></A>public static final short ILLEGAL_VALUE = 1;
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-419834"></A>public static final short TYPE_MISMATCHED = 2;
+</PRE>
+<div class="navbar" align="center">
+<br>
+<br>
+<table dir="LTR" summary="Navigation bar, includes the book title and navigation buttons" width=100% cellpadding="0" cellspacing="0" border="0"><colgroup span="3" width="100%"><col id="1" span="1" width="45%"><col id="2" span="1" width="25%"><col id="3" span="1" width="30%">
+<tr bgcolor="#cccccc">
+<td class="navbartitle" align=left rowspan="1" colspan="1" abbr="ChapTitle">&nbsp;&nbsp;Runtime Environment Specification for the Java Card Platform, Version 2.2.2
+</td>
+<td class="navbartitle" align=right rowspan="1" colspan="1" abbr="PartNum">3-8-06
+</td>
+<td valign="top" align="right" rowspan="1" colspan="1" abbr="NavButtons"><a href="index.html"><img src="shared/toc01.gif" title="Table Of Contents" alt="Table Of Contents" width="30" height="26" border="0"></a><a href="JCRESpec11installer.html"><img src="shared/prev01.gif" title="Previous Chapter" alt="Previous Chapter" width="30" height="26" border="0"></a><a href="Glossary.html"><img src="shared/next01.gif" title="Next Chapter" alt="Next Chapter" width="30" height="26" border="0"></a><a href="ix.html"><img src="shared/index01.gif" title="Book Index" alt="Book Index" width="30" height="26" border="0"></a>
+</td>
+</tr>
+</table>
+<br>
+<br>
+</div>
+<P CLASS="copyrightlink"><a href="copyright.html">Copyright</a> &#169; 2005, Sun Microsystems, Inc.   All Rights Reserved.
+</P>
+</BODY>
+</HTML>

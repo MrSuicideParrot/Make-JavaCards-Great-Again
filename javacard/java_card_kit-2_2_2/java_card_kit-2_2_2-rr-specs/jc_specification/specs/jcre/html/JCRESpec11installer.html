@@ -1,0 +1,593 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<HTML LANG="en">
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 7.0/HTML Export Filter">
+
+<LINK REL="STYLESHEET" HREF="unx_unstr_styles.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<META name="DC.TITLE" content="Runtime Environment Specification for the Java Card Platform, Version 2.2.2">
+<TITLE>C H A P T E R    11 - Applet Installation and Deletion 
+</TITLE>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV>
+<div class="navbar" align="center">
+<table dir="LTR" summary="Navigation bar, includes the book title and navigation buttons" width=100% cellpadding="0" cellspacing="0" border="0"><colgroup span="2" width="100%"><col id="1" span="1" width="50%"><col id="2" span="1" width="50%">
+<tr bgcolor="#cccccc">
+<td class="navbartitle" align=left rowspan="1" colspan="1" abbr="ChapTitle">&nbsp;&nbsp;Runtime Environment Specification for the Java Card Platform, Version 2.2.2
+</td>
+<td valign="top" align="right" rowspan="1" colspan="1" abbr="NavButtons"><a href="index.html"><img src="shared/toc01.gif" title="Table Of Contents" alt="Table Of Contents" width="30" height="26" border="0"></a><a href="JCRESpec10vm.html"><img src="shared/prev01.gif" title="Previous Chapter" alt="Previous Chapter" width="30" height="26" border="0"></a><a href="JCRESpec12constants.html"><img src="shared/next01.gif" title="Next Chapter" alt="Next Chapter" width="30" height="26" border="0"></a><a href="ix.html"><img src="shared/index01.gif" title="Book Index" alt="Book Index" width="30" height="26" border="0"></a>
+</td>
+</tr>
+</table>
+<br>
+<br>
+</div>
+</DIV>
+<TABLE DIR="LTR" SUMMARY="Chapter Number" ABBR="ChapNum" WIDTH="100%" BORDER="0">
+<COLGROUP SPAN="1" WIDTH="100%"><COL ID="1" SPAN="1">
+<TR>
+<TD ALIGN="right" CLASS="ChapNumber"><SPAN CLASS="ChapNumPrefix"><A NAME="pgfId-409324"></A>C H A P T E R    </SPAN>&nbsp;<SPAN CLASS="ChapNumNum">11</SPAN><A NAME="17042"></A>
+</TD>
+</TR>
+</TABLE>
+<TABLE DIR="LTR" SUMMARY="Chapter Title" ABBR="ChapTitle" WIDTH="100%" BORDER="0">
+<COLGROUP SPAN="1" WIDTH="100%"><COL ID="1" SPAN="1" WIDTH="100%">
+<TR>
+<TD ALIGN="right" CLASS="ChapTitle">
+<HR SIZE=7 NOSHADE><A NAME="pgfId-409325"></A><A NAME="20884"></A><A NAME="marker-413213"></A>Applet Installation and Deletion
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Paragraph"><A NAME="pgfId-418418"></A>Applet installation and deletion on smart cards using Java Card technology is a complex topic. The design of the <EM CLASS="Emphasis">Application Programming Interface, Java Card Platform, Version 2.2.2</EM> is intended to give Java Card RE implementers as much freedom as possible in their implementations. However, some basic common specifications are required to allow Java Card applets to be installed and deleted without knowing the implementation details of a particular installer or deletion manager.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-407505"></A>This specification defines the concepts of an Installer and an Applet Deletion Manager and specifies minimal requirements to achieve interoperability across a wide range of possible Installer implementations. 
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-407507"></A>The Applet Installer is an optional part of the <EM CLASS="Emphasis">Runtime Environment Specification, Java Card Platform, Version 2.2.2</EM>. An implementation of the Java Card RE does not necessarily need to include a post-issuance Installer. However, if implemented, the installer is required to support the behavior specified in this chapter.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-410253"></A>If the implementation of the Java Card RE includes a post-issuance Installer, an Applet Deletion Manager that supports the behavior specified in this chapter is also required.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-417544"></A><A HREF="JCRESpec11installer.html#10326" CLASS="XRef">Section 11.1, The Installer</A> describes CAP file loading and linking. For more information on CAP files, see the <EM CLASS="Emphasis">Virtual Machine Specification, Java Card Platform, Version 2.2.2</EM>. <A HREF="JCRESpec11installer.html#42591" CLASS="XRef">Section 11.2, The Newly Installed Applet</A> describes applet installation. Even though the loading and linking operations are described together with the installation operations, there is no requirement that they be performed together during the same card session for the following reasons:
+</P>
+<UL>
+<LI CLASS="Bullet1"><A NAME="pgfId-417573"></A>Applet packages in ROM are preloaded and prelinked at card issuance, but instances of applets from these packages may be installed by the Installer during a card session.
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-417574"></A>Applet packages may be downloaded and linked by the Installer during one card session, but applet instances from these packages may be installed by the Installer during a different card session.
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-417585"></A>Library packages may be preloaded in ROM or downloaded and linked by the Installer during a card session. There are no applets to install within a library package.
+</LI>
+<P CLASS="Linebreak">
+</P>
+</UL><H2 CLASS="Head1"><A NAME="pgfId-407517"></A>
+<DIV>
+<HR ALIGN=left SIZE=6 WIDTH=15% noshade>
+</DIV>11.1	<A NAME="10326"></A>The <A NAME="marker-413214"></A>Installer</H2>
+<P CLASS="Paragraph"><A NAME="pgfId-407519"></A>The mechanisms necessary to install an applet on smart cards using Java Card technology are embodied in an on-card component called the Installer.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-407521"></A>To the CAD the Installer appears to be an applet. It has an AID, and it becomes the currently selected applet when this AID is successfully processed by a SELECT FILE command. Once selected on a logical channel, the Installer behaves in much the same way as any other applet, as follows:
+</P>
+<UL>
+<LI CLASS="Bullet1"><A NAME="pgfId-407523"></A>It receives all APDUs dispatched to this logical channel just like any other active applet.
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-407525"></A>Its design specification prescribes the various kinds and formats of APDUs that it expects to receive along with the semantics of those commands under various preconditions.
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-407527"></A>It processes and responds to all APDUs that it receives. Response to incorrect APDUs include an error condition of some kind.
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-407529"></A>When another applet is selected on this logical channel (or when the card is reset or when power is removed from the card), the Installer becomes deselected and remains suspended until the next time that it is selected.
+</LI>
+<P CLASS="Linebreak">
+</P>
+</UL><H3 CLASS="Head2"><A NAME="pgfId-407537"></A>11.1.1	Installer Implementation</H3>
+<P CLASS="Paragraph"><A NAME="pgfId-411061"></A>The Installer need not be implemented as an applet on the card. The requirement is only that the Installer functionality be SELECTable. The corollary to this requirement is that Installer component shall not be able to be invoked on a logical channel on which a non-Installer applet is an active applet instance nor when no applet is active.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-410416"></A>Obviously, a Java Card RE implementer could choose to implement the Installer as an applet. If so, then the Installer might be coded to extend the <KBD CLASS="Filename-Command">Applet</KBD> class and respond to invocations of the <KBD CLASS="Filename-Command">select</KBD>, <KBD CLASS="Filename-Command">process</KBD>, and <KBD CLASS="Filename-Command">deselect</KBD> methods; and, if necessary, the methods of the <KBD CLASS="Filename-Command">javacard.framework.MultiSelectable</KBD> interface.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-407541"></A>But a Java Card RE implementer could also implement the Installer in other ways, as long as it provides the SELECTable behavior to the outside world. In this case, the Java Card RE implementer has the freedom to provide some other mechanism by which APDUs are delivered to the Installer code module.
+</P><H3 CLASS="Head2"><A NAME="pgfId-407551"></A>11.1.2	Installer AID</H3>
+<P CLASS="Paragraph"><A NAME="pgfId-407553"></A>Because the Installer is SELECTable, it shall have an AID. Java Card RE implementers are free to choose their own AIDs by which their Installer is selected. Multiple installers may be implemented.
+</P><H3 CLASS="Head2"><A NAME="pgfId-407561"></A>11.1.3	Installer APDUs</H3>
+<P CLASS="Paragraph"><A NAME="pgfId-407563"></A>The Java Card specification does not specify any APDUs for the Installer. Java Card RE implementers are free to choose their own APDU commands to direct their Installer in its work. 
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-407565"></A>The model is that the Installer on the card is initiated by an installation program running on the CAD. For installation to succeed, this CAD installation program shall be able to do the following:
+</P>
+<UL>
+<LI CLASS="Bullet1"><A NAME="pgfId-407567"></A>Recognize the card.
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-407569"></A>SELECT FILE the Installer on the card.
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-407571"></A>Coordinate the installation process by sending the appropriate APDUs to the card Installer. These APDUs will include the following:
+</LI>
+<P CLASS="Linebreak">
+</P>
+<UL>
+<LI CLASS="Bullet2"><A NAME="pgfId-407573"></A>Authentication information, to ensure that the installation is authorized.
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet2"><A NAME="pgfId-407575"></A>The applet code to be loaded into the card's memory.
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet2"><A NAME="pgfId-407577"></A>Linkage information to link the applet code with code already on the card.
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet2"><A NAME="pgfId-407579"></A>Instance initialization parameter data to be sent to the applet's <KBD CLASS="Filename-Command">install</KBD> method.
+</LI>
+<P CLASS="Linebreak">
+</P>
+</UL>
+</UL>
+<P CLASS="Paragraph"><A NAME="pgfId-407583"></A>The <EM CLASS="Emphasis">Application Programming Interface, Java Card Platform, Version 2.2.2</EM> does not specify the details of the CAD installation program nor the APDUs passed between it and the Installer.
+</P><H3 CLASS="Head2"><A NAME="pgfId-411001"></A>11.1.4	CAP File Versions</H3>
+<P CLASS="Paragraph"><A NAME="pgfId-411002"></A>The Installer shall support the following CAP file versions:
+</P>
+<UL>
+<LI CLASS="Bullet1"><A NAME="pgfId-411003"></A>Version 2.1 as specified in the Java Card 2.1.1 Virtual Machine Specification.
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-410184"></A>Version 2.2 as specified in the <EM CLASS="Emphasis">Virtual Machine Specification, Java Card Platform, Version 2.2.2</EM>.
+</LI>
+<P CLASS="Linebreak">
+</P>
+</UL><H3 CLASS="Head2"><A NAME="pgfId-410185"></A>11.1.5	Installer Behavior</H3>
+<P CLASS="Paragraph"><A NAME="pgfId-407593"></A>Java Card RE implementers shall also define other behaviors of their Installer, including the following:
+</P>
+<UL>
+<LI CLASS="Bullet1"><A NAME="pgfId-407595"></A>Whether or not installation can be aborted and how this is done
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-407597"></A>What happens if an exception, reset, or power fail occurs during installation
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-407599"></A>What happens if another applet is selected before the Installer is finished with its work
+</LI>
+<P CLASS="Linebreak">
+</P>
+</UL>
+<P CLASS="Paragraph"><A NAME="pgfId-407601"></A>The Java Card RE shall guarantee that an applet will not be deemed successfully installed in the following cases:
+</P>
+<UL>
+<LI CLASS="Bullet1"><A NAME="pgfId-407603"></A>The applet package as identified by the package AID is already resident on the card.
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-413638"></A>The applet package contains an applet with the same Java Card platform name as that of another applet already resident on the card. The Java Card platform name of an applet identified by the AID item is described in Section 6.5 of the <EM CLASS="Emphasis">Virtual Machine Specification, Java Card Platform, Version 2.2.2</EM>.
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-413356"></A>The applet package requires more memory than is available on the card. 
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-407605"></A>The applet package references a package that is not resident on the card. 
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-409535"></A>The applet package references another package already resident on the card, but the version of the resident package is not binary compatible with the applet package. For more information on binary compatibility in the Java programming language, see <EM CLASS="Emphasis">Java</EM><EM CLASS="Emphasis"></EM><EM CLASS="Emphasis"> Language Specification</EM>. Binary compatibility in Java Card technology is discussed in the <EM CLASS="Emphasis">Virtual Machine Specification, Java Card Platform, Version 2.2.2</EM>. 
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-409539"></A>A class in the applet package is found to contain more package visible virtual methods or instance fields than the limitations enumerated in Section 2.2.4.3 of the <EM CLASS="Emphasis">Virtual Machine Specification, Java Card Platform, Version 2.2.2</EM>.
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-409992"></A>A reset or power fail occurs while executing the applet's <KBD CLASS="Filename-Command">install</KBD> method and before successful return from the <KBD CLASS="Filename-Command">Applet.register</KBD> method (see <A HREF="JCRESpec03appletlife.html#21819" CLASS="XRef">Section 3.1, install Method</A>).
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-410213"></A>The applet's <KBD CLASS="Filename-Command">install</KBD> method throws an exception before successful return from the <KBD CLASS="Filename-Command">Applet.register</KBD> method (see <A HREF="JCRESpec03appletlife.html#21819" CLASS="XRef">Section 3.1, install Method</A>).
+</LI>
+<P CLASS="Linebreak">
+</P>
+</UL>
+<P CLASS="Paragraph"><A NAME="pgfId-410218"></A>When applet installation is unsuccessful, the Java Card RE shall guarantee that objects created during the execution of the <KBD CLASS="Filename-Command">install</KBD> method, or by the Java Card RE on its behalf (initialized static arrays) can never be accessed by any applet on the card. In particular, any reference in <KBD CLASS="Filename-Command">CLEAR_ON_RESET</KBD> transient space to an object created during an unsuccessful applet installation must be reset as a <KBD CLASS="Filename-Command">null</KBD> reference.
+</P><H3 CLASS="Head2"><A NAME="pgfId-407619"></A>11.1.6	Installer Privileges</H3>
+<P CLASS="Paragraph"><A NAME="pgfId-418523"></A>Although an Installer may be implemented as an applet, an Installer typically requires access to features that are not available to other applets. For example, depending on the Java Card RE implementer's implementation, the Installer will need to do the following tasks:
+</P>
+<UL>
+<LI CLASS="Bullet1"><A NAME="pgfId-407623"></A>Read and write directly to memory, bypassing the object system and/or standard security.
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-407625"></A>Access objects owned by other applets or by the Java Card RE.
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-407627"></A>Invoke non-entry point methods of the Java Card RE.
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-407629"></A>Be able to invoke the install method of a newly installed applet.
+</LI>
+<P CLASS="Linebreak">
+</P>
+</UL>
+<P CLASS="Paragraph"><A NAME="pgfId-407631"></A>Again, it is up to each Java Card RE implementer to determine the Installer implementation and supply such features in their Java Card RE implementations as necessary to support their Installer. Java Card RE implementers are also responsible for the security of such features, so that they are not available to normal applets.
+</P><H2 CLASS="Head1"><A NAME="pgfId-407641"></A>
+<DIV>
+<HR ALIGN=left SIZE=6 WIDTH=15% noshade>
+</DIV>11.2	<A NAME="42591"></A>The Newly Installed Applet</H2>
+<P CLASS="Paragraph"><A NAME="pgfId-418540"></A>A single interface exists between the Installer and the applet that is being installed. After the Installer correctly prepares the applet for execution (performed steps such as loading and linking), the Installer shall invoke the applet's <KBD CLASS="Filename-Command">install</KBD> method. This method is defined in the <KBD CLASS="Filename-Command">Applet</KBD> class.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-418986"></A>The precise mechanism by which an applet's <KBD CLASS="Filename-Command">install(byte[], short, byte)</KBD> method is invoked from the Installer is a Java Card RE implementer-defined implementation detail. However, there shall be a context switch so that any context-related operations performed by the <KBD CLASS="Filename-Command">install</KBD> method (such as creating new objects) are done in the context of the new applet and not in the context of the Installer. The Installer shall also ensure that array objects created in the class initialization (&lt;clinit&gt;) methods of the applet package are also owned by the context of the new applet.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-418994"></A>The Installer shall not invoke the <KBD CLASS="Filename-Command">install(byte[], short, byte)</KBD> method of an applet if another applet from the same package is active on the card. The applet instantiation shall be deemed unsuccessful. 
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-410239"></A>The Installer shall ensure that during the execution of the <KBD CLASS="Filename-Command">install()</KBD> method, the new applet (not the Installer) is the currently selected applet. In addition, any <KBD CLASS="Filename-Command">CLEAR_ON_DESELECT</KBD> objects created during the <KBD CLASS="Filename-Command">install()</KBD> method shall be associated with the selection context of the new applet.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-407649"></A>The installation of an applet is deemed complete if all steps are completed without failure or an exception being thrown, up to and including successful return from executing the <KBD CLASS="Filename-Command">Applet.register</KBD> method. At that point, the installed applet is selectable.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-407651"></A>The maximum size of the parameter data is 127 bytes. The <KBD CLASS="Filename-Command">bArray</KBD> parameter is a global array <KBD CLASS="Filename-Command">(install(byte[] bArray, short bOffset, byte bLength)</KBD>), and for security reasons is zeroed after the return from the <KBD CLASS="Filename-Command">install</KBD> method, just as the APDU buffer is zeroed on return from an applet's process method. 
+</P><H3 CLASS="Head2"><A NAME="pgfId-407659"></A>11.2.1	<A NAME="marker-413215"></A>Installation Parameters</H3>
+<P CLASS="Paragraph"><A NAME="pgfId-407661"></A>The format of the input data passed to the target applet's <KBD CLASS="Filename-Command">install</KBD> method in the <KBD CLASS="Filename-Command">bArray</KBD> parameter is as follows:
+</P>
+<PRE CLASS="Codeline"><A NAME="pgfId-411345"></A>bArray[offset] = length(Li) of instance AID
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-411346"></A>bArray[offset+1..offset+Li] = instance AID bytes (5-16 bytes)
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-411305"></A>bArray[offset+Li+1]= length(Lc) of control info
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-411309"></A>bArray[offset+Li+2..offset+Li+Lc+1] = control info
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-411313"></A>bArray[offset+Li+Lc+2] = length(La) of applet data
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-411395"></A>bArray[offset+Li+Lc+3..offset+Li+Lc+La+2] = applet data
+</PRE>
+<P CLASS="Paragraph"><A NAME="pgfId-411444"></A>Any of the length items: <KBD CLASS="Filename-Command">Li</KBD>, <KBD CLASS="Filename-Command">Lc</KBD>, <KBD CLASS="Filename-Command">La</KBD> may be zero. If length <KBD CLASS="Filename-Command">Li</KBD> is non-zero, the <KBD CLASS="Filename-Command">instance AID bytes</KBD> item is the proposed AID of the applet instance.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-411445"></A>The <KBD CLASS="Filename-Command">control info</KBD> item of the parameter data is implementation dependent and is specified by the Installer. 
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-411419"></A>Other than the need for the entire parameter data to not be greater than 127 bytes, the Java Card API does not specify anything about the contents of the <KBD CLASS="Filename-Command">applet data</KBD> item of the global byte array installation parameter. This is fully defined by the applet designer and can be in any format desired. In addition, the <KBD CLASS="Filename-Command">applet data</KBD> portion is intended to be opaque to the Installer.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-420492"></A>Java Card RE implementers should design their Installers so that it is possible for an installation program running in a CAD to specify the <KBD CLASS="Filename-Command">applet data</KBD> delivered to the Installer. The Installer simply forwards this along with the other items in the format defined above to the target applet's <KBD CLASS="Filename-Command">install</KBD> method in the <KBD CLASS="Filename-Command">bArray</KBD> parameter. A typical implementation might define a Java Card RE implementer-proprietary APDU command that has the semantics &quot;call the applet's <KBD CLASS="Filename-Command">install</KBD> method passing the contents of the accompanying <KBD CLASS="Filename-Command">applet data</KBD>.&quot;
+</P><H2 CLASS="Head1"><A NAME="pgfId-410260"></A>
+<DIV>
+<HR ALIGN=left SIZE=6 WIDTH=15% noshade>
+</DIV>11.3	<A NAME="32414"></A>The Applet <A NAME="marker-413216"></A>Deletion Manager</H2>
+<P CLASS="Paragraph"><A NAME="pgfId-410261"></A>The mechanisms necessary to delete an applet on smart cards using Java Card technology are embodied in an on-card component called the Applet Deletion Manager. 
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-418558"></A>To the CAD, the Applet Deletion Manager appears to be an applet, and may be one and the same as the Applet Installer. It has an AID, and it becomes the currently selected applet instance when this AID is successfully processed by a SELECT FILE command. Once selected on a logical channel, the Applet Deletion Manager behaves in much the same way as any other applet, as follows:
+</P>
+<UL>
+<LI CLASS="Bullet1"><A NAME="pgfId-410263"></A>It receives all APDUs dispatched to this logical channel, just like any other active applet.
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-410264"></A>Its design specification prescribes the various kinds and formats of APDUs that it expects to receive, along with the semantics of those commands under various preconditions.
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-419302"></A>It processes and responds to all APDUs that it receives. Response to incorrect APDUs include an error condition of some kind.
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-410266"></A>When another applet is selected on this logical channel (or when the card is reset or when power is removed from the card), the Applet Deletion Manager becomes deselected and remains suspended until the next time it is selected.
+</LI>
+<P CLASS="Linebreak">
+</P>
+</UL><H3 CLASS="Head2"><A NAME="pgfId-410267"></A>11.3.1	Applet Deletion Manager Implementation</H3>
+<P CLASS="Paragraph"><A NAME="pgfId-411074"></A>The Applet Deletion Manager need not be implemented as an applet on the card. The requirement is only that the Applet Deletion Manager functionality be SELECTable. The corollary to this requirement is that Applet Deletion Manager component shall not be able to be invoked on a logical channel where a non-Applet Deletion Manager applet is an active applet instance, nor when no applet is active.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-419102"></A>A Java Card RE implementer could choose to implement the Applet Deletion Manager as an applet. If so, the Applet Deletion Manager might be coded to extend the <KBD CLASS="Filename-Command">Applet</KBD> class and to respond to invocations of the <KBD CLASS="Filename-Command">select</KBD>, <KBD CLASS="Filename-Command">process</KBD>, and <KBD CLASS="Filename-Command">deselect</KBD> methods, and, if necessary, the methods of the <KBD CLASS="Filename-Command">javacard.framework.MultiSelectable</KBD> interface.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-410270"></A>However, a Java Card RE implementer could also implement the Applet Deletion Manager in other ways, as long as it provides the SELECTable behavior to the outside world. In this case, the Java Card RE implementer has the freedom to provide some other mechanism by which APDUs are delivered to the Applet Deletion Manager code module.
+</P><H3 CLASS="Head2"><A NAME="pgfId-410271"></A>11.3.2	Applet Deletion Manager AID</H3>
+<P CLASS="Paragraph"><A NAME="pgfId-410272"></A>Because the Applet Deletion Manager is SELECTable, it shall have an AID which may be the same as that of the Applet Installer. Java Card RE implementers are free to choose their own AIDs by which their Applet Deletion Manager is selected. Multiple Applet Deletion Managers may be implemented.
+</P><H3 CLASS="Head2"><A NAME="pgfId-410273"></A>11.3.3	Applet Deletion Manager APDUs</H3>
+<P CLASS="Paragraph"><A NAME="pgfId-410274"></A>The Java Card API does not specify any APDUs for the Applet Deletion Manager. Java Card RE implementers are entirely free to choose their own APDU commands to direct their Applet Deletion Manager in its work. 
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-410275"></A>The model is that the Applet Deletion Manager on the card is initiated by an applet deletion program running on the CAD. In order for applet deletion to succeed, this CAD applet deletion program shall be able to do the following:
+</P>
+<UL>
+<LI CLASS="Bullet1"><A NAME="pgfId-410276"></A>Recognize the card.
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-410277"></A>SELECT FILE the Applet Deletion Manager on the card.
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-410278"></A>Coordinate the applet deletion process by sending the appropriate APDUs to the card Applet Deletion Manager. These APDUs include the following:
+</LI>
+<P CLASS="Linebreak">
+</P>
+<UL>
+<LI CLASS="Bullet2"><A NAME="pgfId-410279"></A>Authentication information, to ensure that the applet deletion is authorized.
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet2-"><A NAME="pgfId-410280"></A>Identify the applet(s) code or instance to be deleted from the card's memory.
+</LI>
+<P CLASS="Linebreak">
+</P>
+</UL>
+</UL>
+<P CLASS="Paragraph"><A NAME="pgfId-410286"></A>The <EM CLASS="Emphasis">Application Programming Interface, Java Card Platform, Version 2.2.2</EM> does not specify the details of the CAD applet deletion program nor the APDUs passed between it and the Applet Deletion Manager.
+</P><H3 CLASS="Head2"><A NAME="pgfId-410297"></A>11.3.4	Applet Deletion Manager Behavior</H3>
+<P CLASS="Paragraph"><A NAME="pgfId-410298"></A>Java Card RE implementers shall also define other behaviors of their Applet Deletion Manager, including the following:
+</P>
+<UL>
+<LI CLASS="Bullet1"><A NAME="pgfId-410299"></A>Whether or not applet deletion can be aborted and how this is done
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-410300"></A>What happens if an exception, reset, or power fail occurs during applet deletion
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-410301"></A>What happens if another applet is selected before the Applet Deletion Manager is finished with its work
+</LI>
+<P CLASS="Linebreak">
+</P>
+</UL>
+<P CLASS="Paragraph"><A NAME="pgfId-418593"></A>The following three categories of applet deletion are required on the card:
+</P>
+<UL>
+<LI CLASS="Bullet1"><A NAME="pgfId-413763"></A>Applet instance deletion involves the removal of the applet object instance and the objects owned by the applet instance and associated Java Card RE structures.
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-413766"></A>Applet/library package deletion involves the removal of all the card resident components of the CAP file, including code and any associated Java Card RE management structures.
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-413769"></A>Deletion of the applet package and the contained applet instances involves the removal of the card-resident code and Java Card RE structures associated with the applet package, and all the applet instances and objects in the context of the package and associated Java Card RE structures.
+</LI>
+<P CLASS="Linebreak">
+</P>
+</UL><H5 CLASS="Head4"><A NAME="pgfId-417372"></A>Invocation of the Method <KBD CLASS="Filename-Command">javacard.framework.AppletEvent.uninstall</KBD></H5>
+<P CLASS="Paragraph"><A NAME="pgfId-417385"></A>Whenever one or more applet instances is being deleted, the Applet Deletion Manager shall inform each of the applets of potential deletion by invoking, if implemented, the applet's <KBD CLASS="Filename-Command">uninstall</KBD> method. When multiple applet instances are being deleted, the order of invocation of the uninstall methods is unspecified. Prior to following the stepwise sequence described in <A HREF="JCRESpec11installer.html#53400" CLASS="XRef">Section 11.3.4.1, Applet Instance Deletion</A>, <A HREF="JCRESpec11installer.html#97190" CLASS="XRef">Section 11.3.4.2, Applet/Library Package Deletion</A>, or <A HREF="JCRESpec11installer.html#26964" CLASS="XRef">Section 11.3.4.3, Applet Package and Contained Instances Deletion</A>, the Java Card RE shall do the following:
+</P>
+<UL>
+<LI CLASS="Bullet1"><A NAME="pgfId-417386"></A>Perform any security and authorization checks required for the deletion of each of the applet instances to be deleted. If the checks fail, an error is returned and the applet deletion fails.
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-417404"></A>Otherwise, check if an applet instance belonging to the contexts of the applet instances being deleted, is active on the card. If so, an error is returned and the applet instance deletion fails. 
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-417407"></A>Otherwise, perform the following steps for each of the applet instances to be deleted: 
+</LI>
+<P CLASS="Linebreak">
+</P>
+</UL>
+<P CLASS="ParaIndent1"><A NAME="pgfId-417389"></A>If the applet instance being deleted implements the <KBD CLASS="Filename-Command">AppletEvent</KBD> interface, set the currently selected applet to that of the applet instance and invoke the <KBD CLASS="Filename-Command">uninstall</KBD> method of the applet instance.
+</P>
+<UL>
+<UL>
+<LI CLASS="Bullet2"><A NAME="pgfId-417416"></A>A context switch into the context of the applet instance occurs upon invocation.
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet2-"><A NAME="pgfId-417419"></A>If an uncaught exception is thrown during the execution of the <KBD CLASS="Filename-Command">uninstall</KBD> method, it is caught and ignored.
+</LI>
+<P CLASS="Linebreak">
+</P>
+</UL>
+</UL><H4 CLASS="Head3"><A NAME="pgfId-410518"></A>11.3.4.1	<A NAME="53400"></A>Applet Instance Deletion</H4>
+<P CLASS="Paragraph"><A NAME="pgfId-410564"></A>The Java Card RE shall guarantee that applet instance deletion is not attempted and thereby deemed unsuccessful in the following cases:
+</P>
+<UL>
+<LI CLASS="Bullet1"><A NAME="pgfId-410570"></A>An object owned by the applet instance is referenced from an object owned by another applet instance on the card.
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-410502"></A>An object owned by the applet instance is referenced from a static field on any package on the card.
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-410960"></A>An applet instance belonging to the context of the applet instance being deleted, is active on the card.
+</LI>
+<P CLASS="Linebreak">
+</P>
+</UL>
+<P CLASS="Paragraph"><A NAME="pgfId-413397"></A>Otherwise, the Java Card RE shall delete the applet instance.
+</P>
+<BR>
+<HR NOSHADE SIZE=1>
+<TABLE CLASS="TipNote" DIR="LTR" WIDTH="100%" SUMMARY="TipNote">
+<COLGROUP SPAN="1" WIDTH="100%">
+<TR ALIGN="left" VALIGN="top">
+<TD ROWSPAN="1" COLSPAN="1" ABBR="TipNoteText">
+<P CLASS="TipNote"><B CLASS="TipNote">Note - </B><A NAME="pgfId-413551"></A>The applet deletion attempt may fail due to security considerations or resource limitations.
+</P>
+</TD>
+</TR>
+</TABLE>
+<HR NOSHADE SIZE=1>
+<BR>
+<P CLASS="Paragraph"><A NAME="pgfId-412856"></A>The applet instance deletion operation must be atomic. If a reset or power fail occurs during the deletion process, it must result in either an unsuccessful applet instance deletion or a successfully completed applet instance deletion before any applet is selected on the card.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-410622"></A>Following an unsuccessful applet instance deletion, the applet instance shall be selectable, and all objects owned by the applet shall remain unchanged. The functionality of all applet instances on the card remains the same as prior to the unsuccessful attempt.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-410986"></A>Following a successful applet instance deletion, it shall not be possible to select that applet, and no object owned by the applet can be accessed by any applet currently on the card or by a new applet created in the future.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-410710"></A>The resources used by the applet instance may be recovered for reuse.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-410651"></A>The AID of the deleted applet instance may be reassigned to a new applet instance.
+</P><H5 CLASS="Head4"><A NAME="pgfId-410741"></A>Multiple Applet Instance Deletion</H5>
+<P CLASS="Paragraph"><A NAME="pgfId-418668"></A>The Java Card RE shall guarantee that multiple applet instance deletion is not attempted, and thereby deemed unsuccessful in the following cases:
+</P>
+<UL>
+<LI CLASS="Bullet1"><A NAME="pgfId-419942"></A>An object owned by any of the applet instances being deleted is referenced from an object owned by an applet instance on the card which is not being deleted.
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-419943"></A>An object owned by any of the applet instances being deleted is referenced from a static field on a package on the card.
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-410961"></A>An applet instance belonging to the contexts of any of the applet instances being deleted is active on the card.
+</LI>
+<P CLASS="Linebreak">
+</P>
+</UL>
+<P CLASS="Paragraph"><A NAME="pgfId-412866"></A>Otherwise, the Java Card RE shall delete the applet instances.
+</P>
+<BR>
+<HR NOSHADE SIZE=1>
+<TABLE CLASS="TipNote" DIR="LTR" WIDTH="100%" SUMMARY="TipNote">
+<COLGROUP SPAN="1" WIDTH="100%">
+<TR ALIGN="left" VALIGN="top">
+<TD ROWSPAN="1" COLSPAN="1" ABBR="TipNoteText">
+<P CLASS="TipNote"><B CLASS="TipNote">Note - </B><A NAME="pgfId-413562"></A>The applet deletion attempt may fail due to security considerations or resource limitations.
+</P>
+</TD>
+</TR>
+</TABLE>
+<HR NOSHADE SIZE=1>
+<BR>
+<P CLASS="Paragraph"><A NAME="pgfId-413403"></A>The multiple applet instance deletion operation must be atomic. If a reset or power fail occurs during the deletion process, it must result in either an unsuccessful multiple applet instance deletion or a successfully completed multiple applet instance deletion before any applet is selected on the card.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-410855"></A>Following an unsuccessful multiple applet instance deletion, all applet instances shall be selectable, and all objects owned by the applets shall remain unchanged. The functionality of all applet instances on the card remains the same as prior to the unsuccessful attempt.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-410856"></A>Following a successful multiple applet instance deletion, it shall not be possible to select any of the deleted applets, and no object owned by the deleted applets can be accessed by any applet currently on the card or by a new applet created in the future.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-410857"></A>The resources used by the applet instances may be recovered for reuse.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-410858"></A>The AID of the deleted applet instances may be reassigned to new applet instances.
+</P><H4 CLASS="Head3"><A NAME="pgfId-410505"></A>11.3.4.2	<A NAME="97190"></A>Applet/Library Package Deletion</H4>
+<P CLASS="Paragraph"><A NAME="pgfId-418705"></A>The Java Card RE shall guarantee that applet/library package deletion is not attempted and thereby deemed unsuccessful in the following cases:
+</P>
+<UL>
+<LI CLASS="Bullet1"><A NAME="pgfId-418707"></A>A reachable (non-garbage) instance of a class belonging to the package being deleted exists on the card.
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-411521"></A>Another package on the card depends on this package (as expressed in the CAP file's import component).
+</LI>
+<P CLASS="Linebreak">
+</P>
+</UL>
+<P CLASS="Paragraph"><A NAME="pgfId-412870"></A>Otherwise, if the applet/library package is resident in mutable memory, the Java Card RE shall delete the applet/library package.
+</P>
+<BR>
+<HR NOSHADE SIZE=1>
+<TABLE CLASS="TipNote" DIR="LTR" WIDTH="100%" SUMMARY="TipNote">
+<COLGROUP SPAN="1" WIDTH="100%">
+<TR ALIGN="left" VALIGN="top">
+<TD ROWSPAN="1" COLSPAN="1" ABBR="TipNoteText">
+<P CLASS="TipNote"><B CLASS="TipNote">Note - </B><A NAME="pgfId-413573"></A>The package deletion attempt may fail due to security considerations or resource limitations.
+</P>
+</TD>
+</TR>
+</TABLE>
+<HR NOSHADE SIZE=1>
+<BR>
+<P CLASS="Paragraph"><A NAME="pgfId-413412"></A>The applet/library package deletion operation must be atomic. If a reset or power fail occurs during the deletion process, it must result in either an unsuccessful applet/library package deletion or a successfully completed applet/library package deletion before any applet is selected on the card.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-410692"></A>Following an unsuccessful applet/library package deletion, any object or package that depends on the package continues to function unaffected. The functionality of all applets on the card remains the same as prior to the unsuccessful attempt.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-410693"></A>Following a successful applet/library package deletion, it shall not be possible to install another package which depends on the deleted package. Additionally, it shall be possible to reinstall the same package (with exactly the same package AID) or an upgraded version of the deleted package onto the card.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-411483"></A>The resources used by the applet/library package may be recovered for reuse.
+</P><H4 CLASS="Head3"><A NAME="pgfId-411484"></A>11.3.4.3	<A NAME="26964"></A>Applet Package and Contained Instances Deletion</H4>
+<P CLASS="Paragraph"><A NAME="pgfId-418751"></A>The Java Card RE shall guarantee that deletion of the applet package and contained instances is not attempted and thereby deemed unsuccessful in the following cases:
+</P>
+<UL>
+<LI CLASS="Bullet1"><A NAME="pgfId-411529"></A>Another package on the card depends on this package (as expressed in the CAP file's import component).
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-411530"></A>An object owned by any of the applet instances being deleted is referenced from an object owned by an applet instance on the card that is not being deleted.
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-418767"></A>An object owned by any of the applet instances being deleted is referenced from a static field of a package that is not being deleted.
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-412892"></A>An applet instance belonging to the contexts of any of the applet instances being deleted, is active on the card.
+</LI>
+<P CLASS="Linebreak">
+</P>
+</UL>
+<P CLASS="Paragraph"><A NAME="pgfId-412893"></A>Otherwise, if the applet package is resident in mutable memory, the Java Card RE shall delete the applet package and contained instances.
+</P>
+<BR>
+<HR NOSHADE SIZE=1>
+<TABLE CLASS="TipNote" DIR="LTR" WIDTH="100%" SUMMARY="TipNote">
+<COLGROUP SPAN="1" WIDTH="100%">
+<TR ALIGN="left" VALIGN="top">
+<TD ROWSPAN="1" COLSPAN="1" ABBR="TipNoteText">
+<P CLASS="TipNote"><B CLASS="TipNote">Note - </B><A NAME="pgfId-413582"></A>The applet and package deletion attempt may fail due to security considerations or resource limitations.
+</P>
+</TD>
+</TR>
+</TABLE>
+<HR NOSHADE SIZE=1>
+<BR>
+<P CLASS="Paragraph"><A NAME="pgfId-413421"></A>The deletion of applet package and contained instances operation must be atomic. If a reset or power fail occurs during the deletion process, it must result in either an unsuccessful deletion of the applet package and contained instances or a successfully completed deletion of the applet package and contained instances before any applet is selected on the card.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-412894"></A>Following an unsuccessful deletion of the applet package and contained instances, any object or package that depends on the package continues to function unaffected. The functionality of all applets on the card remains the same as prior to the unsuccessful attempt.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-411473"></A>Following a successful deletion of the applet package and contained instances, it shall not be possible to install another package that depends on the deleted package. Additionally, it shall be possible to reinstall the same package (with exactly the same package AID) or an upgraded version of the deleted package onto the card.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-411465"></A>The resources used by the applet package may be recovered for reuse.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-411582"></A>Following a successful deletion of the applet package and contained instances, it shall not be possible to select any of the deleted applets, and no object owned by the deleted applets can be accessed by any applet currently on the card or by a new applet created in the future.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-411583"></A>The resources used by the applet instances may be recovered for reuse.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-411584"></A>The AID for the deleted applet instances may be reassigned to new applet instances.
+</P><H3 CLASS="Head2"><A NAME="pgfId-410325"></A>11.3.5	Applet Deletion Manager Privileges</H3>
+<P CLASS="Paragraph"><A NAME="pgfId-410326"></A>Although an Applet Deletion Manager may be implemented as an applet, an Applet Deletion Manager typically requires access to features that are not available to other applets. For example, depending on the Java Card RE implementer's implementation, the Applet Deletion Manager needs to do the following:
+</P>
+<UL>
+<LI CLASS="Bullet1"><A NAME="pgfId-410327"></A>Read and write directly to memory, bypassing the object system and/or standard security.
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-410328"></A>Access objects owned by other applets or by the Java Card RE.
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-410329"></A>Invoke non-entry point methods of the Java Card RE.
+</LI>
+<P CLASS="Linebreak">
+</P>
+</UL>
+<P CLASS="Paragraph"><A NAME="pgfId-410331"></A>Again, it is up to each Java Card RE implementer to determine the Applet Deletion Manager implementation and supply such features in their Java Card RE implementations as necessary to support their Applet Deletion Manager. Java Card RE implementers are also responsible for the security of such features, so that they are not available to normal applets.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-408007"></A>&nbsp;
+</P>
+<div class="navbar" align="center">
+<br>
+<br>
+<table dir="LTR" summary="Navigation bar, includes the book title and navigation buttons" width=100% cellpadding="0" cellspacing="0" border="0"><colgroup span="3" width="100%"><col id="1" span="1" width="45%"><col id="2" span="1" width="25%"><col id="3" span="1" width="30%">
+<tr bgcolor="#cccccc">
+<td class="navbartitle" align=left rowspan="1" colspan="1" abbr="ChapTitle">&nbsp;&nbsp;Runtime Environment Specification for the Java Card Platform, Version 2.2.2
+</td>
+<td class="navbartitle" align=right rowspan="1" colspan="1" abbr="PartNum">3-8-06
+</td>
+<td valign="top" align="right" rowspan="1" colspan="1" abbr="NavButtons"><a href="index.html"><img src="shared/toc01.gif" title="Table Of Contents" alt="Table Of Contents" width="30" height="26" border="0"></a><a href="JCRESpec10vm.html"><img src="shared/prev01.gif" title="Previous Chapter" alt="Previous Chapter" width="30" height="26" border="0"></a><a href="JCRESpec12constants.html"><img src="shared/next01.gif" title="Next Chapter" alt="Next Chapter" width="30" height="26" border="0"></a><a href="ix.html"><img src="shared/index01.gif" title="Book Index" alt="Book Index" width="30" height="26" border="0"></a>
+</td>
+</tr>
+</table>
+<br>
+<br>
+</div>
+<P CLASS="copyrightlink"><a href="copyright.html">Copyright</a> &#169; 2005, Sun Microsystems, Inc.   All Rights Reserved.
+</P>
+</BODY>
+</HTML>

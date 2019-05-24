@@ -1,0 +1,240 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type"
+ content="text/html; charset=ISO-8859-1">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="GENERATOR"
+ content="Adobe FrameMaker 7.0/HTML Export Filter">
+  <link rel="STYLESHEET" href="unx_unstr_styles.css"
+ charset="ISO-8859-1" type="text/css">
+  <meta name="DC.TITLE"
+ content="Development Kit User's Guide, Java Card Platform, Version 2.2.2">
+  <title>C H A P T E R 1 - Introduction</title>
+</head>
+<body bgcolor="#ffffff">
+<div>
+<div class="navbar" align="center">
+<table dir="ltr"
+ summary="Navigation bar, includes the book title and navigation buttons"
+ width="100%" cellpadding="0" cellspacing="0" border="0">
+  <colgroup span="2" width="100%"><col id="1" span="1" width="50%"><col
+ id="2" span="1" width="50%"></colgroup><tbody>
+    <tr bgcolor="#cccccc">
+      <td class="navbartitle" align="left" rowspan="1" colspan="1"
+ abbr="ChapTitle">&nbsp;&nbsp;Development Kit User's Guide, Java Card
+Platform, Version 2.2.2 </td>
+      <td valign="top" align="right" rowspan="1" colspan="1"
+ abbr="NavButtons"><a href="index.html"><img src="shared/toc01.gif"
+ title="Table Of Contents" alt="Table Of Contents" width="30"
+ height="26" border="0"></a><a href="cJDKPreface.html"><img
+ src="shared/prev01.gif" title="Previous Chapter" alt="Previous Chapter"
+ width="30" height="26" border="0"></a><a href="cJDKinstall.html"><img
+ src="shared/next01.gif" title="Next Chapter" alt="Next Chapter"
+ width="30" height="26" border="0"></a><a href="ix.html"><img
+ src="shared/index01.gif" title="Book Index" alt="Book Index" width="30"
+ height="26" border="0"></a> </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+</div>
+</div>
+<table dir="ltr" summary="Chapter Number" abbr="ChapNum" width="100%"
+ border="0">
+  <colgroup span="1" width="100%"><col id="1" span="1"></colgroup><tbody>
+    <tr>
+      <td align="right" class="ChapNumber"><span class="ChapNumPrefix"><a
+ name="pgfId-1000192"></a>C H A P T E R </span>&nbsp;<span
+ class="ChapNumNum">1</span><a name="31433"></a> </td>
+    </tr>
+  </tbody>
+</table>
+<table dir="ltr" summary="Chapter Title" abbr="ChapTitle" width="100%"
+ border="0">
+  <colgroup span="1" width="100%"><col id="1" span="1" width="100%"></colgroup><tbody>
+    <tr>
+      <td align="right" class="ChapTitle">
+      <hr size="7" noshade="noshade"><a name="pgfId-1000194"></a><a
+ name="43319"></a>Introduction </td>
+    </tr>
+  </tbody>
+</table>
+<p class="Paragraph"><a name="pgfId-1003369"></a>The development kit
+for the Java Card Platform consists of a suite of tools for designing
+Java Card technology-based implementations and developing applets based
+on the <em class="Emphasis">Application Programming Interface for the
+Java Card Platform, Version 2.2.2</em>. A set of samplesis also
+provided.
+</p>
+<p class="Paragraph"><a name="pgfId-1003679"></a>Any implementation of
+a <a name="marker-1003675"></a>Java Card runtime environment (Java
+Card RE) contains a virtual machine (VM) for the Java Card platform
+(Java Card virtual machine), the Java Card Application Programming
+Interface (API) classes, and support services.
+</p>
+<p class="Paragraph"><a name="pgfId-1003653"></a>The binary development
+kit release ships with one Java Card RE, <kbd class="Filename-Command">cref</kbd>,
+the C-language Java Card RE binary, which is written in the C
+programming language and simulates a Java Card platform reference
+implementation. The C-language Java Card RE implements the ISO
+7816-4:2005 specification, including support for up to twenty logical
+channels, as well as the extended APDU extensions as defined in ISO
+7816-3. </p>
+<p class="Paragraph"><a name="pgfId-1003869"></a>The C-language Java
+Card RE was designed to simulate a dual T=1 contacted and T=CL
+contactless concurrent interface implementation of the Java Card
+environment, with the capability to operate on both interfaces
+simultaneously. </p>
+<p class="Paragraph"><a name="pgfId-1003567"></a>Using the development
+kit's suite of tools is described in <a href="cJDKintro.html#29141"
+ class="XRef">Converting Java Language Classes</a>.
+</p>
+<ul>
+  <li class="Bullet1"><a name="pgfId-1003581"></a><strong
+ class="Lead-In2para">apdutool</strong> - reads APDUs from a script
+file and sends them to the Java Card RE, see <a
+ href="cJDKapdu.html#41273" class="XRef">Chapter 12</a>. </li>
+  <p class="Linebreak"> </p>
+  <li class="Bullet1"><a name="pgfId-1003586"></a><strong
+ class="Lead-In2para">capdump</strong> - creates an ASCII version of a
+CAP file, see <a href="cJDKcapdump.html#50133" class="XRef">Chapter 9</a>.
+  </li>
+  <p class="Linebreak"> </p>
+  <li class="Bullet1"><a name="pgfId-1003591"></a><strong
+ class="Lead-In2para">capgen</strong> - generates a CAP file from a
+Java Card Assembly file, see <a href="cJDKcapgen.html#55091"
+ class="XRef">Chapter 8</a>. </li>
+  <p class="Linebreak"> </p>
+  <li class="Bullet1"><a name="pgfId-1003609"></a><strong
+ class="Lead-In2para">Converter</strong> - converts Java classes into a
+CAP file, a Java Card Assembly file, or an export file, see <a
+ href="cJDKconverter.html#62885" class="XRef">Chapter 5</a>. </li>
+  <p class="Linebreak"> </p>
+  <li class="Bullet1"><a name="pgfId-1003614"></a><strong
+ class="Lead-In2para">cref</strong> - runs the C-Language Java Card RE
+from the command line, see <a href="cJDKc-jcre.html#56321" class="XRef">Chapter
+10</a>. </li>
+  <p class="Linebreak"> </p>
+  <li class="Bullet1"><a name="pgfId-1003576"></a><strong
+ class="Lead-In2para">exp2text</strong> - allows you to view any export
+file in text format, see <a href="cJDKviewexport.html#17580"
+ class="XRef">Chapter 6</a>. </li>
+  <p class="Linebreak"> </p>
+  <li class="Bullet1"><a name="pgfId-1003758"></a><strong
+ class="Lead-In2para">installer</strong> - the on-card installer, which
+downloads a Java Card technology package to a smart card and can delete
+them, as well as applets, see <a href="cJDKinstaller.html#93718"
+ class="XRef">Chapter 11</a>. </li>
+  <p class="Linebreak"> </p>
+  <p class="Linebreak"> </p>
+  <li class="Bullet1"><a name="pgfId-1003557"></a><strong
+ class="Lead-In2para">off-card verifier</strong> - verifies the
+contents of a smart card using <kbd class="Filename-Command">verifycap</kbd>,
+    <kbd class="Filename-Command">verifyexp</kbd>, and <kbd
+ class="Filename-Command">verifyrev</kbd>, see <a
+ href="cJDKverifier.html#67144" class="XRef">Chapter 7</a>. </li>
+  <p class="Linebreak"> </p>
+  <li class="Bullet1"><a name="pgfId-1003600"></a><strong
+ class="Lead-In2para">scriptgen</strong> - the off-card installer,
+which generates script files for <kbd class="Filename-Command">apdutool</kbd>'s
+use, see <a href="cJDKinstaller.html#93718" class="XRef">Chapter 11</a>.
+  </li>
+  <p class="Linebreak"> </p>
+  <li class="Bullet1"><a name="pgfId-1003553"></a><strong
+ class="Lead-In2para">verifycap</strong> - verifies CAP files, see <a
+ href="cJDKverifier.html#67144" class="XRef">Chapter 7</a>. </li>
+  <p class="Linebreak"> </p>
+  <li class="Bullet1"><a name="pgfId-1003554"></a><strong
+ class="Lead-In2para">verifyexp</strong> - verifies export files, see <a
+ href="cJDKverifier.html#67144" class="XRef">Chapter 7</a>. </li>
+  <p class="Linebreak"> </p>
+  <li class="Bullet1"><a name="pgfId-1003555"></a><strong
+ class="Lead-In2para">verifyrev</strong> - verifies binary
+compatibility, see <a href="cJDKverifier.html#67144" class="XRef">Chapter
+7</a>. </li>
+  <p class="Linebreak"> </p>
+  <li class="Bullet1"><a name="pgfId-1003707"></a><strong
+ class="Lead-In2para">Java Card WDE</strong> - the Java Card platform
+Workstation Development Environment (Java Card WDE) emulates the card
+environment, see <a href="cJDKjcwde.html#63403" class="XRef">Chapter 4</a>.
+  </li>
+  <p class="Linebreak"> </p>
+</ul>
+<h2 class="Head1"><a name="pgfId-1003538"></a>
+<div>
+<hr align="left" size="6" width="15%" noshade="noshade"></div>
+<a name="29141"></a>Converting Java Language Classes</h2>
+<p class="Paragraph"><a name="pgfId-1004176"></a>Java programming
+language source can be converted into APDUs for use on a Java Card
+technology-enabled smart card. The <a name="marker-1004175"></a>data
+flow starts with Java programming language source being compiled and
+input to the Converter. The Converter tool can convert classes that
+comprise a Java package to a converted applet (CAP) or to a Java Card
+technology-based Assembly (Java Card Assembly) file. </p>
+<p class="Paragraph"><a name="pgfId-1004180"></a>A CAP file is a binary
+representation of converted Java technology package. A Java Card
+Assembly file is a human-readable text representation of a converted
+package that you can use to aid testing and debugging. A Java Card
+Assembly file can also be used as input to the <kbd
+ class="Filename-Command">capgen</kbd> tool to create a CAP file. </p>
+<p class="Paragraph"><a name="pgfId-1004181"></a>CAP files are
+processed by an off-card installer (<kbd class="Filename-Command">scriptgen</kbd>).
+This produces an APDU script file as input to the <kbd
+ class="Filename-Command">apdutool</kbd>, which then sends APDUs to a
+Java Card RE implementation.
+</p>
+<p class="Paragraph"><a name="pgfId-1004182"></a>Not shown in the
+figure is the tool <kbd class="Filename-Command">capdump</kbd>, which
+produces a simple ASCII version of the CAP file to aid in debugging.
+This figure shows other implementations that might be available in
+other products, such as the J-language Java Card RE and 8051-Java Card
+RE.
+</p>
+<a name="pgfId-1004571" style="font-weight: bold;"> </a><span
+ style="font-weight: bold;"> FIGURE 1-1 </span><a name="36254"
+ style="font-weight: bold;"> </a><span style="font-weight: bold;">
+Java Card Platform Conversion </span><br>
+<p class="FigureBox"><a name="pgfId-1004021"></a>
+</p>
+<p><img src="figures/cJDKintro-4.jpg"
+ title="This figure was explained before the caption."
+ alt="This figure was explained before the caption." align="bottom"></p>
+<a name="pgfId-1004534"></a>
+<p class="Paragraph"><a name="pgfId-1003301"></a>&nbsp;
+</p>
+<div class="navbar" align="center">
+<br>
+<br>
+<table dir="ltr"
+ summary="Navigation bar, includes the book title and navigation buttons"
+ width="100%" cellpadding="0" cellspacing="0" border="0">
+  <colgroup span="3" width="100%"><col id="1" span="1" width="45%"><col
+ id="2" span="1" width="25%"><col id="3" span="1" width="30%"></colgroup><tbody>
+    <tr bgcolor="#cccccc">
+      <td class="navbartitle" align="left" rowspan="1" colspan="1"
+ abbr="ChapTitle">&nbsp;&nbsp;Development Kit User's Guide, Java Card
+Platform, Version 2.2.2 </td>
+      <td class="navbartitle" align="right" rowspan="1" colspan="1"
+ abbr="PartNum">3-14-06 </td>
+      <td valign="top" align="right" rowspan="1" colspan="1"
+ abbr="NavButtons"><a href="index.html"><img src="shared/toc01.gif"
+ title="Table Of Contents" alt="Table Of Contents" width="30"
+ height="26" border="0"></a><a href="cJDKPreface.html"><img
+ src="shared/prev01.gif" title="Previous Chapter" alt="Previous Chapter"
+ width="30" height="26" border="0"></a><a href="cJDKinstall.html"><img
+ src="shared/next01.gif" title="Next Chapter" alt="Next Chapter"
+ width="30" height="26" border="0"></a><a href="ix.html"><img
+ src="shared/index01.gif" title="Book Index" alt="Book Index" width="30"
+ height="26" border="0"></a> </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+</div>
+<p class="copyrightlink"><a href="copyright.html">Copyright</a> &copy;
+2005, Sun Microsystems, Inc. All Rights Reserved.</p>
+</body>
+</html>

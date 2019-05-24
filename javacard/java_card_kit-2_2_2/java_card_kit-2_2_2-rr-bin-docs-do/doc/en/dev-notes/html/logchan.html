@@ -1,0 +1,1205 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<HTML LANG="en">
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 7.0/HTML Export Filter">
+
+<LINK REL="STYLESHEET" HREF="unx_unstr_styles.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<META name="DC.TITLE" content="Application Programming Notes, Java Card Platform, Version 2.2.2">
+<TITLE>C H A P T E R    2 - Working with Logical Channels 
+</TITLE>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV>
+<div class="navbar" align="center">
+<table dir="LTR" summary="Navigation bar, includes the book title and navigation buttons" width=100% cellpadding="0" cellspacing="0" border="0"><colgroup span="2" width="100%"><col id="1" span="1" width="50%"><col id="2" span="1" width="50%">
+<tr bgcolor="#cccccc">
+<td class="navbartitle" align=left rowspan="1" colspan="1" abbr="ChapTitle">&nbsp;&nbsp;Application Programming Notes, Java Card Platform, Version 2.2.2
+</td>
+<td valign="top" align="right" rowspan="1" colspan="1" abbr="NavButtons"><a href="index.html"><img src="shared/toc01.gif" title="Table Of Contents" alt="Table Of Contents" width="30" height="26" border="0"></a><a href="garbagecoll.html"><img src="shared/prev01.gif" title="Previous Chapter" alt="Previous Chapter" width="30" height="26" border="0"></a><a href="apduio.html"><img src="shared/next01.gif" title="Next Chapter" alt="Next Chapter" width="30" height="26" border="0"></a><a href="ix.html"><img src="shared/index01.gif" title="Book Index" alt="Book Index" width="30" height="26" border="0"></a>
+</td>
+</tr>
+</table>
+<br>
+<br>
+</div>
+</DIV>
+<TABLE DIR="LTR" SUMMARY="Chapter Number" ABBR="ChapNum" WIDTH="100%" BORDER="0">
+<COLGROUP SPAN="1" WIDTH="100%"><COL ID="1" SPAN="1">
+<TR>
+<TD ALIGN="right" CLASS="ChapNumber"><SPAN CLASS="ChapNumPrefix"><A NAME="pgfId-9095"></A>C H A P T E R    </SPAN>&nbsp;<SPAN CLASS="ChapNumNum">2</SPAN><A NAME="42333"></A>
+</TD>
+</TR>
+</TABLE>
+<TABLE DIR="LTR" SUMMARY="Chapter Title" ABBR="ChapTitle" WIDTH="100%" BORDER="0">
+<COLGROUP SPAN="1" WIDTH="100%"><COL ID="1" SPAN="1" WIDTH="100%">
+<TR>
+<TD ALIGN="right" CLASS="ChapTitle">
+<HR SIZE=7 NOSHADE><A NAME="pgfId-9178"></A><A NAME="98476"></A>Working with <A NAME="marker-1001689"></A>Logical Channels
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Paragraph"><A NAME="pgfId-997053"></A>Version 2.2.2 of the Java Card platform has the ability to support up to twenty logical channels per active interface. This gives an ISO-7816-4:2005-compliant terminal the ability to open as many as twenty sessions into the smart card, one session per logical channel. Logical channels allow the concurrent execution of multiple applications on the card, allowing a terminal to handle different tasks at the same time. 
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-997055"></A>Applets written for version 2.1 of the Java Card platform still work correctly, but they are unaware of logical channel support. In contrast, applets written for version 2.2.2 can take advantage of this feature. 
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-997057"></A>For example, you can write an applet for version 2.2.2 of the Java Card platform that is capable of handling security on one channel, while another applet attempts to access user personal information on another channel, using security information on the first. By following this design, it is possible to access information owned by a different applet without having to deselect the currently selected applet that is handling session information. Thus, you avoid losing your session-specific security data, which is usually stored in <KBD CLASS="Filename-Command">CLEAR_ON_DESELECT</KBD> RAM memory.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-1005069"></A>On dual interface cards, each interface itself can handle up to twenty independent logical channels. Each interface has its separate pool of logical channels: channels sharing the same number on two distinct interfaces will be treated as two independent, separate logical channels. Therefore, a dual concurrent interface card could, in theory, support up to forty concurrent logical channels, twenty per each interface. Channel management commands can only affect the operation logical channels in the interface where these commands were issued.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-1004585"></A>For more information on logical channels, their implementation and logical channel terminology, see the <EM CLASS="Emphasis">Runtime Environment Specification for the Java Card Platform, Version 2.2.2</EM>.
+</P><H2 CLASS="Head1"><A NAME="pgfId-997059"></A>
+<DIV>
+<HR ALIGN=left SIZE=6 WIDTH=15% noshade>
+</DIV><A NAME="marker-1001691"></A>Applets and Logical Channels</H2>
+<P CLASS="Paragraph"><A NAME="pgfId-998257"></A>In version 2.2.2 of the Java Card platform, you can work with applets that are aware of multiple channels and applets that are not aware of multiple channels.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-1000856"></A>The logical channel implementation in version 2.2.2 of the Java Card platform preserves backward compatibility with applets written for the Java Card platform version 2.1. It also allows you the option of writing your applets to use the logical channel feature or of writing the applets to work independently on any channel without using the logical channels at all.
+</P><H3 CLASS="Head2"><A NAME="pgfId-997060"></A><A NAME="marker-1001690"></A>Non-MultiSelectable Applets</H3>
+<P CLASS="Paragraph"><A NAME="pgfId-997061"></A>In version 2.2.2 of the Java Card platform, you have the option of writing applets that can operate in a multiple channel environment, or you can write applets that do not take advantage of this feature. Applets written for the Java Card platform that do not take advantage of the multiple channel environment are similar to applets written for the version 2.1 Java Card specification. An applet written for the Java Card platform that is not designed to be aware of multiple channels cannot be selected more than once nor can any other applet inside the package be selected concurrently on a different channel. 
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-997063"></A>You can have several non-multiselectable applets operating simultaneously on different channels, as long as they do not interfere with each other's data while they are active. For example, you can open up to 4 channels and run a distinct applet on each as long as they do not inter-operate. You can control their operation by multiplexing commands into the APDU communications channel. If the applets are independent of each other, then the results will be the same as if each of these applets were running one at a time, each in a separate session.
+</P><H3 CLASS="Head2"><A NAME="pgfId-1004902"></A>Interoperability</H3>
+<P CLASS="Paragraph"><A NAME="pgfId-997066"></A>If you design your applets to take advantage of multi-session functionality, they can inter-operate from different channels and can be selected multiple times in different channels. For example, the card might handle security information on one channel, while data is accessed on a second channel, while the third channel takes care of data encoding operations. 
+</P><H2 CLASS="Head1"><A NAME="pgfId-997391"></A>
+<DIV>
+<HR ALIGN=left SIZE=6 WIDTH=15% noshade>
+</DIV>Understanding the <A NAME="marker-1001693"></A>MultiSelectable Interface</H2>
+<P CLASS="Paragraph"><A NAME="pgfId-997392"></A>For an applet to be selectable on multiple channels at the same time, or to have another applet belonging to the same package selected simultaneously, it must implement the <KBD CLASS="Filename-Command">javacard.framework.MultiSelectable</KBD> interface. Implementing this interface allows the applet to be informed when it has been selected more than once or when applets in the same package are already selected during applet activation.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-999164"></A>If an applet that does not implement <KBD CLASS="Filename-Command">MultiSelectable</KBD> is selected more than once on different channels, or selected concurrently with applets in the same package, an error is returned to the terminal.
+</P>
+<BR>
+<HR NOSHADE SIZE=1>
+<TABLE CLASS="TipNote" DIR="LTR" WIDTH="100%" SUMMARY="TipNote">
+<COLGROUP SPAN="1" WIDTH="100%">
+<TR ALIGN="left" VALIGN="top">
+<TD ROWSPAN="1" COLSPAN="1" ABBR="TipNoteText">
+<P CLASS="TipNote"><B CLASS="TipNote">Note - </B><A NAME="pgfId-1001154"></A>If an applet in any package implements the <KBD CLASS="Filename-Command">MultiSelectable</KBD> interface, then all applets in the package must also implement the <KBD CLASS="Filename-Command">MultiSelectable</KBD> interface. It is not possible to have multiselectable and non-multiselectable applets in the same package. 
+</P>
+</TD>
+</TR>
+</TABLE>
+<HR NOSHADE SIZE=1>
+<BR>
+<P CLASS="Paragraph"><A NAME="pgfId-998821"></A>The <KBD CLASS="Filename-Command">MultiSelectable</KBD> interface contains a <KBD CLASS="Filename-Command">select</KBD> and a <KBD CLASS="Filename-Command">deselect</KBD> method to manage multiselectable applets. 
+</P><H3 CLASS="Head2"><A NAME="pgfId-1000209"></A><A NAME="marker-1001694"></A><A NAME="marker-1001696"></A>Selection for MultiSelectable Applets</H3>
+<P CLASS="Paragraph"><A NAME="pgfId-1005484"></A>The <KBD CLASS="Filename-Command">MultiSelectable</KBD> interface defines one method to be invoked instead of <KBD CLASS="Filename-Command">Applet.select()</KBD> when the applet being selected, or any other applet in its package, is already selected on another logical channel.
+</P>
+<PRE CLASS="Codeline"><A NAME="pgfId-998995"></A>public boolean MultiSelectable.select(boolean appInstAlreadySelected)
+</PRE>
+<P CLASS="Paragraph"><A NAME="pgfId-998991"></A>The <KBD CLASS="Filename-Command">MultiSelectable.select(boolean)</KBD> method informs the applet instance if it is selected more than once on different channels, or if another applet in the same package is selected on another channel on any interface. The parameter <KBD CLASS="Filename-Command">appInstAlreadySelected</KBD> is <KBD CLASS="Filename-Command">true</KBD> if the applet is selected on a different channel. It is <KBD CLASS="Filename-Command">false</KBD> if it is not selected. The method can return either <KBD CLASS="Filename-Command">true</KBD> or <KBD CLASS="Filename-Command">false</KBD> to accept or reject applet selection.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-999026"></A>This method can be called as a result of issuing a <KBD CLASS="Filename-Command">SELECT FILE</KBD> or <KBD CLASS="Filename-Command">MANAGE CHANNEL</KBD> <KBD CLASS="Filename-Command">OPEN</KBD> APDU command to select an applet. If the applet is not selected, then the <KBD CLASS="Filename-Command">appInstAlreadySelected</KBD> parameter is passed as <KBD CLASS="Filename-Command">false</KBD> to signal an applet activation event. If the applet is subsequently selected on another channel, <KBD CLASS="Filename-Command">MultiSelectable.select(boolean)</KBD> is called again, but this time, the <KBD CLASS="Filename-Command">appInstAlreadySelected</KBD> parameter is passed as <KBD CLASS="Filename-Command">true</KBD>, to indicate that the applet is already active. 
+</P><H3 CLASS="Head2"><A NAME="pgfId-1000210"></A><A NAME="marker-1001697"></A>Deselection for MultiSelectable Applets</H3>
+<P CLASS="Paragraph"><A NAME="pgfId-1005504"></A>The <KBD CLASS="Filename-Command">MultiSelectable</KBD> interface defines one method to be invoked instead of <KBD CLASS="Filename-Command">Applet.select()</KBD> when the applet being deselected, or any other applet in its package, is already selected on another logical channel.
+</P>
+<PRE CLASS="Codeline"><A NAME="pgfId-999074"></A>public void MultiSelectable.deselect(boolean appInstStillSelected)
+</PRE>
+<P CLASS="Paragraph"><A NAME="pgfId-1004928"></A>The <KBD CLASS="Filename-Command">MultiSelectable.deselect(boolean)</KBD> method informs the applet instance if it is being deselected on the logical channel while the same applet instance or another applet in the same package is still active on another channel on any interface. The parameter <KBD CLASS="Filename-Command">appInstStillSelected</KBD> is <KBD CLASS="Filename-Command">true</KBD> if the applet remains active on a different channel. It is <KBD CLASS="Filename-Command">false</KBD> if it is not active on another channel. A value of <KBD CLASS="Filename-Command">false</KBD> indicates that this is the last remaining active instance of the applet. 
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-999838"></A>This method can be called as the result of a <KBD CLASS="Filename-Command">MANAGE CHANNEL CLOSE</KBD> or <KBD CLASS="Filename-Command">SELECT FILE</KBD> APDU command. If the applet still remains active on a different channel, the <KBD CLASS="Filename-Command">appInstStillSelected</KBD> parameter is passed as <KBD CLASS="Filename-Command">true</KBD>. Note that if the <KBD CLASS="Filename-Command">MultiSelectable.deselect(boolean)</KBD> method is called, it means that either an instance of this applet or another applet from the same package remains active on another channel, so <KBD CLASS="Filename-Command">CLEAR_ON_DESELECT</KBD> transients are not cleared. Only when the last applet instance from the entire package is deselected does a call to <KBD CLASS="Filename-Command">Applet.deselect()</KBD> result, resulting in the erasure of <KBD CLASS="Filename-Command">CLEAR_ON_DESELECT</KBD> transients. 
+</P><H2 CLASS="Head1"><A NAME="pgfId-999844"></A>
+<DIV>
+<HR ALIGN=left SIZE=6 WIDTH=15% noshade>
+</DIV>Writing Applets For Concurrent Logical Channels</H2>
+<P CLASS="Paragraph"><A NAME="pgfId-999993"></A>This section describes how to write a multiselectable applet that will perform various tasks based on whether it is selected. The code samples in this section show how to extend the applet to implement the <KBD CLASS="Filename-Command">MultiSelectable</KBD> interface and how to implement the <KBD CLASS="Filename-Command">MultiSelectable.select(boolean)</KBD> and <KBD CLASS="Filename-Command">deselect(boolean)</KBD> methods. The code samples also show how to use the <KBD CLASS="Filename-Command">Applet.select()</KBD> and <KBD CLASS="Filename-Command">deselect()</KBD> methods to work with multiselectable applets.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-1005137"></A>To take advantage of multiple channel operation, an applet must implement the <KBD CLASS="Filename-Command">javacard.framework.MultiSelectable</KBD> interface. For example:
+</P>
+<DIV CLASS="Code">
+<BR>
+<TABLE CLASS="Code" BORDER=1 BORDERCOLORLIGHT="#FFFFFF" BORDERCOLORDARK="#000000" CELLPADDING=5 CELLSPACING=0 DIR="LTR">
+<TBODY>
+<TR>
+<TD SCOPE="ROW">
+<P CLASS="TableTextCode"><A NAME="pgfId-1005170"></A>public class SampleApplet extends Applet 
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005171"></A>    implements MultiSelectable {
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005166"></A>    ...
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005167"></A>    }
+</P>
+</TD>
+</TR>
+</TBODY>
+</TABLE>
+<BR>
+</DIV>
+<P CLASS="Paragraph"><A NAME="pgfId-1000707"></A>The new applet needs to provide implementation for the <KBD CLASS="Filename-Command">MultiSelectable.select(boolean)</KBD> and <KBD CLASS="Filename-Command">MultiSelectable.deselect(boolean)</KBD> methods. These methods are responsible for encoding the behavior that the applet needs during a selection event if either of the following situations occurs:
+</P>
+<UL>
+<LI CLASS="Bullet1"><A NAME="pgfId-1000729"></A>The applet is already selected on a different channel.
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-1000735"></A>One or more applets from the same package are also selected on different channels.
+</LI>
+<P CLASS="Linebreak">
+</P>
+</UL>
+<P CLASS="Paragraph"><A NAME="pgfId-1000736"></A>The behavior to be encoded might include initializing applet state, accepting or rejecting the selection request, or clearing data structures in case of deselection.
+</P>
+<DIV CLASS="Code">
+<BR>
+<TABLE CLASS="Code" BORDER=1 BORDERCOLORLIGHT="#FFFFFF" BORDERCOLORDARK="#000000" CELLPADDING=5 CELLSPACING=0 DIR="LTR">
+<TBODY>
+<TR>
+<TD SCOPE="ROW">
+<P CLASS="TableTextCode"><A NAME="pgfId-1005198"></A>public boolean select(boolean appInstAlreadySelected) {
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005199"></A>&nbsp;
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005200"></A>    // Implement the logic to control applet selection
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005201"></A>    // during a multiselection situation
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005202"></A>    ...
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005203"></A>}
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005204"></A>&nbsp;
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005205"></A>public void deselect(boolean appInstStillSelected) {
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005206"></A>&nbsp;
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005207"></A>    // Implement the logic to control applet deselection
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005208"></A>    // during a multiselection situation
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005209"></A>    ...
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005210"></A>}
+</P>
+</TD>
+</TR>
+</TBODY>
+</TABLE>
+<BR>
+</DIV>
+<P CLASS="Paragraph"><A NAME="pgfId-1000747"></A>Note that the applet is still required to implement the <KBD CLASS="Filename-Command">Applet.select()</KBD> and <KBD CLASS="Filename-Command">Applet.deselect()</KBD> methods in addition to the <KBD CLASS="Filename-Command">MultiSelectable</KBD> interface. These methods handle applet selection and deselection behavior when a multiselection situation does not happen.
+</P><H3 CLASS="Head2"><A NAME="pgfId-999851"></A><A NAME="66107"></A>MultiSelectable Applet Example</H3>
+<P CLASS="Paragraph"><A NAME="pgfId-1000705"></A>In this example, assume that the multiselectable applet, <KBD CLASS="Filename-Command">SampleApplet</KBD>, must initialize the following two arrays of data when it is selected: 
+</P>
+<UL>
+<LI CLASS="Bullet1"><A NAME="pgfId-1000082"></A>An array of package data to be initialized when the first applet in the package becomes active
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-1000081"></A>An array of private applet data to be initialized upon applet instance activation 
+</LI>
+<P CLASS="Linebreak">
+</P>
+</UL>
+<P CLASS="Paragraph"><A NAME="pgfId-1000083"></A>You can make these distinctions in your code because the <KBD CLASS="Filename-Command">MultiSelectable</KBD> interface allows the applet to recognize the circumstances under which it is selected. 
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-1000112"></A>Also, assume that the applet has the following requirements:
+</P>
+<UL>
+<LI CLASS="Bullet1"><A NAME="pgfId-1000203"></A>Clear the package data once no applet in the package is active
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1-"><A NAME="pgfId-1000205"></A>Clear the applet private data when the applet instance is deselected
+</LI>
+<P CLASS="Linebreak">
+</P>
+</UL>
+<P CLASS="Paragraph"><A NAME="pgfId-1000206"></A>Assume that the following methods are responsible for clearing and setting the data:
+</P>
+<DIV CLASS="Code">
+<BR>
+<TABLE CLASS="Code" BORDER=1 BORDERCOLORLIGHT="#FFFFFF" BORDERCOLORDARK="#000000" CELLPADDING=5 CELLSPACING=0 DIR="LTR">
+<TBODY>
+<TR>
+<TD SCOPE="ROW">
+<P CLASS="TableTextCode"><A NAME="pgfId-1005228"></A>// dataType parameter as above
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005229"></A>final static byte DATA_PRIVATE      = (byte)01;
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005230"></A>final static byte DATA_PACKAGE      = (byte)02;
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005231"></A>...
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005232"></A>&nbsp;
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005233"></A>public void initData(byte[] dataArray, byte dataType) {
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005234"></A>...
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005235"></A>}
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005236"></A>&nbsp;
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005237"></A>public void clearData(byte[] dataArray) {
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005238"></A>...
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005239"></A>}
+</P>
+</TD>
+</TR>
+</TBODY>
+</TABLE>
+<BR>
+</DIV>
+<P CLASS="Paragraph"><A NAME="pgfId-999867"></A>To achieve the behavior specified above, you must modify the selection and deselection methods in your sample applet.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-999869"></A>The code for <KBD CLASS="Filename-Command">Applet.select()</KBD>, which is invoked when this applet is the first to become active in the package, can be implemented like this:
+</P>
+<DIV CLASS="Code">
+<BR>
+<TABLE CLASS="Code" BORDER=1 BORDERCOLORLIGHT="#FFFFFF" BORDERCOLORDARK="#000000" CELLPADDING=5 CELLSPACING=0 DIR="LTR">
+<TBODY>
+<TR>
+<TD SCOPE="ROW">
+<P CLASS="TableTextCode"><A NAME="pgfId-1005256"></A>public boolean select() {
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005257"></A>        
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005258"></A>    // First applet to be selected in package, so 
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005259"></A>    // initialize package data and applet data
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005260"></A>    initData(packageData, DATA_PACKAGE);
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005261"></A>    initData(privateData, DATA_PRIVATE);
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005262"></A>&nbsp;
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005263"></A>    return true;
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005264"></A>&nbsp;
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005265"></A>}
+</P>
+</TD>
+</TR>
+</TBODY>
+</TABLE>
+<BR>
+</DIV>
+<P CLASS="Paragraph"><A NAME="pgfId-999885"></A>Likewise, the implementation of the method <KBD CLASS="Filename-Command">MultiSelectable.select(boolean)</KBD> must determine whether the applet is already active. According to its definition, this method is called when another applet within this package is active. <KBD CLASS="Filename-Command">MultiSelectable.select(boolean)</KBD> can be implemented such that if <KBD CLASS="Filename-Command">appInstAlreadySelected</KBD> is <KBD CLASS="Filename-Command">false</KBD>, then the applet private data can be initialized. For example:
+</P>
+<DIV CLASS="Code">
+<BR>
+<TABLE CLASS="Code" BORDER=1 BORDERCOLORLIGHT="#FFFFFF" BORDERCOLORDARK="#000000" CELLPADDING=5 CELLSPACING=0 DIR="LTR">
+<TBODY>
+<TR>
+<TD SCOPE="ROW">
+<P CLASS="TableTextCode"><A NAME="pgfId-1005283"></A>public boolean select(boolean appInstAlreadySelected) {
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005284"></A>&nbsp;
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005285"></A>    // If boolean parameter is false, 
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005286"></A>    // then we have applet activation
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005287"></A>    // Otherwise, no applet activation occurs.
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005288"></A>    if (appInstAlreadySelected == false) {
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005289"></A>        // Initialize applet private data, upon activation
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005290"></A>        initData(privateData, DATA_PRIVATE);
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005291"></A>    }
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005292"></A>    return true;
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005293"></A>}
+</P>
+</TD>
+</TR>
+</TBODY>
+</TABLE>
+<BR>
+</DIV>
+<P CLASS="Paragraph"><A NAME="pgfId-999898"></A>In the case of deselection, the applet data must be cleared. The method <KBD CLASS="Filename-Command">MultiSelectable.deselect(boolean)</KBD> can be implemented so that it clears applet data only if the applet is no longer active. For example:
+</P>
+<DIV CLASS="Code">
+<BR>
+<TABLE CLASS="Code" BORDER=1 BORDERCOLORLIGHT="#FFFFFF" BORDERCOLORDARK="#000000" CELLPADDING=5 CELLSPACING=0 DIR="LTR">
+<TBODY>
+<TR>
+<TD SCOPE="ROW">
+<P CLASS="TableTextCode"><A NAME="pgfId-1005308"></A>public void deselect(boolean appInstStillSelected) {
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005309"></A>    
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005310"></A>    // If boolean parameter is false, then applet is no longer
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005311"></A>    // active.  It is O.K. to clear applet private data.
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005312"></A>    if (appInstStillSelected == false) {
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005313"></A>        clearData(privateData);
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005314"></A>    }
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005315"></A>}
+</P>
+</TD>
+</TR>
+</TBODY>
+</TABLE>
+<BR>
+</DIV>
+<P CLASS="Paragraph"><A NAME="pgfId-999909"></A>If this applet is the last one to be deactivated from the package, it also must clear package data. This situation results in a call to <KBD CLASS="Filename-Command">Applet.deselect()</KBD>. This method can be implemented like this:
+</P>
+<DIV CLASS="Code">
+<BR>
+<TABLE CLASS="Code" BORDER=1 BORDERCOLORLIGHT="#FFFFFF" BORDERCOLORDARK="#000000" CELLPADDING=5 CELLSPACING=0 DIR="LTR">
+<TBODY>
+<TR>
+<TD SCOPE="ROW">
+<P CLASS="TableTextCode"><A NAME="pgfId-1005334"></A>public void deselect() {
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005335"></A>    // This call means that the applet is no longer active and
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005336"></A>    // that no other applet in the package is.  Data for both
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005337"></A>    // applet and package must be cleared.
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005338"></A>    clearData(packageData);
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005339"></A>    clearData(privateData);
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005340"></A>&nbsp;
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005341"></A>}
+</P>
+</TD>
+</TR>
+</TBODY>
+</TABLE>
+<BR>
+</DIV><H4 CLASS="Head3"><A NAME="pgfId-1000946"></A>Handling Channel Information on <A NAME="marker-1001698"></A>APDU Commands </H4>
+<P CLASS="Paragraph"><A NAME="pgfId-1005520"></A>APDU commands follow the ISO 7816-4:2005 specifications to encode logical channel information. The CLA byte encodes logical channel information. The CLA byte encoding is divided into two spaces: interindustry, used by all ISO 7816-4:2005- defined commands, and the proprietary space, used by Java Card technology to encode application- specific commands.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-1005522"></A>The CLA byte encoding is divided into two classes: Type 4 commands, which encode legacy ISO 7816-4 logical channel information; and Type 16 commands, which are defined by the ISO 7816-4:2005 specification to encode information for additional 16 logical channels in the card. Type 4 logical channels occupy the range of [0..3], while Type 16 logical channels go in the range of [4..19], that is, the value encoded in the CLA byte plus four, as it is used in SELECT, MANAGE CHANNEL and other proprietary or ISO commands.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-1005524"></A>However, a note of caution: while MANAGE CHANNEL command CLA byte follows the encoding as described below, its P2 parameter does not. The logical channel numbers in its P2 parameter are correctly encoded in the range of [0..19].
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-1005526"></A>The CLA byte encoding follows the following rules.
+</P><H5 CLASS="Head4"><A NAME="pgfId-1005528"></A>Interindustry Space</H5>
+<P CLASS="Paragraph"><A NAME="pgfId-1005973"></A>CLA        Remarks
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-1005939"></A>0x0X Type 4, last or only command in chain
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-1005779"></A>0x1X Type 4, not last command in chain (paired with 0x0X)
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-1005780"></A>0x2X RFU     (will throw exception)
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-1005781"></A>0x3X RFU     (will throw exception)
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-1005782"></A>0x4X Type 16, no SM, last or only command in chain
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-1005783"></A>0x5X Type 16, no SM, not last command in chain (paired with 0x4X)
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-1005784"></A>0x6X Type 16, SM, last or only command in chain
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-1005543"></A>0x7X Type 16, SM, not last command in chain (paired with 0x07X) 
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-1005775"></A>The encoding details are as follows.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-1005545"></A>Type 4:
+</P>
+<PRE CLASS="Codeline"><A NAME="pgfId-1005547"></A>b8 b7 b6 b5 b4 b3 b2 b1
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-1005548"></A>0  0  0  x  y  y  z  z
+</PRE>
+<P CLASS="Paragraph"><A NAME="pgfId-1005551"></A>Type 16:
+</P>
+<PRE CLASS="Codeline"><A NAME="pgfId-1005553"></A>b8 b7 b6 b5 b4 b3 b2 b1
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-1005554"></A>0  1  y  x  z  z  z  z
+</PRE>
+<P CLASS="Paragraph"><A NAME="pgfId-1005556"></A>Notation:
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-1005558"></A>x = Command Chaining bit
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-1005559"></A>0 = last or only command
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-1005560"></A>1 = command chaining
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-1005562"></A>y = Secure Messaging indicator, see ISO7816-4:2003 section 6 for further information.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-1005566"></A>z = Logical channel indicator
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-1005568"></A>Type 4 supports logical channels [0..3]
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-1005569"></A>Type 16 supports logical channels [0..15], which are mapped to logical channels [4..19]
+</P><H5 CLASS="Head4"><A NAME="pgfId-1005572"></A>Proprietary Java Card Technology Space</H5>
+<P CLASS="Paragraph"><A NAME="pgfId-1005575"></A>CLA        Remarks
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-1005577"></A>0x8X        Type 4, last or only command in chain
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-1005578"></A>0x9X        Type 4, not last command in chain (paired with 0x8X)   
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-1005720"></A>0xAX        Type 4, last or only command in chain        
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-1005721"></A>0xBX        Type 4, not last command in chain (paired with 0xAX)
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-1005579"></A>0xCX        Type 16, no SM, last or only command in chain   
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-1005722"></A>0xDX        Type 16, no SM, not last command in chain (paired with 0xCX)
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-1005580"></A>0xEX        Type 16, SM, last or only command in chain
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-1005581"></A>0xFX        Type 16, SM, not last command in chain (paired with 0xEX)
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-1005744"></A>The encoding details are as follows.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-1005583"></A>Type 4:
+</P>
+<PRE CLASS="Codeline"><A NAME="pgfId-1005585"></A>b8    b7    b6    b5    b4    b3    b2    b1
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-1005586"></A>1     0     N/A   x     y     y     z     z
+</PRE>
+<P CLASS="Paragraph"><A NAME="pgfId-1005588"></A>Type 16:
+</P>
+<PRE CLASS="Codeline"><A NAME="pgfId-1005590"></A>b8    b7    b6    b5    b4    b3    b2    b1
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-1005591"></A>1      1    y     x     z     z     z     z
+</PRE>
+<P CLASS="Paragraph"><A NAME="pgfId-1005594"></A>All applets willing to use the logical channel capabilities must comply with the ISO 7816-4:2005 CLA byte encoding specification, and choose APDU commands as defined in the proprietary space.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-1000948"></A>The <KBD CLASS="Filename-Command">X</KBD> nibble is responsible for logical channels and secure message encoding. Only the two least significant bits of the nibble are used for channel encoding, which ranges from <KBD CLASS="Filename-Command">0</KBD> to <KBD CLASS="Filename-Command">3</KBD>. When an <KBD CLASS="Filename-Command">APDU</KBD> command is received, the card processes it and determines whether the command has logical channel information encoding. If logical channel information is encoded, then the card sends the <KBD CLASS="Filename-Command">APDU</KBD> command to the respective channel. All other <KBD CLASS="Filename-Command">APDU</KBD> commands are forwarded to the card's basic channel (<KBD CLASS="Filename-Command">0</KBD>). For example, the command <KBD CLASS="Filename-Command">0xB1</KBD> forwards the command to the card's basic channel (<KBD CLASS="Filename-Command">0</KBD>), because the CLA byte with the nibble <KBD CLASS="Filename-Command">0xBX</KBD> does not contain logical channel information. 
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-1000949"></A>This also means that all applets willing to use the logical channel capabilities must comply with the ISO 7816-4 CLA byte encoding specification, and choose <KBD CLASS="Filename-Command">APDU</KBD> commands accordingly.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-999922"></A>Just as the deselection and selection mechanisms must be written to take into consideration a multiple-channel environment, it is important to write the <KBD CLASS="Filename-Command">Applet.process()</KBD> method so that it handles channel information correctly. Due to the fact that some <KBD CLASS="Filename-Command">APDU</KBD>s can be digitally signed, the <KBD CLASS="Filename-Command">APDU</KBD> command is passed to the applet's <KBD CLASS="Filename-Command">process</KBD> method as it is sent by the terminal. That means any logical channel information is not cleared and is passed intact to the applet. The applet must deal with this situation.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-1005853"></A>To assist applet developers in correctly identifying proprietary and interindustry commands, the following API call can be used. This call returns <KBD CLASS="Filename-Command">true</KBD> if the CLA byte encoding corresponds to the interindustry space, or <KBD CLASS="Filename-Command">false</KBD> if it corresponds to the proprietary space. 
+</P>
+<DIV CLASS="Code">
+<BR>
+<TABLE CLASS="Code" BORDER=1 BORDERCOLORLIGHT="#FFFFFF" BORDERCOLORDARK="#000000" CELLPADDING=5 CELLSPACING=0 DIR="LTR">
+<TBODY>
+<TR>
+<TD SCOPE="ROW">
+<P CLASS="TableTextCode"><A NAME="pgfId-1005360"></A>...
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005361"></A>&nbsp;
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005362"></A>// Applet's process method
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005363"></A>public void process(APDU apdu) {
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005364"></A>&nbsp;
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005365"></A>    byte[] buffer = apdu.getBuffer();
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005366"></A>    
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005367"></A>    // check SELECT APDU command
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005891"></A>     if (apdu.isISOInterindustryCLA()) {
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005892"></A>           if (Applet.selectingApplet()) {
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005893"></A>               return;
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005894"></A>           } else {
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005895"></A>               ISOException.throwIt (ISO7816.SW_CLA_NOT_SUPPORTED);
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005896"></A>           }
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005368"></A>       } 
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005378"></A>    ...
+</P>
+</TD>
+</TR>
+</TBODY>
+</TABLE>
+<BR>
+</DIV><H3 CLASS="Head2"><A NAME="pgfId-1000320"></A>Writing <A NAME="marker-1001699"></A>ISO 7816-4:2005 Compliant Applets</H3>
+<P CLASS="Paragraph"><A NAME="pgfId-1004955"></A>If your applets must be compliant with the ISO 7816-4:2005 specification, then you must track the applet security state on each channel where it is active. Additionally, in the case of multiselectable applets, you must copy the state (including its security configuration) when you perform <KBD CLASS="Filename-Command">MANAGE</KBD> <KBD CLASS="Filename-Command">CHANNEL</KBD> commands from a channel other than the basic channel. 
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-1000322"></A>For example, applets might need to perform some sort of initialization upon activation, as well as cleanup procedures during deactivation. To do these tasks, a multiselectable applet might need to keep track of the channels on which it is being selected during a card session. 
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-1000317"></A>To track this information, you need to know the channel on which the task is being performed. Tracking is done by two methods in the Java Card API:
+</P>
+<UL>
+<LI CLASS="Bullet1"><A NAME="pgfId-1002986"></A><KBD CLASS="Filename-Command">APDU</KBD> class: <KBD CLASS="Filename-Command">public static byte getCLAChannel(); </KBD>
+</LI>
+<P CLASS="Linebreak">
+</P>
+</UL>
+<P CLASS="StepPara2"><A NAME="pgfId-1004963"></A>This method returns the origin channel where the command was issued. In case of <KBD CLASS="Filename-Command">MANAGE</KBD> <KBD CLASS="Filename-Command">CHANNEL</KBD> or <KBD CLASS="Filename-Command">SELECT</KBD> <KBD CLASS="Filename-Command">FILE</KBD> commands, if this method is called within the <KBD CLASS="Filename-Command">Applet.select()</KBD>, <KBD CLASS="Filename-Command">MultiSelectable.select(boolean)</KBD>, <KBD CLASS="Filename-Command">Applet.deselect()</KBD>, or <KBD CLASS="Filename-Command">MultiSelectable.deselect(boolean)</KBD> method, it returns the APDU command logical channel as specified in the CLA byte. 
+</P>
+<UL>
+<LI CLASS="Bullet1-"><A NAME="pgfId-1000261"></A><KBD CLASS="Filename-Command">JCSystem</KBD> class: <KBD CLASS="Filename-Command">public static byte getAssignedChannel();</KBD>
+</LI>
+<P CLASS="Linebreak">
+</P>
+</UL>
+<P CLASS="StepPara2"><A NAME="pgfId-1000264"></A>This method returns the channel of the currently selected applet. In case of a <KBD CLASS="Filename-Command">MANAGE</KBD> <KBD CLASS="Filename-Command">CHANNEL</KBD> command, if this method is invoked inside the <KBD CLASS="Filename-Command">Applet.select()</KBD>, <KBD CLASS="Filename-Command">MultiSelectable.select(boolean)</KBD>, <KBD CLASS="Filename-Command">Applet.deselect()</KBD>, or <KBD CLASS="Filename-Command">MultiSelectable.deselect(boolean)</KBD> method, it returns the channel where the applet to be selected or deselected is assigned to run.
+</P><H4 CLASS="Head3"><A NAME="pgfId-1000266"></A>ISO 7816-4:2005 Compliant Applet Example</H4>
+<P CLASS="Paragraph"><A NAME="pgfId-1000452"></A>In case of a <KBD CLASS="Filename-Command">MANAGE</KBD> <KBD CLASS="Filename-Command">CHANNEL</KBD> command from a non-zero channel to another non-zero channel, the ISO 7816-4 specification requires that the security state from the applet selected in the origin channel be copied into the new channel. In the example presented in this section, assume that the state information is stored in the array <KBD CLASS="Filename-Command">appState</KBD> inside the applet:
+</P>
+<PRE CLASS="Codeline"><A NAME="pgfId-1000268"></A>StateObj appState[MAX_CHANNELS];    // Holds the security state
+</PRE>
+<PRE CLASS="Codeline"><A NAME="pgfId-1000769"></A>                                    // for each logical channel
+</PRE>
+<P CLASS="Paragraph"><A NAME="pgfId-1000272"></A>You can use the <KBD CLASS="Filename-Command">APDU.getCLAChannel()</KBD> and <KBD CLASS="Filename-Command">JCSystem.getAssignedChannel()</KBD> methods to identify if the applet selection case corresponds to an ISO 7816-4 case where the security state needs to be copied. Note that if such an event occurs, it will also be a multiselection situation, where the applet is also selected on the newly opened channel.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-1000274"></A>In this example, the code to identify the applet selection case is included in the implementation of the <KBD CLASS="Filename-Command">MultiSelectable.select(boolean)</KBD> method:
+</P>
+<DIV CLASS="Code">
+<BR>
+<TABLE CLASS="Code" BORDER=1 BORDERCOLORLIGHT="#FFFFFF" BORDERCOLORDARK="#000000" CELLPADDING=5 CELLSPACING=0 DIR="LTR">
+<TBODY>
+<TR>
+<TD SCOPE="ROW">
+<P CLASS="TableTextCode"><A NAME="pgfId-1005396"></A>public boolean select(boolean appInstAlreadySelected) {
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005397"></A>    ...
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005398"></A>    // Obtain logical channels information
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005399"></A>    // This call returns the channel where 
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005400"></A>    // the command was issued
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005401"></A>    byte origChannel = APDU.getCLAChannel();
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005402"></A>&nbsp;
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005403"></A>    // This call returns the channel where the applet is being
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005404"></A>    // selected
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005405"></A>    byte targetChannel = JCSystem.getAssignedChannel();
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005406"></A>&nbsp;
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005407"></A>    if (origChannel == targetChannel) {
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005408"></A>        // This is a SELECT FILE command.
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005409"></A>        // Do processing here.
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005410"></A>        ...
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005411"></A>    }
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005412"></A>&nbsp;
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005413"></A>    if (origChannel == 0) {
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005414"></A>        // This is a MANAGE CHANNEL command from channel 0.
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005415"></A>        // ISO 7816-4 state sharing case does not 
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005416"></A>        // apply here.
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005417"></A>        // Do processing here.
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005418"></A>        ...
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005419"></A>    } else {
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005420"></A>        // Since origChannel != 0, the special 
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005421"></A>        // ISO 7816-4 case applies.
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005422"></A>        // Copy security state from origin channel 
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005423"></A>        // to assigned logical channel.
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005424"></A>        appState[targetChannel] = appState[origChannel];
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005425"></A>&nbsp;
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005426"></A>        // Do further processing here
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005427"></A>        ...
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005428"></A>        }
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005429"></A>        ...
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005430"></A>}
+</P>
+<P CLASS="TableTextCode"><A NAME="pgfId-1005392"></A>&nbsp;
+</P>
+</TD>
+</TR>
+</TBODY>
+</TABLE>
+<BR>
+</DIV>
+<P CLASS="Paragraph"><A NAME="pgfId-1004613"></A>Please refer to the <EM CLASS="Emphasis">Application Programming Interface for the Java Card Platform, Version 2.2.2</EM> for more information about the API methods described above.
+</P><H3 CLASS="Head2"><A NAME="pgfId-997428"></A>Applet <A NAME="marker-1001700"></A>Firewall Operation Requirements</H3>
+<P CLASS="Paragraph"><A NAME="pgfId-997430"></A>To ensure proper operation and protection, a number of applet firewall checks have been added to the virtual machine for the Java Card virtual machine (Java Card VM) regarding security checks on method invocations. 
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-999278"></A>Applets that implement <KBD CLASS="Filename-Command">MultiSelectable</KBD> are designed to handle calls to Shareable objects across packages when several applets are active on different logical channels. In contrast, an applet written for version 2.1 of the Java Card platform, or an applet written for version 2.2.2 that does not implement <KBD CLASS="Filename-Command">MultiSelectable,</KBD> has exclusive control over any changes to its internal objects or data when it is selected. Only when the non-multiselectable applet is in a deselected state can other applets modify its internal data structures. Therefore, if an applet is non-multiselectable, no calls to its Shareable objects can be made when it is selected.
+</P><H4 CLASS="Head3"><A NAME="pgfId-1001175"></A>Working with Non-MultiSelectable Applets</H4>
+<P CLASS="Paragraph"><A NAME="pgfId-1001176"></A>Applets written for version 2.2.2 of the Java Card platform do not have to implement the <KBD CLASS="Filename-Command">MultiSelectable</KBD> interface. In this case, the applet assumes that it is uniquely selected and its owned objects will not be modified via Shareable interface objects while it is selected. The limitations are imposed when you interact with applets that do not implement <KBD CLASS="Filename-Command">MultiSelectable</KBD>:
+</P>
+<UL>
+<LI CLASS="Bullet1"><A NAME="pgfId-1001177"></A>It is not possible to select more than one applet simultaneously from a package if any of the applets you want to select does not implement the <KBD CLASS="Filename-Command">MultiSelectable</KBD> interface.
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-1001178"></A>It is not possible to invoke methods of a Shareable object belonging to a non-multiselectable applet when an applet, belonging to the same group context, is active.
+</LI>
+<P CLASS="Linebreak">
+</P>
+</UL><H3 CLASS="Head2"><A NAME="pgfId-998264"></A>ISO 7816-4:2005 Specific <KBD CLASS="Filename-Command">APDU</KBD><A NAME="marker-1001701"></A> Commands for <A NAME="marker-1001702"></A>Logical Channel Management</H3>
+<P CLASS="Paragraph"><A NAME="pgfId-998265"></A>There are two ISO-specific <KBD CLASS="Filename-Command">APDU</KBD> commands that you can use to work with logical channels in a smart card:
+</P>
+<UL>
+<LI CLASS="Bullet1"><A NAME="pgfId-998266"></A><KBD CLASS="Filename-Command">SELECT FILE</KBD><STRONG CLASS="Lead-In2para"> -</STRONG> This command selects the specified applet on the specified channel number. The channel number can be from <KBD CLASS="Filename-Command">0</KBD> to <KBD CLASS="Filename-Command">3</KBD> and is specified in the lower two bits of the CLA byte. If the channel is closed, it is opened and the specified applet is selected on the channel. <KBD CLASS="Filename-Command">SELECT FILE</KBD> commands are forwarded to the newly selected applet.
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-1006314"></A><KBD CLASS="Filename-Command">MANAGE CHANNEL</KBD><STRONG CLASS="Lead-In2para"> - </STRONG>This command can be used to open a new channel from another channel or close it. It allows you to specify the channel to be used or to allow the smart card to select the channel. Like <KBD CLASS="Filename-Command">SELECT FILE</KBD>, this command uses the lower two bits of the CLA byte to specify the channel number. <KBD CLASS="Filename-Command">MANAGE CHANNEL</KBD> commands are not forwarded to the applet.
+</LI>
+<P CLASS="Linebreak">
+</P>
+</UL>
+<P CLASS="Paragraph"><A NAME="pgfId-998268"></A>When you work with these commands, keep the following guidelines in mind: 
+</P>
+<UL>
+<LI CLASS="Bullet1"><A NAME="pgfId-998269"></A>Origin logical channel values are encoded in the two least significant bits of the CLA byte. 
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-998270"></A>Logical channel values have a valid range of [0..19] only.
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-998271"></A>Logical channel <KBD CLASS="Filename-Command">0</KBD> is known as the <EM CLASS="Emphasis">basic channel</EM>, and it cannot be closed.
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-998272"></A>At card reset, the basic channel (channel <KBD CLASS="Filename-Command">0</KBD>) is open. All other channels (<KBD CLASS="Filename-Command">1</KBD>, 2, ...<KBD CLASS="Filename-Command">19</KBD>) are closed.
+</LI>
+<P CLASS="Linebreak">
+</P>
+</UL>
+<P CLASS="Paragraph"><A NAME="pgfId-998273"></A>The <KBD CLASS="Filename-Command">MANAGE CHANNEL</KBD> and <KBD CLASS="Filename-Command">SELECT FILE</KBD> commands are read by the Java Card RE dispatcher, which performs the functions specified by the commands, including the following:
+</P>
+<UL>
+<LI CLASS="Bullet1"><A NAME="pgfId-998274"></A>Managing logical channels 
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-998275"></A>Deselecting applets
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-998276"></A>Selecting applets
+</LI>
+<P CLASS="Linebreak">
+</P>
+</UL><H4 CLASS="Head3"><A NAME="pgfId-998279"></A><KBD CLASS="Filename-Command">MANAGE CHANNEL OPEN</KBD><A NAME="marker-1001703"></A></H4>
+<P CLASS="Paragraph"><A NAME="pgfId-998280"></A>In response to the <KBD CLASS="Filename-Command">MANAGE CHANNEL OPEN</KBD> command, the dispatcher follows this procedure:
+</P>
+<P CLASS="List1"><A NAME="pgfId-1001666"></A>1.	If the origin channel is not open, an error is returned.
+</P>
+<P CLASS="List1-"><A NAME="pgfId-998281"></A>2. 	Determines whether the channel is open or closed. If the channel is open, an error is returned.
+</P>
+<P CLASS="List1-"><A NAME="pgfId-998282"></A>3. 	Opens the channel.
+</P>
+<P CLASS="List1-"><A NAME="pgfId-998283"></A>4. 	If the origin channel is <KBD CLASS="Filename-Command">0,</KBD> the default applet (if there is one) is selected in the new channel.
+</P>
+<P CLASS="List1-"><A NAME="pgfId-998284"></A>5. 	If the origin channel is not <KBD CLASS="Filename-Command">0</KBD>, the selected applet on the origin channel becomes the selected applet in new channel.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-998598"></A>This <KBD CLASS="Filename-Command">MANAGE CHANNEL OPEN</KBD> command opens a new channel from channel encoded in <KBD CLASS="Filename-Command">Q</KBD>.:
+</P>
+<BR>
+<TABLE CLASS="Titled" BORDER=1 BORDERCOLORLIGHT="#FFFFFF" BORDERCOLORDARK="#000000" CELLPADDING=5 CELLSPACING=0 DIR="LTR"><CAPTION>
+<P CLASS="Paragraph"> <A NAME="pgfId-1000675"> </A> &nbsp; 
+</P> </CAPTION>
+<THEAD>
+<TR>
+<TH SCOPE="COL" ROWSPAN="1" COLSPAN="1" BGCOLOR="#CCCCCC">
+<P CLASS="TableHead"><A NAME="pgfId-1002667"></A>CLA
+</P>
+</TH>
+<TH SCOPE="COL" ROWSPAN="1" COLSPAN="1" BGCOLOR="#CCCCCC">
+<P CLASS="TableHead"><A NAME="pgfId-1002669"></A>INS
+</P>
+</TH>
+<TH SCOPE="COL" ROWSPAN="1" COLSPAN="1" BGCOLOR="#CCCCCC">
+<P CLASS="TableHead"><A NAME="pgfId-1002671"></A>P1
+</P>
+</TH>
+<TH SCOPE="COL" ROWSPAN="1" COLSPAN="1" BGCOLOR="#CCCCCC">
+<P CLASS="TableHead"><A NAME="pgfId-1002673"></A>P2
+</P>
+</TH>
+<TH SCOPE="COL" ROWSPAN="1" COLSPAN="1" BGCOLOR="#CCCCCC">
+<P CLASS="TableHead"><A NAME="pgfId-1002675"></A>Lc
+</P>
+</TH>
+<TH SCOPE="COL" ROWSPAN="1" COLSPAN="1" BGCOLOR="#CCCCCC">
+<P CLASS="TableHead"><A NAME="pgfId-1002677"></A>Data
+</P>
+</TH>
+<TH SCOPE="COL" ROWSPAN="1" COLSPAN="1" BGCOLOR="#CCCCCC">
+<P CLASS="TableHead"><A NAME="pgfId-1002679"></A>Le
+</P>
+</TH>
+<TH SCOPE="COL" ROWSPAN="1" COLSPAN="1" BGCOLOR="#CCCCCC">
+<P CLASS="TableHead"><A NAME="pgfId-1003937"></A>Data
+</P>
+</TH>
+<TH SCOPE="COL" ROWSPAN="1" COLSPAN="1" BGCOLOR="#CCCCCC">
+<P CLASS="TableHead"><A NAME="pgfId-1003939"></A>SW1
+</P>
+</TH>
+<TH SCOPE="COL" ROWSPAN="1" COLSPAN="1" BGCOLOR="#CCCCCC">
+<P CLASS="TableHead"><A NAME="pgfId-1003941"></A>SW2
+</P>
+</TH>
+</TR>
+</THEAD>
+<TBODY>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-998625"></A>0xQ
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-998627"></A>0x70
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-998629"></A>00
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-998631"></A>00
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-998633"></A>0
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-998635"></A>-
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-998637"></A>1
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-1003943"></A>0x0R
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-1003945"></A>0x90
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-1003947"></A>00
+</P>
+</TD>
+</TR>
+</TBODY>
+</TABLE>
+<BR>
+<P CLASS="Paragraph"><A NAME="pgfId-998663"></A>:
+</P>
+<BR>
+<TABLE CLASS="Titled" BORDER=1 BORDERCOLORLIGHT="#FFFFFF" BORDERCOLORDARK="#000000" CELLPADDING=5 CELLSPACING=0 DIR="LTR"><CAPTION>
+<P CLASS="Paragraph"> <A NAME="pgfId-1000618"> </A> &nbsp; 
+</P> </CAPTION>
+<THEAD>
+<TR>
+<TH SCOPE="COL" ROWSPAN="1" COLSPAN="1" BGCOLOR="#CCCCCC">
+<P CLASS="TableHead"><A NAME="pgfId-1002759"></A>CLA
+</P>
+</TH>
+<TH SCOPE="COL" ROWSPAN="1" COLSPAN="1" BGCOLOR="#CCCCCC">
+<P CLASS="TableHead"><A NAME="pgfId-1002761"></A>INS
+</P>
+</TH>
+<TH SCOPE="COL" ROWSPAN="1" COLSPAN="1" BGCOLOR="#CCCCCC">
+<P CLASS="TableHead"><A NAME="pgfId-1002763"></A>P1
+</P>
+</TH>
+<TH SCOPE="COL" ROWSPAN="1" COLSPAN="1" BGCOLOR="#CCCCCC">
+<P CLASS="TableHead"><A NAME="pgfId-1002765"></A>P2
+</P>
+</TH>
+<TH SCOPE="COL" ROWSPAN="1" COLSPAN="1" BGCOLOR="#CCCCCC">
+<P CLASS="TableHead"><A NAME="pgfId-1002767"></A>Lc
+</P>
+</TH>
+<TH SCOPE="COL" ROWSPAN="1" COLSPAN="1" BGCOLOR="#CCCCCC">
+<P CLASS="TableHead"><A NAME="pgfId-1002769"></A>Data
+</P>
+</TH>
+<TH SCOPE="COL" ROWSPAN="1" COLSPAN="1" BGCOLOR="#CCCCCC">
+<P CLASS="TableHead"><A NAME="pgfId-1002771"></A>Le
+</P>
+</TH>
+<TH SCOPE="COL" ROWSPAN="1" COLSPAN="1" BGCOLOR="#CCCCCC">
+<P CLASS="TableHead"><A NAME="pgfId-1003909"></A>SW1
+</P>
+</TH>
+<TH SCOPE="COL" ROWSPAN="1" COLSPAN="1" BGCOLOR="#CCCCCC">
+<P CLASS="TableHead"><A NAME="pgfId-1003911"></A>SW2
+</P>
+</TH>
+</TR>
+</THEAD>
+<TBODY>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-998680"></A>0xQ
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-998682"></A>0x70
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-998684"></A>00
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-998686"></A>0xR
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-998688"></A>0
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-998690"></A>-
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-998692"></A>0
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-1003913"></A>0x90
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-1003915"></A>00
+</P>
+</TD>
+</TR>
+</TBODY>
+</TABLE>
+<BR>
+<P CLASS="Paragraph"><A NAME="pgfId-1004474"></A>This command produces the following results:
+</P>
+<UL>
+<LI CLASS="Bullet1"><A NAME="pgfId-998705"></A>If channel encoded in <KBD CLASS="Filename-Command">Q</KBD> is the basic channel (channel <KBD CLASS="Filename-Command">0</KBD>), the card's default applet is selected on channel encoded in <KBD CLASS="Filename-Command">R</KBD>. No applet is selected if no default applet is defined.
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-1004445"></A>If channel encoded in <KBD CLASS="Filename-Command">Q</KBD> is other than the basic channel (channels <KBD CLASS="Filename-Command">1</KBD>, <KBD CLASS="Filename-Command">2</KBD>, ...19), the selected applet on channel encoded in <KBD CLASS="Filename-Command">Q</KBD> becomes the current applet selected on channel <KBD CLASS="Filename-Command">R</KBD>. 
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-1004446"></A>The applet on channel encoded in <KBD CLASS="Filename-Command">R</KBD> can either accept or reject selection.
+</LI>
+<P CLASS="Linebreak">
+</P>
+</UL>
+<P CLASS="Paragraph"><A NAME="pgfId-1004455"></A>This command returns an error under the following circumstances:
+</P>
+<UL>
+<LI CLASS="Bullet1"><A NAME="pgfId-1004461"></A>The applet does not implement the <KBD CLASS="Filename-Command">javacard.framework.MultiSelectable </KBD>interface, when an attempt to select the applet in more than one channel takes place.
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-1004462"></A>The applet rejects selection or throws exception.
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-1004463"></A>No channel is available.
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-1004464"></A>Channel encoded in <KBD CLASS="Filename-Command">Q</KBD> is not open.
+</LI>
+<P CLASS="Linebreak">
+</P>
+</UL><H4 CLASS="Head3"><A NAME="pgfId-998286"></A><KBD CLASS="Filename-Command">MANAGE CHANNEL CLOSE</KBD><A NAME="marker-1001704"></A></H4>
+<P CLASS="Paragraph"><A NAME="pgfId-1001768"></A>In response to the <KBD CLASS="Filename-Command">MANAGE CHANNEL CLOSE</KBD> command, the dispatcher follows this procedure:
+</P>
+<P CLASS="List1"><A NAME="pgfId-1001769"></A>1.	If the origin channel is not open, an error is returned.
+</P>
+<P CLASS="List1-"><A NAME="pgfId-1001770"></A>2. 	If the channel to be closed is <KBD CLASS="Filename-Command">0</KBD>, an error is returned.
+</P>
+<P CLASS="List1-"><A NAME="pgfId-1003187"></A>3. 	If the channel to be closed is not open or not available, a warning is thrown.
+</P>
+<P CLASS="List1-"><A NAME="pgfId-1003188"></A>4. 	Deselects the applet in the channel to be closed.
+</P>
+<P CLASS="List1-"><A NAME="pgfId-1003189"></A>5. 	Closes the logical channel.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-1003140"></A>This <KBD CLASS="Filename-Command">MANAGE CHANNEL CLOSE</KBD> command closes channel <KBD CLASS="Filename-Command">R</KBD> from channel <KBD CLASS="Filename-Command">Q</KBD>:
+</P>
+<BR>
+<TABLE CLASS="Titled" BORDER=1 BORDERCOLORLIGHT="#FFFFFF" BORDERCOLORDARK="#000000" CELLPADDING=5 CELLSPACING=0 DIR="LTR"><CAPTION>
+<P CLASS="Paragraph"> <A NAME="pgfId-1003144"> </A> &nbsp; 
+</P> </CAPTION>
+<THEAD>
+<TR>
+<TH SCOPE="COL" ROWSPAN="1" COLSPAN="1" BGCOLOR="#CCCCCC">
+<P CLASS="TableHead"><A NAME="pgfId-1003158"></A>CLA
+</P>
+</TH>
+<TH SCOPE="COL" ROWSPAN="1" COLSPAN="1" BGCOLOR="#CCCCCC">
+<P CLASS="TableHead"><A NAME="pgfId-1003160"></A>INS
+</P>
+</TH>
+<TH SCOPE="COL" ROWSPAN="1" COLSPAN="1" BGCOLOR="#CCCCCC">
+<P CLASS="TableHead"><A NAME="pgfId-1003162"></A>P1
+</P>
+</TH>
+<TH SCOPE="COL" ROWSPAN="1" COLSPAN="1" BGCOLOR="#CCCCCC">
+<P CLASS="TableHead"><A NAME="pgfId-1003164"></A>P2
+</P>
+</TH>
+<TH SCOPE="COL" ROWSPAN="1" COLSPAN="1" BGCOLOR="#CCCCCC">
+<P CLASS="TableHead"><A NAME="pgfId-1003166"></A>Lc
+</P>
+</TH>
+<TH SCOPE="COL" ROWSPAN="1" COLSPAN="1" BGCOLOR="#CCCCCC">
+<P CLASS="TableHead"><A NAME="pgfId-1003168"></A>Data
+</P>
+</TH>
+<TH SCOPE="COL" ROWSPAN="1" COLSPAN="1" BGCOLOR="#CCCCCC">
+<P CLASS="TableHead"><A NAME="pgfId-1003170"></A>Le
+</P>
+</TH>
+<TH SCOPE="COL" ROWSPAN="1" COLSPAN="1" BGCOLOR="#CCCCCC">
+<P CLASS="TableHead"><A NAME="pgfId-1003860"></A>SW1
+</P>
+</TH>
+<TH SCOPE="COL" ROWSPAN="1" COLSPAN="1" BGCOLOR="#CCCCCC">
+<P CLASS="TableHead"><A NAME="pgfId-1003862"></A>SW2
+</P>
+</TH>
+</TR>
+</THEAD>
+<TBODY>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-1003172"></A>0xQ
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-1003174"></A>0x70
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-1003176"></A>0x80
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-1003178"></A>0xR
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-1003180"></A>0
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-1003182"></A>-
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-1003184"></A>0
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-1003864"></A>0x90
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-1003866"></A>00
+</P>
+</TD>
+</TR>
+</TBODY>
+</TABLE>
+<BR>
+<P CLASS="Paragraph"><A NAME="pgfId-998582"></A>This command closes channel <KBD CLASS="Filename-Command">R</KBD>. Channel <KBD CLASS="Filename-Command">R</KBD> must not be the basic channel (it can be channel <KBD CLASS="Filename-Command">1</KBD>, <KBD CLASS="Filename-Command">2</KBD>, ...19 only).
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-998584"></A>This command returns an error in the following circumstances: 
+</P>
+<UL>
+<LI CLASS="Bullet1"><A NAME="pgfId-998585"></A>Channel encoded in <KBD CLASS="Filename-Command">R</KBD> is the basic channel.
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-998586"></A>Channel encoded in <KBD CLASS="Filename-Command">Q</KBD> is not open.
+</LI>
+<P CLASS="Linebreak">
+</P>
+</UL>
+<P CLASS="Paragraph"><A NAME="pgfId-998587"></A>It returns a warning if channel R is not open.
+</P><H4 CLASS="Head3"><A NAME="pgfId-998293"></A><KBD CLASS="Filename-Command">SELECT FILE</KBD><A NAME="marker-1001705"></A></H4>
+<P CLASS="Paragraph"><A NAME="pgfId-998294"></A>In response to the <KBD CLASS="Filename-Command">SELECT FILE</KBD> command, the dispatcher follows this procedure:
+</P>
+<P CLASS="List1"><A NAME="pgfId-998295"></A>1.	If the specified channel is closed, open the channel.
+</P>
+<P CLASS="List1-"><A NAME="pgfId-998296"></A>2. 	Deselect currently selected applet in channel if needed.
+</P>
+<P CLASS="List1-"><A NAME="pgfId-998297"></A>3. 	Select specified applet in the channel.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-998739"></A>This <KBD CLASS="Filename-Command">SELECT FILE</KBD> command selects an applet on channel <KBD CLASS="Filename-Command">R</KBD>:
+</P>
+<BR>
+<TABLE CLASS="Titled" BORDER=1 BORDERCOLORLIGHT="#FFFFFF" BORDERCOLORDARK="#000000" CELLPADDING=5 CELLSPACING=0 DIR="LTR"><CAPTION>
+<P CLASS="Paragraph"> <A NAME="pgfId-1000657"> </A> &nbsp; 
+</P> </CAPTION>
+<THEAD>
+<TR>
+<TH SCOPE="COL" ROWSPAN="1" COLSPAN="1" BGCOLOR="#CCCCCC">
+<P CLASS="TableHead"><A NAME="pgfId-1002867"></A>CLA
+</P>
+</TH>
+<TH SCOPE="COL" ROWSPAN="1" COLSPAN="1" BGCOLOR="#CCCCCC">
+<P CLASS="TableHead"><A NAME="pgfId-1002869"></A>INS
+</P>
+</TH>
+<TH SCOPE="COL" ROWSPAN="1" COLSPAN="1" BGCOLOR="#CCCCCC">
+<P CLASS="TableHead"><A NAME="pgfId-1002871"></A>P1
+</P>
+</TH>
+<TH SCOPE="COL" ROWSPAN="1" COLSPAN="1" BGCOLOR="#CCCCCC">
+<P CLASS="TableHead"><A NAME="pgfId-1002873"></A>P2
+</P>
+</TH>
+<TH SCOPE="COL" ROWSPAN="1" COLSPAN="1" BGCOLOR="#CCCCCC">
+<P CLASS="TableHead"><A NAME="pgfId-1002875"></A>Lc
+</P>
+</TH>
+<TH SCOPE="COL" ROWSPAN="1" COLSPAN="1" BGCOLOR="#CCCCCC">
+<P CLASS="TableHead"><A NAME="pgfId-1002877"></A>Data
+</P>
+</TH>
+<TH SCOPE="COL" ROWSPAN="1" COLSPAN="1" BGCOLOR="#CCCCCC">
+<P CLASS="TableHead"><A NAME="pgfId-1002879"></A>Le
+</P>
+</TH>
+<TH SCOPE="COL" ROWSPAN="1" COLSPAN="1" BGCOLOR="#CCCCCC">
+<P CLASS="TableHead"><A NAME="pgfId-1003885"></A>SW1
+</P>
+</TH>
+<TH SCOPE="COL" ROWSPAN="1" COLSPAN="1" BGCOLOR="#CCCCCC">
+<P CLASS="TableHead"><A NAME="pgfId-1003887"></A>SW2
+</P>
+</TH>
+</TR>
+</THEAD>
+<TBODY>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-998756"></A>0x0R
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-998758"></A>0xA4
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-998760"></A>0x04
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-998762"></A>0x00
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-998764"></A>(AID len)
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-998766"></A>(AID)
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-998768"></A>0
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-1003889"></A>0x90
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-1003891"></A>00
+</P>
+</TD>
+</TR>
+</TBODY>
+</TABLE>
+<BR>
+<P CLASS="Paragraph"><A NAME="pgfId-998780"></A>This command produces the following results:
+</P>
+<UL>
+<LI CLASS="Bullet1"><A NAME="pgfId-998781"></A>Channel encoded in <KBD CLASS="Filename-Command">R</KBD> can be any channel (opened or unopened), including the basic channel.
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-998782"></A>The applet identified in the Data section becomes the selected applet on channel <KBD CLASS="Filename-Command">R</KBD>.
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-998783"></A>If channel encoded in <KBD CLASS="Filename-Command">R</KBD> is not open, this command opens channel <KBD CLASS="Filename-Command">R</KBD>.
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-998784"></A>If channel encoded in <KBD CLASS="Filename-Command">R</KBD> is open, this command changes the selected applet in the channel to the one specified.
+</LI>
+<P CLASS="Linebreak">
+</P>
+</UL>
+<P CLASS="Paragraph"><A NAME="pgfId-998785"></A>This command returns an error in the following circumstances:
+</P>
+<UL>
+<LI CLASS="Bullet1"><A NAME="pgfId-998786"></A>The applet cannot be found or is not available. The current applet is left selected and an error is returned. 
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-998787"></A>An active applet belonging to the same package does not implement the <KBD CLASS="Filename-Command">javacard.framework.MultiSelectable</KBD> interface, or if the applet to be selected does not implement this interface.
+</LI>
+<P CLASS="Linebreak">
+</P>
+<LI CLASS="Bullet1"><A NAME="pgfId-1001200"></A>Channel encoded in <KBD CLASS="Filename-Command">R</KBD> is not available.
+</LI>
+<P CLASS="Linebreak">
+</P>
+</UL>
+<P CLASS="Paragraph"><A NAME="pgfId-998262"></A>&nbsp;
+</P>
+<div class="navbar" align="center">
+<br>
+<br>
+<table dir="LTR" summary="Navigation bar, includes the book title and navigation buttons" width=100% cellpadding="0" cellspacing="0" border="0"><colgroup span="3" width="100%"><col id="1" span="1" width="45%"><col id="2" span="1" width="25%"><col id="3" span="1" width="30%">
+<tr bgcolor="#cccccc">
+<td class="navbartitle" align=left rowspan="1" colspan="1" abbr="ChapTitle">&nbsp;&nbsp;Application Programming Notes, Java Card Platform, Version 2.2.2
+</td>
+<td class="navbartitle" align=right rowspan="1" colspan="1" abbr="PartNum">3-11-06
+</td>
+<td valign="top" align="right" rowspan="1" colspan="1" abbr="NavButtons"><a href="index.html"><img src="shared/toc01.gif" title="Table Of Contents" alt="Table Of Contents" width="30" height="26" border="0"></a><a href="garbagecoll.html"><img src="shared/prev01.gif" title="Previous Chapter" alt="Previous Chapter" width="30" height="26" border="0"></a><a href="apduio.html"><img src="shared/next01.gif" title="Next Chapter" alt="Next Chapter" width="30" height="26" border="0"></a><a href="ix.html"><img src="shared/index01.gif" title="Book Index" alt="Book Index" width="30" height="26" border="0"></a>
+</td>
+</tr>
+</table>
+<br>
+<br>
+</div>
+<P CLASS="copyrightlink"><A HREF="copyright.html">Copyright</a> &#169; 2005, Sun Microsystems, Inc.   All Rights Reserved.</P>
+</BODY>
+</HTML>

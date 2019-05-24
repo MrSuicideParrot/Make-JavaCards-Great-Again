@@ -1,0 +1,328 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<HTML LANG="en">
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 7.0/HTML Export Filter">
+
+<LINK REL="STYLESHEET" HREF="unx_unstr_styles.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<META name="DC.TITLE" content="Virtual Machine Specification, Java Card Platform, v2.2.2">
+<TITLE>Contents 
+</TITLE>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV>
+<div class="navbar" align="center">
+<table dir="LTR" summary="Navigation bar, includes the book title and navigation buttons" width=100% cellpadding="0" cellspacing="0" border="0"><colgroup span="2" width="100%"><col id="1" span="1" width="50%"><col id="2" span="1" width="50%">
+<tr bgcolor="#cccccc">
+<td class="navbartitle" align=left rowspan="1" colspan="1" abbr="ChapTitle">&nbsp;&nbsp;Virtual Machine Specification, Java Card Platform, v2.2.2
+</td>
+<td valign="top" align="right" rowspan="1" colspan="1" abbr="NavButtons"><a href="index.html"><img src="shared/toc01.gif" title="Table Of Contents" alt="Table Of Contents" width="30" height="26" border="0"></a><A HREF="copyright.html"><img src="shared/prev01.gif" title="Previous Chapter" alt="Previous Chapter" width="30" height="26" border="0"></a><a href="JCVMLOF.html"><img src="shared/next01.gif" title="Next Chapter" alt="Next Chapter" width="30" height="26" border="0"></a><a href="ix.html"><img src="shared/index01.gif" title="Book Index" alt="Book Index" width="30" height="26" border="0"></a></td>
+</tr>
+</table>
+<br>
+<br>
+</div>
+</DIV>
+<P CLASS="HTMLOnly-LogoTitle"><A NAME="pgfId-108319"></A>
+<DIV><img src="shared/SunLogo.gif" title="Sun Logo" alt="Sun Logo">
+<br>
+<br>
+<br>
+<P CLASS="booktitlehere" align="center">Virtual Machine Specification, Java Card Platform, v2.2.2
+</P>
+<P CLASS="subtitlehere" align="center">Java Card<IMG SRC=shared/chars/tm.gif TITLE="trademark" ALT="trademark"> Platform, Version 2.2.2 
+</P>
+<P CLASS="subtitlehere" align="center"> 
+</P>
+<P CLASS="subtitlehere" align="center"> 
+</P>
+<P CLASS="partnumberhere" align="center">3-11-06
+</P>
+<br>
+</DIV>
+</P>
+<TABLE DIR="LTR" SUMMARY="Chapter Title" ABBR="ChapTitle" WIDTH="100%" BORDER="0">
+<COLGROUP SPAN="1" WIDTH="100%"><COL ID="1" SPAN="1" WIDTH="100%">
+<TR>
+<TD ALIGN="right" CLASS="ChapTitle">
+<HR SIZE=7 NOSHADE><A NAME="pgfId-1023395"></A>Contents
+</TD>
+</TR>
+</TABLE>
+<P CLASS="ChapTitleTOC"><A HREF="JCVMLOF.html">Figures</A></P>
+<P CLASS="ChapTitleTOC"><A HREF="JCVMLOT.html">Tables</A></P>
+<P CLASS="ChapTitlePTOC"><A NAME="pgfId-1017229"></A><A HREF="JCVMpreface.html#pgfId-9542" CLASS="Index">Preface </A></P>
+<P CLASS="ChapTitleTOC"><A NAME="pgfId-1017231"></A><A HREF="JCVM01intro.html#pgfId-1765" CLASS="Index"> 1. Introduction </A></P>
+<P CLASS="Head1TOC"><A NAME="pgfId-1017233"></A><A HREF="JCVM01intro.html#pgfId-53" CLASS="Index">1.1 Motivation </A></P>
+<P CLASS="Head1TOC"><A NAME="pgfId-1017235"></A><A HREF="JCVM01intro.html#pgfId-65" CLASS="Index">1.2 The Java Card Virtual Machine </A></P>
+<P CLASS="Head1TOC"><A NAME="pgfId-1017237"></A><A HREF="JCVM01intro.html#pgfId-77" CLASS="Index">1.3 Java Language Security </A></P>
+<P CLASS="Head1TOC"><A NAME="pgfId-1017239"></A><A HREF="JCVM01intro.html#pgfId-85" CLASS="Index">1.4 Java Card Runtime Environment Security </A></P>
+<P CLASS="ChapTitleTOC"><A NAME="pgfId-1017241"></A><A HREF="JCVM02lang.html#pgfId-35833" CLASS="Index"> 2. A Subset of the Java Virtual Machine </A></P>
+<P CLASS="Head1TOC"><A NAME="pgfId-1017243"></A><A HREF="JCVM02lang.html#pgfId-35835" CLASS="Index">2.1 Why a Subset is Needed </A></P>
+<P CLASS="Head1TOC"><A NAME="pgfId-1017245"></A><A HREF="JCVM02lang.html#pgfId-35838" CLASS="Index">2.2 Java Card Platform Language Subset </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017247"></A><A HREF="JCVM02lang.html#pgfId-35841" CLASS="Index">2.2.1 Unsupported Items </A></P>
+<P CLASS="Head3TOC"><A NAME="pgfId-1017249"></A><A HREF="JCVM02lang.html#pgfId-35843" CLASS="Index">2.2.1.1 Unsupported Features </A></P>
+<P CLASS="Head3TOC"><A NAME="pgfId-1017251"></A><A HREF="JCVM02lang.html#pgfId-35859" CLASS="Index">2.2.1.2 Keywords </A></P>
+<P CLASS="Head3TOC"><A NAME="pgfId-1017253"></A><A HREF="JCVM02lang.html#pgfId-35868" CLASS="Index">2.2.1.3 Unsupported Types </A></P>
+<P CLASS="Head3TOC"><A NAME="pgfId-1017255"></A><A HREF="JCVM02lang.html#pgfId-35870" CLASS="Index">2.2.1.4 Classes </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017257"></A><A HREF="JCVM02lang.html#pgfId-35877" CLASS="Index">2.2.2 Supported Items </A></P>
+<P CLASS="Head3TOC"><A NAME="pgfId-1017259"></A><A HREF="JCVM02lang.html#pgfId-35879" CLASS="Index">2.2.2.1 Features </A></P>
+<P CLASS="Head3TOC"><A NAME="pgfId-1017261"></A><A HREF="JCVM02lang.html#pgfId-51791" CLASS="Index">2.2.2.2 Keywords </A></P>
+<P CLASS="Head3TOC"><A NAME="pgfId-1017263"></A><A HREF="JCVM02lang.html#pgfId-35983" CLASS="Index">2.2.2.3 Types </A></P>
+<P CLASS="Head3TOC"><A NAME="pgfId-1017265"></A><A HREF="JCVM02lang.html#pgfId-35990" CLASS="Index">2.2.2.4 Classes </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017267"></A><A HREF="JCVM02lang.html#pgfId-35996" CLASS="Index">2.2.3 Optionally Supported Items </A></P>
+<P CLASS="Head3TOC"><A NAME="pgfId-1017269"></A><A HREF="JCVM02lang.html#pgfId-36000" CLASS="Index">2.2.3.1 Integer Data Type </A></P>
+<P CLASS="Head3TOC"><A NAME="pgfId-1017271"></A><A HREF="JCVM02lang.html#pgfId-46606" CLASS="Index">2.2.3.2 Object Deletion Mechanism </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017273"></A><A HREF="JCVM02lang.html#pgfId-36002" CLASS="Index">2.2.4 Limitations of the Java Card Virtual Machine </A></P>
+<P CLASS="Head3TOC"><A NAME="pgfId-1017275"></A><A HREF="JCVM02lang.html#pgfId-39103" CLASS="Index">2.2.4.1 Packages </A></P>
+<P CLASS="Head3TOC"><A NAME="pgfId-1017277"></A><A HREF="JCVM02lang.html#pgfId-46448" CLASS="Index">2.2.4.2 Classes </A></P>
+<P CLASS="Head3TOC"><A NAME="pgfId-1017279"></A><A HREF="JCVM02lang.html#pgfId-38944" CLASS="Index">2.2.4.3 Objects </A></P>
+<P CLASS="Head3TOC"><A NAME="pgfId-1017281"></A><A HREF="JCVM02lang.html#pgfId-36013" CLASS="Index">2.2.4.4 Methods </A></P>
+<P CLASS="Head3TOC"><A NAME="pgfId-1017283"></A><A HREF="JCVM02lang.html#pgfId-39154" CLASS="Index">2.2.4.5 Switch Statements </A></P>
+<P CLASS="Head3TOC"><A NAME="pgfId-1017285"></A><A HREF="JCVM02lang.html#pgfId-36017" CLASS="Index">2.2.4.6 Class Initialization </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017287"></A><A HREF="JCVM02lang.html#pgfId-44202" CLASS="Index">2.2.5 Multiselectable Applets Restrictions </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017289"></A><A HREF="JCVM02lang.html#pgfId-44232" CLASS="Index">2.2.6 Java Card Platform Remote Method Invocation (RMI) Restrictions </A></P>
+<P CLASS="Head3TOC"><A NAME="pgfId-1017291"></A><A HREF="JCVM02lang.html#pgfId-44234" CLASS="Index">2.2.6.1 Remote Classes and Remote Interfaces </A></P>
+<P CLASS="Head3TOC"><A NAME="pgfId-1017293"></A><A HREF="JCVM02lang.html#pgfId-44265" CLASS="Index">2.2.6.2 Access Control of Remote Interfaces </A></P>
+<P CLASS="Head3TOC"><A NAME="pgfId-1017295"></A><A HREF="JCVM02lang.html#pgfId-44237" CLASS="Index">2.2.6.3 Parameters and Return Values </A></P>
+<P CLASS="Head1TOC"><A NAME="pgfId-1017297"></A><A HREF="JCVM02lang.html#pgfId-36019" CLASS="Index">2.3 Java Card VM Subset </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017299"></A><A HREF="JCVM02lang.html#pgfId-36023" CLASS="Index">2.3.1 class File Subset </A></P>
+<P CLASS="Head3TOC"><A NAME="pgfId-1017301"></A><A HREF="JCVM02lang.html#pgfId-36025" CLASS="Index">2.3.1.1 Not Supported in Class Files </A></P>
+<P CLASS="Head3TOC"><A NAME="pgfId-1017303"></A><A HREF="JCVM02lang.html#pgfId-36057" CLASS="Index">2.3.1.2 Supported in Class Files </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017305"></A><A HREF="JCVM02lang.html#pgfId-36109" CLASS="Index">2.3.2 Bytecode Subset </A></P>
+<P CLASS="Head3TOC"><A NAME="pgfId-1017307"></A><A HREF="JCVM02lang.html#pgfId-36264" CLASS="Index">2.3.2.1 Unsupported Bytecodes </A></P>
+<P CLASS="Head3TOC"><A NAME="pgfId-1017309"></A><A HREF="JCVM02lang.html#pgfId-36418" CLASS="Index">2.3.2.2 Supported Bytecodes </A></P>
+<P CLASS="Head3TOC"><A NAME="pgfId-1017311"></A><A HREF="JCVM02lang.html#pgfId-36419" CLASS="Index">2.3.2.3 Static Restrictions on Bytecodes </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017313"></A><A HREF="JCVM02lang.html#pgfId-46806" CLASS="Index">2.3.3 Exceptions </A></P>
+<P CLASS="Head3TOC"><A NAME="pgfId-1017315"></A><A HREF="JCVM02lang.html#pgfId-36435" CLASS="Index">2.3.3.1 Uncaught and Uncatchable Exceptions </A></P>
+<P CLASS="Head3TOC"><A NAME="pgfId-1017317"></A><A HREF="JCVM02lang.html#pgfId-51349" CLASS="Index">2.3.3.2 Checked Exceptions </A></P>
+<P CLASS="Head3TOC"><A NAME="pgfId-1017319"></A><A HREF="JCVM02lang.html#pgfId-51538" CLASS="Index">2.3.3.3 Runtime Exceptions </A></P>
+<P CLASS="Head3TOC"><A NAME="pgfId-1017321"></A><A HREF="JCVM02lang.html#pgfId-36584" CLASS="Index">2.3.3.4 Errors </A></P>
+<P CLASS="ChapTitleTOC"><A NAME="pgfId-1017323"></A><A HREF="JCVM03structVM.html#pgfId-3034" CLASS="Index"> 3. Structure of the Java Card Virtual Machine </A></P>
+<P CLASS="Head1TOC"><A NAME="pgfId-1017325"></A><A HREF="JCVM03structVM.html#pgfId-645" CLASS="Index">3.1 Data Types and Values </A></P>
+<P CLASS="Head1TOC"><A NAME="pgfId-1017327"></A><A HREF="JCVM03structVM.html#pgfId-6487" CLASS="Index">3.2 Words </A></P>
+<P CLASS="Head1TOC"><A NAME="pgfId-1017329"></A><A HREF="JCVM03structVM.html#pgfId-667" CLASS="Index">3.3 Runtime Data Areas </A></P>
+<P CLASS="Head1TOC"><A NAME="pgfId-1017331"></A><A HREF="JCVM03structVM.html#pgfId-677" CLASS="Index">3.4 Contexts </A></P>
+<P CLASS="Head1TOC"><A NAME="pgfId-1017333"></A><A HREF="JCVM03structVM.html#pgfId-687" CLASS="Index">3.5 Frames </A></P>
+<P CLASS="Head1TOC"><A NAME="pgfId-1017335"></A><A HREF="JCVM03structVM.html#pgfId-693" CLASS="Index">3.6 Representation of Objects </A></P>
+<P CLASS="Head1TOC"><A NAME="pgfId-1017337"></A><A HREF="JCVM03structVM.html#pgfId-697" CLASS="Index">3.7 Special Initialization Methods </A></P>
+<P CLASS="Head1TOC"><A NAME="pgfId-1017339"></A><A HREF="JCVM03structVM.html#pgfId-703" CLASS="Index">3.8 Exceptions </A></P>
+<P CLASS="Head1TOC"><A NAME="pgfId-1017341"></A><A HREF="JCVM03structVM.html#pgfId-707" CLASS="Index">3.9 Binary File Formats </A></P>
+<P CLASS="Head1TOC"><A NAME="pgfId-1017343"></A><A HREF="JCVM03structVM.html#pgfId-715" CLASS="Index">3.10 Instruction Set Summary </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017345"></A><A HREF="JCVM03structVM.html#pgfId-721" CLASS="Index">3.10.1 Types and the Java Card Virtual Machine </A></P>
+<P CLASS="ChapTitleTOC"><A NAME="pgfId-1017347"></A><A HREF="JCVM04naming.html#pgfId-7778" CLASS="Index"> 4. Binary Representation </A></P>
+<P CLASS="Head1TOC"><A NAME="pgfId-1017349"></A><A HREF="JCVM04naming.html#pgfId-8434" CLASS="Index">4.1 Java Card Platform File Formats </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017351"></A><A HREF="JCVM04naming.html#pgfId-8562" CLASS="Index">4.1.1 Export File Format </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017353"></A><A HREF="JCVM04naming.html#pgfId-8564" CLASS="Index">4.1.2 CAP File Format </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017355"></A><A HREF="JCVM04naming.html#pgfId-8566" CLASS="Index">4.1.3 JAR File Container </A></P>
+<P CLASS="Head1TOC"><A NAME="pgfId-1017357"></A><A HREF="JCVM04naming.html#pgfId-8482" CLASS="Index">4.2 AID-based Naming </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017359"></A><A HREF="JCVM04naming.html#pgfId-8232" CLASS="Index">4.2.1 The AID Format </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017361"></A><A HREF="JCVM04naming.html#pgfId-8276" CLASS="Index">4.2.2 AID Usage </A></P>
+<P CLASS="Head1TOC"><A NAME="pgfId-1017363"></A><A HREF="JCVM04naming.html#pgfId-8004" CLASS="Index">4.3 Token-based Linking </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017365"></A><A HREF="JCVM04naming.html#pgfId-8006" CLASS="Index">4.3.1 Externally Visible Items </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017367"></A><A HREF="JCVM04naming.html#pgfId-6963" CLASS="Index">4.3.2 Private Tokens </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017369"></A><A HREF="JCVM04naming.html#pgfId-6967" CLASS="Index">4.3.3 The Export File and Conversion </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017371"></A><A HREF="JCVM04naming.html#pgfId-6972" CLASS="Index">4.3.4 References - External and Internal </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017373"></A><A HREF="JCVM04naming.html#pgfId-6977" CLASS="Index">4.3.5 Installation and Linking </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017375"></A><A HREF="JCVM04naming.html#pgfId-6980" CLASS="Index">4.3.6 Token Assignment </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017377"></A><A HREF="JCVM04naming.html#pgfId-6983" CLASS="Index">4.3.7 Token Details </A></P>
+<P CLASS="Head3TOC"><A NAME="pgfId-1017379"></A><A HREF="JCVM04naming.html#pgfId-7051" CLASS="Index">4.3.7.1 Package </A></P>
+<P CLASS="Head3TOC"><A NAME="pgfId-1017381"></A><A HREF="JCVM04naming.html#pgfId-7053" CLASS="Index">4.3.7.2 Classes and Interfaces </A></P>
+<P CLASS="Head3TOC"><A NAME="pgfId-1017383"></A><A HREF="JCVM04naming.html#pgfId-13190" CLASS="Index">4.3.7.3 Static Fields </A></P>
+<P CLASS="Head3TOC"><A NAME="pgfId-1017385"></A><A HREF="JCVM04naming.html#pgfId-7057" CLASS="Index">4.3.7.4 Static Methods and Constructors </A></P>
+<P CLASS="Head3TOC"><A NAME="pgfId-1017387"></A><A HREF="JCVM04naming.html#pgfId-7059" CLASS="Index">4.3.7.5 Instance Fields </A></P>
+<P CLASS="Head3TOC"><A NAME="pgfId-1017389"></A><A HREF="JCVM04naming.html#pgfId-998639" CLASS="Index">4.3.7.6 Virtual Methods </A></P>
+<P CLASS="Head3TOC"><A NAME="pgfId-1017391"></A><A HREF="JCVM04naming.html#pgfId-7138" CLASS="Index">4.3.7.7 Interface Methods </A></P>
+<P CLASS="Head1TOC"><A NAME="pgfId-1017393"></A><A HREF="JCVM04naming.html#pgfId-8240" CLASS="Index">4.4 Binary Compatibility </A></P>
+<P CLASS="Head1TOC"><A NAME="pgfId-1017395"></A><A HREF="JCVM04naming.html#pgfId-9139" CLASS="Index">4.5 Package Versions </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017397"></A><A HREF="JCVM04naming.html#pgfId-9342" CLASS="Index">4.5.1 Assigning </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017399"></A><A HREF="JCVM04naming.html#pgfId-9346" CLASS="Index">4.5.2 Linking </A></P>
+<P CLASS="ChapTitleTOC"><A NAME="pgfId-1017401"></A><A HREF="JCVM05export.html#pgfId-11318" CLASS="Index"> 5. The Export File Format </A></P>
+<P CLASS="Head1TOC"><A NAME="pgfId-1017403"></A><A HREF="JCVM05export.html#pgfId-15810" CLASS="Index">5.1 Export File Name </A></P>
+<P CLASS="Head1TOC"><A NAME="pgfId-1017405"></A><A HREF="JCVM05export.html#pgfId-17933" CLASS="Index">5.2 Containment in a JAR File </A></P>
+<P CLASS="Head1TOC"><A NAME="pgfId-1017407"></A><A HREF="JCVM05export.html#pgfId-18005" CLASS="Index">5.3 Ownership </A></P>
+<P CLASS="Head1TOC"><A NAME="pgfId-1017409"></A><A HREF="JCVM05export.html#pgfId-17953" CLASS="Index">5.4 Hierarchies Represented </A></P>
+<P CLASS="Head1TOC"><A NAME="pgfId-1017411"></A><A HREF="JCVM05export.html#pgfId-18191" CLASS="Index">5.5 Export File </A></P>
+<P CLASS="Head1TOC"><A NAME="pgfId-1017413"></A><A HREF="JCVM05export.html#pgfId-6996" CLASS="Index">5.6 Constant Pool </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017415"></A><A HREF="JCVM05export.html#pgfId-7592" CLASS="Index">5.6.1 CONSTANT_Package </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017417"></A><A HREF="JCVM05export.html#pgfId-999162" CLASS="Index">5.6.2 CONSTANT_Classref </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017419"></A><A HREF="JCVM05export.html#pgfId-7063" CLASS="Index">5.6.3 CONSTANT_Integer </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017421"></A><A HREF="JCVM05export.html#pgfId-17901" CLASS="Index">5.6.4 CONSTANT_Utf8 </A></P>
+<P CLASS="Head1TOC"><A NAME="pgfId-1017423"></A><A HREF="JCVM05export.html#pgfId-7089" CLASS="Index">5.7 Classes and Interfaces </A></P>
+<P CLASS="Head1TOC"><A NAME="pgfId-1017425"></A><A HREF="JCVM05export.html#pgfId-7167" CLASS="Index">5.8 Fields </A></P>
+<P CLASS="Head1TOC"><A NAME="pgfId-1017427"></A><A HREF="JCVM05export.html#pgfId-7237" CLASS="Index">5.9 Methods </A></P>
+<P CLASS="Head1TOC"><A NAME="pgfId-1017429"></A><A HREF="JCVM05export.html#pgfId-7310" CLASS="Index">5.10 Attributes </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017431"></A><A HREF="JCVM05export.html#pgfId-7317" CLASS="Index">5.10.1 ConstantValue Attribute </A></P>
+<P CLASS="ChapTitleTOC"><A NAME="pgfId-1017433"></A><A HREF="JCVM06cap.html#pgfId-53140" CLASS="Index"> 6. The CAP File Format </A></P>
+<P CLASS="Head1TOC"><A NAME="pgfId-1017435"></A><A HREF="JCVM06cap.html#pgfId-6960" CLASS="Index">6.1 Component Model </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017437"></A><A HREF="JCVM06cap.html#pgfId-15498" CLASS="Index">6.1.1 Containment in a JAR File </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017439"></A><A HREF="JCVM06cap.html#pgfId-15560" CLASS="Index">6.1.2 Defining New Components </A></P>
+<P CLASS="Head1TOC"><A NAME="pgfId-1017441"></A><A HREF="JCVM06cap.html#pgfId-53867" CLASS="Index">6.2 Installation </A></P>
+<P CLASS="Head1TOC"><A NAME="pgfId-1017443"></A><A HREF="JCVM06cap.html#pgfId-16191" CLASS="Index">6.3 Header Component </A></P>
+<P CLASS="Head1TOC"><A NAME="pgfId-1017445"></A><A HREF="JCVM06cap.html#pgfId-1010640" CLASS="Index">6.4 Directory Component </A></P>
+<P CLASS="Head1TOC"><A NAME="pgfId-1017447"></A><A HREF="JCVM06cap.html#pgfId-7200" CLASS="Index">6.5 Applet Component </A></P>
+<P CLASS="Head1TOC"><A NAME="pgfId-1017449"></A><A HREF="JCVM06cap.html#pgfId-19555" CLASS="Index">6.6 Import Component </A></P>
+<P CLASS="Head1TOC"><A NAME="pgfId-1017451"></A><A HREF="JCVM06cap.html#pgfId-55032" CLASS="Index">6.7 Constant Pool Component </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017453"></A><A HREF="JCVM06cap.html#pgfId-7315" CLASS="Index">6.7.1 CONSTANT_Classref </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017455"></A><A HREF="JCVM06cap.html#pgfId-9093" CLASS="Index">6.7.2 CONSTANT_InstanceFieldref, CONSTANT_VirtualMethodref, and CONSTANT_SuperMethodref </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017457"></A><A HREF="JCVM06cap.html#pgfId-7391" CLASS="Index">6.7.3 CONSTANT_StaticFieldref and CONSTANT_StaticMethodref </A></P>
+<P CLASS="Head1TOC"><A NAME="pgfId-1017459"></A><A HREF="JCVM06cap.html#pgfId-17253" CLASS="Index">6.8 Class Component </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017461"></A><A HREF="JCVM06cap.html#pgfId-53165" CLASS="Index">6.8.1 type_descriptor </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017463"></A><A HREF="JCVM06cap.html#pgfId-53163" CLASS="Index">6.8.2 interface_info and class_info </A></P>
+<P CLASS="Head3TOC"><A NAME="pgfId-1017465"></A><A HREF="JCVM06cap.html#pgfId-9190" CLASS="Index">6.8.2.1 interface_info and class_info shared Items </A></P>
+<P CLASS="Head3TOC"><A NAME="pgfId-1017467"></A><A HREF="JCVM06cap.html#pgfId-53480" CLASS="Index">6.8.2.2 interface_info Items </A></P>
+<P CLASS="Head3TOC"><A NAME="pgfId-1017469"></A><A HREF="JCVM06cap.html#pgfId-47809" CLASS="Index">6.8.2.3 class_info Items </A></P>
+<P CLASS="Head3TOC"><A NAME="pgfId-1017471"></A><A HREF="JCVM06cap.html#pgfId-53520" CLASS="Index">6.8.2.4 implemented_interface_info </A></P>
+<P CLASS="Head3TOC"><A NAME="pgfId-1017473"></A><A HREF="JCVM06cap.html#pgfId-53562" CLASS="Index">6.8.2.5 remote_interface_info </A></P>
+<P CLASS="Head1TOC"><A NAME="pgfId-1017475"></A><A HREF="JCVM06cap.html#pgfId-7568" CLASS="Index">6.9 Method Component </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017477"></A><A HREF="JCVM06cap.html#pgfId-7590" CLASS="Index">6.9.1 exception_handler_info </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017479"></A><A HREF="JCVM06cap.html#pgfId-7611" CLASS="Index">6.9.2 method_info </A></P>
+<P CLASS="Head1TOC"><A NAME="pgfId-1017481"></A><A HREF="JCVM06cap.html#pgfId-46638" CLASS="Index">6.10 Static Field Component </A></P>
+<P CLASS="Head1TOC"><A NAME="pgfId-1017483"></A><A HREF="JCVM06cap.html#pgfId-7797" CLASS="Index">6.11 Reference Location Component </A></P>
+<P CLASS="Head1TOC"><A NAME="pgfId-1017485"></A><A HREF="JCVM06cap.html#pgfId-7823" CLASS="Index">6.12 Export Component </A></P>
+<P CLASS="Head1TOC"><A NAME="pgfId-1017487"></A><A HREF="JCVM06cap.html#pgfId-7859" CLASS="Index">6.13 Descriptor Component </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017489"></A><A HREF="JCVM06cap.html#pgfId-7881" CLASS="Index">6.13.1 class_descriptor_info </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017491"></A><A HREF="JCVM06cap.html#pgfId-7949" CLASS="Index">6.13.2 field_descriptor_info </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017493"></A><A HREF="JCVM06cap.html#pgfId-8030" CLASS="Index">6.13.3 method_descriptor_info </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017495"></A><A HREF="JCVM06cap.html#pgfId-8098" CLASS="Index">6.13.4 type_descriptor_info </A></P>
+<P CLASS="Head1TOC"><A NAME="pgfId-1017497"></A><A HREF="JCVM06cap.html#pgfId-51836" CLASS="Index">6.14 Debug Component </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017499"></A><A HREF="JCVM06cap.html#pgfId-52400" CLASS="Index">6.14.1 The class_debug_info Structure </A></P>
+<P CLASS="Head3TOC"><A NAME="pgfId-1017501"></A><A HREF="JCVM06cap.html#pgfId-52469" CLASS="Index">6.14.1.1 The field_debug_info Structure </A></P>
+<P CLASS="Head3TOC"><A NAME="pgfId-1017503"></A><A HREF="JCVM06cap.html#pgfId-54058" CLASS="Index">6.14.1.2 The method_debug_info Structure </A></P>
+<P CLASS="ChapTitleTOC"><A NAME="pgfId-1017505"></A><A HREF="JCVM07instr.html#pgfId-6949" CLASS="Index"> 7. Java Card Virtual Machine Instruction Set </A></P>
+<P CLASS="Head1TOC"><A NAME="pgfId-1017507"></A><A HREF="JCVM07instr.html#pgfId-6951" CLASS="Index">7.1 Assumptions: The Meaning of &quot;Must&quot; </A></P>
+<P CLASS="Head1TOC"><A NAME="pgfId-1017509"></A><A HREF="JCVM07instr.html#pgfId-6960" CLASS="Index">7.2 Reserved Opcodes </A></P>
+<P CLASS="Head1TOC"><A NAME="pgfId-1017511"></A><A HREF="JCVM07instr.html#pgfId-6964" CLASS="Index">7.3 Virtual Machine Errors </A></P>
+<P CLASS="Head1TOC"><A NAME="pgfId-1017513"></A><A HREF="JCVM07instr.html#pgfId-6969" CLASS="Index">7.4 Security Exceptions </A></P>
+<P CLASS="Head1TOC"><A NAME="pgfId-1017515"></A><A HREF="JCVM07instr.html#pgfId-6979" CLASS="Index">7.5 The Java Card Virtual Machine Instruction Set </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017517"></A><A HREF="JCVM07instr.html#pgfId-7021" CLASS="Index">7.5.1 aaload </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017519"></A><A HREF="JCVM07instr.html#pgfId-54253" CLASS="Index">7.5.2 aastore </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017521"></A><A HREF="JCVM07instr.html#pgfId-50824" CLASS="Index">7.5.3 aconst_null </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017523"></A><A HREF="JCVM07instr.html#pgfId-7067" CLASS="Index">7.5.4 aload </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017525"></A><A HREF="JCVM07instr.html#pgfId-7080" CLASS="Index">7.5.5 aload_&lt;n&gt; </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017527"></A><A HREF="JCVM07instr.html#pgfId-7093" CLASS="Index">7.5.6 anewarray </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017529"></A><A HREF="JCVM07instr.html#pgfId-7107" CLASS="Index">7.5.7 areturn </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017531"></A><A HREF="JCVM07instr.html#pgfId-7118" CLASS="Index">7.5.8 arraylength </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017533"></A><A HREF="JCVM07instr.html#pgfId-7130" CLASS="Index">7.5.9 astore </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017535"></A><A HREF="JCVM07instr.html#pgfId-7143" CLASS="Index">7.5.10 astore_&lt;n&gt; </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017537"></A><A HREF="JCVM07instr.html#pgfId-7156" CLASS="Index">7.5.11 athrow </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017539"></A><A HREF="JCVM07instr.html#pgfId-1001795" CLASS="Index">7.5.12 baload </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017541"></A><A HREF="JCVM07instr.html#pgfId-26658" CLASS="Index">7.5.13 bastore </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017543"></A><A HREF="JCVM07instr.html#pgfId-7196" CLASS="Index">7.5.14 bipush </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017545"></A><A HREF="JCVM07instr.html#pgfId-50877" CLASS="Index">7.5.15 bspush </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017547"></A><A HREF="JCVM07instr.html#pgfId-7220" CLASS="Index">7.5.16 checkcast </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017549"></A><A HREF="JCVM07instr.html#pgfId-7275" CLASS="Index">7.5.17 dup </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017551"></A><A HREF="JCVM07instr.html#pgfId-1001942" CLASS="Index">7.5.18 dup_x </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017553"></A><A HREF="JCVM07instr.html#pgfId-7304" CLASS="Index">7.5.19 dup2 </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017555"></A><A HREF="JCVM07instr.html#pgfId-7317" CLASS="Index">7.5.20 getfield_&lt;t&gt; </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017557"></A><A HREF="JCVM07instr.html#pgfId-7340" CLASS="Index">7.5.21 getfield_&lt;t&gt;_this </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017559"></A><A HREF="JCVM07instr.html#pgfId-54816" CLASS="Index">7.5.22 getfield_&lt;t&gt;_w </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017561"></A><A HREF="JCVM07instr.html#pgfId-7387" CLASS="Index">7.5.23 getstatic_&lt;t&gt; </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017563"></A><A HREF="JCVM07instr.html#pgfId-7409" CLASS="Index">7.5.24 goto </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017565"></A><A HREF="JCVM07instr.html#pgfId-7420" CLASS="Index">7.5.25 goto_w </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017567"></A><A HREF="JCVM07instr.html#pgfId-7432" CLASS="Index">7.5.26 i2b </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017569"></A><A HREF="JCVM07instr.html#pgfId-7445" CLASS="Index">7.5.27 i2s </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017571"></A><A HREF="JCVM07instr.html#pgfId-7458" CLASS="Index">7.5.28 iadd </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017573"></A><A HREF="JCVM07instr.html#pgfId-7471" CLASS="Index">7.5.29 iaload </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017575"></A><A HREF="JCVM07instr.html#pgfId-7486" CLASS="Index">7.5.30 iand </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017577"></A><A HREF="JCVM07instr.html#pgfId-7498" CLASS="Index">7.5.31 iastore </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017579"></A><A HREF="JCVM07instr.html#pgfId-7513" CLASS="Index">7.5.32 icmp </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017581"></A><A HREF="JCVM07instr.html#pgfId-7525" CLASS="Index">7.5.33 iconst_&lt;i&gt; </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017583"></A><A HREF="JCVM07instr.html#pgfId-7537" CLASS="Index">7.5.34 idiv </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017585"></A><A HREF="JCVM07instr.html#pgfId-7553" CLASS="Index">7.5.35 if_acmp&lt;cond&gt; </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017587"></A><A HREF="JCVM07instr.html#pgfId-7568" CLASS="Index">7.5.36 if_acmp&lt;cond&gt;_w </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017589"></A><A HREF="JCVM07instr.html#pgfId-7584" CLASS="Index">7.5.37 if_scmp&lt;cond&gt; </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017591"></A><A HREF="JCVM07instr.html#pgfId-7603" CLASS="Index">7.5.38 if_scmp&lt;cond&gt;_w </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017593"></A><A HREF="JCVM07instr.html#pgfId-7623" CLASS="Index">7.5.39 if&lt;cond&gt; </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017595"></A><A HREF="JCVM07instr.html#pgfId-7642" CLASS="Index">7.5.40 if&lt;cond&gt;_w </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017597"></A><A HREF="JCVM07instr.html#pgfId-7662" CLASS="Index">7.5.41 ifnonnull </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017599"></A><A HREF="JCVM07instr.html#pgfId-7674" CLASS="Index">7.5.42 ifnonnull_w </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017601"></A><A HREF="JCVM07instr.html#pgfId-7687" CLASS="Index">7.5.43 ifnull </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017603"></A><A HREF="JCVM07instr.html#pgfId-7699" CLASS="Index">7.5.44 ifnull_w </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017605"></A><A HREF="JCVM07instr.html#pgfId-7712" CLASS="Index">7.5.45 iinc </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017607"></A><A HREF="JCVM07instr.html#pgfId-7726" CLASS="Index">7.5.46 iinc_w </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017609"></A><A HREF="JCVM07instr.html#pgfId-7741" CLASS="Index">7.5.47 iipush </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017611"></A><A HREF="JCVM07instr.html#pgfId-7757" CLASS="Index">7.5.48 iload </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017613"></A><A HREF="JCVM07instr.html#pgfId-7770" CLASS="Index">7.5.49 iload_&lt;n&gt; </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017615"></A><A HREF="JCVM07instr.html#pgfId-7783" CLASS="Index">7.5.50 ilookupswitch </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017617"></A><A HREF="JCVM07instr.html#pgfId-7811" CLASS="Index">7.5.51 imul </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017619"></A><A HREF="JCVM07instr.html#pgfId-7824" CLASS="Index">7.5.52 ineg </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017621"></A><A HREF="JCVM07instr.html#pgfId-7838" CLASS="Index">7.5.53 instanceof </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017623"></A><A HREF="JCVM07instr.html#pgfId-7891" CLASS="Index">7.5.54 invokeinterface </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017625"></A><A HREF="JCVM07instr.html#pgfId-26773" CLASS="Index">7.5.55 invokespecial </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017627"></A><A HREF="JCVM07instr.html#pgfId-7929" CLASS="Index">7.5.56 invokestatic </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017629"></A><A HREF="JCVM07instr.html#pgfId-7944" CLASS="Index">7.5.57 invokevirtual </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017631"></A><A HREF="JCVM07instr.html#pgfId-26964" CLASS="Index">7.5.58 ior </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017633"></A><A HREF="JCVM07instr.html#pgfId-7974" CLASS="Index">7.5.59 irem </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017635"></A><A HREF="JCVM07instr.html#pgfId-7989" CLASS="Index">7.5.60 ireturn </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017637"></A><A HREF="JCVM07instr.html#pgfId-8002" CLASS="Index">7.5.61 ishl </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017639"></A><A HREF="JCVM07instr.html#pgfId-8015" CLASS="Index">7.5.62 ishr </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017641"></A><A HREF="JCVM07instr.html#pgfId-8029" CLASS="Index">7.5.63 istore </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017643"></A><A HREF="JCVM07instr.html#pgfId-8042" CLASS="Index">7.5.64 istore_&lt;n&gt; </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017645"></A><A HREF="JCVM07instr.html#pgfId-8054" CLASS="Index">7.5.65 isub </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017647"></A><A HREF="JCVM07instr.html#pgfId-8068" CLASS="Index">7.5.66 itableswitch </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017649"></A><A HREF="JCVM07instr.html#pgfId-8096" CLASS="Index">7.5.67 iushr </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017651"></A><A HREF="JCVM07instr.html#pgfId-8109" CLASS="Index">7.5.68 ixor </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017653"></A><A HREF="JCVM07instr.html#pgfId-8121" CLASS="Index">7.5.69 jsr </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017655"></A><A HREF="JCVM07instr.html#pgfId-8135" CLASS="Index">7.5.70 new </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017657"></A><A HREF="JCVM07instr.html#pgfId-8149" CLASS="Index">7.5.71 newarray </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017659"></A><A HREF="JCVM07instr.html#pgfId-8187" CLASS="Index">7.5.72 nop </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017661"></A><A HREF="JCVM07instr.html#pgfId-8197" CLASS="Index">7.5.73 pop </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017663"></A><A HREF="JCVM07instr.html#pgfId-8209" CLASS="Index">7.5.74 pop2 </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017665"></A><A HREF="JCVM07instr.html#pgfId-8222" CLASS="Index">7.5.75 putfield_&lt;t&gt; </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017667"></A><A HREF="JCVM07instr.html#pgfId-8245" CLASS="Index">7.5.76 putfield_&lt;t&gt;_this </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017669"></A><A HREF="JCVM07instr.html#pgfId-8268" CLASS="Index">7.5.77 putfield_&lt;t&gt;_w </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017671"></A><A HREF="JCVM07instr.html#pgfId-8292" CLASS="Index">7.5.78 putstatic_&lt;t&gt; </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017673"></A><A HREF="JCVM07instr.html#pgfId-8314" CLASS="Index">7.5.79 ret </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017675"></A><A HREF="JCVM07instr.html#pgfId-8328" CLASS="Index">7.5.80 return </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017677"></A><A HREF="JCVM07instr.html#pgfId-8338" CLASS="Index">7.5.81 s2b </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017679"></A><A HREF="JCVM07instr.html#pgfId-8350" CLASS="Index">7.5.82 s2i </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017681"></A><A HREF="JCVM07instr.html#pgfId-8363" CLASS="Index">7.5.83 sadd </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017683"></A><A HREF="JCVM07instr.html#pgfId-8374" CLASS="Index">7.5.84 saload </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017685"></A><A HREF="JCVM07instr.html#pgfId-8387" CLASS="Index">7.5.85 sand </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017687"></A><A HREF="JCVM07instr.html#pgfId-8397" CLASS="Index">7.5.86 sastore </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017689"></A><A HREF="JCVM07instr.html#pgfId-54896" CLASS="Index">7.5.87 sconst_&lt;s&gt; </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017691"></A><A HREF="JCVM07instr.html#pgfId-8420" CLASS="Index">7.5.88 sdiv </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017693"></A><A HREF="JCVM07instr.html#pgfId-8434" CLASS="Index">7.5.89 sinc </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017695"></A><A HREF="JCVM07instr.html#pgfId-8446" CLASS="Index">7.5.90 sinc_w </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017697"></A><A HREF="JCVM07instr.html#pgfId-8459" CLASS="Index">7.5.91 sipush </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017699"></A><A HREF="JCVM07instr.html#pgfId-8473" CLASS="Index">7.5.92 sload </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017701"></A><A HREF="JCVM07instr.html#pgfId-8484" CLASS="Index">7.5.93 sload_&lt;n&gt; </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017703"></A><A HREF="JCVM07instr.html#pgfId-8496" CLASS="Index">7.5.94 slookupswitch </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017705"></A><A HREF="JCVM07instr.html#pgfId-51654" CLASS="Index">7.5.95 smul </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017707"></A><A HREF="JCVM07instr.html#pgfId-8532" CLASS="Index">7.5.96 sneg </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017709"></A><A HREF="JCVM07instr.html#pgfId-8544" CLASS="Index">7.5.97 sor </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017711"></A><A HREF="JCVM07instr.html#pgfId-8554" CLASS="Index">7.5.98 srem </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017713"></A><A HREF="JCVM07instr.html#pgfId-8567" CLASS="Index">7.5.99 sreturn </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017715"></A><A HREF="JCVM07instr.html#pgfId-8578" CLASS="Index">7.5.100 sshl </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017717"></A><A HREF="JCVM07instr.html#pgfId-8590" CLASS="Index">7.5.101 sshr </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017719"></A><A HREF="JCVM07instr.html#pgfId-54669" CLASS="Index">7.5.102 sspush </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017721"></A><A HREF="JCVM07instr.html#pgfId-8614" CLASS="Index">7.5.103 sstore </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017723"></A><A HREF="JCVM07instr.html#pgfId-8625" CLASS="Index">7.5.104 sstore_&lt;n&gt; </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017725"></A><A HREF="JCVM07instr.html#pgfId-8635" CLASS="Index">7.5.105 ssub </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017727"></A><A HREF="JCVM07instr.html#pgfId-8647" CLASS="Index">7.5.106 stableswitch </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017729"></A><A HREF="JCVM07instr.html#pgfId-8669" CLASS="Index">7.5.107 sushr </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017731"></A><A HREF="JCVM07instr.html#pgfId-54684" CLASS="Index">7.5.108 swap_x </A></P>
+<P CLASS="Head2TOC"><A NAME="pgfId-1017733"></A><A HREF="JCVM07instr.html#pgfId-54694" CLASS="Index">7.5.109 sxor </A></P>
+<P CLASS="ChapTitleTOC"><A NAME="pgfId-1017735"></A><A HREF="JCVM08instrTables.html#pgfId-23352" CLASS="Index"> 8. Tables of Instructions </A></P>
+<P CLASS="ChapTitleGTOC"><A NAME="pgfId-1017737"></A><A HREF="Glossary.html#pgfId-11621" CLASS="Index">Glossary </A></P>
+<P CLASS="ChapTitleITOC"><A NAME="pgfId-1017739"></A><A HREF="ix.html#pgfId-3940" CLASS="Index">Index </A></P><div class="navbar" align="center">
+<br>
+<br>
+<table dir="LTR" summary="Navigation bar, includes the book title and navigation buttons" width=100% cellpadding="0" cellspacing="0" border="0"><colgroup span="3" width="100%"><col id="1" span="1" width="45%"><col id="2" span="1" width="25%"><col id="3" span="1" width="30%">
+<tr bgcolor="#cccccc">
+<td class="navbartitle" align=left rowspan="1" colspan="1" abbr="ChapTitle">&nbsp;&nbsp;Virtual Machine Specification, Java Card Platform, v2.2.2
+</td>
+<td class="navbartitle" align=right rowspan="1" colspan="1" abbr="PartNum">3-11-06
+</td>
+<td valign="top" align="right" rowspan="1" colspan="1" abbr="NavButtons"><a href="index.html"><img src="shared/toc01.gif" title="Table Of Contents" alt="Table Of Contents" width="30" height="26" border="0"></a><A HREF="copyright.html"><img src="shared/prev01.gif" title="Previous Chapter" alt="Previous Chapter" width="30" height="26" border="0"></a><a href="JCVMLOF.html"><img src="shared/next01.gif" title="Next Chapter" alt="Next Chapter" width="30" height="26" border="0"></a><a href="ix.html"><img src="shared/index01.gif" title="Book Index" alt="Book Index" width="30" height="26" border="0"></a></td>
+</tr>
+</table>
+<br>
+<br>
+</div>
+<P CLASS="copyrightlink"><a href="copyright.html">Copyright</a> &#169; 2005, Sun Microsystems, Inc.   All Rights Reserved.
+</P>
+</BODY>
+</HTML>

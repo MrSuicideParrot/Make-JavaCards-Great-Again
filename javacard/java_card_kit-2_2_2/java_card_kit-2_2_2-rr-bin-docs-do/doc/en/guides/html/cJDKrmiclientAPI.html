@@ -1,0 +1,315 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type"
+ content="text/html; charset=ISO-8859-1">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="GENERATOR"
+ content="Adobe FrameMaker 7.0/HTML Export Filter">
+  <link rel="STYLESHEET" href="unx_unstr_styles.css"
+ charset="ISO-8859-1" type="text/css">
+  <meta name="DC.TITLE"
+ content="Development Kit User's Guide, Java Card Platform, Version 2.2.2">
+  <title>C H A P T E R 14 - Java Card RMI Client-Side Reference
+Implementation</title>
+</head>
+<body bgcolor="#ffffff">
+<div>
+<div class="navbar" align="center">
+<table dir="ltr"
+ summary="Navigation bar, includes the book title and navigation buttons"
+ width="100%" cellpadding="0" cellspacing="0" border="0">
+  <colgroup span="2" width="100%"><col id="1" span="1" width="50%"><col
+ id="2" span="1" width="50%"></colgroup><tbody>
+    <tr bgcolor="#cccccc">
+      <td class="navbartitle" align="left" rowspan="1" colspan="1"
+ abbr="ChapTitle">&nbsp;&nbsp;Development Kit User's Guide, Java Card
+Platform, Version 2.2.2
+      </td>
+      <td valign="top" align="right" rowspan="1" colspan="1"
+ abbr="NavButtons"><a href="index.html"><img src="shared/toc01.gif"
+ title="Table Of Contents" alt="Table Of Contents" width="30"
+ height="26" border="0"></a><a href="cJDKcrypto.html"><img
+ src="shared/prev01.gif" title="Previous Chapter" alt="Previous Chapter"
+ width="30" height="26" border="0"></a><a href="cJDKAppendixA.html"><img
+ src="shared/next01.gif" title="Next Chapter" alt="Next Chapter"
+ width="30" height="26" border="0"></a><a href="ix.html"><img
+ src="shared/index01.gif" title="Book Index" alt="Book Index" width="30"
+ height="26" border="0"></a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+</div>
+</div>
+<table dir="ltr" summary="Chapter Number" abbr="ChapNum" width="100%"
+ border="0">
+  <colgroup span="1" width="100%"><col id="1" span="1"></colgroup><tbody>
+    <tr>
+      <td align="right" class="ChapNumber"><span class="ChapNumPrefix"><a
+ name="pgfId-1000512"></a>C H A P T E R </span>&nbsp;<span
+ class="ChapNumNum">14</span><a name="49173"></a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<table dir="ltr" summary="Chapter Title" abbr="ChapTitle" width="100%"
+ border="0">
+  <colgroup span="1" width="100%"><col id="1" span="1" width="100%"></colgroup><tbody>
+    <tr>
+      <td align="right" class="ChapTitle">
+      <hr size="7" noshade="noshade"><a name="pgfId-1000514"></a><a
+ name="17869"></a>Java Card RMI Client-Side Reference Implementation
+      </td>
+    </tr>
+  </tbody>
+</table>
+<p class="Paragraph"><a name="pgfId-1000516"></a><a
+ name="marker-1000515"></a>A Java Card RMI client application runs on a
+Card Acceptance Device (CAD) terminal which supports a J2SE or J2ME
+platform. The client application requires a portable and platform
+independent mechanism to access the Java Card RMI server applet
+executing on the smart card. </p>
+<p class="Paragraph"><a name="pgfId-1000518"></a><a
+ name="marker-1000517"></a>The basic client-side framework is
+implemented in the package <kbd class="Filename-Command">com.sun.javacard.javacard.rmiclientlib
+and com.sun.javacard.javacard.clientlib</kbd><a name="marker-1005625"></a><a
+ name="marker-1005626"></a>. Refer to <em class="Emphasis">Java Card
+RMI Client Application Programming Interface, Version 2.2.2</em>.
+</p>
+<p class="Paragraph"><a name="pgfId-1000523"></a><a
+ name="marker-1000522"></a>The reference implementation of Java Card
+RMI client-side API is based on <a name="marker-1005229"></a>APDU I/O
+for its card access mechanisms. For more information on APDU I/O, see <em
+ class="Emphasis">Application Programming Notes for the Java Card
+Platform, Version 2.2.2</em>.
+</p>
+<p class="Paragraph"><a name="pgfId-1005278"></a>For an overview of the
+Java Card RMI client-side APIs, see <a
+ href="cJDKrmiclientAPI.html#71852" class="XRef">Java Card RMI
+Client-Side API</a>. </p>
+<h2 class="Head1"><a name="pgfId-1005092"></a>
+<div>
+<hr align="left" size="6" width="15%" noshade="noshade"></div>
+The Java Card Remote Stub Object</h2>
+<p class="Paragraph"><a name="pgfId-1000531"></a>Java Card RMI supports
+two formats for passing remote references. The format for remote
+references containing the class name requires stubs for remote objects
+available to the client application. </p>
+<p class="Paragraph"><a name="pgfId-1000533"></a><a
+ name="marker-1000532"></a>The standard Java RMIC compiler tool can be
+used as the stub compilation tool to produce stub classes required for
+the client application. To produce these stub classes, the RMIC
+compiler tool must have access to all the non-abstract classes defined
+in the applet package which directly or indirectly implement remote
+interfaces. In addition, it needs to access the <kbd
+ class="Filename-Command">.class</kbd> files of all the remote
+interfaces implemented by them.
+</p>
+<p class="Paragraph"><a name="pgfId-1000534"></a>If you want the stub
+class to be Java Card RMI-specific when it is instantiated on the
+client, it must be customized with a Java Card platform-specific
+implementation of the <kbd class="Filename-Command">CardObjectFactory</kbd>
+interface.
+</p>
+<p class="Paragraph"><a name="pgfId-1000535"></a>The standard Java RMIC
+compiler is used to generate the remote stub objects. JCRemoteRefImpl,
+a Java Card platform-specific implementation of the <kbd
+ class="Filename-Command">java.rmi.server.RemoteRef</kbd> interface,
+allows these stub objects to work with Java Card RMI. The stub object
+delegates all method invocations to its configured RemoteRef instance.
+</p>
+<p class="Paragraph"><a name="pgfId-1000536"></a>The <kbd
+ class="Filename-Command">com.sun.javacard.rmiclientlib.JCRemoteRefImpl</kbd>
+class is an example of a RemoteRef object customized for the Java Card
+platform.
+</p>
+<p class="Paragraph"><a name="pgfId-1000537"></a>For examples of how to
+use these interfaces and classes, see <em class="Emphasis">Application
+Programming Notes for the Java Card Platform, Version 2.2.2</em>.
+</p>
+<br>
+<hr noshade="noshade" size="1">
+<table class="TipNote" dir="ltr" width="100%" summary="TipNote">
+  <colgroup span="1" width="100%"></colgroup><tbody>
+    <tr align="left" valign="top">
+      <td rowspan="1" colspan="1" abbr="TipNoteText">
+      <p class="TipNote"><b class="TipNote">Note - </b><a
+ name="pgfId-1000541"></a>Since the remote object is configured as a
+Java Card platform-specific object with a local connection to the smart
+card via the CardAccessor object, the object is inherently not
+portable. A bridge class must be used if it is to be accessed from
+outside of this client application.
+      </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<hr noshade="noshade" size="1">
+<br>
+<br>
+<hr noshade="noshade" size="1">
+<table class="TipNote" dir="ltr" width="100%" summary="TipNote">
+  <colgroup span="1" width="100%"></colgroup><tbody>
+    <tr align="left" valign="top">
+      <td rowspan="1" colspan="1" abbr="TipNoteText">
+      <p class="TipNote"><b class="TipNote">Note - </b><a
+ name="pgfId-1000543"></a>Some versions of the RMIC do not treat <kbd
+ class="Filename-Command">Throwable</kbd> as a superclass of <kbd
+ class="Filename-Command">RemoteException</kbd>. The workaround is to
+declare remote methods to throw <kbd class="Filename-Command">Exception</kbd>
+instead.
+      </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<hr noshade="noshade" size="1">
+<br>
+<h2 class="Head1"><a name="pgfId-1005364"></a>
+<div>
+<hr align="left" size="6" width="15%" noshade="noshade"></div>
+<a name="71852"></a>Java Card RMI Client-Side API</h2>
+<p class="Paragraph"><a name="pgfId-1005584"></a>The two packages in
+the Java Card RMI client-side reference implementation demonstrate
+remote stub customization using the <a name="marker-1005627"></a>RMIC
+compiler generated stubs and card access for Java Card applets.
+</p>
+<p class="Paragraph"><a name="pgfId-1005618"></a>The package <kbd
+ class="Filename-Command">com.sun.javacard.javacard.rmiclientlib</kbd><a
+ name="marker-1005630"></a> implements Java Card RMI-specific
+functionality.
+</p>
+<p class="Paragraph"><a name="pgfId-1005582"></a>The package <kbd
+ class="Filename-Command">com.sun.javacard.javacard.clientlib</kbd><a
+ name="marker-1005631"></a> implements basic functionality to exchange
+APDUs with a smart card or a smart card simulator. This implementation
+of <kbd class="Filename-Command">clientlib</kbd> requires that the
+ApduIO library is included in the CLASSPATH.
+</p>
+<p class="Paragraph"><a name="pgfId-1006098"></a>The Javadoc files for
+this API are in the binary release bundle in HTML format at <a
+ href="rmijavadocs/index.html"><kbd class="Filename-Command">java_card_kit-2_2_2/doc/en/guides/html/rmijavadocs/index.html</kbd></a>.
+A compilation of the Javadoc files has been included in PDF format in
+the same directory as the PDF file for this book. The location of the
+PDF version of the Javadoc files is <kbd class="Filename-Command">java_card_kit-2_2_2/doc/en/guides/pdf/rmijavadocs.pdf</kbd>.
+</p>
+<h3 class="Head2"><a name="pgfId-1005432"></a>Package <kbd
+ class="Filename-Command">rmiclientlib</kbd></h3>
+<p class="Paragraph"><a name="pgfId-1005433"></a>This package includes
+several classes.
+</p>
+<ul>
+  <li class="Bullet1"><a name="pgfId-1005436"></a><strong
+ class="Lead-In2para">class JCRMIConnect</strong><a
+ name="marker-1005638"></a><kbd class="Filename-Command">--</kbd>The
+main class of the RMI framework that provides methods to select a card
+applet and to get an initial reference. </li>
+  <p class="Linebreak">
+  </p>
+  <li class="Bullet1"><a name="pgfId-1005302"></a><strong
+ class="Lead-In2para">class JCCardObjectFactory</strong><a
+ name="marker-1005639"></a><kbd class="Filename-Command">--</kbd>An
+implementation of the <kbd class="Filename-Command">CardObjectFactory</kbd>
+that processes the data returned from the card in the format defined in
+the <em class="Emphasis">Runtime Environment Specification for the
+Java Card Platform, Version 2.2.2</em>. Any object references must
+contain class names.
+  </li>
+  <p class="Linebreak">
+  </p>
+  <li class="Bullet1"><a name="pgfId-1005306"></a><strong
+ class="Lead-In2para">class JCCardProxyFactory</strong><a
+ name="marker-1005640"></a><kbd class="Filename-Command">--</kbd>The <kbd
+ class="Filename-Command">JCCardProxyFactory</kbd> class is similar to <kbd
+ class="Filename-Command">JCCardObjectFactory</kbd>, but processes
+references containing lists of names. <kbd class="Filename-Command">JCCardProxyFactory</kbd>
+uses the JDK 1.4.+ proxy mechanism to generate proxies dynamically.
+  </li>
+  <p class="Linebreak">
+  </p>
+  <li class="Bullet1"><a name="pgfId-1005307"></a><strong
+ class="Lead-In2para">class JCRemoteRefImpl</strong><a
+ name="marker-1005641"></a><kbd class="Filename-Command">--</kbd>An
+implementation of interface <kbd class="Filename-Command">java.rmi.server.RemoteRef</kbd>.
+These remote references can work with stubs generated by the RMIC
+compiler with the <kbd class="Filename-Command">-v1.2</kbd> option. </li>
+  <p class="Linebreak">
+  </p>
+</ul>
+<p class="ParaIndent1"><a name="pgfId-1005308"></a>The main method is: <br>
+<kbd class="Filename-Command">public Object</kbd> <kbd
+ class="Filename-Command">invoke(Remote remote, Method method,</kbd> <kbd
+ class="Filename-Command">Object[] params, long unused) throws
+IOException, RemoteException, Exception </kbd>
+</p>
+<p class="ParaIndent1"><a name="pgfId-1005309"></a>This method prepares
+the outgoing APDU, passes it to <kbd class="Filename-Command">CardAccessor</kbd>,
+and then uses <kbd class="Filename-Command">CardObjectFactory</kbd> to
+parse the returned APDU and instantiate the returned object or throw an
+exception.
+</p>
+<h3 class="Head2"><a name="pgfId-1005487"></a>Package <kbd
+ class="Filename-Command">clientlib</kbd></h3>
+<p class="Paragraph"><a name="pgfId-1005513"></a>This package includes
+an interface and a class.
+</p>
+<ul>
+  <li class="Bullet1"><a name="pgfId-1005492"></a><strong
+ class="Lead-In2para">interface CardAccessor</strong><a
+ name="marker-1005642"></a><kbd class="Filename-Command">--</kbd>An
+interface defining methods to exchange APDUs with a card and to close
+connection to a card.
+  </li>
+  <p class="Linebreak">
+  </p>
+  <li class="Bullet1"><a name="pgfId-1005495"></a><strong
+ class="Lead-In2para">class ApduIOCardAccessor</strong><a
+ name="marker-1005643"></a><kbd class="Filename-Command">--</kbd>A
+simple implementation of the CardAccessor interface that passes the
+APDUs to a card or a card simulator using the ApduIO library. This
+class takes parameters to start the ApduIO from the file <kbd
+ class="Filename-Command">jcclient.properties</kbd>, which must be
+included in CLASSPATH. </li>
+  <p class="Linebreak">
+  </p>
+</ul>
+<div class="navbar" align="center">
+<br>
+<br>
+<table dir="ltr"
+ summary="Navigation bar, includes the book title and navigation buttons"
+ width="100%" cellpadding="0" cellspacing="0" border="0">
+  <colgroup span="3" width="100%"><col id="1" span="1" width="45%"><col
+ id="2" span="1" width="25%"><col id="3" span="1" width="30%"></colgroup><tbody>
+    <tr bgcolor="#cccccc">
+      <td class="navbartitle" align="left" rowspan="1" colspan="1"
+ abbr="ChapTitle">&nbsp;&nbsp;Development Kit User's Guide, Java Card
+Platform, Version 2.2.2
+      </td>
+      <td class="navbartitle" align="right" rowspan="1" colspan="1"
+ abbr="PartNum">3-14-06
+      </td>
+      <td valign="top" align="right" rowspan="1" colspan="1"
+ abbr="NavButtons"><a href="index.html"><img src="shared/toc01.gif"
+ title="Table Of Contents" alt="Table Of Contents" width="30"
+ height="26" border="0"></a><a href="cJDKcrypto.html"><img
+ src="shared/prev01.gif" title="Previous Chapter" alt="Previous Chapter"
+ width="30" height="26" border="0"></a><a href="cJDKAppendixA.html"><img
+ src="shared/next01.gif" title="Next Chapter" alt="Next Chapter"
+ width="30" height="26" border="0"></a><a href="ix.html"><img
+ src="shared/index01.gif" title="Book Index" alt="Book Index" width="30"
+ height="26" border="0"></a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+</div>
+<p class="copyrightlink"><a href="copyright.html">Copyright</a> &copy;
+2005, Sun Microsystems, Inc. All Rights Reserved.</p>
+</body>
+</html>

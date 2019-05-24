@@ -1,0 +1,370 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<HTML LANG="en">
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 7.0/HTML Export Filter">
+
+<LINK REL="STYLESHEET" HREF="unx_unstr_styles.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<META name="DC.TITLE" content="Development Kit User's Guide, Java Card Platform, Version 2.2.2">
+<TITLE>C H A P T E R    12 - Sending and Receiving APDU  Commands 
+</TITLE>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV>
+<div class="navbar" align="center">
+<table dir="LTR" summary="Navigation bar, includes the book title and navigation buttons" width=100% cellpadding="0" cellspacing="0" border="0"><colgroup span="2" width="100%"><col id="1" span="1" width="50%"><col id="2" span="1" width="50%">
+<tr bgcolor="#cccccc">
+<td class="navbartitle" align=left rowspan="1" colspan="1" abbr="ChapTitle">&nbsp;&nbsp;Development Kit User's Guide, Java Card Platform, Version 2.2.2
+</td>
+<td valign="top" align="right" rowspan="1" colspan="1" abbr="NavButtons"><a href="index.html"><img src="shared/toc01.gif" title="Table Of Contents" alt="Table Of Contents" width="30" height="26" border="0"></a><a href="cJDKinstaller.html"><img src="shared/prev01.gif" title="Previous Chapter" alt="Previous Chapter" width="30" height="26" border="0"></a><a href="cJDKcrypto.html"><img src="shared/next01.gif" title="Next Chapter" alt="Next Chapter" width="30" height="26" border="0"></a><a href="ix.html"><img src="shared/index01.gif" title="Book Index" alt="Book Index" width="30" height="26" border="0"></a>
+</td>
+</tr>
+</table>
+<br>
+<br>
+</div>
+</DIV>
+<TABLE DIR="LTR" SUMMARY="Chapter Number" ABBR="ChapNum" WIDTH="100%" BORDER="0">
+<COLGROUP SPAN="1" WIDTH="100%"><COL ID="1" SPAN="1">
+<TR>
+<TD ALIGN="right" CLASS="ChapNumber"><SPAN CLASS="ChapNumPrefix"><A NAME="pgfId-1000353"></A>C H A P T E R    </SPAN>&nbsp;<SPAN CLASS="ChapNumNum">12</SPAN><A NAME="41273"></A>
+</TD>
+</TR>
+</TABLE>
+<TABLE DIR="LTR" SUMMARY="Chapter Title" ABBR="ChapTitle" WIDTH="100%" BORDER="0">
+<COLGROUP SPAN="1" WIDTH="100%"><COL ID="1" SPAN="1" WIDTH="100%">
+<TR>
+<TD ALIGN="right" CLASS="ChapTitle">
+<HR SIZE=7 NOSHADE><A NAME="pgfId-1000355"></A><A NAME="41676"></A>Sending and Receiving APDU Commands
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Paragraph"><A NAME="pgfId-1001438"></A><A NAME="marker-1001437"></A>The <KBD CLASS="Filename-Command">apdutool</KBD> reads a script file containing Application Protocol Data Unit commands (APDUs) and sends them to the C-language Java Card RE (or other Java Card RE) or the Java Card WDE. Each APDU is processed and returned to <KBD CLASS="Filename-Command">apdutool</KBD>, which displays both the command and response APDUs on the console. Optionally, <KBD CLASS="Filename-Command">apdutool</KBD> can write this information to a log file. 
+</P><H2 CLASS="Head1"><A NAME="pgfId-1001444"></A>
+<DIV>
+<HR ALIGN=left SIZE=6 WIDTH=15% noshade>
+</DIV>Running <KBD CLASS="Filename-Command">apdutool</KBD><A NAME="marker-1001443"></A></H2>
+<P CLASS="Paragraph"><A NAME="pgfId-1000367"></A>The file to invoke <KBD CLASS="Filename-Command">apdutool</KBD> is a shell script (<KBD CLASS="Filename-Command">apdutool</KBD>) on the Solaris or Linux platform, and a batch file (<KBD CLASS="Filename-Command">apdutool.bat</KBD>) on the Microsoft Windows platform.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-1001983"></A><KBD CLASS="Filename-Command">apdutool</KBD> starts listening to APDUs in T=1 as the default format, unless otherwise specified, on the TCP/IP port specified by the <KBD CLASS="Filename-Command">-p </KBD><EM CLASS="Emphasis">portNumber</EM> parameter for contacted and <EM CLASS="Emphasis">portNumber</EM><KBD CLASS="Filename-Command">+1</KBD> for contactless. The default port is 9025.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-1000371"></A>The command line usage for <KBD CLASS="Filename-Command">apdutool</KBD> is:
+</P>
+<PRE CLASS="Codeline"><A NAME="pgfId-1000372"></A>apdutool [-h <EM CLASS="Emphasis">hostname</EM>] [-nobanner] [-noatr] [-o &lt;<EM CLASS="Emphasis">outputFile</EM>&gt;] 	[-p <EM CLASS="Emphasis">portNumber</EM>] [-s <EM CLASS="Emphasis">serialPort</EM>] [-t0|-pcsc] 	[-version] &lt;<EM CLASS="Emphasis">inputFile</EM>&gt; [&lt;<EM CLASS="Emphasis">inputFile</EM>&gt; ...]
+</PRE>
+<P CLASS="Paragraph"><A NAME="pgfId-1000438"></A><A NAME="marker-1000373"></A>The option values and their actions are shown in <A HREF="cJDKapdu.html#67757" CLASS="XRef">TABLE 12-1</A>.
+</P>
+<BR>
+<TABLE CLASS="Titled" BORDER=1 BORDERCOLORLIGHT="#FFFFFF" BORDERCOLORDARK="#000000" CELLPADDING=5 CELLSPACING=0 DIR="LTR"><CAPTION CLASS="TableCaption"><A NAME="pgfId-1000377"> </A> TABLE 12-1 	 <A NAME="67757"> </A> <KBD CLASS="Filename-Command"> apdutool </KBD>  Command Line Options  </CAPTION>
+<THEAD>
+<TR>
+<TH SCOPE="COL" ROWSPAN="1" COLSPAN="1" BGCOLOR="#CCCCCC">
+<P CLASS="TableHead"><A NAME="pgfId-1000381"></A>Option
+</P>
+</TH>
+<TH SCOPE="COL" ROWSPAN="1" COLSPAN="1" BGCOLOR="#CCCCCC">
+<P CLASS="TableHead"><A NAME="pgfId-1000383"></A>Description
+</P>
+</TH>
+</TR>
+</THEAD>
+<TBODY>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableTextCode"><A NAME="pgfId-1000385"></A><KBD CLASS="Filename-Command">-h</KBD> hostname
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-1000387"></A>Specifies the host name on which the TCP/IP socket port is found. (See the flag <KBD CLASS="Filename-Command">-p</KBD>.) 
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableTextCode"><A NAME="pgfId-1000389"></A>-help 
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-1000391"></A>Displays online documentation for this command. To get help for <KBD CLASS="Filename-Command">apdutool</KBD>, run <KBD CLASS="Filename-Command">bin/apdutool -help</KBD> on the command line.
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableTextCode"><A NAME="pgfId-1000393"></A>-noatr 
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-1000395"></A>Suppresses outputting an ATR (answer to reset).
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableTextCode"><A NAME="pgfId-1000397"></A>-nobanner 
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-1000399"></A>Suppresses all banner messages.
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableTextCode"><A NAME="pgfId-1000401"></A>-o &lt;outputFile&gt;
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-1000403"></A>Specifies an output file. If an output file is not specified with the <KBD CLASS="Filename-Command">-o</KBD> flag, output defaults to standard output.
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableTextCode"><A NAME="pgfId-1000405"></A>-p portNumber
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-1000407"></A>Specifies a TCP/IP socket port other than the default port (which is 9025).
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableTextCode"><A NAME="pgfId-1000409"></A>-s serialPort
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-1000411"></A>Specifies the serial port to use for communication, rather than a TCP/IP socket port. For example, <EM CLASS="Emphasis">serialPort</EM> can be <KBD CLASS="Filename-Command">COM1</KBD> on a Microsoft Windows system and <KBD CLASS="Filename-Command">/dev/term/a</KBD> on a Solaris system. 
+</P>
+<P CLASS="TableText"><A NAME="pgfId-1000418"></A>&nbsp;
+</P>
+<P CLASS="TableText"><A NAME="pgfId-1000422"></A>Currently, this option is not supported on the Linux platform.
+</P>
+<P CLASS="TableText"><A NAME="pgfId-1000423"></A>&nbsp;
+</P>
+<P CLASS="TableText"><A NAME="pgfId-1000424"></A>To use this option, the <KBD CLASS="Filename-Command">javax.comm</KBD> package must be installed on your system. For more information on installing this package, see <EM CLASS="Z-Xref"><A HREF="cJDKinstall.html#90451" CLASS="XRef">Prerequisites for Installing the Binary Release</A></EM>.
+</P>
+<P CLASS="TableText"><A NAME="pgfId-1000428"></A>&nbsp;
+</P>
+<P CLASS="TableText"><A NAME="pgfId-1000429"></A>If you enter the name of a serial port that does not exist on your system, <KBD CLASS="Filename-Command">apdutool</KBD> will respond by printing the names of available ports.
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableTextCode"><A NAME="pgfId-1001575"></A>-t0
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-1001577"></A>Runs T=0 single interface.
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableTextCode"><A NAME="pgfId-1001824"></A>-pcsc
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-1001828"></A>Sends commands to a PC/SC-compatible card reader. Use of PC/SC is optional and unsupported.
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableTextCode"><A NAME="pgfId-1000431"></A>-version 
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-1000433"></A>Outputs the version information.
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableTextCode"><A NAME="pgfId-1000435"></A>&lt;inputFile&gt; 
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-1000437"></A>Allows you to specify the input script (or scripts).
+</P>
+</TD>
+</TR>
+</TBODY>
+</TABLE>
+<BR><H3 CLASS="Head2"><A NAME="pgfId-1000440"></A><A NAME="67720"></A><KBD CLASS="Filename-Command">apdutool</KBD> Examples</H3>
+<P CLASS="Paragraph"><A NAME="pgfId-1001480"></A>The following examples show how to use <KBD CLASS="Filename-Command">apdutool</KBD>.
+</P><H4 CLASS="Head3"><A NAME="pgfId-1000441"></A>Directing Output to the Console</H4>
+<P CLASS="Paragraph"><A NAME="pgfId-1001504"></A>This command runs <KBD CLASS="Filename-Command">apdutool</KBD> with the file <KBD CLASS="Filename-Command">example.scr</KBD> as input. Output is sent to the console. The default TCP port (9025) is used.
+</P>
+<PRE CLASS="Codeline"><A NAME="pgfId-1001496"></A>apdutool example.scr
+</PRE><H4 CLASS="Head3"><A NAME="pgfId-1001498"></A>Directing Output to a File</H4>
+<P CLASS="Paragraph"><A NAME="pgfId-1001484"></A>This command runs <KBD CLASS="Filename-Command">apdutool</KBD> with the file <KBD CLASS="Filename-Command">example.scr</KBD> as input. Output is written to the file <KBD CLASS="Filename-Command">example.scr.out</KBD>.
+</P>
+<PRE CLASS="Codeline"><A NAME="pgfId-1000446"></A>apdutool -o example.scr.out example.scr
+</PRE><H3 CLASS="Head2"><A NAME="pgfId-1000448"></A>Using APDU Script Files</H3>
+<P CLASS="Paragraph"><A NAME="pgfId-1000450"></A><A NAME="marker-1000449"></A>An APDU script file is a protocol-independent APDU format containing comments, script file commands, and C-APDUs. Script file commands and C-APDUs are terminated with a semicolon (;). Comments can be of any of the three Java-language style comment formats (//, /*, or /**).
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-1000451"></A>APDUs are represented by decimal, hex or octal digits, UTF-8 quoted literals or UTF-8 quoted strings. C-APDUs may extend across multiple lines.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-1000452"></A>C-APDU syntax for <KBD CLASS="Filename-Command">apdutool</KBD> is as follows:
+</P>
+<PRE CLASS="Codeline"><A NAME="pgfId-1000453"></A>&lt;CLA&gt; &lt;INS&gt; &lt;P1&gt; &lt;P2&gt; &lt;LC&gt; [&lt;byte 0&gt; &lt;byte 1&gt; ... &lt;byte LC-1&gt;] &lt;LE&gt; ;
+</PRE>
+<P CLASS="Paragraph"><A NAME="pgfId-1001546"></A>where:
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-1001547"></A><KBD CLASS="Filename-Command">&lt;CLA&gt; :: </KBD>ISO 7816-4 class byte. 
+<BR><KBD CLASS="Filename-Command">&lt;INS&gt; :: </KBD>ISO 7816-4 instruction byte.
+<BR><KBD CLASS="Filename-Command">&lt;P1&gt;  :: </KBD>ISO 7816-4 P1 parameter byte.
+<BR><KBD CLASS="Filename-Command">&lt;P2&gt;  :: </KBD>ISO 7816-4 P2 parameter byte.
+<BR><KBD CLASS="Filename-Command">&lt;LC&gt;  :: </KBD>ISO 7816-4 input byte count. 1 byte in non-extended mode, 
+<BR>2 bytes in extended mode.
+<BR><KBD CLASS="Filename-Command">&lt;byte 0&gt; ... &lt;byte LC-1&gt; :: </KBD>input data bytes.
+<BR><KBD CLASS="Filename-Command">&lt;LE&gt;  :: </KBD>ISO 7816- 4 expected output length. 1 byte in non-extended mode, 
+<BR>2 bytes in extended mode.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-1000491"></A><A NAME="marker-1000456"></A>The script file commands shown in <A HREF="cJDKapdu.html#13302" CLASS="XRef">TABLE 12-2</A> are supported:
+</P>
+<BR>
+<TABLE CLASS="Titled" BORDER=1 BORDERCOLORLIGHT="#FFFFFF" BORDERCOLORDARK="#000000" CELLPADDING=5 CELLSPACING=0 DIR="LTR"><CAPTION CLASS="TableCaption"><A NAME="pgfId-1000460"> </A> TABLE 12-2 	 <A NAME="13302"> </A> Supported APDU Script File Commands  </CAPTION>
+<THEAD>
+<TR>
+<TH SCOPE="COL" ROWSPAN="1" COLSPAN="1" BGCOLOR="#CCCCCC">
+<P CLASS="TableHead"><A NAME="pgfId-1000464"></A>Command
+</P>
+</TH>
+<TH SCOPE="COL" ROWSPAN="1" COLSPAN="1" BGCOLOR="#CCCCCC">
+<P CLASS="TableHead"><A NAME="pgfId-1000466"></A>Description
+</P>
+</TH>
+</TR>
+</THEAD>
+<TBODY>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableTextCode"><A NAME="pgfId-1001664"></A>contacted;
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-1001658"></A>Redirects APDU activity to the contacted or primary interface.
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableTextCode"><A NAME="pgfId-1001674"></A>contactless;
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-1001680"></A>Redirects output to the contactless or secondary interface.
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableTextCode"><A NAME="pgfId-1000468"></A>delay <EM CLASS="Emphasis">&lt;Integer&gt;</EM>;
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-1000470"></A>Pauses execution of the script for the number of milliseconds specified by <KBD CLASS="Filename-Command">&lt;</KBD><EM CLASS="Emphasis">Integer</EM><KBD CLASS="Filename-Command">&gt;</KBD>.
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableTextCode"><A NAME="pgfId-1000472"></A>echo <EM CLASS="Emphasis">&quot;string&quot;</EM>;
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-1000474"></A>Echoes the quoted string to the output file. The leading and trailing quote characters are removed.
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableTextCode"><A NAME="pgfId-1001703"></A>extended on;
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-1001693"></A>Turns extended APDU input mode on.
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableTextCode"><A NAME="pgfId-1001709"></A>extended off;
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-1001715"></A>Turns extended APDU input mode off.
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableTextCode"><A NAME="pgfId-1000476"></A>output off;
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-1000478"></A>Suppresses printing of the output.
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableTextCode"><A NAME="pgfId-1000480"></A>output on;
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-1000482"></A>Restores printing of the output.
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableTextCode"><A NAME="pgfId-1000484"></A>powerdown;
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-1000486"></A>Sends a <KBD CLASS="Filename-Command">powerdown</KBD> command to the reader in the active interface.
+</P>
+</TD>
+</TR>
+<TR>
+<TD SCOPE="ROW" ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableTextCode"><A NAME="pgfId-1000488"></A>powerup;
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableText"><A NAME="pgfId-1000490"></A>Sends a <KBD CLASS="Filename-Command">powerup</KBD> command to the reader in the active interface. A <KBD CLASS="Filename-Command">powerup</KBD> command must be sent to the reader prior to executing any APDU on the selected interface.
+</P>
+</TD>
+</TR>
+</TBODY>
+</TABLE>
+<BR>
+<P CLASS="Paragraph"><A NAME="pgfId-1001897"></A>These packages provide a convenient API for writing client-side applications that communicate with Java Card technology enabled smart cards and are used by all RMI demos included with this development kit.
+</P>
+<P CLASS="Paragraph"><A NAME="pgfId-1001895"></A>&nbsp;
+</P>
+<div class="navbar" align="center">
+<br>
+<br>
+<table dir="LTR" summary="Navigation bar, includes the book title and navigation buttons" width=100% cellpadding="0" cellspacing="0" border="0"><colgroup span="3" width="100%"><col id="1" span="1" width="45%"><col id="2" span="1" width="25%"><col id="3" span="1" width="30%">
+<tr bgcolor="#cccccc">
+<td class="navbartitle" align=left rowspan="1" colspan="1" abbr="ChapTitle">&nbsp;&nbsp;Development Kit User's Guide, Java Card Platform, Version 2.2.2
+</td>
+<td class="navbartitle" align=right rowspan="1" colspan="1" abbr="PartNum">3-14-06
+</td>
+<td valign="top" align="right" rowspan="1" colspan="1" abbr="NavButtons"><a href="index.html"><img src="shared/toc01.gif" title="Table Of Contents" alt="Table Of Contents" width="30" height="26" border="0"></a><a href="cJDKinstaller.html"><img src="shared/prev01.gif" title="Previous Chapter" alt="Previous Chapter" width="30" height="26" border="0"></a><a href="cJDKcrypto.html"><img src="shared/next01.gif" title="Next Chapter" alt="Next Chapter" width="30" height="26" border="0"></a><a href="ix.html"><img src="shared/index01.gif" title="Book Index" alt="Book Index" width="30" height="26" border="0"></a>
+</td>
+</tr>
+</table>
+<br>
+<br>
+</div>
+<P CLASS="copyrightlink"><A HREF="copyright.html">Copyright</a> &#169; 2005, Sun Microsystems, Inc.   All Rights Reserved.</P>
+</BODY>
+</HTML>
