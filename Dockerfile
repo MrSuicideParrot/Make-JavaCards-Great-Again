@@ -25,7 +25,7 @@ RUN echo '#!/bin/sh\njavac -g -cp $JC_HOME/lib/api.jar -source 1.5 -target 1.5 "
 RUN echo '#!/bin/bash\nJSIMCLASSPATH=$JC_HOME/jcardsim-2.2.2-all.jar:.\n $JAVA_HOME/bin/java -classpath $JSIMCLASSPATH com.licel.jcardsim.utils.APDUScriptTool "$@"' > jcardsim-run &&\
     chmod +x jcardsim-run && mv jcardsim-run /usr/bin
 
-RUN echo '#!/bin/sh\njava -jar $JC_HOME/gp.jar'> gp && chmod +x gp && mv gp /usr/bin
+RUN echo '#!/bin/sh\njava -jar $JC_HOME/gp.jar "$@"'> gp && chmod +x gp && mv gp /usr/bin
 
 
 CMD service pcscd start && bash
