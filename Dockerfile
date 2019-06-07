@@ -1,11 +1,12 @@
-FROM openjdk:7u221-jdk-slim-jessie
+FROM openjdk:8
 
 # Leitura de cartão
 RUN apt-get -y update &&\
     apt-get install -y  pcscd \
     pcsc-tools \
-    libpcsclite-dev
-
+    libpcsclite-dev \
+    ant \
+    opensc
 
 ADD javacard /opt/javacard
 
