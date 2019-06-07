@@ -9,5 +9,5 @@ $ docker build . -t javacard-great-again
 
 To run:
 ```
-docker run -ti  --device /dev/bus/usb javacard-great-again
+docker run -ti --rm  --device /dev/bus/usb javacard-great-again
 ```
