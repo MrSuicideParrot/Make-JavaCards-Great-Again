@@ -14,7 +14,7 @@ ENV JC_HOME /opt/javacard
 
 ENV JC_PATH $JC_HOME/lib/
 
-RUN alias ll='ls -la'
+RUN echo 'alias ll="ls -la"' >> ~/.bashrc
 
 RUN echo '#!/bin/sh\n\
     JC_PATH=$JC_HOME/lib/apdutool.jar:$JC_HOME/lib/apduio.jar:$JC_HOME/lib/converter.jar:$JC_HOME/lib/jcwde.jar:$JC_HOME/lib/scriptgen.jar:$JC_HOME/lib/offcardverifier.jar:$JC_HOME/lib/api.jar:$JC_HOME/lib/installer.jar:$JC_HOME/lib/capdump.jar:$JC_HOME/samples/classes:$CLASSPATH\n\
