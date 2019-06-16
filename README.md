@@ -27,3 +27,11 @@ This docker have instaled and configured the Java Card Development Kit 2.2.2, th
 ## Custom commands
 
 * **gp**: Load and manage applets on compatible JavaCards from command line or from your Java project. More info on the [project page](https://github.com/martinpaljak/GlobalPlatformPro).
+
+* **jcardc**: A script with javac configured with a javacard environment.
+
+* **converter**: Aplication wich converts the *.class* files to applet *.cap* file. Syntax:
+    ```
+    converter  -applet  AID package_name.class_name package_name package_aid  major_version.minor_version
+    ```
+    The *package_name* is the name of the java packge and the *class_name* is the class  that defines the install method for the applet.
