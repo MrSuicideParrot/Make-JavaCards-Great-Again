@@ -22,8 +22,8 @@ RUN echo '#!/bin/sh\n\
     $JAVA_HOME/bin/java $JFLAGS com.sun.javacard.converter.Converter -exportpath $JC_HOME/api_export_files "$@"' > converter && chmod +x converter && mv converter /usr/bin
 
 RUN echo '#!/bin/sh\n\
-~/.javacard/bin/converter -debug -applet "$@"\n\
-' > jcard-converter && chmod +x jcard-converter && mv jcard-converter /usr/bin
+    converter -debug -applet "$@"\n\
+    ' > jcard-converter && chmod +x jcard-converter && mv jcard-converter /usr/bin
 
 
 RUN echo '#!/bin/sh\njavac -g -cp $JC_HOME/lib/api.jar -source 1.5 -target 1.5 "$@"' > jcardc && \
