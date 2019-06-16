@@ -14,11 +14,17 @@ ENV JC_HOME /opt/javacard
 
 ENV JC_PATH $JC_HOME/lib/
 
+RUN alias ll='ls -la'
+
 RUN echo '#!/bin/sh\n\
-    JC_HOME=~/.javacard/\n\
     JC_PATH=$JC_HOME/lib/apdutool.jar:$JC_HOME/lib/apduio.jar:$JC_HOME/lib/converter.jar:$JC_HOME/lib/jcwde.jar:$JC_HOME/lib/scriptgen.jar:$JC_HOME/lib/offcardverifier.jar:$JC_HOME/lib/api.jar:$JC_HOME/lib/installer.jar:$JC_HOME/lib/capdump.jar:$JC_HOME/samples/classes:$CLASSPATH\n\
     JFLAGS="-classpath $JC_PATH"\n\
-    $JAVA_HOME/bin/java $JFLAGS com.sun.javacard.converter.Converter -exportpath $JC_HOME/api_export_files "$@"' > converter && chmod +x converter
+    $JAVA_HOME/bin/java $JFLAGS com.sun.javacard.converter.Converter -exportpath $JC_HOME/api_export_files "$@"' > converter && chmod +x converter && mv converter /usr/bin
+
+RUN echo '#!/bin/sh\n\
+~/.javacard/bin/converter -debug -applet "$@"\n\
+' > jcard-converter && chmod +x jcard-converter && mv jcard-converter /usr/bin
+
 
 RUN echo '#!/bin/sh\njavac -g -cp $JC_HOME/lib/api.jar -source 1.5 -target 1.5 "$@"' > jcardc && \
     chmod +x jcardc && mv jcardc /usr/bin
