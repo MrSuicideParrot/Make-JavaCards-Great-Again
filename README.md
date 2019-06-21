@@ -1,5 +1,8 @@
 # Make JavaCards Great Again
 
+[![](https://images.microbadger.com/badges/version/cirne/javacard-great-again.svg)](https://microbadger.com/images/cirne/javacard-great-again "Get your own version badge on microbadger.com")
+[![](https://images.microbadger.com/badges/image/cirne/javacard-great-again.svg)](https://microbadger.com/images/cirne/javacard-great-again "Get your own image badge on microbadger.com")
+
 A docker environment to develop and install applets to a JavaCard.
 
 To compile:
@@ -37,4 +40,4 @@ This docker have instaled and configured the Java Card Development Kit 2.2.2, th
     The *package_name* is the name of the java packge and the *class_name* is the class  that defines the install method for the applet.
 
 ### Notes
-All content from Java Card Development Kit 2.2.2  is &copy;&reg;&trade; by Oracle. We are distributing this SDK using this terms, [javacard/distributionREADME_JCDK2.2.2.txt](./javacard/distributionREADME_JCDK2.2.2.txt).
+All content from Java Card Development Kit 2.2.2  is &copy;&reg;&trade; by Oracle. We are distributing this SDK using this terms, [javacard/distributionREADME_JCDK2.2.2.txt](https://github.com/MrSuicideParrot/Make-JavaCards-Great-Again/blob/master/javacard/distributionREADME_JCDK2.2.2.txt).
