@@ -1,12 +1,15 @@
 FROM openjdk:8
 
-# Leitura de cartão
 RUN apt-get -y update &&\
     apt-get install -y  pcscd \
-    pcsc-tools \
-    libpcsclite-dev \
-    ant \
-    opensc
+        pcsc-tools \
+        libpcsclite-dev \
+        ant \
+        opensc &&\
+    rm -rf \
+        /tmp/* \
+        /var/lib/apt/lists/* \
+        /var/tmp/*
 
 ADD javacard /opt/javacard
 
