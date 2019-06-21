@@ -5,12 +5,17 @@
 
 A docker environment to develop and install applets to a JavaCard.
 
-To compile:
+## Obtaing this Docker image
+### Pulling from the Docker Hub
+```bash
+$ docker pull cirne/javacard-great-again
+```
+
+### Building the Docker image locally
 ```bash
 $ docker build . -t javacard-great-again
 ```
-
-To run:
+## Quick Start
 ```
 $ docker run -ti --rm  --device /dev/bus/usb javacard-great-again
 ```
