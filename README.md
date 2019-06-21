@@ -35,3 +35,6 @@ This docker have instaled and configured the Java Card Development Kit 2.2.2, th
     converter  -applet  AID package_name.class_name package_name package_aid  major_version.minor_version
     ```
     The *package_name* is the name of the java packge and the *class_name* is the class  that defines the install method for the applet.
+
+### Notes
+All content from Java Card Development Kit 2.2.2  is &copy;&reg;&trade; by Oracle. We are distributing this SDK using this terms, [javacard/distributionREADME_JCDK2.2.2.txt](./javacard/distributionREADME_JCDK2.2.2.txt).
