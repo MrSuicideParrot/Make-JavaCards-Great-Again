@@ -5,6 +5,7 @@ RUN apt-get -y update &&\
         pcsc-tools \
         libpcsclite-dev \
         ant \
+        maven \
         opensc &&\
     rm -rf \
         /tmp/* \

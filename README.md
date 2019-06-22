@@ -27,6 +27,7 @@ This docker have instaled and configured the Java Card Development Kit 2.2.2, th
 * Java Card Development Kit 2.2.2
 * Openjdk version 8
 * Apache ant
+* Apache maven
 * Pcsc lite
 * GlobalPlatformPro
 * OpenSC
