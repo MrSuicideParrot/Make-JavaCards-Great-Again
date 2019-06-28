@@ -13,11 +13,11 @@ $ docker pull cirne/javacard-great-again
 
 ### Building the Docker image locally
 ```bash
-$ docker build . -t javacard-great-again
+$ docker build . -t cirne/javacard-great-again
 ```
 ## Quick Start
 ```
-$ docker run -ti --rm  --device /dev/bus/usb javacard-great-again
+$ docker run -ti --rm  --device /dev/bus/usb cirne/javacard-great-again
 ```
 
 ## What is installed?
